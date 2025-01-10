@@ -1,12 +1,31 @@
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-size: 120%;
+    color: white;
     line-height: 1.6;
     margin: 0;
     padding: 0;
 }
+/* Video container */
+.video-background {
+    position: fixed; /* Fix the video in place */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1; /* Make sure the video stays behind the content */
+    overflow: hidden;
+}
+
+/* Ensure the video fills the screen */
+video {
+    object-fit: cover; /* Cover the whole screen without distortion */
+    width: 100%;
+    height: 100%;
+}
 header {
-    background: #333;
+    background: transparent;
     color: #fff;
     padding: 1rem 0;
     text-align: center;
@@ -24,10 +43,20 @@ header nav a:hover {
 }
 section {
     padding: 20px;
-    border-bottom: 1px solid #ddd;
+    /* border-bottom: 1px solid #ddd; */
+}
+
+a {
+    color: #00FFFF;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+    text-shadow: #fff;
 }
 footer {
-    background: #333;
+    background: transparent;
     color: #fff;
     text-align: center;
     padding: 10px 0;
@@ -36,13 +65,19 @@ footer {
     width: 100%;
 }
 
-.pdf-viewer {
-    width: 100%;
-    height: 500px;
-    overflow: auto;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    background: #f9f9f9;
+
+/* Container for both sections */
+#profile-resume-container {
+    display: flex; /* Flexbox to arrange items side by side */
+    justify-content: space-between; /* Add space between the sections */
+    gap: 10px; /* Optional: Space between the profile card and resume */
+    flex-wrap: wrap; /* Allow wrapping if screen is too small */
+}
+
+/* Each individual section */
+#profile-card, #resume {
+    flex: 1; /* Distribute the available space equally */
+    min-width: 300px; /* Optional: Minimum width to prevent shrinking too much */
+    box-sizing: border-box; /* Ensure padding/borders are included in width calculation */
 }
 
