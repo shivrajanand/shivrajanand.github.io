@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Projects | Shivraj Anand</title>
+    <link rel="stylesheet" href="CSS/projects.css">
+</head>
+<body>
+    <header>
+        <h1>MY PROJECTS</h1>
+        <nav class="navbar">
+            <a href="index.html" class="nav-home">Home</a>
+            <a href="https://github.com/shivrajanand" target="_blank" class="nav-icon">GitHub</a>
+            <a href="https://kaggle.com/shivrajanand" target="_blank" class="nav-icon">Kaggle</a>
+        </nav>
+    </header>
+
+    <main>
+        <div class="project-container">
+            <!-- Example Project Block -->
+            <div class="project-block">
+                <img src="path-to-project-image.jpg" alt="Project Image" class="project-image">
+                <div class="project-details">
+                    <h2 class="project-title">Project Title</h2>
+                    <p class="project-description">Click to expand for details</p>
+                </div>
+                <div class="project-expanded">
+                    <h3>Tech/Tools Used:</h3>
+                    <p>Details about tech/tools.</p>
+                    <h3>Skills Gained:</h3>
+                    <p>Details about skills gained.</p>
+                    <h3>Description:</h3>
+                    <p>Comprehensive project details go here.</p>
+                    <a href="#" target="_blank" class="project-link">View Project</a>
+                </div>
+            </div>
+            <!-- Add more project blocks as needed -->
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Shivraj Anand. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const projectBlocks = document.querySelectorAll('.project-block');
+
+            projectBlocks.forEach(block => {
+                block.addEventListener('click', () => {
+                    block.classList.toggle('expanded');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
