@@ -23,7 +23,7 @@ body {
 h1,
 h2,
 h3 {
-  color: var(--primary-color);
+  color: goldenrod;
   transition: color 0.3s;
 }
 

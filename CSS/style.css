@@ -243,7 +243,6 @@ body.dark-mode .social-links a:hover {
 /* Responsive adjustments for screens below 768px */
 /* Ensure sections adapt well to smaller screens */
 @media (max-width: 768px) {
-
   /* General body adjustments */
   body {
     font-size: 1em;
@@ -344,8 +343,7 @@ body.dark-mode .social-links a:hover {
 
   /* Buttons */
   .toggle-dark-mode {
-    font-size: 0.9rem;
-    padding: 8px 12px;
+    font-size: 15px;
+    padding: 5px 0px;
   }
 }
-

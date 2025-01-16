@@ -116,3 +116,25 @@ h1 {
     border-radius: 4px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   }
+
+
+  @media (max-width: 768px) {
+    .project-details {
+      flex-direction: column; /* Stack items vertically */
+      align-items: center; /* Center items */
+    }
+  
+    .project-details img {
+      max-width: 100%; /* Ensure the image scales properly */
+      height: auto; /* Maintain aspect ratio */
+    }
+  
+    .project-info {
+      width: 100%; /* Take full width below the image */
+      text-align: center; /* Optional: Center-align text for better readability */
+    }
+
+    .project-info p {
+      text-align: justify;
+    }
+  }
