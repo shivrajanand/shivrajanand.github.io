@@ -1,3 +1,4 @@
+/* Default reset and global styles (no change) */
 * {
   margin: 0;
   padding: 0;
@@ -5,7 +6,7 @@
 }
 
 body {
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   color: #2d2d2d;
   background: linear-gradient(120deg, #f0f4f8, #c8d9e6);
   line-height: 1.6;
@@ -16,6 +17,7 @@ body.dark-mode {
   background: linear-gradient(120deg, #2d2d2d, #1a1a1a);
 }
 
+/* Header */
 header {
   text-align: center;
   padding: 2rem;
@@ -29,18 +31,6 @@ body.dark-mode header {
   background: linear-gradient(135deg, #1a1a1a, #333);
 }
 
-header::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("abstract-shapes.svg") no-repeat center;
-  opacity: 0.2;
-  z-index: -1;
-}
-
 header h1 {
   font-size: 2.5rem;
 }
@@ -52,6 +42,16 @@ header p {
 
 nav {
   margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+nav .nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 nav a {
@@ -60,12 +60,19 @@ nav a {
   padding: 0.5rem 1rem;
   background: #28527a;
   border-radius: 5px;
-  margin: 0 0.5rem;
   transition: background 0.3s;
 }
 
 nav a:hover {
   background: #183e58;
+}
+
+/* Hamburger Icon for mobile */
+.hamburger {
+  display: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: #fff;
 }
 
 main {
@@ -228,5 +235,117 @@ body.dark-mode .social-links a {
 
 body.dark-mode .social-links a:hover {
   box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Brighter glow on hover */
+}
+
+/* --- Responsive Design --- */
+
+/* Media Query for screens smaller than 768px (tablets, small screens) */
+/* Responsive adjustments for screens below 768px */
+/* Ensure sections adapt well to smaller screens */
+@media (max-width: 768px) {
+
+  /* General body adjustments */
+  body {
+    font-size: 1em;
+    margin: 0;
+    overflow-x: hidden; /* Prevent horizontal scrolling */
+  }
+
+  /* Header adjustments */
+  header {
+    width: 100%;
+    flex-direction: column;
+    padding: 1.5rem;
+    text-align: center;
+  }
+
+  header h1 {
+    font-size: 20px;
+  }
+
+  header p {
+    font-size: 1rem;
+  }
+
+  header img {
+    width: 100px;
+    height: 100px;
+  }
+
+  /* Navigation adjustments */
+  nav {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  nav .hamburger {
+    font-size: 2rem;
+    display: block;
+  }
+
+  nav .nav-links {
+    display: none;
+    flex-direction: column;
+    width: 100%;
+    text-align: center;
+  }
+
+  nav .nav-links.active {
+    display: flex;
+  }
+
+  nav a {
+    font-size: 1rem;
+    padding: 0.8rem 0;
+    width: 100%;
+  }
+
+  /* Main content adjustments */
+  main {
+    padding: 1rem;
+  }
+
+  section {
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 10px;
+  }
+
+  /* Social links adjustments */
+  .social-links {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+
+  .social-links a {
+    width: 40px;
+    height: 40px;
+  }
+
+  /* Contact section adjustments */
+  #contact {
+    text-align: center;
+  }
+
+  #contact a {
+    font-size: 1rem;
+    display: block;
+    margin: 0.5rem 0;
+  }
+
+  /* Footer adjustments */
+  footer {
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+
+  /* Buttons */
+  .toggle-dark-mode {
+    font-size: 0.9rem;
+    padding: 8px 12px;
+  }
 }
 

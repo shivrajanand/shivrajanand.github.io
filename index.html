@@ -21,17 +21,23 @@
         <p>Highly motivated and results-oriented engineering student with expertise in programming, data analysis, and
             research.</p>
         <nav>
-            <a href="#about">About</a>
-            <!-- <a href="#profile-resume">Profile & Resume</a> -->
-            <a href="#skills">Skills</a>
-            <a href="projects.html">Projects</a>
-            <a href="certificates.html">Certificates</a>
-            <a href="poetry.html">Poetry Page</a>
-            <a href="#contact">Contact</a>
-            <a href="work_with_me.html">Work With Me</a>
-            <a href="Documents/Shivraj Anand Resume.pdf" download>Download Resume</a>
+            <div class="hamburger" onclick="toggleMenu()">
+                &#9776; <!-- Hamburger icon -->
+            </div>
+            <div class="nav-links" id="navLinks">
+                <a href="#about">About</a>
+                <!-- <a href="#profile-resume">Profile & Resume</a> -->
+                <a href="#skills">Skills</a>
+                <a href="projects.html">Projects</a>
+                <a href="certificates.html">Certificates</a>
+                <a href="poetry.html">Poetry Page</a>
+                <a href="#contact">Contact</a>
+                <a href="work_with_me.html">Work With Me</a>
+                <a href="Documents/Shivraj Anand Resume.pdf" download>Download Resume</a>
+            </div>
         </nav>
     </header>
+
 
     <main>
         <section id="profile-resume" style="display: flex; gap: 20px; justify-content: space-between;">
@@ -65,7 +71,8 @@
                 <strong>Python</strong>, <strong>C/C++</strong>, <strong>HTML/CSS</strong>,
                 <strong>Scikit-Learn</strong>, and <strong>data handling</strong>. I'm currently exploring
                 <em>PyTorch</em>, <em>.NET</em>, and advanced <em>database management</em> to further diversify my
-                technical toolkit.</p>
+                technical toolkit.
+            </p>
 
             <p>My journey so far has been shaped by a commitment to learning and self-discovery, even amidst challenges.
                 I take pride in conducting <u>independent research</u> in mathematical and computational domains, as
@@ -75,10 +82,12 @@
                     science</strong>, while also nurturing my interest in building innovative web applications and smart
                 IoT solutions. Whether it's designing systems, solving complex problems, or presenting ideas to a
                 broader audience, I bring a blend of <em>technical proficiency</em>, <em>creativity</em>, and
-                <em>collaboration</em> to every endeavor.</p>
+                <em>collaboration</em> to every endeavor.
+            </p>
 
             <p>Feel free to explore my portfolio to learn more about my <strong>work</strong>,
-                <strong>achievements</strong>, and <strong>aspirations</strong>!</p>
+                <strong>achievements</strong>, and <strong>aspirations</strong>!
+            </p>
         </section>
 
 
@@ -91,7 +100,7 @@
                 <li>Tools: Git, GitHub</li>
             </ul>
         </section>
-        
+
         <section id="contact" class="block-section">
             <h2>Contact</h2>
             <p>Email: <a href="mailto:shivrajanand022002@gmail.com">shivrajanand022002@gmail.com</a></p>
@@ -137,6 +146,12 @@
                 element.style.display = "none";
             }
         }
+
+        function toggleMenu() {
+            const navLinks = document.getElementById('navLinks');
+            navLinks.classList.toggle('active');  // Toggle the 'active' class to show or hide the menu
+        }
+
     </script>
 
 </body>
