@@ -105,36 +105,119 @@ h1 {
 
 /* Screenshot Gallery */
 .screenshots {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* Exactly 3 screenshots per row */
-    gap: 10px;
-  }
-  
-  .screenshots img {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  display: grid;
+  grid-template-columns: repeat(3, 1fr); /* Exactly 3 screenshots per row */
+  gap: 10px;
+}
+
+.screenshots img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+@media (max-width: 768px) {
+  .project-details {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center; /* Center items */
   }
 
-
-  @media (max-width: 768px) {
-    .project-details {
-      flex-direction: column; /* Stack items vertically */
-      align-items: center; /* Center items */
-    }
-  
-    .project-details img {
-      max-width: 100%; /* Ensure the image scales properly */
-      height: auto; /* Maintain aspect ratio */
-    }
-  
-    .project-info {
-      width: 100%; /* Take full width below the image */
-      text-align: center; /* Optional: Center-align text for better readability */
-    }
-
-    .project-info p {
-      text-align: justify;
-    }
+  .project-details img {
+    max-width: 100%; /* Ensure the image scales properly */
+    height: auto; /* Maintain aspect ratio */
   }
+
+  .project-info {
+    width: 100%; /* Take full width below the image */
+    text-align: center; /* Optional: Center-align text for better readability */
+  }
+
+  .project-info p {
+    text-align: justify;
+  }
+}
+
+/* ERROR PAGE  */
+
+/* Center the container within its parent */
+.container {
+  text-align: center;
+  margin: 50px auto; /* Add spacing to avoid overlap with other elements */
+  padding: 20px; /* Optional: Add padding for spacing inside the container */
+}
+
+/* Heading styles */
+.container h1 {
+  font-size: 3rem;
+  margin-bottom: 20px;
+  position: relative;
+  color: #333; /* Adjust based on your page's theme */
+}
+
+.container h1::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 80px;
+  height: 5px;
+  background-color: #ff6b6b;
+  animation: slide 1.5s infinite;
+}
+
+/* Paragraph styles */
+.container p {
+  font-size: 1.2rem;
+  margin-bottom: 30px;
+  color: #555; /* Optional: Adjust text color */
+}
+
+/* Loader styles */
+.container .loader {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin: 0 auto; /* Center the loader */
+}
+
+.container .loader::before,
+.container .loader::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  border: 10px solid transparent;
+  border-top-color: #ff6b6b;
+  animation: spin 1.2s linear infinite;
+}
+
+.container .loader::after {
+  border: 10px solid transparent;
+  border-bottom-color: #4caf50;
+  animation-duration: 1.5s;
+}
+
+/* Animations */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes slide {
+  0%,
+  100% {
+    transform: translateX(-50%) scaleX(1);
+  }
+  50% {
+    transform: translateX(-50%) scaleX(1.5);
+  }
+}
