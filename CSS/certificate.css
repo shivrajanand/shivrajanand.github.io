@@ -1,10 +1,13 @@
 body {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
+  display: flex;
+  flex-direction: column;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #f3f4f6, #ffffff);
+  background: linear-gradient(135deg, #d1f7c4, #ffffff);
   color: #333;
   min-height: 100vh;
+  
 }
 
 header {
@@ -33,7 +36,7 @@ header a {
 main {
   flex: 1;
   padding: 20px;
-  max-width: 1200px;
+  width: 70%;
   margin: 0 auto;
   box-sizing: border-box;
 }
@@ -94,18 +97,19 @@ main {
   cursor: pointer;
   padding: 15px;
   margin-bottom: 20px;
-  border-radius: 20px;
+  border-radius: 30px;
   width: 100%;
   border: none;
-  text-align: left;
+  text-align: center;
   outline: none;
   font-size: 18px;
   font-weight: bold;
-  transition: background-color 0.3s;
+  transition: all 0.3s ease;
 }
 
 .collapsible:hover {
-  background-color: #007bff;
+  background-color: rgb(1, 163, 136);
+  box-shadow: 1 0 10px pulser(gb(1, 163, 136));
 }
 
 .content {
@@ -205,6 +209,11 @@ footer a:hover {
 @media (max-width: 768px) {
   header h1 {
     font-size: 2rem;
+  }
+
+  .collapsible {
+    width: 100%;
+    text-align: center;
   }
 
   .certificate-container {

@@ -1,0 +1,1139 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning Notes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        h1, h2, h3 {
+            color: #333;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+            margin: 10px 0;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+<h2>MACHINE LEARNING</h2>
+<p>Machine learning is the ability of machines, that is, computers to learn and improve from their past experiences or data, without being explicitly programmed.</p>
+<p>Machine learning is the ability of machines, i.e., computers or ideally computer programs, to learn from the past behaviour or data and to predict the future outcomes without being explicitly programmed to do so.</p>
+<p>Machine learning algorithms are constantly analysing the world-wide data and using them to learn and give better predictions.</p>
+<h2>HOW MACHINE LEARNING WORKS</h2>
+<p>Machine learning is the ability of machines to learn from past experiences. The past experiences are called Data. Data is any kind of information and can be represented in any form like images, pdfs, location, chats or documents etc.</p>
+<p>Data collection has risen exponentially in past few decades. All this data is stored and used in ML models for better functioning.</p>
+<p>EXAMPLE PROBLEM1: Given a bank and a customer associated with bank who wants a loan, how will an ML model predict whether to give loan to the customer or not.</p>
+<p>The given ML model, say M, will analyse the past data of all the customers who were given a loan and will classify the set of customers in two category, Good Customer and Bad Customer.</p>
+<p>Good Customer: Any customer who repaid the loan on time</p>
+<p>Bad Customer: Any customer who didn’t repaid the loan on time.</p>
+<p>Now M will use the previous data and identify a pattern between good and bad customers and then will use it to place the new customer into one of the classifications. Hence the model will predict whether the customer should begiven a loan or not on basis of if he/she can repay the loan or not.</p>
+<p>Hence in total we can say that ML model analyses past data and derives patterns and insights from it and then applies this intelligence on a new piece of data to predict or recommend actions.</p>
+<h2>TYPES OF MACHINE LEARNING</h2>
+<p>Data is a collection of information about something.</p>
+<p>The data which contains a target variable or an output variable that answers a question of interest is called Labelled Data.</p>
+<p>Example: Data of patients suffering from a particular disease.</p>
+<p>Data stored can be: Name, age, gender, location, Blood type. Weight, height, mean body temperature etc.</p>
+<p>Then we can additionally store a TARGET or Category variable “Was patient completely cured or not after the treatment”. The answer to this question can be YES or NO. This target variable is also called Dependent variable as it can depend on other variables listed above.</p>
+<p>The other data are called as Independent Variables.                                                                         If the data given just contains independent data and do not have a predefined target variable or category variable then the dataset is referred to as Unlabelled Data.</p>
+<h2>SUPERVISED LEARNING</h2>
+<p>In supervised learning model the ML model learn under supervision, and this supervision is provided by independent variables and the target variable (or collectively Labelled data).</p>
+<p>The model learns from the Past labelled data and the process is called Training the data. Once the model is trained, we can feed new unlabelled data to it to predict target variable.</p>
+<p>Most of ML models used in present date are supervised learning due to high availability of data around us.</p>
+<h2>UNSUPERVISED LEARNING</h2>
+<p>Complement of supervised learning.</p>
+<p>There is no target variable involved.</p>
+<p>Works only on unlabelled data.</p>
+<p>This type of model only detects if there is some pattern present in the data or not.</p>
+<p>Since there is no target variable present, the data on which unsupervised learning operates is called Unlabelled data.</p>
+<p>The machine learning that is deployed to find patterns in unlabelled data is called unsupervised learning.</p>
+<h2>TYPES OF DATA</h2>
+<p>Data is information about something.</p>
+<p>A variable represents one specific characteristics of the data or tells one specific information about the data under consideration.</p>
+<p>A value of variable can change for different data points or over time.</p>
+<p>Example taking about price of mobile phones, if we present the exact price then it is a numeric variable but if we categorize the price in, say cheap and expensive, then this type of data will be called as categorical variable.</p>
+<h2>NUMERIC & CATEGORICAL VARIABLES</h2>
+<p>Categorical variables can take string values</p>
+<p>Dependent and Independent variables</p>
+<p>Independent variables are the one whose value don’t depend on any other variables</p>
+<p>Dependent variables are those whose values depend on other independent variables and cannot be changed easily.</p>
+<p>Structured Data</p>
+<p>Structured variables always have a structure or format when they are stored.</p>
+<p>Common structures are tabular format of data organization.</p>
+<p>Unstructured Data</p>
+<p>no structure is available for the data and no tabular format is present.</p>
+<p>This type of data is human readable but machines cannot directly read these kinds of data.</p>
+<p>Example of this data type are images, audio etc.</p>
+<p>For machines to understand this type of data the unstructured data is converted to structured data (usually in form of matrix) and then is read and used in proposed ML model.</p>
+<h2>GRAPHICAL & ANALYTICAL REPRESENTATION OF DATA</h2>
+<p>Data Analysis</p>
+<p>It is the process of studying the available data and drawing valuable insights or information from it with the help of any software.</p>
+<p>Commonly used analytical tools in industry are: MS excel, python, R, sas, knime, SPSS, Minitab 18, MATLAB, Tableau etc.</p>
+<p>ML models use data analyses to analyse the input data. Hence data analysis is the part of processing of an ML procedure.</p>
+<h2>EXPLORATORY DATA ANALYIS</h2>
+<p>This type of Data analysis is used to find out the patterns and relationships among the data variables.</p>
+<p>EDA gives the summary of dataset in form of graphs.</p>
+<p>The figure on left side shows the levels of Data Analysis.</p>
+<p>In descriptive analysis we try to extract information from already available data. This gives us a high-level picture of the dataset.</p>
+<p>In diagnostic analysis we try to find the reason behind the outcomes of descriptive analysis.</p>
+<p>In predictive analysis we use ML models to predict new data on the basis of learnings from data of level 1 and 2.</p>
+<p>In prescriptive analysis we tend to prescribe precautions or solutions for the data that is acquired in predictive analysis.</p>
+<p>Graphical representation of data:</p>
+<p>It is one of the simplest techniques for drawing insights from the data.</p>
+<p>Helps us to study the relationship between the variables.</p>
+<p>Helps to identify the trends and patterns across the variables.</p>
+<h2>LINE GRAPHS:</h2>
+<p>Two dimensional graphs</p>
+<p>Horizontal axis (or X-axis) marks the independent variables whereas vertical axis (or Y-axis) marks the dependent variables.</p>
+<p>Data points are marked according to the (x, y) coordinate values.</p>
+<p>Data points are joined by a line to obtain the line graph.</p>
+<p>Bar Chart:</p>
+<p>Two dimensional graphs</p>
+<p>Horizontal axis (or X-axis) marks the independent variables whereas vertical axis (or Y-axis) marks the dependent variables.</p>
+<p>Data points are marked according to the (x, y) coordinate values.</p>
+<p>Data points represented by bars either horizontally or vertically.</p>
+<p>Histogram or Frequency polygon:</p>
+<p>Two dimensional graphs</p>
+<p>Special type of bar chart.</p>
+<p>Used to represent continuous variables only.</p>
+<p>Used to count the frequency of occurrence of an event.</p>
+<p>If we joint the data points in a histogram, we obtain a smooth curve.</p>
+<p>If a bell-shaped curve is obtained, i.e., y-values first increased, attained a maximum value and then decreased. In this type of curve, we say the data is Normally Distributed.</p>
+<p>For ML-data modelling the data must be always normally distributed.</p>
+<p>Pie Chart:</p>
+<p>Graph simulating the share of a complete circle.</p>
+<p>Each part of the circle describes the share of the variable in</p>
+<p>It is widely used when we want to present the proportions of different attributes.</p>
+<p>Scatter Plot:</p>
+<p>One of the most useful graphs in machine learning</p>
+<p>A scatter plot is a two-dimensional graph in which each point is obtained by the intersection of the values of respective x and y values.</p>
+<p>Informs us the relationship between two variables</p>
+<p>Sometimes we draw a line in between the curve such that it represents all the data in the best way possible. Such line is called the best fit line.</p>
+<p>Box and Whisker Plot:</p>
+<p>Box plot also known as Box and Whisker plot, is a graphical representation of the statistical summary of numeric variables.</p>
+<p>Drawn in a rectangular manner with adjoining whiskers at both ends and a line bisecting the middle of the rectangle.</p>
+<p>Via a box plot we can obtain the following data:</p>
+<p>Minimum value</p>
+<p>First (or 25th quartile)</p>
+<p>Median (or 50th quartile)</p>
+<p>Third (or 75th quartile)</p>
+<p>Interquartile range</p>
+<p>Maximum value</p>
+<p>Outliers</p>
+<p>Quartiles divides the data in three equal parts: 25th, 50th and 75th quartile.</p>
+<p>Difference between third and first quartile is called the Interquartile Range.</p>
+<p>Interquartile range = length of the rectangular box.</p>
+<p>Outliers are extreme values and are shown on the vertical axis.</p>
+<p>Time Series:</p>
+<p>A special type of line graph where x axis is always time.</p>
+<p>Limitations of Traditional Data Analysis</p>
+<p>Data analytics is being used in each and every industry for improving the performance of the companies just like in the example of a cricket match where the captain and coach analyse the performance of the opponent team and then device strategies for winning the match. If we begin to list down the areas where data analytics is being used the list would be infinitely long, so some of the major industries include banking, finance, insurance, telecom, healthcare, aerospace, retailers, internet, e-commerce companies, etc.</p>
+<p>Now, let us talk about the reasons as to why traditional analytics paved the way for machine learning. 
+Limitations of traditional analytics:</p>
+<p>Involved Huge Efforts, Time Consuming</p>
+<p>The traditional data analytics involved huge efforts from the statisticians and it was very time consuming as it involved a lot of human intervention, where each job had to be done manually. This became a liability for the companies because of additional costs borne by the statisticians and, they failed to provide accurate results.</p>
+<p>Static Data Model</p>
+<p>The models which these statisticians created were static in nature because of which the models needed to be revamped and re-calibrated periodically for making better predictions. This became an additional cost for the companies and they were struggling with the performance of the models.</p>
+<p>Struggle to Manage the Exponential Growth in the Volume, Velocity, and Variability of Data</p>
+<p>With the exponential growth in the volume, velocity, and variability of data, traditional analytics struggled to manage and incorporate and integrate the data using their traditional methods. As a result of which their models struggled with the performance.</p>
+<p>Lack of Skilled resources</p>
+<p>Lack of skilled resources was one of the major reasons for the downfall of traditional analytics. Companies found it difficult to get good resources and also, they lacked knowledge of advanced tools where data analytics could be done easily.
+Rise of Machine Learning:</p>
+<p>Human Intervention Reduced, Dynamic Model</p>
+<p>With the advent of machine learning, the challenges faced by traditional analytics were catered to. Machine Learning uses complex statistical methods and new-age tools for providing better and accurate solutions to the problems.</p>
+<p>Using modern techniques and statistical methods we can create the capability for the machines to learn and make good and accurate predictions using complex machine learning algorithms. Modern machine learning algorithms help the companies to make better and accurate data-driven decisions where there are very few human efforts involved. The models created by these techniques are dynamic and cater to the changing variables.</p>
+<p>For example, with the traditional analytics statisticians had to perform each step of their analysis using the available analytical tools manually. Also, the process was not streamlined and as a result of which, they had to spend too much time back and forth the initial steps. The models created were also not dynamic, suppose they created a model based on their available data, so after each month or once in a quarter they had to check the performance of the model based on the new data and make changes to their models. This proved to be an additional cost for the companies as it involved hiring a data analyst for updating and maintaining the model.</p>
+<p>But with machine learning, the steps involved in creating the model were pre-defined and for each step, there were different algorithms. The models created based on the algorithms were more powerful and more accurate as they were built using complex statistical techniques. Human intervention was reduced a lot and as the process was streamlined, it saved a lot of time and money for the companies. Additionally, machine learning used new-age tools which made better predictions and accurate results in very less time.</p>
+<p>Managing the Exponential Growth in the Volume, Velocity, and Variability of Data</p>
+<p>One more area where the traditional analytics faltered was working with volumes of data. With the increase in volume, velocity, and variability of data, the old tools (e.g., Minitab, MATLAB, IBM SPSS, etc) failed to manage the data. For example, if the data was structured the tools were able to manage and analyse the data to some extent (i.e., the volume of the data) but beyond that, the tools faltered. Also, for unstructured data, the tools had no answer at all, and they’re very few techniques or methods are known to the statisticians.</p>
+<p>But with modern-day tools (e.g., Python, R, Knime, Julia, etc.) and techniques, we can manage the mammoth data, be it structured or unstructured, Machine Learning had a solution for each of these problems. This is what the evolution of data analytics is all about. Computing is getting better and better with time.</p>
+<p>We had talked about the advantages of machine learning and how it is impacting our lives today, now let us talk about the challenges in machine learning.</p>
+<p>Limitations of Machine Learning:</p>
+<p>Large Data Requirement</p>
+<p>Fetching relevant data for training our model becomes a challenge. For making the model make better predictions, we have to train the model using enough data which is significant to the problem. In case there is not sufficient data available, the model build wouldn't be able to perform correctly.</p>
+<p>Lack of Trained Resources</p>
+<p>Using different ML techniques, we get our results; but interpretation and understanding of the results vary from person to person. At times it might become a major challenge if we do not have a trained resource, even if he had applied the correct algorithm based on the person’s judgement and understanding the solution might not be correct. Additionally, the selection of the correct algorithm depends solely on the data scientist’s decision. If that person is not a trained resource, the solution might not be correct as the proper and correct algorithm was not selected. Companies do face the challenge of finding a good resource that is sound technically and statistically.</p>
+<p>Reliance on the Results Obtained by the ML techniques</p>
+<p>We tend to rely on the results obtained by the ML techniques more compared to our judgement and experience. Suppose we build a model using different variables as selected by the ML algorithm, and the algorithm doesn’t consider a variable that is according to the data scientist critical for the model. So, such kind of situations does occur if we rely completely on ML techniques.</p>
+<p>Treatment of Missing Fields</p>
+<p>Lastly, when we have missing fields in our data, we use machine learning to replace those missing values with some alternate values. Imputing those missing values at times might bias our data and hence impact our models and in turn the results. The conclusions and inferences might change if we use the missing data, so we treat them using ML techniques selected by the data scientists. The selection of the imputing technique depends on the data scientist's judgement and becomes a disadvantage for the model.</p>
+<p>We have talked about missing data but, what do we mean by that?</p>
+<p>Missing data:</p>
+<p>Whenever the data is not available or not present for any fields in the data, we say that the data is missing for that field. It is sometimes represented by a “Blank” or “N/A” or “n.a.” (Not Available) or even “-”. This is can be the case for both structured and unstructured data.</p>
+<p>Suppose for example, when we look at the bowling statistics for M.S. Dhoni in T20 internationals, we get missing data. The screenshot is given below for your reference. The data is not available since Dhoni hasn’t bowled in any of the T20 matches, but when we structure that data, we get data missing for Dhoni.</p>
+<p>There might be n number of reasons as to why some of the values for a variable is missing, it might be unavailability of data or the data was not captured, etc. But as a data scientist, when we work on building a model using the datasets, we always have to replace those missing values with some other value in such a way that it won’t impact or have very little impact on our model. There are different techniques available for imputing or replacing those missing values which we are going to discuss later.</p>
+<p>After ML, what next?</p>
+<p>As we are making progress in data science and computing, new-age technologies are making a breakthrough. Researchers are constantly working on next-level techniques where there is minimalistic human intervention involved and better and more accurate results. Deep learning and now AI is a breakthrough in the world of data science. It is becoming better and better where deep learning-based techniques are reducing the time and costs for the data analysis. The progress can be summarized in the diagram shown on left.</p>
+<h2>PYTHON AS A DATA ANALYSIS TOOL</h2>
+<p>Python is and object-oriented programming language. Hence creating classes and objects are easy.</p>
+<p>Simple syntax.</p>
+<p>Runs on an interpreter system, means that code runs as soon as it is written hence prototyping becomes easier.</p>
+<p>Huge collection of standard libraries.</p>
+<p>Can easily get integrated with third party tools hence it become cost saving for companies.</p>
+<p>Python is open source and has a huge community support.</p>
+<h2>JUPYTER NOTEBOOK</h2>
+<p>An IDE (Integrated Development Environment) is a software suite that consolidates the basic tools that developers need to write and test a software.</p>
+<p>Jupyter notebook was previously called I python Notebook.</p>
+<p>It is versatile and shareable.</p>
+<p>Have data visualization ability in the same window.</p>
+<p>It is an open-source web application.</p>
+<p>Notebook refers to collection of codes, documents and visualization at one place.</p>
+<p>Jupyter has independent cells for different codes. Hence, we can execute a specific part of code without having to execute the entire code.</p>
+<p>In Jupyter Python3 Notebooks we have a 4-option dropdown menu</p>
+<p>Code: Gives us a cell where we can write code in python</p>
+<p>Text: Gives us a cell where we can write notes in text format</p>
+<p>Raw NB Convert: Gives us a cell through which we can convert to other formats like html</p>
+<p>Header: Takes us to the section where we can write header for our notebook.</p>
+<p>Note that we have to use a double pound (##) sign to ensure that whatever is written after that is taken as a header.</p>
+<h2>DATA TYPES IN PYTHON</h2>
+<p>Normally in Machine learning we deal with data in .txt files or .csv files.</p>
+<p>To check data type of any variable we use the inbuilt type() function.</p>
+<p>Type(var) will return the type of variable passed as argument.</p>
+<p>In python there is no limit to how long an int value can be.</p>
+<p>Integers are represented by the int class.</p>
+<p>Floats can be represented using e or E notation which in general is called the scientific notation.</p>
+<p>Floating points are represented by the float class.</p>
+<p>The sequence data type in python is the ordered collection of similar or different data types. Sequences allows storing of multiple values in an organized and efficient fashion.</p>
+<p>Strings in python are arrays of bytes representing UNICODE characters.</p>
+<p>String is a collection of one or more character enclosed in a single, double or triple quote.</p>
+<p>Strings are represented by the str class.</p>
+<p>Individual characters of strings ca be accessed by the method of indexing,</p>
+<p>Booleans are python data types with two built-in values: True and False. Note that only these two formats are valid for True and False in python.</p>
+<p>Basic Arithmetic Operation using Python</p>
+<p>We can type regular mathematical expressions in Python to get arithmetic results.</p>
+<p>Python follows BODMAS rule.</p>
+<p>BODMAS – Bracket   Of  Divide  Multiply  Addition  Subtraction</p>
+<p>Higher variable type will be passed to the defined or calculated variable.</p>
+<p>Basic Libraries in Python</p>
+<p>A Library is a collection of functions and methods which allows the user to perform actions without a lengthy code for performing the task.</p>
+<p>Most common libraries used in Data analysis are</p>
+<p>Pandas – Helps in data manipulation and analysis</p>
+<p>NumPy – helps in performing complicated mathematical calculations for large datasets</p>
+<p>Matplotlib – helps in plotting different types of graphs in Python</p>
+<p>Command to install libraries in conda environment using cmd</p>
+<p>conda install <library name></p>
+<h2>PYTHON CONSTRUCTS</h2>
+<p>Conditional Statements in Python</p>
+<h2>SINGLE CONDITION – SINGLE BLOCK STATEMENTS</h2>
+<p>In these types of statements, a block of code run only on if the result considering some condition is TRUE.</p>
+<h2>SINGLE CONDITION – DUAL BLOCK STATEMENTS</h2>
+<p>These types of statements where a block of code run only on if the result considering some condition is TRUE or FALSE.</p>
+<p>Syntax for such two-condition based conditional statements is shown on left.</p>
+<h2>MULTIPLE CONDITION STATEMENTS</h2>
+<p>In this type of multi-conditional scenario, we use the “elif” keyword.</p>
+<p>Note that first condition1 will be checked. If it turns out TRUE the “if part of the code” will execute otherwise condition2 will be checked and so on until either at some point a condition becomes TRUE or all the conditions turns FALSE and we enter into the else block</p>
+<h2>NESTED CONDITION STATEMENT</h2>
+<p>In this type of conditions first the if condition is checked. If result is TRUE then we move inside the next if-else block</p>
+<p>If the condition turns out to be false then we directly move into the outer else block, where we encounter another if else block.</p>
+<p>This concept of condition inside another condition is called Nesting of conditional statements</p>
+<p>Iterative Statements in Python</p>
+<p>Python gives us looping constructs, via which we can write repetitive logic in fewer lines of code</p>
+<p>One the left is the general syntax for a repetitive code.</p>
+<p>Here iterable is a python object capable of returning its members one at a time, permitting it to be iterate over in a loop.</p>
+<p><variable> contains the value of the iterable.</p>
+<p>A common iterable used is the Range function.</p>
+<p>Python starts from start value and goes up to value (Stop -1). Default stop value is 1.</p>
+<p>Functions</p>
+<p>Simplest yet most powerful feature of any language.</p>
+<p>It allows us to reuse code efficiently.</p>
+<p>There are two types of functions namely:</p>
+<p>Predefined Functions</p>
+<p>User defined Functions</p>
+<p>Predefined Functions</p>
+<p>This group of functions are already available in the package.</p>
+<p>Usually, we need to import some module before using the functions of that module</p>
+<p>User defined Functions</p>
+<p>User defined functions are defined by users according to their needs.</p>
+<p>Syntax to define a user defined function is:</p>
+<p>def is a keyword.</p>
+<h2>BASIC DATA EXPLORATION</h2>
+<p>Creating a data-frame object in Jupyter using Pandas:</p>
+<p>“object_name” will return the complete data in tabular format</p>
+<p>“data.head(n)” will return first n rows from data</p>
+<p>“data.tail(n)” will return last n rows from data</p>
+<p>Descriptive statistics of data</p>
+<p>Minimum and maximum values give us an expected range with in which values of a variable would lie.</p>
+<p>The minimum and maximum values also give us an idea about outliers and sometimes error/anomalies in data too.</p>
+<p>Mean represents average value for a numeric data.</p>
+<p>The three quartiles represent the spread of the data.</p>
+<p>Uniform Spreading of data: Distance between minimum value and first quartile, first quartile and second quartile, second quartile and third quartile and third quartile and maximum values are similar than data is uniformly ranged.</p>
+<p>Standard deviation tells us the spread of data from the mean or average value.</p>
+<p>Low standard deviation means most of the values are close to the average value.</p>
+<p>High standard deviation means numbers are spread out</p>
+<p>“data.describe()” will return the descriptive statistics of all numeric columns in a tabular format. The statistics will include [count, mean, std, min, 25%, 50%, 75%, max]</p>
+<p>“data.describe(include = ‘all’)” will return the descriptive statistics of all numeric columns and categorical columns as well.</p>
+<p>For the string variables the function will return only the count  and unique values.</p>
+<p>“data.info() will return the details about variables.</p>
+<p>Range index gives the information about total entries.</p>
+<p>For any variable(column) if non-null data is less than the range index count than the difference count of data are missing.</p>
+<p>Missing data count = Range Index count – Non-null data count</p>
+<p>“data[‘variable name’].mean()” will return the mean of the variable specified.</p>
+<p>“data[‘variable name’].min()” will return the minimum value of the variable specified.</p>
+<p>“data[‘variable name’].max()” will return the maximum value of the variable specified.</p>
+<p>“data[‘variable name’].std()” will return the standard deviation of the variable specified.</p>
+<p>“data[‘variable name’].quantile(.25)” will return the 25th quartile of the variable specified.</p>
+<p>“data[‘variable name’].quantile(.50)” will return the 50th quartile of the variable specified.</p>
+<p>“data[‘variable name’].quantile(.75)” will return the 75th quartile of the variable specified.</p>
+<p>“data[‘variable name’].unique()” will return a list of all unique values in the variable-name column. Usually this is used for categorical variables.</p>
+<p>Using NumPy for Descriptive Analysis</p>
+<p>NumPy has an inbuilt function for standard deviation function. However, the results will be a bit different from one used on pandas’ data-frame objects.</p>
+<p>Pandas’ objects use the formula:</p>
+<p>NumPy library uses the following formula:</p>
+<p>Similarly other functions are also available in the NumPy library.</p>
+<p>Plotting Graphs using Matplotlib</p>
+<p>plt.plot(data[‘variable’]): This will plot a line graph with variable specified on y-axis and the default value of row numbers is selected for x-axis.</p>
+<p>Grouping the data means finding the count of records in each of the unique values of a variable.</p>
+<p>data.groupby('Categorical Variable')['variable'].count(): This function is used to group find the count of unique values of the categorical variables. Count will return that how many values of ‘variable’ have the unique value of the categorical variable.</p>
+<p>To create a histogram, divide the data in bins.</p>
+<p>Bins divide the entire range (difference between minimum value and maximum value for a numeric variable in n equal parts, where n is specified by the user, and count the number of record present in each of those parts.</p>
+<p>Syntax: plt.hist(data[variable'], bins=int_value)</p>
+<p>To create Box Plots following syntax is used: plt.boxplot(data[variable'])</p>
+<p>NOTE: Always first identify the question and then select the most appropriate graph for it.</p>
+<h2>ADVANCED PANDAS’ FUNCTIONS</h2>
+<p>Pandas’ groupby() function</p>
+<p>Pandas groupby cannot perform very complex aggregations</p>
+<p>The formatting cannot be changed to suit our needs</p>
+<p>Pandas’ pivot_table()  function</p>
+<p>Can handle complex operations</p>
+<p>Provides better representation</p>
+<p>Shorter and more comprehensible code</p>
+<p>Cleaner representation in comparison with groupby.</p>
+<p>Pandas’ map()  function</p>
+<p>More efficient than brute force approach</p>
+<p>The map function can perform an operation only on a single column at a time</p>
+<p>Pandas apply()  function</p>
+<h2>REGRESSION MODELLING</h2>
+<p>Question regarding Target variables</p>
+<p>What information does this variable represent?</p>
+<p>What is the data type for this variable?</p>
+<p>Do the few sample values we can analyse without any computation help make sense?</p>
+<p>Does the statistical description (mean, median, max, min, standard deviation? etc) makes any sense?</p>
+<p>Do the target variables contain any outliers that we need to treat?</p>
+<p>Are there any missing values in target variable?</p>
+<p>What is the distribution of the target variable over its range: Normal or skewed?</p>
+<p>This type of analysis of data is called Univariate analysis, i.e., analysis of a single variable.</p>
+<h2>OUTLIERS</h2>
+<p>An outlier is a data point that is distant from other data points. Its value lies outside the usual range of rest of the values in the data and hence the term outlier.</p>
+<p>There can be data points whose absoluter values are within the range but when viewed in context of other information or variable, the data point may be an outlier.</p>
+<p>Strictly speaking, outliers are data points which are very distant from the rest of the observation.</p>
+<p>Mathematically outliers have data values either less than lower limit or higher than upper limit.</p>
+<p>Lower limit = minimum values – IQR</p>
+<p>Upper limit = maximum value + IQR</p>
+<p>The Seaborn library of python has the capability to ignore the missing values and create box plots easily.</p>
+<p>Why Outliers occurs?</p>
+<p>Outliers can occur due to genuine variability in the data or due to error in recording of data.</p>
+<p>Outliers causes serious problems in statistical analysis of data.</p>
+<p>Outliers substantially change the perception of data by altering the statistical values and hence produce wrong predictions.</p>
+<p>Treating Outliers</p>
+<p>Treating Missing Values</p>
+<p>Note:</p>
+<p>Deletion is preferred over Imputing as any model learns from target variables and hence via imputing it would learn not from actual data but inferred one. For independent variables imputation is preferred.</p>
+<p>The Fit Transform function</p>
+<p>The fit transform function is defined in Simple-Imputer file in the Impute module from the Sklearn library.</p>
+<p>We can create an imputer object using the Simple-Imputer function that takes two arguments.</p>
+<p>Missing values: These are the values which are to be imputed.</p>
+<p>Strategy: This is the function or method applied to impute the values</p>
+<p>Then the fit transform function is called on the imputer object with argument containing array of variables on which imputation is to be done.</p>
+<h2>CORRELATION</h2>
+<p>Correlation is a measure of dependence or association between two variables, i.e., how does one variable change in other.</p>
+<p>Correlation can be positive, negative and zero.</p>
+<p>Positive correlation – directly proportional</p>
+<p>Negative correlation – inversely proportional</p>
+<p>Zero correlation – no pattern of relation</p>
+<p>Graphically correlation can be found via scatter plot whereas mathematically it is calculated via correlation coefficient usually denoted by r.</p>
+<p>Correlation coefficient, r, can take any value between -1 and 1.</p>
+<p>Positive correlation:</p>
+<p>Negative correlation:</p>
+<p>Zero correlation:</p>
+<p>In python we can find correlation coefficient using both pandas and NumPy.</p>
+<p>Pandas’ function variable1.corr(variable2) will return a real value between -1 and 1 that will be the correlation coefficient.</p>
+<p>NumPy’s function numpy.corrcoef(variable1, variable2) will return a matrix of correlation coefficient.</p>
+<p>The function data.drop(columns = []).corr() can be used to get a matrix of correlation coefficients of the data variables on both x and y axis.</p>
+<p>Note that the diagonal values will always be 1 as any variable will have direct relation with itself.</p>
+<p>From this table we can see which variables have a strong correlation with our target variable.</p>
+<p>Only those variables should be selected for building the model which have high correlation (above a certain cut-off value), positive or negative with the target variable.</p>
+<p>NOTE: If two independent variables that are highly correlated with each other, are also correlated with the dependent variable then using both independent variables in the model may result in a suboptimal or poorly understood model.</p>
+<p>The model will most likely use only one of those highly correlated variables in the equation and may consider the other variable as statistically insignificant variable.</p>
+<p>The predictive power that the other variable has to explain the variation in the target variable is already explained by the first variable.</p>
+<p>Between the two variables, the correct one must be chosen.</p>
+<p>Relation between numerical and Categorical Variables: ANOVA</p>
+<p>ANOVA stands for Analysis of Variables.</p>
+<p>It checks if the mean of the target variable across the unique values of a categorical variable are equal or not.</p>
+<p>When we apply ANOVA, we have a certain hypothesis regarding the result.</p>
+<p>Two values are obtained from ANOVA</p>
+<p>F-value: that is a large value.</p>
+<p>P-value: that is less than 0.05 means that there is less than 5% probability that the difference in means is purely a coincidence. Or we can say that there is 95% chance that difference in means actually exist.</p>
+<p>ANOVA can tell whether a categorical variable impacts the target or not but it cannot determine the strength of impact.</p>
+<p>We have to treat categorical variables like numerical variables sometimes in order to operate with them.</p>
+<p>This process of transforming a categorical variable into a set of numerical or Boolean variables is called as creation of dummy variables</p>
+<p>Number of dummy variables depends on number of unique values in the categorical variables.</p>
+<p>If categorical variable has n levels, then number of dummy variables required is n-1 as the last variable’s value can be deduced by the other n-1 values already.</p>
+<p>get_dummies function of pandas is used to get dummy variables.</p>
+<p>Now if number of levels for a categorical variable is high, then we use another technique called binning.</p>
+<p>In BINNING technique, we follow the following steps</p>
+<p>First, we create a list of bin-variables for the categorical data</p>
+<p>We use cut function  of pandas to place the desired column’s values into appropriate bins. Usually in this step we tend to create a new table or data frame.</p>
+<p>We merge the original table and the new table</p>
+<p>To make the data frame clean we have to delete(or drop) columns that are duplicate or unnecessary.</p>
+<p>After all this we can create dummy variables.</p>
+<h2>CREATING TRAINING DATASETS</h2>
+<p>Separating Dependent and Independent variables</p>
+<p>Dependent variables are split in a separate data frame called as Y.</p>
+<p>Independent variables are split into data frame called X.</p>
+<p>To separate the data frames, we use the function iloc.</p>
+<p>Note that iloc do not include the last index from the index range.</p>
+<p>Training and Testing data</p>
+<p>Training data  is the data on which as model is built</p>
+<p>This is the data from which model learns. Output and input both are known</p>
+<p>Test data  is the subset of original data used to examine as to how well it has leant.</p>
+<p>The model predicts the target variable values for the test data and then the predicted values are compared with actual values and checked as to how many of them were correctly predicted.</p>
+<p>The split ratio changes based on size of original datasets and problem statements</p>
+<p>Ideal split ratio is 70:30</p>
+<p>Both Dependent and Independent datasets, X and Y, are split into train and test datasets. Hence, we get 4 datasets namely, X_train, X_test, Y_train, Y_test.</p>
+<p>To achieve this in python we use the train_test_split function of model_selection module of Sklearn library.</p>
+<h2>FEATURE SCALING</h2>
+<p>Feature scaling refers to the process of scaling all the feature variables (or independent variables) in the same range.</p>
+<p>Note that the variation in magnitude and range of features causes two problems:</p>
+<p>Variables with higher magnitude and range will have more impact compared to ones which are smaller.</p>
+<p>Due to this, the model might not predict properly since it is not giving equal weight to both the variables.</p>
+<p>The gradient descent algorithm that is used to find the coefficients of linear regression may take a long time to converge.</p>
+<p>Now to overcome these problems the variables are scaled to have similar magnitudes and ranges so that model is not biased towards a particular variable.</p>
+<p>This procedure becomes more important in algorithms where some measure of distance between data points is involved like Logistic Regression, Linear Regression, K Nearest Neighbours, Principal Component analysis etc</p>
+<p>This procedure is not required for tree-based algorithms.</p>
+<p>Methods of Feature Scaling</p>
+<p>Standardisation</p>
+<p>It rescales the feature values so that they have the properties of a Standard Normal Distribution with means as 0 and standard deviation as 1</p>
+<p>here x’ is the new value and x is the old value.</p>
+<p>Min Max Scaling</p>
+<p>The value range for the transformed variables lies between [0, 1]</p>
+<p>Normalisation</p>
+<p>The range is fixed from -1 to +1</p>
+<p>Also called mean normalization.</p>
+<p>Feature Scaling in Python</p>
+<p>Standardisation method should be used for scaling the feature variables when a linear regression model is built.</p>
+<p>A linear regression model assumes the input variables to be normally distributed.</p>
+<p>The pre-processing library of Sklearn can be used to do standardisation.</p>
+<h2>REGRESSION MODELLING: INTRODUCTION</h2>
+<p>The simplest model that can be created will predict that the target will have mean values.</p>
+<p>This model, although looking fine, has the capacity to destroy the predictive accuracy of model as average values cannot predict the large values and also very small target values.</p>
+<p>To Overcome this, we can use more filters like using average of gradings of target etc.</p>
+<p>In our example we first created a model based on average of sale prices and then a model based on average of sale prices with respect to grades, of which scatter plots are created by the method of Residual Plotting.</p>
+<p>Residual plotting is nothing but scatter plot of residual values.</p>
+<p>In our example both mean sales residuals and grade mean sales residuals are created and then visualized in two different scatter plots against a line of 0 residual, i.e.,  line representing 100% accurate predictions(green).</p>
+<p>Clearly in the above picture the first model has a larger spread of residuals with respect to the second model hence the residuals in second model are closer to the zero line, i.e., are more perfectly predicted. Hence, we can conclude that predicting by sale price means with respect to grade is better than predicting by sale price means.</p>
+<h2>MODEL EVALUATION METRICS</h2>
+<p>To check how good or bad our model predictions are we use model evaluation metrics</p>
+<p>Mean Absolute Error (MAE)</p>
+<p>Mean Square Error (MSE)</p>
+<p>Root Mean Square Error (RMSE)</p>
+<h2>MEAN ABSOLUTE ERROR (MAE)</h2>
+<p>we know that residual = prediction – actual</p>
+<p>mean absolute error tell us how far, on an average, the actual point is expected to lie from the predicted point</p>
+<h2>MEAN SQUARE ERROR (MSE)</h2>
+<p>This turns all the differences between the actual and the predicted into a positive quantity</p>
+<p>It incurs extra penalty for the larger difference between the actual and the predicted values.</p>
+<h2>ROOT MEAN SQUARE ERROR (RMSE)</h2>
+<p>Large errors are penalised but the scale of error is closer to that of mean absolute error.</p>
+<p>R2  - Evaluation metric</p>
+<p>It gives us the relative error of a regression model with respect to the simple mean regression model.</p>
+<p>The ratio is “The mean square error of the regression model we want to evaluate over the mean square error of the simple mean regression model”</p>
+<p>The lower the ratio the better the model.</p>
+<p>For a perfect model (100% accurate predictions) R2 = 1</p>
+<p>For a mean prediction model (Yp = Ym) R2 = 0</p>
+<p>For any model which is better than mean prediction model but not a perfect model   			                 0 <	R2 < 1</p>
+<p>In reality     	-∞ <R2 < 1</p>
+<p>Negative R-squared mean predicted model is worse than mean model.</p>
+<p>R2  explains the degree to which your input variable explains the variation of your target or output variable.</p>
+<p>For example, 0.8 R square values means 8-% of variation in the output variable is explained by the input variables.</p>
+<p>Higher the R square, more is the variation explained by the input variable and hence, better the model.</p>
+<p>On adding more variables, the R square value will remain same or increase even if the variables have no role in improving the model</p>
+<p>To solve this problem, we have another metric evaluation called the Adjusted R2</p>
+<p>This penalizes the result for adding variables which do not improve the existing model.</p>
+<p>REGRESSION MODEL: Building Advanced Regression Models</p>
+<p>Linear regression models the linear relationship between dependent and the independent variables.</p>
+<p>In these models we try to find a straight line which fits our data well usually in a scatter plot.</p>
+<p>The linear regression model is nothing but the line.</p>
+<p>The best model is the line which fits the data points with least error.</p>
+<p>Now since we are dealing with a straight line, we must try to mathematically analyse it.</p>
+<p>The equation of a straight line is: y = mx + c</p>
+<p>Here y = dependent variable (Output)</p>
+<p>x = independent variable (input)</p>
+<p>m = slope of the line</p>
+<p>c = y-intercept of the line (point at which the line cuts the y-axis)</p>
+<p>Different lines with same slope but different intercepts are parallel to each other. Changing intercept just shifts the line upward or downward.</p>
+<p>Different lines with same intercept but different slopes have same point of concurrence but are at different angles from the axes.</p>
+<p>NOTE: Slope is the rate at which y increases with respect to x.</p>
+<p>COST FUNCTION CURVE or MSE Function Curve</p>
+<p>In our example of the “Sale Price data” now we try to create a model that best fits the data plot “sale price vs flat area”. To do this we first plotted two different graphs by hit and trial method as shown below.</p>
+<p>Note that cost is nothing but the MSE of model. As visible plot 2 has a lower MSE but still is not a good fit. Next, we try to automate the whole process by creating a new data frame of “SLOPE” and corresponding “COST” or MSE. This curve of “Cost vs Slope” is the cost function curve.</p>
+<p>Note that this curve has a high MSE at beginning. Then, cost keeps on decreasing until a minimum value and again starts increasing. This type of curve is called the CONVEX CURVE.</p>
+<p>In convex curves there is only one minimum value called the Global Minima.</p>
+<p>In non-convex curves there can be more than one minimums, called Local Minimum.</p>
+<p>From the cost function curve, we can find the best slope for out regression model fitting. Note that intercept is taken as constant here.</p>
+<p>Now, if we vary intercept and slope together, we will get a three-dimensional graph in which minimum value will depend on both slope and intercept.</p>
+<p>Now we repeat the same process and find the cost function curve with respect to changing intercept.</p>
+<p>Note that we have got a minimum value of intercept does not mean that we have got the best pair of m and c as these values can still change as in both analysis, we kept one as constant. This cycle, when repeated, a few times converges to the most optimum values. Here m = 219, c = 39428</p>
+<p>So, the best fit model is: y = 219x + 39428</p>
+<p>If the data will have more than one input variable, the cyclic process will not be always a viable option.</p>
+<p>To deal with this problem we use the GRADIENT DESCENT ALGORITHM</p>
+<h2>GRADIENT DESCENT ALGORITHM</h2>
+<p>Gradient descent is an optimization algorithm that works iteratively and aims to find the minimum value of a convex function with respect to a set of parameters.</p>
+<h2>STEP 1: RANDOM INITIALIZATION</h2>
+<p>Here we have two parameters: slope, m, and intercept , c.</p>
+<p>Now both can be initialized to a small value, say 0, but initializing intercept to intercept of mean regression model is preferred.</p>
+<p>In our example we used m = 0.1 and c = mean of sale prices</p>
+<h2>STEP 2: GENERATE PREDICTIONS</h2>
+<p>Now we will be predicting values using the equation: Yp = mX + c</p>
+<p>Yp is the sale price and X is flat area</p>
+<h2>STEP 3: CALCULATING THE COST</h2>
+<p>We will be using Mean Squared Error as the Cost function and will represent by T.</p>
+<p>Clearly cost function depends on m and c</p>
+<h2>STEP 4: UPDATION OF PARAMETERS</h2>
+<p>Updating of variables takes place according to following formula</p>
+<p>mnew = mold – Zm</p>
+<p>Cnew  = Cold – Zc</p>
+<p>Z  can be positive or negative</p>
+<p>To find Z we use the concept of partial differentiation</p>
+<p>Partial differentiation of the “cost-function curve with variation of m” with respect to m will give the slope of tangent-function to the curve.</p>
+<p>If slope is +ve then the tangent is at the right side of minimum point hence Z will be positive in order to reach the minimum point.</p>
+<p>Alternatively, if the slope is -ve then the tangent is at the left of minimum point then Z should negative in order to reach the minimum point.</p>
+<p>Conclusion: Z is the same sign as slope</p>
+<p>Working Rule of Gradient Descent Algorithm</p>
+<p>Here Gm and Gc  are Gradient of cost function with respect to m and c respectively.</p>
+<p>Here alpha (α) is called the LEARNING RATE: A moderator which controls the process of updating the parameters.</p>
+<p>High  α  Cost function can bounce out of the range</p>
+<p>Low α  Cost function might take numerous iterations to converge.</p>
+<p>Next step of algorithm is to check our prediction’s reliability:</p>
+<p>Then we say that algorithm is converged</p>
+<p>ELSE we repeat the process after updating the parameters.</p>
+<p>Now we apply the Gradient Descent Algorithm in Python in our given dataset in two ways:</p>
+<p>First, we apply it on only first 30 data values</p>
+<p>Second, we apply it on complete dataset</p>
+<p>**This graph shows the best linear regression model fit for entire dataset**</p>
+<p>**This graph shows the best linear regression model fit for first 30 data values**</p>
+<p>The python code of implementation of the Gradient Descent Algorithm is given below</p>
+<p>We have defined function to</p>
+<p>Initialize parameter</p>
+<p>Generate predictions</p>
+<p>Compute cost or MSE</p>
+<p>Gradient generation</p>
+<p>Parameter updating</p>
+<p>Result generator</p>
+<h2>ASSUMPTIONS OF LINEAR REGRESSION</h2>
+<h2>LINEAR RELATIONSHIP:</h2>
+<p>The target and independent variable must follow a linear relationship, not necessarily in strict manner (correlation = 1) but should follow fundamental property of a line.</p>
+<p>Fundamental Property of straight-line states that Y changed with X and for every change of ΔX, the quantum change in Y, i.e., ΔY should be similar irrespective of value of X.</p>
+<p>Therefore, we can say that, to apply linear regression the rate of change of Y w.r.t. X should be almost constant.</p>
+<p>To deal with non-linear data e convert it into linear data by using variable transformation operations like squaring, square root, logarithm etc.</p>
+<h2>HOMOSCEDASTICITY:</h2>
+<p>Homoscedasticity is constant variance of error</p>
+<p>The counter of this concept is Heteroscedasticity may arise due to either non-linearity of data and/or presence of outliers</p>
+<h2>NORMAL DISTRIBUTION OF ERROR</h2>
+<p>Error terms with respect to the regression line should be normally distributed.</p>
+<p>Errors which do not follow the normal distribution causes parameter estimation to be unstable ultimately resulting in misleading coefficients.</p>
+<p>To deal with this issue, we scale the data to linear scale using any appropriate transformation.</p>
+<h2>NO CORRELATION BETWEEN ERROR TERMS</h2>
+<p>The condition where there is an inherent pattern between error terms is called Auto Corelation</p>
+<p>Strong correlation between error terms are usually found in time series data.</p>
+<p>This type of correlation comes in existence when previous values of Y affect the  next value of Y which is not taken into linear regression model.</p>
+<p>As a result, misinterpretations in the model outcome is seen.</p>
+<h2>MULTICOLLINEARITY</h2>
+<p>When there is a collinearity between two independent variables of high order ( >0.5) then variation in target variable explained by any one variable is already explained by the other variable. So, we keep only one variable and eliminate the others.</p>
+<p>Multicollinearity among independent variables must be removed.</p>
+<p>To decide which variable to remove we use the concept of Variance Inflation Factor(VIF).</p>
+<h2>STEPS IN IMPLEMENTING LINEAR REGRESSION MODEL</h2>
+<p>Importing libraries and dataset</p>
+<p>Checking for multicollinearity and removing it</p>
+<p>scaling the dataset</p>
+<p>creating test and train partitions</p>
+<p>implementing the linear regression model using Scikit-learn</p>
+<p>Generating predictions over the test set</p>
+<p>Evaluating the mode</p>
+<p>Plotting the residuals</p>
+<p>Verifying the assumptions of linear regression</p>
+<p>Visualizing the coefficients to interpret the model result</p>
+<p>Before importing the dataset, it must be prepared under the following steps: PREPROCESSING</p>
+<p>Exploring the target and the independent variables</p>
+<p>Treating the outliers and missing values in independent and target variables</p>
+<p>Transforming the categorical variables into numerical variables using dummy encoding</p>
+<p>The implementation of these steps is described in my Python .ipynb notebook. Click on the icon to access it.</p>
+<p>Some important interpretations from the models:</p>
+<p>Most of the residuals are densely populated between limits 200,000 and -200,000. so, we can say residuals are normally distributed</p>
+<p>But the residual plot resembles neither cone shape or pipe shape so there is some room for improvement in data</p>
+<p>Also, there are some outliers</p>
+<p>This is a plot between residual (error) and their frequency counts.</p>
+<p>The residuals are approximately normal so one of our assumptions of linear regression turns to be true.</p>
+<p>Note that there are still some outliers on far right.</p>
+<h2>OUTCOME OF REGRESSION MODELLING</h2>
+<p>Zip code has highest of the coefficients: Therefore, Location plays major role in sale price</p>
+<p>Also, area of house and overall grade plays major role.</p>
+<p>Year since renovation is negatively significant that means customers are more likely to buy houses that are recently renovated.</p>
+<p>One important thing to note is that Longitude is negatively significant whereas Latitude is positive. This data can tell us about the geographical dependency of the sale prices.</p>
+<h2>FEATURE ENGINEERING</h2>
+<p>Features of a data are the independent variables we use to make predictions.</p>
+<p>To improve predictions, we can:</p>
+<p>Add external data</p>
+<p>Use existing data more intelligently</p>
+<p>Feature Engineering is the science of extracting more information from existing data.</p>
+<p>No new data is added but the data we already have is made more useful w.r.t. the problem</p>
+<p>NOTE that feature generation refers to creating new features from the existing data and not simply transforming the values of existing features.</p>
+<h2>FEATURE PREPROCESSING: TRANSFORMATION TECHNIQUE</h2>
+<p>Transformation is done to linearize the relationship between target variable and the feature.</p>
+<p>Feature transformation is model specific.</p>
+<p>Transformation can be done to remove skewness in the data curve y vs x,</p>
+<p>For right skewed data usually nth root or logarithmic transformation is done.</p>
+<p>For left skewed data usually nth power or exponential transformation is done.</p>
+<p>In our example, in the original raw data set the flat area distribution is right skewed as shown in graph on top</p>
+<p>The result of logarithmic transformation on the graph can be seen in the graph on right.</p>
+<h2>CATEGORICAL ENCODING</h2>
+<p>Categorical encoding is a variable transformation technique for the categorical variables.</p>
+<h2>DUMMY ENCODING:</h2>
+<p>A separate dummy feature is created for every level present in the categorical column.</p>
+<h2>LABEL ENCODING:</h2>
+<p>The model detects the relation between the individual categories by itself using the gradient descent.</p>
+<p>Label encoding is simple to apply. Also, in dummy encoding too many features are added which results in low level of learning.</p>
+<p>Label encoding is used when we want to preserve the existing order among the different categories of the columns.</p>
+<p>This way the dimensionality (number of input variables) remain the same.</p>
+<p>Label encoding is used when order among different levels is known.</p>
+<h2>BINNING:</h2>
+<p>Binning is the process of aggregating data points in different categories to reduce the redundancy.</p>
+<p>This can be implemented on both numerical and categorical columns.</p>
+<p>Also helps in One hot encoding  and creating dummy variables</p>
+<p>In binning, we look at the following</p>
+<p>Binning of categorical variables</p>
+<p>Binning of sparse categories</p>
+<p>Binning of continuous variables</p>
+<h2>FEATURE EXTRACTION</h2>
+<p>Feature extraction is the process of extracting information from the original features.</p>
+<p>The extracted feature contains the information in simpler form</p>
+<p>This helps in increasing the model performance.</p>
+<h2>DIMENSIONALITY REDUCTIONS</h2>
+<p>High dimensionality can become a problem for prediction modelling.</p>
+<p>As number of independent variables increases, visualizing them becomes hard</p>
+<p>Dimensionality reduction is the process of reducing the number of variables from the data to ensure that the reduced data conveys maximum information.</p>
+<p>For dimensionality reduction  we use the concept of Feature Selection.</p>
+<h2>MISSING VALUE RATIO (MVR)</h2>
+<p>We set a threshold value, say Th,  for missing value ratio.</p>
+<p>If MVR <= Th, then the variable can be estimated</p>
+<p>If MVR > Th then the variable can be dropped</p>
+<p>Threshold should be set very carefully.</p>
+<h2>LOW VARIANCE REMOVAL TECHNIQUE</h2>
+<p>In predictive modelling we often eliminate features with low variance as they do not contribute to predictive power of model.</p>
+<p>here we normalize using normalizer and not standard-scaler because standard-scaler will change the variance to 1 and we will not be able to compare variances of different features.</p>
+<h2>TO REMOVE CATEGORICAL VARIABLES:</h2>
+<p>High frequency refers to low variance.</p>
+<h2>LOW VARIANCE REMOVAL TECHNIQUE</h2>
+<p>In this method we use the concept of Variation Inflation Factor to compute autocorrelation and remove variables accordingly.</p>
+<p>Advanced Dimensionality Reduction</p>
+<p>Forward selection of features</p>
+<p>Backward elimination of features</p>
+<p>To use these methods, we need an evaluation metric to govern whether any given feature should be selected in the final model or not.</p>
+<p>The metric used will be Adjusted R2.</p>
+<p>It is clear that simple R score > Adjusted R score. From this we can conclude that there are some insignificant features in our data.</p>
+<h2>BACKWARD ELIMINATION OF FEATURES</h2>
+<p>Backward elimination is used when we have to remove the redundant variables from the model.</p>
+<p>It is used to strike a balance between the model performance and model simplicity.</p>
+<p>Now, while calculating the differences in step 3 following cases may arise:</p>
+<p>CASE I: calculated adjusted-R2 – baseline adjusted-R2 > 0</p>
+<p>In this case dropping the corresponding variable actually improves the model.</p>
+<p>CASE I: calculated adjusted-R2 – baseline adjusted-R2 < 0</p>
+<p>In this case the removal of the independent variable decreases the model performance and hence, this case is considered a good point to stop the backward elimination</p>
+<p>NOTE that in step 4 the features with maximum differences are removed first which guarantees that redundant features are removed first.</p>
+<p>On performing backward elimination on our linear regression model, we also keep a track of adjusted R2 every time we remove a feature.</p>
+<p>The graph alongside is a plot of remaining feature vs adjusted R2 at each iteration when we eliminated a feature.</p>
+<p>The blue mark is such that if we want to keep minimum number of features while retaining model performance as much as possible.</p>
+<p>On the other hand, the green dot represents such a point after which adjusted R2 almost flattens out. So, at this point we can maximize the model performance and remove only the insignificant variables without harming the adjusted R2 score.</p>
+<p>QUESTION: why do we need two method that do almost the same thing?</p>
+<p>adjusted R2  have a major drawback that it is computationally expensive.</p>
+<p>Suppose we have N number of features and it is evident that in every step one feature is removed from consideration so total number of model to be created iteration wise will be:</p>
+<h2>N + (N-1) + (N-2) + (N-3) + …. + 3 + 2 + 1 = N(N+1)/2 ~ N2</h2>
+<p>For huge datasets both techniques can be expensive so we must have to set a goal</p>
+<p>Set model interpretation as priority and only select a small subset of best features to interpret the model (Forward selection is preferred as it focuses on choosing the best features)</p>
+<p>Or strictly remove the features which negligibly add to the model performance(backward selection is preferred as it focuses on removing the redundant columns first)</p>
+<p>Another improvement which can be done is to set a threshold for adjusted R2 , such that after getting incremented to that point the program will stop.</p>
+<h2>LOGISTIC REGRESSION</h2>
+<p>Logistic regression is a classification algorithm.</p>
+<p>In classification problems , a categorical target variable is used.</p>
+<p>A categorical variable is one which represents a characteristic which cannot be measured or counted.</p>
+<p>Linear regression cannot be used in classification problems due to two reasons:</p>
+<p>Linear regression is sensitive to outliers. Presence of an outlier in a classification problem, even if it should not affect the predictive model, affects the linear model drastically.</p>
+<p>Interpretation of model becomes difficult. In classification problem usually the predictions are also classified. But linear regression predications have no such limiting values hence sometime prediction becomes meaningless.</p>
+<p>Suppose we take any class problem in which we have to calculate the probability of a data point to belong to a class. Clearly the probability or the prediction will be bounded by limits [0, 1].</p>
+<p>Now to solve this problem, we know the linear regression line is given by: y = mx + c</p>
+<p>To restrict the values between 0 and 1 we use the logit function.</p>
+<p>We classify this method under regression because we are predicting continuous probability values between 0 and 1.</p>
+<p>Also, the term “logistic” is derived from the logit function</p>
+<p>Now using probability, we can classify the data of classification problems.</p>
+<p>Logistic regression in Sklearn automatically converts the probabilities into classes by itself using 0.50 as threshold.</p>
+<p>To get a plot on which we could use as a baseline plot, we will use gradient descent, with some small changes.</p>
+<p>This time if we use gradient descent, the cost function will be complex as it will contain an exponential term. This would result in a non-convex cost plot.</p>
+<p>The problem is that gradient descent can only work with convex plots to find the ideal value of parameters m and c.</p>
+<p>In case of logistic regression, we use a different loss function called the log loss function:</p>
+<p>Here Yp is the predicted probability for class 1</p>
+<p>Y = actual class</p>
+<p>N = number of observations</p>
+<p>The method used by logistic regression to best fit the data is called Maximum likelihood.</p>
+<h2>EVALUATION METRICS FOR CLASSIFICATION MODELLING</h2>
+<h2>CONFUSION MATRIX</h2>
+<p>It is used to interpret the model predictions systematically.</p>
+<p>It is a simple NxN matrix, where N is the number of distinct classes in target variable.</p>
+<p>Most of the problems have two classes, often called binary classes: the classes are referred as class 0 ( negative class) and class 1 (positive class).</p>
+<p>If the outcome is + or – and the actual value is also + or – then we mark it as TRUE</p>
+<p>If the outcome do not match with the actual value, we mark it as FALSE.</p>
+<p>This is the basic platform of representation for most of the classification metrics.</p>
+<h2>ACCURACY MATRIX</h2>
+<p>Higher the accuracy the better the model: this can be only considered true in case of balanced data.</p>
+<p>Imbalanced data: it is a dataset which has disproportionate numbers of either positive or negative classes and both the classes are not equally or nearly equally distributed.</p>
+<p>Accuracy as an evaluation metric on unbalanced data doesn’t give good results.</p>
+<h2>PRECISION & RECALL MATRIX</h2>
+<p>Helpful in case of imbalanced data.</p>
+<p>Precision is used when avoiding false positive is more essential than encountering false negatives.</p>
+<p>recall is used when avoiding false negatives is prioritized over encountering false positives.</p>
+<p>Precision and recall have a relation as shown in graph: as one increases a drop in other is observed. However, this is a weak relation.</p>
+<p>In case if we are not sure about which metric to use, we have another metric called as the F1-score.</p>
+<p>, harmonic mean of precision and recall. Max when precision = recall</p>
+<p>Now since all the metrics discussed this far yield almost the same result, we compare the models using the log loss function.</p>
+<h2>LOG LOSS MODEL</h2>
+<p>The log loss calculates the error of the classification model.</p>
+<p>Smaller the value of log loss the better the model.</p>
+<p>Farther a predicted probability is from its true class, higher is the log loss function.</p>
+<p>As visible from the figure on left, although all the metrics of both model will be same the log loss of C1 > C2. Therefore, C2 is a better model.</p>
+<h2>AUC – ROC CURVE</h2>
+<p>It is a performance measurement for classification model under different threshold values.</p>
+<p>AUC-ROC : Area Under Curve of Receiver Operating Characteristics</p>
+<p>Higher the AUC better the model is at predicting 0s as 0s and 1s as 1s. (better distinguishing between 0s and 1s)</p>
+<p>AUC works well only for nearly balanced datasets.</p>
+<p>This graph is prepared by calculating values of FPR(y – axis) and TPR(x- axis) for different threshold values.</p>
+<p>FPR is the False Positive Rate,</p>
+<p>TPR is True Positive Rate,</p>
+<p>Values of both FPR and TPR range from 0 to 1.</p>
+<p>Area of graph is considered to be 1 squared unit.</p>
+<p>If the auc-roc > 0.95 then there can be some error in model.</p>
+<h2>IMPLEMENTING LOGISTIC REGRESSION</h2>
+<h2>CLASS RATIO & MODELLING</h2>
+<p>Data dictionary is a centralized repository of information about data such as meaning, relationships to other data, origin, usage and format.</p>
+<p>Here the sample dataset is a dataset about a bank customer details.</p>
+<p>The dataset includes following types of data:</p>
+<p>Demographic information about customers like customer id, vintage, age etc</p>
+<p>Customer Bank Relationship like customer’s net worth, branch code and days since last transaction</p>
+<p>Transactional information like current balance, previous month end balance, churn etc</p>
+<p>our objective is to predict the churn (average balance of customer falls below minimum balance in next quarter or not.</p>
+<p>Firstly, we check the class wise data distribution of the target variable.</p>
+<p>In our case it is almost 80-20 ratio.</p>
+<p>So, from this result we can conclude that the data is imbalanced.</p>
+<p>Since the data distribution is in ratio 8:2 so weight assigned to them will be 2:8 in order to balance the model as we can see in the code block where class weight is set to balanced.</p>
+<p>Since class 1 has fewer instances the LR model will try focus more on classifying class 0 since majority of the error is introduced in model due to class 0.</p>
+<p>By adding balanced to the class weight will add a multiplier to class 1 errors. That is, whenever there will be an error in class 1 the error incurred will be multiplied. This method is useful in case of unbalanced data.</p>
+<p>In case of logistic regression, we have two ways of predicting values, that is value prediction & probability prediction.</p>
+<p>In the predicted probability we get a 2D list where 1st column contains probabilities w.r.t. class 0 and second one w.r.t. class 1.</p>
+<h2>EVALUATION METRICS</h2>
+<p>we have accuracy of 72%. Hence, we can say our model is fairly good but since the data is imbalanced so we must check the precision recall score.</p>
+<p>Precision is around 38%. Therefore, 38% of results are predicted as false positives.</p>
+<p>Recall is 66%. Therefore, out of all actual positive values only 66% are predicted as positive.</p>
+<p>Now taking into consideration a case where to prevent a customer from churning the bank will be giving gifts. In this case we will focus on recall as we are okay false positives. Therefore, in this case we might send gifts to a customer which would not have churned anyway but the model falsely predicted that it might churn.</p>
+<p>If the offer is very costly then we would prefer precision so we can save money on gifts but risk that a customer who might churn next month did not receive any gifts and churned.</p>
+<p>Now, f1-score is 0.47. Since f1_score < 0.5 the model is not that good.</p>
+<p>To get all metrics by one method we use the PRF Summary.</p>
+<p>We get an additional metric called support which is number of instances of class 1 and class 0 as seen in the dataset.</p>
+<p>The function returns a list of 2 values for each metric. One is for class 0 and other for class 1.</p>
+<p>Another function we can use to get the metric reports is classification report of Sklearn metrics.</p>
+<p>This function return the metrics in a good representation.</p>
+<p>One drawback is that we cannot use the values returned by this function as it for representation purpose only.</p>
+<h2>PRECISION RECALL CURVE</h2>
+<p>The precision-recall-curve function of Sklearn-metrics return three values: precision points, recall points & threshold points.</p>
+<p>This function calculates the precision and recall for every threshold possible between probabilities 0 and 1.</p>
+<p>As visible, threshold list has 1 element shorter than precision and recall so we will skip the last value.</p>
+<p>Using the data points obtained we can create a precision recall trade-off graph as shown.</p>
+<p>The intersection is somewhere near the 0.55 threshold which would be the best model performance threshold.</p>
+<h2>AUC-ROC CURVE</h2>
+<p>The green line is the TPR vs FPR curve.</p>
+<p>The red line is ROC curve with AUC = 0.5. This is a simple plot of line y = x.</p>
+<p>The area under the curve is obtained by the ROC-AUC-SCORE.</p>
+<p>The result obtained is pretty average</p>
+<h2>COEFFICIENT PLOT</h2>
+<p>The top three variables with high coefficients are in strong favour of class 1. That means the customer might churn which makes sense as he/she is withdrawing more money.</p>
+<p>Variables like current balance supports class 0 as customer is putting more and more money in bank.</p>
+<h2>DECISION TREE</h2>
+<h2>PREDICTIVE MODELS: PARAMETRIC & NON-PARAMENTRIC</h2>
+<p>We used linear regression for regression problems and logistic regression for classification problems. Decision Trees can handle both problems.</p>
+<p>Machine learning can be described as the construction of a function, f, that maps input variables (x) to output variables (y) :</p>
+<p>The job of an ML Engineer is to find the best mathematical model for the function.</p>
+<p>Unlike linear or logistic regressions decision tree algorithms do not have any assumption.</p>
+<h2>PARAMETRIC MODELS</h2>
+<p>These classes of models make strong assumptions about the form of the mapping function</p>
+<p>Very simple and interpretable</p>
+<p>Set of parameters does not depend upon the amount of the data.</p>
+<p>A learning model that summarizes data with a set of parameters of fixed size(independent number of training examples) is called a parametric model. [Source: (Book) Artificial Intelligence: A Modern Approach]</p>
+<p>Working steps of parametric models:</p>
+<p>Select a form for the function</p>
+<p>Learn the coefficient/parameters for the function from the training data.</p>
+<h2>BENEFITS:</h2>
+<p>Simpler: These methods are easier to understand and interpret results.</p>
+<p>Fast: They are very fast to learn from data</p>
+<p>Less Data: They do not require as much training data and can work well even if the fit to the data is not perfect.</p>
+<h2>LIMITATIONS:</h2>
+<p>Constrained: By choosing a functional form these methods are highly constrained to the specified form.</p>
+<p>Limited Complexity: The methods are more suited to simpler problems</p>
+<p>Poor Fit: In practice the methods are unlikely to match the exact underlying mapping function</p>
+<h2>NON-PARAMETRIC MODELS</h2>
+<p>These algorithms do not make strong assumptions about the form of the mapping function.</p>
+<p>They are free to form any functional form from the data</p>
+<p>Non parametric methods are good when you have a lot of data and no prior knowledge and when you don’t want to worry too much about choosing just the right features. [Source: (Book) Artificial Intelligence: A Modern Approach]</p>
+<p>They best fit the training data in constructing the mapping function which maintain some felicity to generalize according to the unseen data.</p>
+<h2>BENEFITS:</h2>
+<p>Flexibility: These algorithms are capable of fitting a large number of functional forms.</p>
+<p>Power: There is no assumptions or weak assumptions about the underlying function</p>
+<p>Performance: They can result in higher performance models for prediction.</p>
+<h2>LIMITATIONS:</h2>
+<p>More Data: These algorithms require a lot more training data to estimate the mapping function</p>
+<p>Slower: They are a lot slower to train as they often have far more parameters to train.</p>
+<p>Overfitting: There is more risk to overfit the training data and it is harder to explain why specific predication are made.</p>
+<h2>WORKING OF DECISION TREE</h2>
+<p>Every time we split the dataset based on some condition/decision we get a decision tree</p>
+<p>We tend to separate all the positive classes from negative classes using a decision tree.</p>
+<p>In ideal case we find a feature which can split the dataset into pure nodes.</p>
+<p>A pure node is in which all the data points exhibit the desired behaviour or have the same class.</p>
+<p>Objective of decision trees is to have pure nodes.</p>
+<p>A decision tree with pure nodes is good at segregating data into respective classes.</p>
+<p>A decision tree can have multiple splits.</p>
+<p>Purity of nodes helps to decide how splitting should be done.</p>
+<p>Terminology</p>
+<p>Root Node: It represents entire population or data.</p>
+<p>Splitting: Process of dividing a node into two or more sub nodes</p>
+<p>Decision node: When a sub node is divided into sub nodes the original sub node is called a decision node.</p>
+<p>Leaf/Terminal Node: Node which do not split any further.</p>
+<p>Branch/Sub-tree: A subsection of an entire tree</p>
+<p>Parent node: A node which is divided into sub-nodes.</p>
+<p>Child node: A sub node of a parent node.</p>
+<p>Depth of the tree:  The length of the longest path from the root node till the leaf node.</p>
+<p>Root node has depth = 0</p>
+<h2>TYPES  OF DECISION TREES</h2>
+<p>A classification decision tree is used when the target variable is categorical in nature.</p>
+<p>A regression decision tree is used when the target variable is continuous in nature.</p>
+<h2>CRITERIA OF SPLITTING</h2>
+<h2>GINI IMPURITY</h2>
+<p>Gini impurity measures the impurity of nodes.</p>
+<p>Gini is the probability that two elements chosen randomly from a populations are of same class.</p>
+<p>For a pure node, gini = 1</p>
+<p>Range of gini is from 0 to 1</p>
+<p>Properties of gini impurity:</p>
+<p>It helps in deciding the best split</p>
+<p>Lower the gini impurity, higher will be the homogeneity of the nodes</p>
+<p>It works only with categorical variables</p>
+<p>It performs binary splits only.</p>
+<p>Lower the gini impurity -> higher the purity of node -> higher the homogeneity of nodes</p>
+<p>Gini works only with categorical targets not with continuous ones.</p>
+<p>Gini only perform binary decision.</p>
+<p>Calculating Gini Impurity:</p>
+<p>Step 1: Calculate gini impurity for sub-nodes : gini impurity = 1- gini</p>
+<p>Pi2 is the probability of any two random data points belonging to class i.</p>
+<p>Step 2: Calculate the gini impurity for split</p>
+<p>Use the weighted impurity of both sub node</p>
+<p>The split producing minimum gini impurity is selected as the first split</p>
+<h2>INFORMATION GAIN</h2>
+<p>Information gain is the information needed to describe the parent node and information needed to describe the children node.</p>
+<p>The more is the homogeneity of the nodes; the more is the information gain.</p>
+<p>Higher information gain(or low entropy) leads to more homogeneous nodes.</p>
+<p>P1, P2, P3, …... , Pn are percentages of each class in the node considering there are n classes and base of logarithm is n</p>
+<p>Higher entropy means less pure nodes and less information gain</p>
+<p>Only works with categorical variables.</p>
+<p>Calculating entropy for a split:</p>
+<p>Step 1: Calculate entropy of parent nodes</p>
+<p>Step 2: Calculate entropy of each child node</p>
+<p>Calculate the weighted average entropy of split</p>
+<p>If the weighted entropy of the child node is greater than the parent node than ignore the split</p>
+<h2>DECISION TREE REGRESSOR: REDUCTION OF VARIENCE METHOD</h2>
+<p>The information gain and gini impurity cannot be applied on continuous variables as every value will be new and we cannot calculate homogeneity for such dataset.</p>
+<p>To deal with continuous variables we can split data in such a way that variation between values of nodes are minimal.</p>
+<p>This can be done is by finding the spread if data in a node. The best metric will be variance.</p>
+<p>Our objective is to reduce the variance.</p>
+<p>X is the data point, µ is the mean and n is the number of samples</p>
+<p>Calculating variance of split:</p>
+<p>Step 1: Calculate variance of each child node using standard formula</p>
+<p>Step 2: Calculate the variance of split as the weighted average variance of each child split.</p>
+<p>Applicable only on continuous variable.</p>
+<p>To summarize:</p>
+<h2>IMPLEMENTATION OF DECISION TREES</h2>
+<p>The data we are using is the same as used in the logistic regression modelling. Target variable is still the ‘churn’ variable. We used the Decision Tree Classifier class of tree module of Sklearn library.</p>
+<p>It is clearly visible from the classification reports that when used on training data the model shows a perfect score of 1 but when the same model is used on test data the metrics drops significantly. This is due to Overfitting of model.</p>
+<p>The classifier model tries to learn each and every data from the training set but suffers radically when it comes to applying it on the test set.</p>
+<p>Due to the memorizing nature of the classifier instance the model shows perfect score in training classification reports but a significantly low score in testing classification report.</p>
+<p>If the model is performing too well on the training data but the performance drops significantly over the test it is called the overfitting model or Memorizing model.</p>
+<p>If the model is not learning and consistently performing poorly over the test and the train set then it is called the underfitting model.</p>
+<p>When a model shows almost equal results over both train and test set it is called best fit model.</p>
+<p>Why did the decision tree overfitted whereas the linear model didn’t?</p>
+<p>The main reasons behind this is:</p>
+<p>Linear models are parametric that has a finite and fixed set of parameter to learn from whereas,</p>
+<p>Decision tree is a non-parametric model that keeps on learning from the data unless there is nothing left to learn.</p>
+<p>To view this, we use the Graph viz module of python to visualize the tree we just created.</p>
+<h2>VISUALIZING DECISION TREES</h2>
+<p>First, we need to generate the tree structure using the classifier instance. For this we used the export_graphviz function.</p>
+<p>This function creates an intermediary file which contains information about the nodes and edges of any tree/graph.</p>
+<p>In the next step we created a png file using the graphiz module. It helps to create a tree that can be visualized as an image.</p>
+<p>The output is shown below.</p>
+<p>The final output image is a massive tree and is almost impossible for human eyes to process without zooming in.</p>
+<p>The other image (left) shows a zoomed in view of the tree’s upper right corner.</p>
+<p>Clearly, by seeing the leaf nodes we can conclude that tree learns from each and every point in dataset resulting in overfitted model.</p>
+<h2>IMPROVING MODEL PERFORMANCE: PRUNING/HYPERPARAMETERS TUNING</h2>
+<p>These methods are used to prevent overfitting in decision trees.</p>
+<p>Pruning is the technique of preventing a decision tree from overfitting by tuning its characteristics</p>
+<p>To analyse the effect of different hyperparameter of decision tree on the train-test score we created two function as shown in figure. The effect function plots the curve between train and test score.</p>
+<p>On applying the score-effect function we created on the max-depth parameter of decision tree we can see that:</p>
+<p>As max depth increases the train score increases significantly but the test score on other hand decreases with it.</p>
+<p>Note that the train and test score both increased together till a point. After that point, we can say the tree started overfitting which led to the drastic decrease of train score and increase of train score.</p>
+<p>Min-sample-split tell the decision tree what is the minimum number of required observation in any given node in order to split it. (default = 2)</p>
+<p>For small parameters train and test score have large variation. For large values train and test score match accordingly.</p>
+<p>For very large values there is a dip for both train and test score which led to underfitting of data.</p>
+<p>Optimal range: 950-1000</p>
+<p>Max leaf nodes specifies maximum terminal nodes allowed</p>
+<p>For very low values tree is underfitting</p>
+<p>For very high values tree is overfitting</p>
+<p>According to this plot overfitting starts after 25</p>
+<p>Min-sample-leaf denotes the minimum number of sample points to be present for splitting.</p>
+<p>Clearly as values keep on increasing the model escapes overfitting for a small range of values after which it starts to underfit.</p>
+<p>Macro parameters like max-depth prevents tree from growing on a macro level and other three parameters fine tune the decision tree on micro level.</p>
+<p>So, a good practice is to first find the best range for the tree on a macro level so that tree do not overfit and after that fine tune the other three parameters.</p>
+<h2>FEATURE IMPORTANCE</h2>
+<p>Since there are no feature coefficients in decision tree like there was in linear model, we cannot conventionally decide which feature has more importance.</p>
+<p>Still, we can decide feature importance based on which feature was more useful during splitting.</p>
+<p>Using this method, we can see which features proved more important in splitting the tree nodes.</p>
+<h2>ENSEMBLE MODELS</h2>
+<p>Idea behind Ensemble modelling is that it is better to use different models and make the final prediction based on the combined predictions of individual models.</p>
+<p>One very commonly used method is of mode/vote.</p>
+<p>In this method we create n models predicting different values belonging to the set of values allowed for the target variable.  Next, we take the mode of set of data predicted as the final prediction.</p>
+<p>This method of maximum mode/vote is suitable for classification problem only.</p>
+<p>For continuous variables we use averaging ensemble modelling</p>
+<p>Pros</p>
+<p>Capture most of the diverse signals or patterns</p>
+<p>Less incorrect predictions</p>
+<p>Reduce overfitting</p>
+<p>Better performance</p>
+<p>Cons</p>
+<p>Increase complexity</p>
+<p>Not interpretable as a whole which is often not encouraged in domains like business</p>
+<p>Increased time complexity and computational requirement</p>
+<p>Bootstrap Aggregation or Bagging Technique</p>
+<p>Bootstrap sampling is a method of dividing the data for different models in such a way that each model is given a random sample from the original data with replacement.</p>
+<p>Suppose there are 26 data points in a training dataset: a, b, c, d, ……., z.</p>
+<p>Using bootstrap sampling we will pick up any random data point and place it in bootstrap dataset 1’s first data point. Similarly, after selecting total of 26 random points(repetition allowed) our first bootstrap sample will be completed.</p>
+<p>Using this method, we can create as many bootstrap samples as needed.</p>
+<p>Mathematically for n data points n! bootstrap samples can be made.</p>
+<h2>RANDOM FOREST</h2>
+<p>A special case of bagging technique is random forest.</p>
+<p>In random forest, decision tree is the base model.</p>
+<p>Every Tree will give a prediction</p>
+<p>Final result will be a combination of all predictions</p>
+<p>Random forest also performs a random sampling of features</p>
+<p>Row sampling/Data sampling is done at tree level that means every tree will get a random data</p>
+<p>Feature sampling is done at split level.</p>
+<p>In random forest at every split a random subset of features is selected for the split.</p>
+<p>This gives a two-fold effect of bootstrap randomness at two different levels.</p>
+<h2>IMPLEMENTATION OF BAGGING ALGORITHM</h2>
+<p>Firstly, an instance of the bagging-classifier is created under alias BC.</p>
+<p>Next, we fit the training data in the classifier instance.</p>
+<p>base estimator is a logistic regression model.</p>
+<p>n-estimators specify number of logistic regression models used to predict final results</p>
+<p>n-jobs = -1 means all cores of CPU will be used.</p>
+<p>Classification report over test and train data shows a very poor result which is unexpected as bagging algorithm was supposed to be good.</p>
+<p>This is because we used a linear model as base. And there is no feature transformation over the dataset and hence every logistic regression model is underfit.</p>
+<h2>IMPLEMENTATION OF RANDOM FOREST</h2>
+<p>First, an instance of random forest is created using the Random-Forest-Classifier class of Sklearn- ensemble.</p>
+<p>next we have generated two classification reports . one for train set and other for test set.</p>
+<p>Clearly the train set predictions are overfitted</p>
+<p>Test set prediction are giving a descent score.</p>
+<p>Now these scores show that random forest is far better than using one single decision tree as the f1 scores are highly improved in case of random forest.</p>
+<h2>HYPERPARAMETER TUNING OF RANDOM FOREST</h2>
+<p>The adjacent graph shows the variation of train score(Red) and test score(blue) with n-estimators over a range of 1 to 600 on steps of 10.</p>
+<p>It is clear that after some value the score difference almost becomes constant.</p>
+<p>It is not advisable to use large number of estimators because it will not affect the model performance but increase computational complexity.</p>
+<p>Performance of the model rises sharply and then saturates quickly.</p>
+<p>From this graph we can conclude that:</p>
+<p>(Amount of bootstrapped data = amount of original data) this condition is not necessary.</p>
+<p>Clearly model performance reaches to the max when data provided is less than 0.2 fraction of the original dataset.</p>
+<p>Giving lesser data will significantly reduce the training time,</p>
+<p>performance of model initially increases.</p>
+<p>After a point train score increases whereas test score starts to saturate or decrease, which clearly means model is overfitting after some point</p>
+<p>Default value of this parameter is set to square root of number of features present in the dataset.</p>
+<p>Ideal number of max features is close to the default value.</p>
+<h2>UNSUPERVISED LEARNING</h2>
+<p>In unsupervised learning we group an interpret data based only on input data.</p>
+<p>In this type of learning problems there is no fixed target/independent variables.</p>
+<p>Here the most famous and most used algorithm is Clustering.</p>
+<p>In clustering we try to find out the underlying patterns in data and based on the patterns create groups out of the dataset.</p>
+<p>Properties of clusters:</p>
+<p>All the data points in a cluster should be similar to each other so that same strategies can be applied to them.</p>
+<p>The data points from different clusters should be as different as possible to have more meaningful clustering.</p>
+<p>Some applications of clustering are customer segmentation, document segmentation, recommendation engines and image clustering</p>
+<p>Evaluation of cluster models:</p>
+<h2>INERTIA</h2>
+<p>Inertia evaluates whether the points within the same cluster are similar or not</p>
+<p>It tells us how far the points within a cluster are.</p>
+<p>It calculates the sum of distances of all points of the cluster from the centroid of the cluster.</p>
+<p>Intra Cluster Distance(ICD) is the distance of a point from the centroid within the cluster.</p>
+<p>Inertia is the sum of all ICDs of a cluster.</p>
+<p>Less inertia means a better model.</p>
+<p>The drawback of inertia metric is that t overlooks the distance between different clusters.</p>
+<h2>DUNN INDEX</h2>
+<p>Inter Cluster Distance is the distance between centroids of two clusters.</p>
+<p>Dunn Index takes into account both Intra Cluster Distance as well as Inter Cluster Distance.</p>
+<p>Here we are considering worst case scenario of both ICDs. We want minimum of inter cluster distance to be as high as possible and the maximum of intra cluster distance to be as low as possible.</p>
+<p>The higher the value of Dunn index the better the clusters are.</p>
+<h2>K-MEANS CLUSTERING ALGORITHM</h2>
+<p>K-means is a centroid based or distance-based algorithm.</p>
+<p>In k-means each cluster is defined by its centroid.</p>
+<p>The objective of the algorithm is to minimize the sum of distances between the points and their respective cluster centroids.</p>
+<p>K-means try to minimize the intra-cluster distance.</p>
+<p>To check if the clusters are formed and we have to stop the algorithm there are stopping criteria :</p>
+<p>If the centroids of newly formed clusters are not changing stop the algorithm</p>
+<p>If the points belong to the same clusters even after training the algorithm for multiple iterations stop the algorithm.</p>
+<p>Stop the training if the maximum number of iterations are reached.</p>
+<p>Euclidean distance is used to measure the distance between the points and the clusters.</p>
+<p>Two points will only be similar to each other if their features are similar. The more is the similarity between them the lesser is the Euclidian distance.</p>
+<p>P and q are the data points.</p>
+<p>Pi’s are the features of P and   qi’s  are the features of q</p>
+<p>Scaling of the points can affect the algorithm, so the data must  be scaled carefully.</p>
+<p>Scaling of the data is usually preferred via Normalization (subtract each data point by mean and divide by standard deviation)</p>
+<p>Challenges in applying K-Means algorithm</p>
+<p>Variation in size of clusters:</p>
+<p>Sometimes when the sizes of expected clustering results are different, the algorithm gives a completely unexpected result while trying to find a balance between sizes of clusters.</p>
+<p>Variation in densities of original data points</p>
+<p>When the clusters have different densities(compact and loose) the algorithm usually assign compact clusters into one cluster if they are close enough and also create several clusters out of a single loosely packed cluster.</p>
+<p>One solution of these problems is to use more cluster specially when clusters are varying in sizes. Then the clusters close enough will be merged.</p>
+<p>Theoretically maximum number of clusters = number of observation in data set</p>
+<p>What if we deal with more than 2 features (order of 100s or 1000s)? How will we find the optimum number of clusters then?</p>
+<p>One method of analysing is that we will have to visualize the change in inertia for different number of clusters. (plot of clusters v/s Inertia for example)</p>
+<p>For example, in case of Inertia v/s cluster-count plot it usually decreases and then becomes constant. The range in which the plot moves from decrement to stagnant is the optimum range to choose number of clusters.</p>
+<p>Also, the computation costs should be kept in mind. More cluster means more computation power needed.</p>
+<p>One method used to find optimal number of clusters is the Elbow method. In this method we plot the percentage of variance explained as a function of number of clusters.</p>
+<p>The elbow method is a graphical representation of finding the optimal 'K' in a K-means clustering. It works by finding WCSS (Within-Cluster Sum of Square) i.e., the sum of the square distance between points in a cluster and the cluster centroid.</p>
+<h2>MANHATTAN DISTANCE</h2>
+<p>Euclidean distance fails in some problems as it calculates the shortest path and many-a-times shortest path is not the solution.</p>
+<p>Manhattan distance is the sum of absolute differences between two points, across all dimensions.</p>
+<p>Suppose in an n-dimension system for two points P and Q we have n coordinates, then the Manhattan distance, d, between them will be :</p>
+<p>or</p>
+<p>Euclidean distance is sensitive to distance values that are large in magnitude as compared to Manhattan distance.</p>
+<p>As dimension (number of features) increases distance between the particles increases.</p>
+<h2>IMPLEMENTATION OF K-MEANS CLUSTERING ALGORITHM</h2>
+<p>Problem statement:</p>
+<p>A marketing firm wants to launch a promotional campaign in different regions of country. In order to do so, the firm needs to understand the diversity in the population demography so that it can plan the campaigns accordingly.</p>
+<h2>DATA PROVIDED:</h2>
+<p>Data contains information about population details according to different regions.</p>
+<p>Clearly data provided is of numerical type but python will recognise it as object type because the values are comma separated.(In python numeric are separated by underscore rather than commas).</p>
+<p>Since Sklearn only deals with numeric data type we converted all the falsely-object types into numeric types.</p>
+<p>Next, an integrity check is done that whether total population is equal to sum of foreigners and Indians which turned out to be true.</p>
+<p>But population > males + females which means some people did not identify themselves as male or female for which we created a new feature called “others”.</p>
+<p>Upon checking further, it turned out that the features ‘Region’ and ‘Office Location Id’ cannot help us in grouping the data so we dropped the. Also, total population feature is removed as it is already  explained by sum of Indians and foreigners.</p>
+<p>The new data looks something like this:</p>
+<p>Now we will normalize the variables.</p>
+<p>Now since all the basic feature pre-processing is done, we can move to clustering algorithm.</p>
+<p>Here we have created an instance of Kmeans class with parameter n-clusters= 2. Next, we made some predictions using the class instance.</p>
+<p>The predictions are nothing but clusters, 0 and 1 as cluster count was set to 2.</p>
+<p>Next, we have calculated the inertia value for our model. Still, we cannot say if the number of cluster selected is right or wrong. For that we will plot an inertia vs number of clusters plot.</p>
+<p>From here decrease in the values become stagnant after 5 but is also not so effective in 3 to 5 range. So, number of clusters can be 3, 4 or 5. We will take 3 clusters.</p>
+<p>We have defined two function. First is a segregator which takes in features as input and returns list of all cluster values corresponding to the feature. Second function is a simple plotter function.</p>
+<p>There is some overlapping in clustering. It is because we are plotting the clustering plots between two data features only. But other features also affect it.</p>
+<img src="image1.png" alt="Image 1">
+<img src="image2.png" alt="Image 2">
+<img src="image3.png" alt="Image 3">
+<img src="image4.png" alt="Image 4">
+<img src="image5.png" alt="Image 5">
+<img src="image6.png" alt="Image 6">
+<img src="image7.png" alt="Image 7">
+<img src="image8.png" alt="Image 8">
+<img src="image9.png" alt="Image 9">
+<img src="image10.png" alt="Image 10">
+<img src="image11.png" alt="Image 11">
+<img src="image12.png" alt="Image 12">
+<img src="image13.png" alt="Image 13">
+<img src="image14.png" alt="Image 14">
+<img src="image15.png" alt="Image 15">
+<img src="image16.png" alt="Image 16">
+<img src="image17.png" alt="Image 17">
+<img src="image18.png" alt="Image 18">
+<img src="image19.png" alt="Image 19">
+<img src="image20.png" alt="Image 20">
+<img src="image21.png" alt="Image 21">
+<img src="image22.png" alt="Image 22">
+<img src="image23.png" alt="Image 23">
+<img src="image24.png" alt="Image 24">
+<img src="image25.png" alt="Image 25">
+<img src="image26.png" alt="Image 26">
+<img src="image27.png" alt="Image 27">
+<img src="image28.png" alt="Image 28">
+<img src="image29.png" alt="Image 29">
+<img src="image30.png" alt="Image 30">
+<img src="image31.png" alt="Image 31">
+<img src="image32.png" alt="Image 32">
+<img src="image33.png" alt="Image 33">
+<img src="image34.png" alt="Image 34">
+<img src="image35.png" alt="Image 35">
+<img src="image36.png" alt="Image 36">
+<img src="image37.png" alt="Image 37">
+<img src="image38.png" alt="Image 38">
+<img src="image39.png" alt="Image 39">
+<img src="image40.png" alt="Image 40">
+<img src="image41.png" alt="Image 41">
+<img src="image42.png" alt="Image 42">
+<img src="image43.png" alt="Image 43">
+<img src="image44.png" alt="Image 44">
+<img src="image45.png" alt="Image 45">
+<img src="image46.png" alt="Image 46">
+<img src="image47.png" alt="Image 47">
+<img src="image48.png" alt="Image 48">
+<img src="image49.png" alt="Image 49">
+<img src="image50.png" alt="Image 50">
+<img src="image51.png" alt="Image 51">
+<img src="image52.png" alt="Image 52">
+<img src="image53.png" alt="Image 53">
+<img src="image54.png" alt="Image 54">
+<img src="image55.png" alt="Image 55">
+<img src="image56.png" alt="Image 56">
+<img src="image57.png" alt="Image 57">
+<img src="image58.png" alt="Image 58">
+<img src="image59.png" alt="Image 59">
+<img src="image60.png" alt="Image 60">
+<img src="image61.png" alt="Image 61">
+<img src="image62.png" alt="Image 62">
+<img src="image63.png" alt="Image 63">
+<img src="image64.png" alt="Image 64">
+<img src="image65.png" alt="Image 65">
+<img src="image66.png" alt="Image 66">
+<img src="image67.png" alt="Image 67">
+<img src="image68.png" alt="Image 68">
+<img src="image69.png" alt="Image 69">
+<img src="image70.png" alt="Image 70">
+<img src="image71.png" alt="Image 71">
+<img src="image72.png" alt="Image 72">
+<img src="image73.png" alt="Image 73">
+<img src="image74.png" alt="Image 74">
+<img src="image75.png" alt="Image 75">
+<img src="image76.png" alt="Image 76">
+<img src="image77.png" alt="Image 77">
+<img src="image78.png" alt="Image 78">
+<img src="image79.png" alt="Image 79">
+<img src="image80.png" alt="Image 80">
+<img src="image81.png" alt="Image 81">
+<img src="image82.png" alt="Image 82">
+<img src="image83.png" alt="Image 83">
+
+</div>
+</body>
+</html>
