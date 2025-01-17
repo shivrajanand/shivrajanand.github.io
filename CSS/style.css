@@ -175,6 +175,27 @@ body.dark-mode .block-section::before {
   background: linear-gradient(90deg, #333, #666);
 }
 
+.toggle-button {
+  background-color: #004aad; /* Button background color */
+  color: white; /* Button text color */
+  border: none; /* Remove border */
+  padding: 10px 20px; /* Add padding for size */
+  border-radius: 5px; /* Rounded corners */
+  cursor: pointer; /* Pointer cursor on hover */
+  font-size: 16px; /* Font size */
+  font-weight: bold; /* Bold text */
+  transition: background-color 0.3s ease; /* Smooth color transition */
+}
+
+.toggle-button:hover {
+  background-color: #007bff; /* Lighter blue on hover */
+}
+
+.toggle-button:active {
+  background-color: #003d99; /* Darker blue on click */
+  transform: scale(0.95); /* Slightly shrink on click */
+}
+
 .toggle-dark-mode {
   position: fixed;
   top: 10px;
