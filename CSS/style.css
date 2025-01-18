@@ -281,7 +281,7 @@ body.dark-mode .toggle-dark-mode:hover {
   display: inline-block;
   width: 40px; /* Standard size for icons */
   height: 40px;
-  border-radius: 50%; /* Circular shape */
+   border-radius: 10%; /*Circular shape */
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -290,6 +290,7 @@ body.dark-mode .toggle-dark-mode:hover {
   width: 100%;
   height: 100%;
   object-fit: cover; /* Maintain aspect ratio */
+  border: #003d99;
 }
 
 .social-links a:hover {
