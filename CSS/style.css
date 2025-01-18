@@ -132,6 +132,7 @@ body.dark-mode section {
 #about {
   background: linear-gradient(135deg, #82c1e8, #fff);
   color: #2d2d2d;
+  text-align: justify;
 }
 
 body.dark-mode #about {
@@ -178,6 +179,22 @@ body.dark-mode #about {
 
 #skills li strong {
   color: #004aad; /* Highlights category names */
+}
+
+#skills li.dark-mode {
+  color: #333
+}
+
+body.dark-mode #skills h2{
+  color: #529cff;
+}
+
+body.dark-mode #skills li strong{
+  color: #529cff;
+}
+
+body.dark-mode #skills li {
+  color: #9ddffe;
 }
 
 /* contact section  */
