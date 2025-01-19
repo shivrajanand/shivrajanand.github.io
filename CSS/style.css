@@ -135,6 +135,10 @@ body.dark-mode section {
   text-align: justify;
 }
 
+#about p {
+  margin-bottom: 1em;
+}
+
 body.dark-mode #about {
   background: linear-gradient(135deg, #333, #1a1a1a);
   color: #f0f4f8;
