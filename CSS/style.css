@@ -1,3 +1,44 @@
+/* The typing and deleting effect */
+@keyframes typewriter {
+  0%, 100% {
+    width: 0; /* Start with no width, so no text is visible */
+    transform: translateX(0);
+  }
+  50% {
+    width: 20%; /* Fully reveal the text */
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 768px) {
+  @keyframes typewriter {
+    0%, 100% {
+      width: 0; /* Start with no width, so no text is visible */
+      transform: translateX(0);
+    }
+    50% {
+      width: 90%; /* Fully reveal the text */
+      transform: translateX(0);
+    }
+  }
+}
+
+/* Typewriter text styling */
+.typewriter-text {
+  display: inline-block;
+  overflow: hidden; /* Prevent the text from overflowing */
+  white-space: nowrap;
+  animation: typewriter 4s steps(30) infinite; /* Adjust steps based on your text length */
+  font-size: 40px;
+  text-align: center;
+  position: relative;
+  width: 0; /* Initially no width, starts off hidden */
+  margin: 0 auto; /* Center the text horizontally */
+  display: block; /* Ensures the element behaves like a block for centering */
+  border-right: 2px solid black; /* Cursor */
+}
+
+
 /* Default reset and global styles (no change) */
 * {
   margin: 0;
