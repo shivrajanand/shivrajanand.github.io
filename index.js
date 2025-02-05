@@ -1,3 +1,21 @@
+// Get all collapsible buttons
+var collapsibles = document.getElementsByClassName("collapsible");
+
+// Loop through all collapsible buttons
+for (var i = 0; i < collapsibles.length; i++) {
+  collapsibles[i].addEventListener("click", function () {
+    // Toggle between hiding and showing the content
+    var content = this.nextElementSibling;
+    if (content.style.display === "block") {
+      content.style.display = "none";
+      this.textContent = "Show More";
+    } else {
+      content.style.display = "block";
+      this.textContent = "Show Less";
+    }
+  });
+}
+
 function toggleDarkMode() {
   document.body.classList.toggle("dark-mode");
 }

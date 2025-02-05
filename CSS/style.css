@@ -1,6 +1,7 @@
 /* The typing and deleting effect */
 @keyframes typewriter {
-  0%, 100% {
+  0%,
+  100% {
     width: 0; /* Start with no width, so no text is visible */
     transform: translateX(0);
   }
@@ -12,7 +13,8 @@
 
 @media (max-width: 768px) {
   @keyframes typewriter {
-    0%, 100% {
+    0%,
+    100% {
       width: 0; /* Start with no width, so no text is visible */
       transform: translateX(0);
     }
@@ -21,6 +23,46 @@
       transform: translateX(0);
     }
   }
+}
+
+.collapsible {
+  background-color: #28527a;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-bottom: 1rem;
+  width: 100%;
+  text-align: left;
+  transition: all 0.3s ease;
+}
+
+.collapsible:hover {
+  background-color: #183e58;
+}
+
+.content {
+  display: none;
+  overflow: hidden;
+  padding: 10px 20px;
+  border-left: 3px solid #28527a;
+  background-color: #f4f4f9;
+  border-radius: 5px;
+  margin-bottom: 1rem;
+}
+
+body.dark-mode .content {
+  background-color: #333;
+}
+
+body.dark-mode .collapsible {
+  background-color: #666;
+}
+
+body.dark-mode .collapsible:hover {
+  background-color: #444;
 }
 
 /* Typewriter text styling */
@@ -37,7 +79,6 @@
   display: block; /* Ensures the element behaves like a block for centering */
   border-right: 2px solid black; /* Cursor */
 }
-
 
 /* Default reset and global styles (no change) */
 * {
@@ -164,7 +205,6 @@ section {
   color: white;
 }
 
-
 body.dark-mode section {
   background: #333;
   box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
@@ -227,14 +267,14 @@ body.dark-mode #about {
 }
 
 #skills li.dark-mode {
-  color: #333
+  color: #333;
 }
 
-body.dark-mode #skills h2{
+body.dark-mode #skills h2 {
   color: #529cff;
 }
 
-body.dark-mode #skills li strong{
+body.dark-mode #skills li strong {
   color: #529cff;
 }
 
@@ -266,7 +306,12 @@ body.dark-mode footer {
 }
 
 .block-section {
-  position: relative;
+  margin-bottom: 2rem;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 2rem;
+  transition: all 0.3s ease;
 }
 
 .block-section::before {
@@ -281,8 +326,9 @@ body.dark-mode footer {
   border-radius: 10px;
 }
 
-body.dark-mode .block-section::before {
-  background: linear-gradient(90deg, #333, #666);
+body.dark-mode .block-section {
+  background: #333;
+  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
 }
 
 .toggle-button {
@@ -343,7 +389,7 @@ body.dark-mode .toggle-dark-mode:hover {
   display: inline-block;
   width: 40px; /* Standard size for icons */
   height: 40px;
-   border-radius: 10%; /*Circular shape */
+  border-radius: 10%; /*Circular shape */
   overflow: hidden;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
@@ -442,7 +488,14 @@ body.dark-mode .social-links a:hover {
     margin-bottom: 1rem;
     border-radius: 10px;
   }
+  .collapsible {
+    font-size: 14px;
+    padding: 8px 16px;
+  }
 
+  .content {
+    padding: 8px 16px;
+  }
   #skills {
     padding: 15px;
     max-width: 100%;
