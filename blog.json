@@ -1,9 +1,17 @@
 [
     {
         "title": "Analysis of AVATAR: Java-Python Program Translation",
-        "date": "February 12, 2025",
+        "date": "February 11, 2025",
         "category": "Machine Learning",
         "description": "Exploring AVATAR, a dataset for program translation using AI models like PLBART and TransCoder.",
         "link": "BLOG PAGES/avatar.html"
+    },
+
+    {
+        "title": "Machine Learning Training from InterShala: Notes and Review",
+        "date": "February 12, 2025",
+        "category": "Machine Learning",
+        "description": "A comprehensive summary of key machine learning concepts and techniques covered in the Intern Shala course.",
+        "link": "BLOG Pages/MlNotes.html"
     }
 ]

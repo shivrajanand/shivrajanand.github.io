@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVATAR Presentation – Java-Python Translation</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 90%;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1,
+        h3 {
+            color: #222;
+        }
+
+        .pdf-container {
+            margin: 20px 0;
+            position: relative;
+            padding-top: 56.25%;
+            /* 16:9 Aspect Ratio */
+            overflow: hidden;
+        }
+
+        .pdf-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #0056b3, #004494);
+        }
+
+        ul {
+            text-align: left;
+            padding: 0 20px;
+            list-style: none;
+        }
+
+        ul li::before {
+            content: "\2714";
+            color: #007bff;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .btn {
+                width: 50%;
+                padding: 14px 20px;
+                font-size: 18px;
+            }
+        }
+
+        .notes {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .notes h2 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #007BFF;
+        }
+
+        .notes ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .notes li {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-left: 4px solid #007BFF;
+            background: #ffffff;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .notes li:hover {
+            background: #f0f8ff;
+        }
+
+        .notes li strong {
+            color: #007BFF;
+            font-size: 18px;
+        }
+
+        .notes ul ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .notes ul ul li {
+            background: none;
+            border-left: none;
+            font-size: 16px;
+            color: #444;
+            padding: 5px 10px;
+            line-height: 1.6;
+        }
+
+        .notes code {
+            background: #e8e8e8;
+            padding: 3px 6px;
+            font-family: 'Courier New', monospace;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .notes {
+                padding: 15px;
+            }
+
+            .notes h2 {
+                font-size: 20px;
+            }
+
+            .notes li strong {
+                font-size: 16px;
+            }
+
+            .notes ul ul li {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-3MEXW2XNBM');
+</script>
+
+<body>
+    <div class="container">
+        <h1>Machine Learning Training by InterShala: Notes and Review</h1>
+        <h3>Author: Shivraj Anand</h3>
+        <p>A comprehensive summary of key machine learning concepts and techniques covered in the Intern Shala course.</p>
+
+        <div class="pdf-container">
+            <iframe
+                src="https://docs.google.com/document/d/e/2PACX-1vTTeaigaiSkh0L6q7dQ8ZN7ks6Q_uCTE9ngy30YeOQoL_8iIPEbpUKMJPGOioxvJQ/pub?embedded=true"></iframe>
+        </div>
+
+        <p><a href="https://docs.google.com/document/d/1Mf_Mj-DwwvaFaNr0bZMXsRXz6XXtgq8F/export?format=pdf
+            "
+                class="btn" target="_blank">Download PDF</a></p>
+
+        <div class="notes">
+
+            <h2>NOTES & REFERENCES</h2>
+            <ul>
+                <li>Acess the <a href="https://github.com/shivrajanand/InternshalaTraining3rdSemester">github respository</a> for all my jupyter notebooks</li>
+                <li><a href="https://www.kaggle.com/code/shivrajanandai/housing-data-set-regression-modelling">Kaggle Notebook</a> Link for <strong>Project 1: Housing Data Set Regression Modelling</strong></li>
+                <li><a href="https://www.kaggle.com/code/shivrajanandai/training-project-2-population-demography">Kaggle Notebook</a> Link for <strong>Project 2: Population demography</strong></li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>For feedback or collaboration, connect with me on <a
+                    href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=shivrajanand"
+                    target="_blank">LinkedIn</a>.</p>
+            <p><a href="https://shivrajanand.github.io">Visit my Portfolio</a></p>
+            <p>&copy; 2025 Shivraj Anand</p>
+        </div>
+    </div>
+</body>
+
+</html>
