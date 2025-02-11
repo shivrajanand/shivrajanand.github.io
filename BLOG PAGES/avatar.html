@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AVATAR Presentation – Java-Python Translation</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f9f9f9;
+            color: #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            width: 90%;
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1,
+        h3 {
+            color: #222;
+        }
+
+        .pdf-container {
+            margin: 20px 0;
+            position: relative;
+            padding-top: 56.25%;
+            /* 16:9 Aspect Ratio */
+            overflow: hidden;
+        }
+
+        .pdf-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+
+        .btn {
+            background: linear-gradient(135deg, #007bff, #0056b3);
+            color: white;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            font-size: 16px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        .btn:hover {
+            background: linear-gradient(135deg, #0056b3, #004494);
+        }
+
+        ul {
+            text-align: left;
+            padding: 0 20px;
+            list-style: none;
+        }
+
+        ul li::before {
+            content: "\2714";
+            color: #007bff;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+
+        .footer {
+            margin-top: 30px;
+            font-size: 14px;
+            color: #666;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        .notes {
+            max-width: 900px;
+            margin: 30px auto;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
+            font-family: 'Arial', sans-serif;
+        }
+
+        .notes h2 {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            text-transform: uppercase;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #007BFF;
+        }
+
+        .notes ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .notes li {
+            margin-bottom: 15px;
+            padding: 15px;
+            border-left: 4px solid #007BFF;
+            background: #ffffff;
+            border-radius: 8px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .notes li:hover {
+            background: #f0f8ff;
+        }
+
+        .notes li strong {
+            color: #007BFF;
+            font-size: 18px;
+        }
+
+        .notes ul ul {
+            margin-top: 10px;
+            padding-left: 20px;
+        }
+
+        .notes ul ul li {
+            background: none;
+            border-left: none;
+            font-size: 16px;
+            color: #444;
+            padding: 5px 10px;
+            line-height: 1.6;
+        }
+
+        .notes code {
+            background: #e8e8e8;
+            padding: 3px 6px;
+            font-family: 'Courier New', monospace;
+            border-radius: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .notes {
+                padding: 15px;
+            }
+
+            .notes h2 {
+                font-size: 20px;
+            }
+
+            .notes li strong {
+                font-size: 16px;
+            }
+
+            .notes ul ul li {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-3MEXW2XNBM');
+</script>
+<body>
+    <div class="container">
+        <h1>AVATAR: Java-Python Program Translation</h1>
+        <h3>Presentation by Shivraj Anand</h3>
+        <p>Exploring <strong>AVATAR</strong>, a parallel corpus for <strong>Java-Python program translation</strong>,
+            leveraging <strong>machine learning</strong> models.</p>
+
+        <div class="pdf-container">
+            <iframe
+                src="https://docs.google.com/presentation/d/e/2PACX-1vTLARlIjLCX4o3q0_8v8Q0wO6B9os6Rn7_H5EJG-f0foQnRUovR7uBLluPkp8zjNk4h_kNwgDaSpqIl/embed?start=true&loop=true&delayms=60000"
+                allowfullscreen></iframe>
+        </div>
+
+        <p><a href="https://docs.google.com/presentation/d/1cLDZxXedovHTgeKL8ZANOlWr3eYO1IiT4ohXMPcxbF8/export/pdf"
+                class="btn" target="_blank">Download Presentation</a></p>
+        <p><a href="https://www.google.com/url?q=https://aclanthology.org/2023.findings-acl.143.pdf&sa=D&source=editors&ust=1739309483378976&usg=AOvVaw3xtPdRmSrjfQZfBdlDRlkN"
+                class="btn" target="_blank">Download Base Research Paper</a></p>
+
+        <div class="notes">
+
+            <h2>NOTES</h2>
+            <ul>
+                <li><strong>Slide 2</strong>
+                    <ul>
+                        <li><strong>Dropbox</strong> optimized speed and concurrency by rewriting performance-critical
+                            components in <strong>Java and Go</strong> while keeping <strong>Python</strong> for many
+                            services.</li>
+                        <li><strong>Twitter</strong> migrated from <strong>Ruby on Rails and Python</strong> to
+                            <strong>Java</strong> to improve scalability and handle millions of concurrent users
+                            efficiently.
+                        </li>
+                        <li><strong>Apache Beam</strong> supports both <strong>Java and Python</strong> for building
+                            batch
+                            and streaming data pipelines across engines like <strong>Apache Flink</strong> and
+                            <strong>Google Cloud Dataflow</strong>.
+                        </li>
+                        <li><strong>Py4J</strong> enables Python applications to interact dynamically with Java, used by
+                            companies like <strong>Netflix, Uber, and Airbnb</strong>.</li>
+                        <li><strong>Jython</strong> allows Python to run on the <strong>Java Virtual Machine
+                                (JVM)</strong>,
+                            helping enterprises integrate Python into Java-based systems without major rewrites.</li>
+                    </ul>
+                </li>
+                <br>
+                <li><strong>Slide 5</strong>
+                    <ul>
+                        <li><strong>AVATAR</strong> fine-tunes the <strong>Transcoder</strong>, which is trained using
+                            unsupervised algorithms on GitHub monolingual codebases, leveraging parallel codes written
+                            in
+                            <strong>Java and Python</strong>.
+                        </li>
+                        <li><strong>Parallel Code Pairs</strong> refer to programming solutions available in both
+                            <strong>Java & Python</strong>. A single pair is called a <strong>Java-Python Parallel Code
+                                Pair</strong>.
+                        </li>
+                        <li><strong>Unit Test</strong>: A small, automated test that checks whether a specific function,
+                            method, or module in a program works correctly. It tests a single unit of code in isolation
+                            to
+                            ensure expected behavior.</li>
+                    </ul>
+                </li>
+
+                <br>
+                <li><strong>Slide 9</strong>
+                    <ul>
+                        <li>N1: The open source library difflib was used to compare all the solutions and select five
+                            that
+                            differs most from others. <strong>[difflib is a builtin Python module used for comparing
+                                sequences (like strings, lists, or files) and identifying differences between them. It
+                                is
+                                commonly used for text comparison, version control, and code similarity
+                                checks.]</strong>
+                        </li>
+                        <li>N2: Since 15 solution are taken for each problem in both languages we have a total of 125
+                            parallel examples for training.
+                            AVATAR relies on multiple ground truths that means for a particular problem there can be
+                            multiple possible solution with different logic and styles.
+                            Many evaluation metrics were used to evaluate these solutions.
+                        </li>
+                    </ul>
+                </li>
+                <br>
+                <li><strong>Slide 10</strong>
+                    <ul>
+                        <li><strong>Parallel Functions</strong> provide a direct one-to-one mapping between <strong>Java
+                                and Python</strong> implementations.</li>
+                        <li>These function pairs help train <strong>machine learning models</strong> for code
+                            translation.</li>
+                        <li>Used for evaluation to ensure that models generate <strong>functionally correct
+                                translations</strong>.</li>
+                        <li><strong>AVATAR’s parallel functions</strong> are tested against the dataset from
+                            <strong>Lachaux et al. (2020)</strong>, which introduced <strong>TransCoder</strong>, an
+                            unsupervised model for Java-Python-C++ translation.
+                        </li>
+                        <li><strong>AVATAR</strong> compares its translated functions with those generated by
+                            <strong>TransCoder</strong> to measure improvements in translation accuracy.
+                        </li>
+                    </ul>
+                </li>
+                <li><strong>Slide 11</strong>
+                    <ul>
+                        <li><strong>BLEU Score (Bilingual Evaluation Understudy Score)</strong>
+                            <ul>
+                                <li>Measures textual similarity between the translated code and the reference solution.
+                                </li>
+                                <li>Calculates the overlap of tokens (words, symbols, or code elements) between the two
+                                    versions.</li>
+                                <li>Higher BLEU scores indicate a closer match to the reference translation.</li>
+                                <li>Example: <code>int a + b = c</code> and <code>num1 + num2 = total</code> will have a
+                                    high BLEU score because most tokens match.</li>
+                            </ul>
+                        </li>
+                        <li><strong>SM Score (Syntax Matching Score)</strong>
+                            <ul>
+                                <li>Checks how much of the translated code's Abstract Syntax Tree (AST) matches the AST
+                                    of the reference program.</li>
+                                <li>AST represents the structural hierarchy of a program (e.g., loops, conditionals,
+                                    method calls).</li>
+                                <li>A high SM score means the syntactic structure is well preserved.</li>
+                                <li>Example: If the reference code uses a <code>for</code> loop and the translated code
+                                    also uses a <code>for</code> loop instead of a <code>while</code> loop, it will have
+                                    a higher SM score.</li>
+                            </ul>
+                        </li>
+                        <li><strong>DM Score (Dataflow Match Score)</strong>
+                            <ul>
+                                <li>Evaluates whether the dataflow in the translated code is preserved correctly.</li>
+                                <li>Dataflow refers to how variables are assigned, modified, and used throughout the
+                                    program.</li>
+                                <li>The score is calculated as the ratio of matched data flows in the candidate code to
+                                    those in the reference code.</li>
+                                <li>Example: If a function in Java initializes <code>sum = 0</code> and updates it
+                                    inside a loop, but the translated Python function initializes <code>sum = 0</code>
+                                    but updates it incorrectly, the DM score will be lower.</li>
+                            </ul>
+                        </li>
+                        <li><strong>CB Score (CodeBLEU Score)</strong>
+                            <ul>
+                                <li>An advanced evaluation metric for programming languages.</li>
+                                <li>Combines BLEU, Syntax Match (SM), and Dataflow Match (DM) into a weighted score.
+                                </li>
+                                <li>More effective than BLEU alone because it considers both syntax and logical
+                                    correctness.</li>
+                                <li>Example: A translation with a high BLEU score but incorrect data flow will still
+                                    score poorly on CodeBLEU.</li>
+                            </ul>
+                        </li>
+                        <li><strong>EA Score (Execution Accuracy Score)</strong>
+                            <ul>
+                                <li>Measures whether the translated program can execute successfully without errors.
+                                </li>
+                                <li>Checks for syntax errors, missing imports, and runtime crashes.</li>
+                                <li>A high EA score means the translation is syntactically valid and compiles without
+                                    issues.</li>
+                                <li>Example: If Java code using <code>BufferedReader</code> is translated to Python but
+                                    lacks the <code>import sys</code> statement, the EA score drops because it fails to
+                                    execute.</li>
+                            </ul>
+                        </li>
+                        <li><strong>CA Score (Computational Accuracy Score)</strong>
+                            <ul>
+                                <li>Proposed by Lachaux et al. (2020), CA measures whether the translated program
+                                    produces the correct outputs when given the same inputs.</li>
+                                <li>Unlike EA, which just checks execution, CA ensures the functional correctness of the
+                                    translation.</li>
+                                <li>A program may execute successfully but still give incorrect results, leading to a
+                                    low CA score.</li>
+                                <li>Example: If Java code correctly calculates Fibonacci numbers, but the translated
+                                    Python version implements the logic incorrectly, the CA score will be low.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </li>
+            </ul>
+            </li>
+            </ul>
+        </div>
+
+        <div class="footer">
+            <p>For feedback or collaboration, connect with me on <a
+                    href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=shivrajanand"
+                    target="_blank">LinkedIn</a>.</p>
+            <p>&copy; 2025 Shivraj Anand</p>
+        </div>
+    </div>
+</body>
+
+</html>
