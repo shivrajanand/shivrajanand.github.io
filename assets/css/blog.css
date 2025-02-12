@@ -1,12 +1,16 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+
+html, body {
+  overflow-x: hidden;
+}
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", sans-serif;
   margin: 0;
   padding: 0;
-  background: linear-gradient(135deg, #e3ecf3, #b0c4d8);
+  background: linear-gradient(135deg, #e0f2ff, #b3d9f7); /* Abstract blue gradient */
   min-height: 100vh;
-  color: #1e3a8a;
+  color: #0f172a;
   transition: background 0.3s, color 0.3s;
   display: flex;
   flex-direction: column;
@@ -14,210 +18,266 @@ body {
 }
 
 .header {
-    width: 100%;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(10px);
-    color: #1e3a8a;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 15px 20px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    border-radius: 10px;
-  }
-  
-  .header-text {
-    display: flex;
-    flex-direction: column; /* Stacks h1 and h3 vertically */
-    text-align: center;
-    flex-grow: 1;
-  }
-  
-  .header h1, .header h3 {
-    margin: 0;
-  }
-  
+  width: 100%;
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(12px); /* Slight blur for modern aesthetic */
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1.25rem 2rem;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
 
-.header h1,h3 {
+.header-text {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  flex-grow: 1;
+}
+
+.header h1 {
+  font-size: 1.875rem;
+  font-weight: 700;
+  letter-spacing: -0.025em;
   margin: 0;
-  flex-grow: 1; /* Makes it take available space */
-  text-align: center; /* Change to 'left' if you want it left-aligned */
+  color: #1e3a8a; /* Subtle blue for heading */
+}
+
+.header h3 {
+  font-size: 1rem;
+  font-weight: 400;
+  color: #64748b;
+  margin: 0.25rem 0 0;
 }
 
 .blog-content {
-  padding: 40px 20px;
+  padding: 2.5rem 1.25rem;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 2rem;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
 
 .container {
-  max-width: 900px;
   width: 90%;
-  margin: 20px auto;
-  padding: 25px;
-  background: rgba(255, 255, 255, 0.6);
-  backdrop-filter: blur(12px);
-  border-radius: 20px;
-  box-shadow: 0px 8px 20px rgba(30, 58, 138, 0.2);
-  transition: background 0.3s ease-in-out;
+  margin: 0 auto;
+  padding: 2rem;
+  background: #ffffff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  background: linear-gradient(145deg, #cfe4ff, #a7c6f2); /* Subtle blue gradient */
+  transition: transform 0.2s ease-in-out;
 }
 
 .post {
-  background: white;
-  padding: 20px;
-  margin: 10px;
-  border-radius: 15px;
-  box-shadow: 0px 6px 18px rgba(30, 58, 138, 0.1);
-  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  background: #ffffff;
+  padding: 2rem;
+  margin: 1.5rem 0;
+  border-radius: 1rem;
+  border: 1px solid #e2e8f0;
+  transition: all 0.3s ease-in-out;
+  background: linear-gradient(145deg, #e0f2ff, #b3d9f7); /* Abstract light blue gradient */
 }
 
 .post:hover {
-  transform: translateY(-5px);
-  box-shadow: 0px 8px 20px rgba(30, 58, 138, 0.2);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
 }
 
 .post h2 {
-  color: #1e3a8a;
-  font-weight: 600;
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  letter-spacing: -0.025em;
 }
 
 .post p {
-  color: #444;
-  line-height: 1.6;
+  color: #334155;
+  line-height: 1.75;
+  font-size: 1.125rem;
 }
 
-/* ---- Dark Mode ---- */
+/* Dark Mode Styles */
 .dark-mode {
-  background: linear-gradient(135deg, #0f1c2e, #4a697d);
-  color: white;
+  background: #0f172a;
+  color: #f1f5f9;
 }
+
 .dark-mode .header {
-  background: #1e1e1e;
-  color: white;
-  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.1);
+  background: rgba(15, 23, 42, 0.98);
+  border-bottom: 1px solid #1e293b;
 }
 
 .dark-mode .container {
-  background: rgba(30, 30, 30, 0.85);
-  box-shadow: 0px 8px 20px rgba(255, 255, 255, 0.1);
+  background: linear-gradient(145deg, #2c3e50, #34495e); /* Dark blue gradient */
 }
 
 .dark-mode .post {
-  background: rgba(45, 45, 45, 0.85);
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  background: linear-gradient(145deg, #34495e, #2c3e50); /* Dark blue gradient */
+  border-color: #334155;
+}
+
+.dark-mode .post a {
+  color: #60a5fa;
+}
+
+.dark-mode .post a:hover {
+  color: #93c5fd;
+}
+
+.dark-mode .post a:visited {
+  color: rgb(255, 136, 0);
 }
 
 .dark-mode .post h2 {
-  color: #4da3ff;
+  color: #f1f5f9;
 }
 
 .dark-mode .post p {
-  color: #ddd;
+  color: #cbd5e1;
 }
 
-/* ---- Dark Mode Toggle Button ---- */
+.dark-mode .header h3 {
+  color: #94a3b8;
+}
+
+/* Dark Mode Toggle */
 .toggle-btn {
-  position: fixed; /* Always stays in the viewport */
-  top: 15px;
-  right: 20px;
-  padding: 12px 20px;
-  background: #1e3a8a;
+  position: fixed;
+  top: 1.25rem;
+  right: 2.25rem;
+  padding: 0.75rem 1.25rem;
+  background: #0f172a;
   color: white;
   border: none;
-  border-radius: 30px;
+  border-radius: 9999px;
   cursor: pointer;
-  font-weight: bold;
-  transition: background 0.3s ease, transform 0.2s ease;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  z-index: 1000; /* Ensures it stays on top */
+  font-weight: 500;
+  font-size: 0.875rem;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dark-mode .toggle-btn {
+  background: #f1f5f9;
+  color: #0f172a;
 }
 
 .toggle-btn:hover {
-  background: #1a1a2e;
   transform: scale(1.05);
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
 }
 
-/* ---- Footer ---- */
+/* Footer */
 footer {
-  margin-top: auto;
   width: 100%;
-  background: #1e3a8a;
-  color: white;
+  background: #0f172a;
+  color: #f1f5f9;
   text-align: center;
-  padding: 12px 0;
-  font-size: 14px;
-  font-weight: bold;
-  box-shadow: 0px -2px 10px rgba(0, 0, 0, 0.15);
+  padding: 2rem 0;
+  margin-top: auto;
+}
 
-  /* Flexbox for columns */
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 8px; /* Adds spacing between footer elements */
+.dark-mode footer {
+  background: #1e293b;
+  border-top: 1px solid #334155;
 }
 
 footer a {
-  color: white;
+  color: #60a5fa;
   text-decoration: none;
+  transition: color 0.2s ease;
 }
 
-/* Responsive Design for Mobile */
-@media (max-width: 768px) {
+footer a:hover {
+  color: #93c5fd;
+}
 
-    body {
-        overflow-x: hidden; /* Prevents horizontal scroll */
-      }
-  /* Adjust header layout */
+/* Responsive Design */
+@media (max-width: 768px) {
   .header {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    padding: 12px;
+    padding: 1rem;
   }
 
   .header h1 {
-    font-size: 22px;
-    margin-top: 50px; /* Prevents overlap with toggle button */
-    margin-bottom: 8px;
+    font-size: 1.5rem;
+    margin-top: 2.5rem;
   }
 
-  /* Fix Dark Mode Toggle Button */
-  .toggle-btn {
-    top: 10px;
-    right: 10px;
-    padding: 10px 15px;
-    font-size: 14px;
+  .header h3 {
+    font-size: 0.875rem;
   }
 
-  /* Blog Content Adjustments */
   .blog-content {
-    padding: 20px 10px;
-    gap: 15px;
+    padding: 1.5rem 1rem;
   }
 
   .container {
-    width: 85%;
-    padding: 15px;
+    padding: 1.25rem;
   }
 
   .post {
-    padding: 15px;
-    border-radius: 10px;
+    padding: 1.25rem;
+    margin: 1rem 0;
   }
 
   .post h2 {
-    font-size: 18px;
+    font-size: 1.25rem;
   }
 
   .post p {
-    font-size: 14px;
+    font-size: 1rem;
   }
 
-  /* Footer adjustments */
-  footer {
-    font-size: 12px;
-    padding: 10px 0;
+  .toggle-btn {
+    padding: 0.625rem 1rem;
+    font-size: 0.75rem;
   }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.post {
+  animation: fadeIn 0.5s ease-out forwards;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f5f9;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #60a5fa;
+  border-radius: 4px;
+}
+
+.dark-mode ::-webkit-scrollbar-track {
+  background: #1e293b;
+}
+
+.dark-mode ::-webkit-scrollbar-thumb {
+  background: #475569;
 }

@@ -6,39 +6,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AVATAR Presentation – Java-Python Translation</title>
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
+        /* General Reset and Body Styles */
+        *,
+        *::before,
+        *::after {
             margin: 0;
             padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            box-sizing: border-box;
         }
 
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f3f4f6;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            min-height: 100vh;
+            padding: 0;
+            transition: background-color 0.3s ease;
+        }
+
+        /* Container for Main Content */
         .container {
+            width: 100%;
             max-width: 900px;
-            width: 90%;
             background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
+            transition: box-shadow 0.3s ease, transform 0.3s ease;
+            flex-grow: 1;
+            /* Ensures the container grows to take available space */
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.15);
         }
 
         h1,
         h3 {
             color: #222;
+            margin-bottom: 20px;
+            font-weight: 600;
         }
 
+        h1 {
+            font-size: 2.5rem;
+            letter-spacing: -0.5px;
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: #555;
+        }
+
+        /* PDF Viewer Container */
         .pdf-container {
-            margin: 20px 0;
             position: relative;
+            margin-top: 30px;
             padding-top: 56.25%;
             /* 16:9 Aspect Ratio */
             overflow: hidden;
+            border-radius: 12px;
         }
 
         .pdf-container iframe {
@@ -51,71 +84,95 @@
             border-radius: 8px;
         }
 
+        /* Button Styles */
         .btn {
-            background: linear-gradient(135deg, #007bff, #0056b3);
+            background: linear-gradient(135deg, #6a5dff, #4e43f3);
             color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 5px;
-            display: inline-block;
+            padding: 14px 30px;
+            margin: 5px 5px;
             font-size: 16px;
-            font-weight: bold;
-            transition: 0.3s;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 10px;
+            display: inline-block;
+            transition: background 0.3s ease, transform 0.2s ease;
         }
 
         .btn:hover {
-            background: linear-gradient(135deg, #0056b3, #004494);
+            background: linear-gradient(135deg, #4e43f3, #6a5dff);
+            transform: translateY(-3px);
         }
 
+        .btn:focus {
+            outline: none;
+        }
+
+        /* List Styles */
         ul {
-            text-align: left;
-            padding: 0 20px;
             list-style: none;
+            padding: 0;
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        ul li {
+            font-size: 1.1rem;
+            color: #555;
+            padding-left: 25px;
+            position: relative;
+            margin-bottom: 12px;
         }
 
         ul li::before {
-            content: "\2714";
-            color: #007bff;
-            font-weight: bold;
-            margin-right: 10px;
+            content: "\2022";
+            font-size: 18px;
+            position: absolute;
+            left: 0;
+            color: #6a5dff;
         }
 
+        /* Footer Styles */
         .footer {
-            margin-top: 30px;
             font-size: 14px;
-            color: #666;
+            color: #777;
+            margin-top: 30px;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+            background: #fff;
+            box-shadow: 0px -2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-
-            .btn {
-                width: 50%;
-                padding: 14px 20px;
-                font-size: 18px;
-            }
+        .footer a {
+            color: #4e43f3;
+            text-decoration: none;
+            font-weight: bold;
         }
 
+        .footer a:hover {
+            color: #6a5dff;
+        }
+
+        /* Notes Section */
         .notes {
+            width: 100%;
             max-width: 900px;
-            margin: 30px auto;
-            padding: 20px;
-            background: #f9f9f9;
+            background-color: #fff;
+            padding: 30px;
             border-radius: 12px;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-            font-family: 'Arial', sans-serif;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+            margin: 30px 0;
         }
 
         .notes h2 {
             text-align: center;
-            font-size: 24px;
-            font-weight: bold;
+            font-size: 28px;
+            font-weight: 600;
             color: #333;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #6a5dff;
+            padding-bottom: 12px;
             text-transform: uppercase;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #007BFF;
         }
 
         .notes ul {
@@ -124,59 +181,48 @@
         }
 
         .notes li {
-            margin-bottom: 15px;
-            padding: 15px;
-            border-left: 4px solid #007BFF;
-            background: #ffffff;
+            background: #f9f9f9;
+            padding: 18px;
+            margin-bottom: 18px;
+            border-left: 6px solid #6a5dff;
             border-radius: 8px;
             transition: all 0.3s ease-in-out;
         }
 
         .notes li:hover {
-            background: #f0f8ff;
+            background: #e6f0ff;
         }
 
         .notes li strong {
-            color: #007BFF;
-            font-size: 18px;
+            font-size: 1.2rem;
+            color: #6a5dff;
         }
 
-        .notes ul ul {
-            margin-top: 10px;
-            padding-left: 20px;
-        }
-
-        .notes ul ul li {
-            background: none;
-            border-left: none;
-            font-size: 16px;
-            color: #444;
-            padding: 5px 10px;
-            line-height: 1.6;
-        }
-
-        .notes code {
-            background: #e8e8e8;
-            padding: 3px 6px;
-            font-family: 'Courier New', monospace;
-            border-radius: 5px;
-        }
-
+        /* Responsive Styles */
         @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+
+            .btn {
+                padding: 12px 24px;
+                font-size: 18px;
+            }
+
             .notes {
-                padding: 15px;
+                padding: 20px;
             }
 
             .notes h2 {
-                font-size: 20px;
+                font-size: 22px;
+            }
+
+            .notes li {
+                font-size: 1rem;
             }
 
             .notes li strong {
-                font-size: 16px;
-            }
-
-            .notes ul ul li {
-                font-size: 14px;
+                font-size: 1.1rem;
             }
         }
     </style>
