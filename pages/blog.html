@@ -5,8 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog - Shivraj Anand</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="CSS/blog.css">
+    <link rel="stylesheet" href="../assets/css/blog.css">
 </head>
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
@@ -36,13 +35,13 @@
 
     <footer>
         © 2025 Shivraj Anand | All Rights Reserved
-        <a href="index.html">HOME</a>
+        <a href="../index.html">HOME</a>
     </footer>
 
 
     <script>
         async function loadPosts() {
-            const response = await fetch('blog.json');
+            const response = await fetch('../assets/data/blog.json');
             const posts = await response.json();
             let html = '';
             posts.forEach(post => {

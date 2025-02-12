@@ -4,7 +4,7 @@
         "date": "February 11, 2025",
         "category": "Machine Learning",
         "description": "Exploring AVATAR, a dataset for program translation using AI models like PLBART and TransCoder.",
-        "link": "BLOG PAGES/avatar.html"
+        "link": "../blog_pages/avatar.html"
     },
 
     {
@@ -12,6 +12,6 @@
         "date": "February 12, 2025",
         "category": "Machine Learning",
         "description": "A comprehensive summary of key machine learning concepts and techniques covered in the Intern Shala course.",
-        "link": "BLOG PAGES/MlNotes.html"
+        "link": "../blog_pages/MlNotes.html"
     }
 ]

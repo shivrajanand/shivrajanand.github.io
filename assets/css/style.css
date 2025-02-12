@@ -335,10 +335,10 @@ body.dark-mode .block-section {
   background-color: #004aad; /* Button background color */
   color: white; /* Button text color */
   border: none; /* Remove border */
-  padding: 10px 20px; /* Add padding for size */
+  padding: 6px 6px;
   border-radius: 5px; /* Rounded corners */
   cursor: pointer; /* Pointer cursor on hover */
-  font-size: 16px; /* Font size */
+  /* font-size: 16px; */
   font-weight: bold; /* Bold text */
   transition: background-color 0.3s ease; /* Smooth color transition */
 }
@@ -356,7 +356,7 @@ body.dark-mode .block-section {
   position: fixed;
   top: 10px;
   right: 10px;
-  padding: 10px 20px;
+  /* padding: 10px 20px; */
   background: #28527a;
   color: #fff;
   border: none;
