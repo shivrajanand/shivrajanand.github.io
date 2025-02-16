@@ -1,3 +1,4 @@
+/* General Styles */
 /* The typing and deleting effect */
 @keyframes typewriter {
   0%,
@@ -24,7 +25,6 @@
     }
   }
 }
-
 .collapsible {
   background-color: #28527a;
   color: white;
@@ -42,58 +42,17 @@
 .collapsible:hover {
   background-color: #183e58;
 }
-
-.content {
-  display: none;
-  overflow: hidden;
-  padding: 10px 20px;
-  border-left: 3px solid #28527a;
-  background-color: #f4f4f9;
-  border-radius: 5px;
-  margin-bottom: 1rem;
-}
-
-body.dark-mode .content {
-  background-color: #333;
-}
-
-body.dark-mode .collapsible {
-  background-color: #666;
-}
-
-body.dark-mode .collapsible:hover {
-  background-color: #444;
-}
-
-/* Typewriter text styling */
-.typewriter-text {
-  display: inline-block;
-  overflow: hidden; /* Prevent the text from overflowing */
-  white-space: nowrap;
-  animation: typewriter 4s steps(30) infinite; /* Adjust steps based on your text length */
-  font-size: 40px;
-  text-align: center;
-  position: relative;
-  width: 0; /* Initially no width, starts off hidden */
-  margin: 0 auto; /* Center the text horizontally */
-  display: block; /* Ensures the element behaves like a block for centering */
-  border-right: 2px solid black; /* Cursor */
-}
-
-/* Default reset and global styles (no change) */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
-
 body {
   font-family: Cambria, Cochin, Georgia, Times, "Times New Roman", serif;
   color: #2d2d2d;
   background: linear-gradient(120deg, #f0f4f8, #c8d9e6);
   line-height: 1.6;
 }
-
 body.dark-mode {
   color: #f0f4f8;
   background: linear-gradient(120deg, #2d2d2d, #1a1a1a);
@@ -106,36 +65,24 @@ header {
   background: linear-gradient(135deg, #6a9cde, #82c1e8);
   color: #fff;
   border-radius: 0 0 50px 50px;
-  position: relative;
 }
 
+header img {
+  width: 150px;
+  border-radius: 50%;
+  margin-bottom: 1rem;
+}
 body.dark-mode header {
   background: linear-gradient(135deg, #1a1a1a, #333);
 }
 
-header h1 {
-  font-size: 2.5rem;
-}
-
-header p {
-  font-size: 1.2rem;
-  margin-top: 1rem;
-}
-
+/* Navigation */
 nav {
-  margin-top: 1rem;
   display: flex;
   justify-content: center;
-  align-items: center;
   gap: 1rem;
+  margin-top: 1rem;
 }
-
-nav .nav-links {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-}
-
 nav a {
   text-decoration: none;
   color: #fff;
@@ -144,405 +91,65 @@ nav a {
   border-radius: 5px;
   transition: background 0.3s;
 }
-
 nav a:hover {
   background: #183e58;
 }
 
-/* Hamburger Icon for mobile */
-.hamburger {
-  display: none;
-  font-size: 2rem;
-  cursor: pointer;
-  color: #fff;
-}
-
-main {
-  padding: 2rem;
-}
-
-section {
-  margin-bottom: 2rem;
-  background: #ffffff;
-  border-radius: 15px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  padding: 2rem;
-}
-
-.fullscreen-modal {
-  display: none; /* Hidden by default */
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0.8); /* Semi-transparent black background */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
-  z-index: 1000; /* Ensure it appears above other content */
-}
-
-.fullscreen-modal iframe {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for iframe */
-}
-
-.close-button {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background-color: white;
-  color: black;
-  border: none;
-  padding: 10px 15px;
-  cursor: pointer;
-  font-size: 18px;
-  border-radius: 5px;
-  z-index: 1001; /* Ensure it's above the modal */
-}
-
-.close-button:hover {
-  background-color: red;
-  color: white;
-}
-
-body.dark-mode section {
-  background: #333;
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
-}
-
-#about {
-  background: linear-gradient(135deg, #82c1e8, #fff);
-  color: #2d2d2d;
-  text-align: justify;
-}
-
-#about p {
-  margin-bottom: 1em;
-}
-
-body.dark-mode #about {
-  background: linear-gradient(135deg, #333, #1a1a1a);
-  color: #f0f4f8;
-}
-
-/* #skills {
-  padding: 20px;
-  background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-  max-width: 800px;
-  margin: 0 auto;
-}
-
-#skills h2 {
-  text-align: center;
-  font-size: 1.8rem;
-  margin-bottom: 1rem;
-  color: #004aad;
-} */
-
-/* Skills Section */
-#skills h2 {
-  text-align: left;
-  font-size: 1.8rem;
-  margin-bottom: 1.5rem;
-  color: #004aad;
-}
-
-#skills ul {
-  list-style: square inside; /* Adds square bullets */
-  padding: 0;
-  margin: 0;
-}
-
-#skills li {
-  margin-bottom: 1rem;
-  font-size: 1rem;
-  color: #333;
-  line-height: 0.6;
-}
-
-#skills li strong {
-  color: #004aad; /* Highlights category names */
-}
-
-#skills li.dark-mode {
-  color: #333;
-}
-
-body.dark-mode #skills h2 {
-  color: #529cff;
-}
-
-body.dark-mode #skills li strong {
-  color: #529cff;
-}
-
-body.dark-mode #skills li {
-  color: #9ddffe;
-}
-
-/* contact section  */
-
-#contact a {
-  color: #28527a;
-  text-decoration: none;
-}
-
-body.dark-mode #contact a {
-  color: #82c1e8;
-}
-
-footer {
-  text-align: center;
-  padding: 1rem;
-  background: #28527a;
-  color: #fff;
-  border-radius: 50px 50px 0 0;
-}
-
-body.dark-mode footer {
-  background: #1a1a1a;
-}
-
+/* Sections */
 .block-section {
-  margin-bottom: 2rem;
-  background: #ffffff;
+  margin: 2rem auto;
+  background: #fff;
   border-radius: 15px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 2rem;
-  transition: all 0.3s ease;
+  max-width: 800px;
 }
-
-.block-section::before {
-  content: "";
-  position: absolute;
-  top: -20px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 80%;
-  height: 5px;
-  background: linear-gradient(90deg, #28527a, #6a9cde);
-  border-radius: 10px;
-}
-
 body.dark-mode .block-section {
   background: #333;
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
 }
 
-.toggle-button {
-  background-color: #004aad; /* Button background color */
-  color: white; /* Button text color */
-  border: none; /* Remove border */
-  padding: 6px 6px;
-  border-radius: 5px; /* Rounded corners */
-  cursor: pointer; /* Pointer cursor on hover */
-  /* font-size: 16px; */
-  font-weight: bold; /* Bold text */
-  transition: background-color 0.3s ease; /* Smooth color transition */
-}
-
-.toggle-button:hover {
-  background-color: #007bff; /* Lighter blue on hover */
-}
-
-.toggle-button:active {
-  background-color: #003d99; /* Darker blue on click */
-  transform: scale(0.95); /* Slightly shrink on click */
-}
-
-.toggle-dark-mode {
-  position: fixed;
-  top: 10px;
-  right: 10px;
-  /* padding: 10px 20px; */
-  background: #28527a;
-  color: #fff;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  z-index: 1000;
-}
-
-.toggle-dark-mode:hover {
-  background: #183e58;
-}
-
-body.dark-mode .toggle-dark-mode {
-  background: #666;
-}
-
-body.dark-mode .toggle-dark-mode:hover {
-  background: #444;
-}
-
-/* Base styles for social links */
+/* Social Links */
 .social-links {
   display: flex;
   justify-content: center;
-  gap: 15px;
-  margin: 20px 0;
+  gap: 10px;
+  margin-top: 15px;
 }
-
-.social-links a {
-  display: inline-block;
-  width: 40px; /* Standard size for icons */
-  height: 40px;
-  border-radius: 10%; /*Circular shape */
-  overflow: hidden;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
 .social-links a img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* Maintain aspect ratio */
-  border: #003d99;
+  width: 30px;
+  height: 30px;
+  border-radius: 5px;
+  transition: transform 0.3s;
+}
+.social-links a:hover img {
+  transform: scale(1.1);
 }
 
-.social-links a:hover {
-  transform: scale(1.1); /* Slight zoom on hover */
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+/* Work With Me */
+.services {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+.service-card {
+  background: white;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
 }
 
-/* Dark mode styles for social links */
-body.dark-mode .social-links a {
-  box-shadow: 0 2px 4px rgba(255, 255, 255, 0.1); /* Subtle glow */
-}
-
-body.dark-mode .social-links a:hover {
-  box-shadow: 0 4px 8px rgba(255, 255, 255, 0.3); /* Brighter glow on hover */
-}
-
-/* --- Responsive Design --- */
-
-/* Media Query for screens smaller than 768px (tablets, small screens) */
-/* Responsive adjustments for screens below 768px */
-/* Ensure sections adapt well to smaller screens */
+/* Responsive */
 @media (max-width: 768px) {
-  /* General body adjustments */
   body {
     font-size: 1em;
-    margin: 0;
-    overflow-x: hidden; /* Prevent horizontal scrolling */
   }
-
-  /* Header adjustments */
-  header {
-    width: 100%;
-    flex-direction: column;
-    padding: 1.5rem;
-    text-align: center;
-  }
-
-  header h1 {
-    font-size: 20px;
-  }
-
-  header p {
-    font-size: 1rem;
-  }
-
-  header img {
-    width: 100px;
-    height: 100px;
-  }
-
-  /* Navigation adjustments */
-  nav {
-    flex-direction: column;
-    align-items: center;
-    gap: 0.5rem;
-  }
-
-  nav .hamburger {
-    font-size: 2rem;
-    display: block;
-  }
-
-  nav .nav-links {
-    display: none;
-    flex-direction: column;
-    width: 100%;
-    text-align: center;
-  }
-
-  nav .nav-links.active {
-    display: flex;
-  }
-
-  nav a {
-    font-size: 1rem;
-    padding: 0.8rem 0;
-    width: 100%;
-  }
-
-  /* Main content adjustments */
-  main {
+  .block-section {
     padding: 1rem;
   }
-
-  section {
-    padding: 1rem;
-    margin-bottom: 1rem;
-    border-radius: 10px;
-  }
-  .collapsible {
-    font-size: 14px;
-    padding: 8px 16px;
-  }
-
-  .content {
-    padding: 8px 16px;
-  }
-  #skills {
-    padding: 15px;
-    max-width: 100%;
-  }
-
-  #skills h2 {
-    font-size: 1.5rem;
-  }
-
-  #skills li {
-    font-size: 0.9rem; /* Smaller font size for mobile */
-    line-height: 1.1; /* Slightly tighter spacing */
-  }
-
-  /* Social links adjustments */
-  .social-links {
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 10px;
-  }
-
-  .social-links a {
-    width: 40px;
-    height: 40px;
-  }
-
-  /* Contact section adjustments */
-  #contact {
-    text-align: center;
-  }
-
-  #contact a {
-    font-size: 1rem;
-    display: block;
-    margin: 0.5rem 0;
-  }
-
-  /* Footer adjustments */
-  footer {
-    padding: 1rem;
-    text-align: center;
-    font-size: 0.9rem;
-  }
-
-  /* Buttons */
-  .toggle-dark-mode {
-    font-size: 15px;
-    padding: 5px 0px;
+  .social-links a img {
+    width: 25px;
+    height: 25px;
   }
 }
