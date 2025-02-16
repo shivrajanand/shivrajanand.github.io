@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,14 +8,14 @@
     <link rel="stylesheet" href="../assets/css/pythonguide.css">
     <script src="../assets/js/pythonguide.js" defer></script>
 </head>
+
 <body>
     <header>
         <h1>A Complete Guide to Python</h1>
-        <button id="menu-toggle">&#9776;</button> <!-- Hamburger Icon for Mobile -->
+        <button id="menu-toggle">&#9776;</button>
     </header>
 
     <div class="container">
-        <!-- Sidebar Navigation -->
         <nav id="sidebar">
             <ul>
                 <li><a href="#intro">Introduction</a></li>
@@ -26,30 +27,42 @@
             </ul>
         </nav>
 
-        <!-- Main Content -->
-        <main id="content">
-            <section id="intro">
+        <main>
+            <section id="intro" class="chapter">
                 <h2>Introduction</h2>
                 <p>Python is a versatile programming language...</p>
-                <img src="images/python-logo.png" alt="Python Logo" class="responsive-img">
+                <img src="https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/community/logos/python-logo-only.png"
+                    alt="Python Logo" class="responsive-img" width="50vh" height="auto">
             </section>
 
-            <section id="basics">
+            <section id="basics" class="chapter">
                 <h2>Python Basics</h2>
                 <pre><code>print("Hello, World!")</code></pre>
             </section>
 
-            <section id="data-types">
+            <section id="data-types" class="chapter">
                 <h2>Data Types in Python</h2>
                 <table>
-                    <tr><th>Type</th><th>Example</th></tr>
-                    <tr><td>Integer</td><td>42</td></tr>
-                    <tr><td>String</td><td>"Hello"</td></tr>
-                    <tr><td>List</td><td>[1, 2, 3]</td></tr>
+                    <tr>
+                        <th>Type</th>
+                        <th>Example</th>
+                    </tr>
+                    <tr>
+                        <td>Integer</td>
+                        <td>42</td>
+                    </tr>
+                    <tr>
+                        <td>String</td>
+                        <td>"Hello"</td>
+                    </tr>
+                    <tr>
+                        <td>List</td>
+                        <td>[1, 2, 3]</td>
+                    </tr>
                 </table>
             </section>
 
-            <section id="control-flow">
+            <section id="control-flow" class="chapter">
                 <h2>Control Flow</h2>
                 <pre><code>if x > 10:
     print("x is greater than 10")
@@ -57,7 +70,7 @@ else:
     print("x is 10 or less")</code></pre>
             </section>
 
-            <section id="functions">
+            <section id="functions" class="chapter">
                 <h2>Functions</h2>
                 <pre><code>def greet(name):
     return "Hello, " + name
@@ -68,7 +81,8 @@ print(greet("Alice"))</code></pre>
     </div>
 
     <footer>
-        <p>© 2025 Shivraj Anand | <a href="shivrajanand.github.io">Back to Home</a></p>
+        <p>© 2025 Shivraj Anand | <a href="https://shivrajanand.github.io">Back to Home</a></p>
     </footer>
 </body>
+
 </html>

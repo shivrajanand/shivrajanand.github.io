@@ -1,31 +1,166 @@
 /* General Styles */
 body {
-    font-family: 'Arial', sans-serif;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    background: linear-gradient(135deg, #306998, #FFD43B); /* Python colors */
-    color: white;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  margin: 0;
+  padding: 0;
+  background: #f0f8ff;
+  color: #333;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Header (Sticky) */
+/* Header */
 header {
-    background: #005a9e;
-    color: white;
-    padding: 5px 20px;
-    text-align: center;
-    position: fixed;
-    top: 0;
-    width: 100%;
-    z-index: 1000;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  background: #1e3a5f;
+  color: white;
+  /* padding: 10px 20px; */
+  text-align: center;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-/* Hamburger Icon for Mobile */
 #menu-toggle {
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  display: none; /* Show only on mobile */
+}
+
+/* Container */
+.container {
+  display: flex;
+  flex-direction: row;
+  padding-top: 60px; /* Height of the header */
+}
+
+/* Sidebar */
+#sidebar {
+  width: 250px;
+  background: #2c5a85;
+  color: white;
+  padding-top: 20px;
+  position: fixed;
+  top: 60px; /* Start below the header */
+  bottom: 0;
+  overflow-y: auto;
+  transition: transform 0.3s ease-in-out;
+  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+  z-index: 900;
+}
+
+#sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+#sidebar ul li {
+  padding: 12px;
+  border-bottom: 1px solid #3b6aa0;
+}
+
+#sidebar ul li a {
+  color: white;
+  text-decoration: none;
+  display: block;
+}
+
+#sidebar ul li:hover {
+  background: #3b6aa0;
+}
+
+/* Main Content */
+main {
+  flex: 1;
+  margin-left: 250px;
+  padding: 30px;
+  background: #ffffff;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  color: #333;
+}
+
+/* Chapters */
+.chapter {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 20px;
+  border: 2px solid #d1e7ff;
+}
+
+.chapter h2 {
+  position: sticky;
+  top: 60px; /* Height of the header */
+  background: #f0f8ff;
+  padding: 10px;
+  margin: -20px -20px 20px -20px;
+  border-bottom: 2px solid #d1e7ff;
+}
+
+/* Responsive Images */
+.responsive-img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 10px 0;
+}
+
+/* Tables */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+}
+
+table,
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background: #2c5a85;
+  color: white;
+}
+
+/* Footer */
+footer {
+  text-align: center;
+  padding: 10px;
+  background: #1e3a5f;
+  color: white;
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+footer a {
+  color: lightblue;
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+  /* Show menu toggle button */
+
+  header h1 {
+    font-size: 20px;
+  }
+  #menu-toggle {
+    display: block;
     position: absolute;
-    left: 20px;
+    left: 15px;
     top: 50%;
     transform: translateY(-50%);
     font-size: 24px;
@@ -33,122 +168,74 @@ header {
     border: none;
     color: white;
     cursor: pointer;
-    display: none; /* Visible only on mobile */
-}
+    z-index: 1100;
+  }
 
-/* Layout Container */
-.container {
-    display: flex;
-    flex-direction: row;
-    min-height: 100vh;
-    padding-top: 60px; /* Prevent content from hiding under header */
-    padding-bottom: 40px; /* Prevent content from hiding under footer */
-}
-
-/* Sidebar Navigation */
-#sidebar {
-    width: 250px;
-    background: rgba(0, 0, 0, 0.85);
-    color: white;
-    padding-top: 20px;
+  /* Adjust sidebar for mobile */
+  #sidebar {
     position: fixed;
-    height: calc(100vh - 100px);
-    overflow-y: auto;
+    left: -250px;
+    top: 128px; /* Start below the header */
+    width: 250px;
+    height: calc(100vh - 70px); /* Adjust height to fit under header */
+    background: linear-gradient(180deg, #1e3a8a, #1e40af); /* Blue gradient */
+    box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.3);
     transition: transform 0.3s ease-in-out;
-    box-shadow: 4px 0px 10px rgba(0, 0, 0, 0.5);
-}
+    z-index: 1000;
+    padding-top: 20px;
+  }
 
-#sidebar ul {
+  /* Sidebar links */
+  #sidebar ul {
     list-style: none;
     padding: 0;
-}
+  }
 
-#sidebar ul li {
+  #sidebar ul li {
     padding: 12px;
-    border-bottom: 1px solid #444;
-}
+    border-bottom: 1px solid #3b82f6;
+  }
 
-#sidebar ul li a {
+  #sidebar ul li a {
     color: white;
     text-decoration: none;
     display: block;
     font-weight: bold;
-}
+  }
 
-#sidebar ul li:hover {
-    background: #FFD43B; /* Python yellow */
+  #sidebar ul li:hover {
+    background: #60a5fa;
     color: black;
-}
+  }
 
-/* Main Content */
-main {
-    flex: 1;
-    margin-left: 260px;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.9);
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    color: black;
+  /* Open sidebar */
+  #sidebar.open {
+    transform: translateX(250px);
+  }
+
+  /* Adjust main content */
+  main {
+    margin-left: 0;
+    width: 100%;
+    padding: 90px 20px 20px; /* Space for fixed header */
+  }
+
+  /* Chapters */
+  .chapter {
+    padding: 15px;
     border-radius: 10px;
-}
+    margin-bottom: 15px;
+    border: 3px solid #3b82f6;
+    background: #f8fafc;
+  }
 
-/* Responsive Images */
-.responsive-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 10px auto;
-}
-
-/* Tables */
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin: 20px 0;
-}
-
-table, th, td {
-    border: 1px solid #ddd;
+  /* Sticky chapter titles */
+  .chapter h2 {
+    position: sticky;
+    top: 70px; /* Prevents overlap with the header */
+    background: #e0f2fe;
     padding: 10px;
-    text-align: left;
-}
-
-th {
-    background: #306998;
-    color: white;
-}
-
-/* Footer (Sticky) */
-footer {
-    text-align: center;
-    padding: 10px;
-    background: #005a9e;
-    color: white;
-    position: fixed;
-    bottom: 0;
-    width: 100%;
-    z-index: 1000;
-}
-
-/* Mobile View: Sidebar as a Dropdown */
-@media (max-width: 768px) {
-    #menu-toggle {
-        display: block;
-    }
-
-    #sidebar {
-        position: absolute;
-        left: -250px;
-        width: 250px;
-        height: 100%;
-        transform: translateX(0);
-    }
-
-    main {
-        margin-left: 0;
-        width: 100%;
-    }
-
-    #sidebar.open {
-        transform: translateX(250px);
-    }
+    border-bottom: 2px solid #2563eb;
+    z-index: 900;
+  }
 }
