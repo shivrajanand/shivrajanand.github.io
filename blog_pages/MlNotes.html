@@ -4,8 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>AVATAR Presentation – Java-Python Translation</title>
+    <title>Machine Learning Notes</title>
     <link rel="stylesheet" href="../assets/css/globalblog.css">
+    <!-- Load Prism CSS files with defer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <!-- Add error handling for script loading -->
+    <script>
+        window.addEventListener('error', function (e) {
+            if (e.target.tagName === 'SCRIPT') {
+                console.error('Script loading failed:', e.target.src);
+                alert('Failed to load script: ' + e.target.src);
+            }
+        }, true);
+    </script>
+
     <style>
         html {
             scroll-behavior: smooth;
@@ -13,147 +26,104 @@
             /* Adjust based on your navbar height */
         }
 
-        .pdf-container {
-            position: relative;
-            margin-top: 30px;
-            padding-top: 56.25%;
-            /* 16:9 Aspect Ratio */
-            overflow: hidden;
-            border-radius: 12px;
-        }
-
-        @media (max-width: 768px) {
-            .pdf-container {
-                height: 5
-                /* 1:1 Aspect Ratio */
-            }
-            
-        }
-
-        .pdf-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
+        #image {
             width: 100%;
-            height: 100%;
-            border: none;
-            border-radius: 8px;
-        }
-
-        .button-container {
+            /* Or a specific width */
+            height: auto;
+            /* Or any height you prefer */
+            overflow: hidden;
+            /* Ensures no overflow */
             display: flex;
             flex-direction: column;
+            /* Stack children (image and caption) vertically */
             justify-content: center;
-            /* Horizontally center */
             align-items: center;
-            /* Vertically center */
-            height: 25vh;
-            /* Make the container full height of the viewport (optional) */
+            border: 1px solid black;
+            /* Border around the container */
         }
 
-        .btn {
-            background: linear-gradient(135deg, #6a5dff, #4e43f3);
+        [data-theme="dark"] #image {
+            border: 1px solid white;
+            /* Dark mode border color */
+        }
+
+        #image figure {
+            width: 100%;
+            /* Ensure the figure takes up the full width */
+            margin: 0;
+            text-align: center;
+            /* Center align the caption */
+        }
+
+        #image img {
+            width: 100%;
+            /* Ensures the image takes the full width of the container */
+            height: auto;
+            /* Maintains the aspect ratio */
+            object-fit: contain;
+            /* Ensure the image fits within the div */
+        }
+
+        #image figcaption {
+            font-size: 1em;
+            /* Caption text size */
+            margin-top: 10px;
+            /* Space between the image and caption */
+            color: #333;
+            /* Text color */
+            font-style: italic;
+            /* Italicize caption text */
+            text-align: center;
+            border-top: 2px solid #ccc;
+            /* Border between image and caption */
+            padding-top: 5px;
+            /* Space between image and border */
+            padding-bottom: 15px;
+            /* Space below the caption for a clean look */
+            width: 100%;
+            /* Ensures the caption takes up the full width */
+        }
+
+
+        [data-theme="dark"] #image figcaption {
             color: white;
-            padding: 14px 30px;
-            margin: 5px 5px;
-            font-size: 16px;
-            font-weight: 600;
-            text-decoration: none;
-            border-radius: 10px;
-            display: inline-block;
-            transition: background 0.3s ease, transform 0.2s ease;
+            border: white 1px solid;
         }
 
-        .btn:hover {
-            background: linear-gradient(135deg, #4e43f3, #6a5dff);
-            transform: translateY(-3px);
+
+
+        p {
+            text-align: justify;
         }
 
-        .btn:focus {
-            outline: none;
-        }
-
-        .notes {
-            width: 100%;
-            max-width: 900px;
-            background-color: #fff;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
-            margin: 30px 0;
-        }
-
-        [data-theme="dark"] {
-            --bg-primary: #111827;
-            --bg-secondary: #1f2937;
-            --bg-tertiary: #374151;
-            --text-primary: #ffffff;
-            --text-secondary: #d1d5db;
-            --text-hover: #60a5fa;
-            --border-color: #374151;
-            --shadow-color: rgba(0, 0, 0, 0.3);
-        }
-
-        .notes {
-            width: 100%;
-            max-width: 900px;
-            background-color: var(--bg-primary);
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0px 8px 20px var(--shadow-color);
-            margin: 30px 0;
-            color: var(--text-primary);
-        }
-
-        .notes h2 {
-            text-align: center;
-            font-size: 28px;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 20px;
-            border-bottom: 2px solid var(--text-hover);
-            padding-bottom: 12px;
-            text-transform: uppercase;
-        }
-
-        .notes ul {
+        /* Unordered List Style */
+        ul {
             list-style-type: none;
-            padding: 0;
         }
 
-        .notes li {
-            background: var(--bg-secondary);
-            padding: 5px;
-            margin-bottom: 5px;
-            border-left: 6px solid var(--text-hover);
-            border-radius: 8px;
-            transition: all 0.3s ease-in-out;
+        ul .li {
+            margin-bottom: 10px;
         }
 
-        .notes li strong {
-            font-size: 1rem;
-            color: var(--text-hover);
+        [data-theme="dark"] li a {
+            color: white;
         }
 
-        .footer {
-            font-size: 14px;
-            color: var(--text-secondary);
-            margin-top: 30px;
-            text-align: center;
-            padding: 15px 0;
-            width: 100%;
-            background: var(--bg-primary);
-            box-shadow: 0px -2px 5px var(--shadow-color);
-        }
 
-        .footer a {
-            color: var(--text-hover);
-            text-decoration: none;
-            font-weight: bold;
-        }
+        @media (max-width: 768px) {
+            #image {
+                width: 100%;
+                /* or a specific width */
+                /* or any height you prefer */
+                overflow: hidden;
+                /* Ensures no overflow */
+            }
 
-        .footer a:hover {
-            color: var(--text-primary);
+            #image img {
+                width: 100%;
+                object-fit: contain;
+                /* Ensure the image fits within the div while maintaining its aspect ratio */
+            }
         }
     </style>
 </head>
@@ -176,20 +146,45 @@
         <nav id="sidebar" class="sidebar">
             <div class="nav-content">
                 <button id="closeNav" class="close-nav">&times;</button>
-                <h2 class="nav-title"></h2>
+                <h2 class="nav-title">INDEX</h2>
                 <div class="chapters">
                     <div class="chapter">
-                        <h2>PDF</h2>
+                        <h2><a href="#chapter0">0. Links & Overview</a></h2>
                         <ul>
-                            <li><a href="#pdf-container">NOTES PDF</a></li>
+                            <li>Notes PDF Download Link</li>
+                            <li>Github Repo Link</li>
+                            <li>Project 1: Kaggle</li>
+                            <li>Project 2: Kaggle</li>
                         </ul>
                     </div>
                     <div class="chapter">
-                        <h2>Speaker Notes</h2>
+                        <h2><a href="#chapter1">1. Getting started with Machine Learning</a></h2>
                         <ul>
-                            <li><a href="#githubrepo">Github Repo</a></li>
-                            <li><a href="#kaggleproject1">Kaggle: Project 1</a></li>
-                            <li><a href="#kaggleproject1">Kaggle: Project 2</a></li>
+                            <li><a href="#WhatisMachineLearning">What is Machine Learning?</a></li>
+                            <li><a href="#HowMachineLearningWorks">How Machine Learning Works</a></li>
+                            <li><a href="#TypesofMachineLearning">Types of Machine Learning</a></li>
+                            <li><a href="#TypesofData">Types of Data</a></li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2><a href="#chapter2">2. Graphical & Analytical Representation of Data</a></h2>
+                        <ul>
+                            <li><a href="#DataAnalysis&EDA">Data Analysis & EDA</a></li>
+                            <li><a href="#GraphicalRepresentationofData">Graphical Representation of data</a></li>
+                            <li><a href="#LimitationOfTraditionalDA">Limitation of traditional Data Analysis</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#chapter2">3. Python as a Data-Analysis Tool</a></h2>
+                        <ul>
+                            <li><a href="#WhyPython">Why Python?</a></li>
+                            <li><a href="#JupyterNotebook">Jupyter Notebook/a></li>
+                            <li><a href="#PythonDataTypes">Data Types in Python</a></li>
+                            <li><a href="#BasicOperations">Basic Operations</a></li>
+                            <li><a href="#PythonConstructs">Condition Statements & Loops</a></li>
+                            <li><a href="#PythonFunctions">Functions in Python</a></li>
+                            <li><a href="#BasicLibraries">Basic Libraries</a></li>
                         </ul>
                     </div>
                 </div>
@@ -234,49 +229,736 @@
             <!-- Content -->
             <main class="content">
                 <article class="article">
-                    <section>
-                        <h1>Machine Learning Training by InterShala: Notes and Review</h1>
-                        <h3>Author: Shivraj Anand</h3>
-                        <p>A comprehensive summary of key machine learning concepts and techniques covered in the Intern
-                            Shala course.
+                    <section id="chapter0">
+                        <h1>Links & Overview</h1>
+                        <ul>
+                            <li>
+                                <p>PDF NOTES <a href="https://drive.google.com/file/d/1NtIWWRx83ejtDvwxT_71OhJsfItPbyOG"
+                                        class="btn" target="_blank"><strong>Download PDF</strong></a></p>
+                            </li>
+                            <li id="githubrepo">Access the <a
+                                    href="https://github.com/shivrajanand/InternshalaTraining3rdSemester"
+                                    target="_blank">GitHub repository</a> for all my Jupyter notebooks</li>
+                            <li id="kaggleproject1"><a
+                                    href="https://www.kaggle.com/code/shivrajanandai/housing-data-set-regression-modelling"
+                                    target="_blank">Kaggle Notebook</a> Link for <strong>Project 1: Housing Data Set
+                                    Regression
+                                    Modelling</strong></li>
+                            <li id="kaggleproject2"><a
+                                    href="https://www.kaggle.com/code/shivrajanandai/training-project-2-population-demography"
+                                    target="_blank">Kaggle Notebook</a> Link for <strong>Project 2: Population
+                                    Demography</strong>
+                            </li>
+                        </ul>
+                    </section>
+                    <section id="chapter1">
+                        <h1>Getting started with MACHINE LEARNING</h1>
+                        <h2 id="WhatisMachineLearning">What is Machine Learning</h2>
+                        <p>Machine learning is the ability of machines, that is, computers to learn and improve from
+                            their past experiences or data, without being explicitly programmed.</p>
+                        <p>Machine learning is the ability of machines, i.e., computers or ideally computer programs,
+                            to learn from the past behaviour or data and to predict the future outcomes without being
+                            explicitly programmed to do so.</p>
+                        <div id="image">
+                            <figure>
+                                <img src="MLNotesIMGs/1.png" alt="Description of the image">
+                                <figcaption>Flowchart of a typical ML model</figcaption>
+                            </figure>
+                        </div>
+
+                        <p>Machine learning algorithms are constantly analysing the world-wide data and using
+                            them to learn and give better predictions.</p>
+
+                        <h2 id="HowMachineLearningWorks">How Machine Learning works</h2>
+                        Machine learning is the ability of machines to learn from past experiences. The past experiences
+                        are called Data. Data is any kind of information and can be represented in any
+                        form like images, pdfs, location, chats or documents etc.</p>
+                        <p>Data collection has risen exponentially in past few decades. All this data is stored and used
+                            in ML models for better functioning.</p>
+                        <p><strong>EXAMPLE PROBLEM1:</strong> Given a bank and a customer associated with bank who wants
+                            a loan, how will
+                            an ML model predict whether to give loan to the customer or not.</p>
+                        <p>The given ML model, say M, will analyse the past data of all the customers who were given a
+                            loan and will classify the set of customers in two category, Good Customer and Bad Customer.
                         </p>
-
-                        <h2>PDF NOTES(Scroll down): Total 72 pages</h2>
-                        <div class="pdf-container" id="pdf-container">
-                            <iframe src="https://drive.google.com/file/d/1NtIWWRx83ejtDvwxT_71OhJsfItPbyOG/preview"
-                                width="100%" height="600"></iframe>
+                        <ul>
+                            <li>Good Customer: Any customer who repaid the loan on time</li>
+                            <li>Bad Customer: Any customer who didn’t repaid the loan on time.</li>
+                        </ul>
+                        <div id="image">
+                            <figure>
+                                <img src="MLNotesIMGs/2.png" alt="Description of the image">
+                            </figure>
                         </div>
+                        </p>
+                        <p>Now M will use the previous data and identify a pattern between good and bad customers and
+                            then will use it to place the new customer into one of the classifications. Hence the model
+                            will predict whether the customer should begiven a loan or not on basis of if he/she can
+                            repay the loan or not. Hence in total we can say that ML model analyses
+                            past data and derives patterns and insights from it
+                            and then applies this intelligence on a new piece of
+                            data to predict or recommend actions.</p>
 
-                        <div class="button-container">
-                            <p><a href="https://drive.google.com/file/d/1NtIWWRx83ejtDvwxT_71OhJsfItPbyOG" class="btn"
-                                    target="_blank">Download PDF</a></p>
+
+                        <h2 id="TypesofMachineLearning">Types of Machine Learning</h2>
+                        <div id="image">
+                            <figure>
+                                <img src="MLNotesIMGs/3.png" alt="Description of the image">
+                            </figure>
                         </div>
+                        <p>Data is a collection of information about something.The data which contains a target variable
+                            or an output variable that answers a question of interest is called Labelled Data.</p>
+                        <p>Example: Data of patients suffering from a particular disease.</p>
+                        <p>Data stored can be: Name, age, gender, location, Blood type. Weight, height, mean body
+                            temperature etc.</p>
+                        <p>Then we can additionally store a TARGET or Category variable “Was patient completely cured or
+                            not after the treatment”. The answer to this question can be YES or NO. This
+                            target variable is also called <strong>Dependent variable</strong> as it can depend on other
+                            variables listed above. The other data are called as <strong>Independent Variables</strong>.
+                            If the data given just contains independent data and do not have a predefined target
+                            variable or category variable then the dataset is referred to as <strong>Unlabelled
+                                Data</strong>.</p>
 
-                        <div class="notes">
+
+                        <div class="feature-block">
+                            <h3>SUPERVISED LEARNING</h3>
                             <ul>
-                                <li id="githubrepo">Access the <a href="https://github.com/shivrajanand/InternshalaTraining3rdSemester"
-                                        target="_blank">GitHub repository</a> for all my Jupyter notebooks</li>
-                                <li id="kaggleproject1"><a href="https://www.kaggle.com/code/shivrajanandai/housing-data-set-regression-modelling"
-                                        target="_blank">Kaggle Notebook</a> Link for <strong>Project 1: Housing Data Set
-                                        Regression
-                                        Modelling</strong></li>
-                                <li id="kaggleproject2"><a href="https://www.kaggle.com/code/shivrajanandai/training-project-2-population-demography"
-                                        target="_blank">Kaggle Notebook</a> Link for <strong>Project 2: Population
-                                        Demography</strong>
-                                </li>
+                                <li>In supervised learning model the ML model learn under supervision, and this
+                                    supervision
+                                    is provided by independent variables and the target variable (or collectively
+                                    Labelled
+                                    data).</li>
+                                <div id="image">
+                                    <figure>
+                                        <img src="MLNotesIMGs/4.png" alt="Description of the image">
+                                        <figcaption>Data Flow in supervised learning model</figcaption>
+                                    </figure>
+                                </div>
+                                <li>The model learns from the Past labelled data and the process is called Training the
+                                    data.
+                                    Once the model is trained, we can feed new unlabelled data to it to predict target
+                                    variable.</li>
+                                <li>There is a target variable involved.</li>
+                                <li>Works only on labelled data.</li>
+                                <li>Most of ML models used in present date are supervised learning due to high
+                                    availability of
+                                    data around us.</li>
                             </ul>
                         </div>
 
-                        <div class="footer">
-                            <p>For feedback or collaboration, connect with me on <a
-                                    href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=shivrajanand"
-                                    target="_blank">LinkedIn</a>.</p>
-                            <p><a href="https://shivrajanand.github.io">Visit my Portfolio</a></p>
-                            <p>&copy; 2025 Shivraj Anand</p>
+                        <div class="feature-block">
+                            <h3>UNSUPERVISED LEARNING</h3>
+                            <ul>
+                                <li>The machine learning that is deployed to find patterns in unlabelled data is called
+                                    unsupervised learning.</li>
+                                <li>Complement of supervised learning.</li>
+                                <li>There is no target variable involved.</li>
+                                <li>Works only on unlabelled data.</li>
+                                <li>This type of model only detects if there is some pattern present in the data or not.
+                                </li>
+                                <li>Since there is no target variable present, the data on which unsupervised learning
+                                    operates is called Unlabelled data.</li>
+                            </ul>
                         </div>
+
+
+                        <h2 id="TypesofData">Types of data</h2>
+                        <div id="image">
+                            <figure>
+                                <img src="MLNotesIMGs/5.png" alt="Description of the image">
+                                <figcaption>Numerical & Categorical Variables</figcaption>
+                            </figure>
+                        </div>
+                        <p>Data is information about something. A variable represents one specific characteristics of
+                            the data or tells one specific information about the data under consideration. A value of
+                            variable can change for different data points or over time.
+                        </p>
+                        <p>
+                            Example taking about price of mobile phones, if we present the exact price then it is a
+                            numeric variable but if we categorize the price in, say cheap and expensive, then this type
+                            of data will be called as categorical variable.
+                        </p>
+                        <div id="image">
+                            <figure>
+                                <img src="MLNotesIMGs/6.png" alt="Description of the image">
+                                <figcaption>Numerical & Categorical Variables</figcaption>
+                            </figure>
+                        </div>
+                        <p>
+                            <strong>Independent variables</strong> are the one whose value don’t depend on any other
+                            variables.
+                            <br><strong>Dependent variables</strong> are those whose values depend on other independent
+                            variables and
+                            cannot be changed easily.
+                            <strong>Structured variables</strong> always have a structure or format when they are
+                            stored.
+                            Common structures are tabular format of data organization.
+                            <strong>Unstructured Data</strong> have no structure available for the data and no tabular
+                            format is present.
+                            This type of data is human readable but machines cannot directly read these kinds of data.
+                            Example of this data type are images, audio etc.
+                            For machines to understand this type of data the unstructured data is converted to
+                            structured data (usually in form of matrix) and then is read and used in proposed ML model.
+
+                        </p>
+
+                    </section>
+                    <section id="chapter2">
+                        <h1>Graphical & Analytical Representation of Data</h1>
+                        <h2 id="DataAnalysis&EDA">Data Analysis & EDA</h2>
+                        <div style="display: flex; justify-content: space-between; padding: 10px 10px;">
+                            <div id="image"><img src="MLNotesIMGs/7.png" alt=""
+                                    style="width: 50%; height: auto; margin-right: 20px;">
+                                <figcaption>Levels of Data Analysis</figcaption>
+                            </div>
+                            <div id="image"><img src="MLNotesIMGs/8.png" alt=""
+                                    style="width: 50%; height: auto; margin-right: 20px;">
+                                <figcaption>Work flow of ML modellingf</figcaption>
+                            </div>
+                        </div>
+                        <p> <strong>Data Analysis</strong> is the process of studying the available data and drawing
+                            valuable insights or
+                            information from it with the help of any software.
+                            Commonly used analytical tools in industry are: <em>MS excel, python, R, sas, knime, SPSS,
+                                Minitab 18, MATLAB, Tableau</em> etc.
+                            ML models use data analyses to analyse the input data. Hence data analysis is the part of
+                            processing of an ML procedure.
+                        </p>
+
+                        <p> <strong>Exploratory Data Analysis</strong> is a type of Data analysis which is used to find
+                            out the patterns and relationships among the data
+                            variables.
+                            EDA gives the summary of dataset in form of graphs.
+                            The figure on left side shows the levels of Data Analysis.
+                            In descriptive analysis we try to extract information from already available data. This
+                            gives us a high-level picture of the dataset.
+                        </p>
+
+                        <h2 id="GraphicalRepresentationofData">Graphical Representation of data</h2>
+                        <div id="image">
+                            <figure>
+                                <img src="MLNotesIMGs/9.png" alt="Description of the image"
+                                    style="width: 50%; height: auto; margin-right: 20px;">
+                                <figcaption>Graphical Representation of data</figcaption>
+                            </figure>
+                        </div>
+                        <h3>Graphical Representation of Data:</h3>
+                        <p>• It is one of the simplest techniques for drawing insights from the data.</p>
+                        <p>• Helps us to study the relationship between the variables.</p>
+                        <p>• Helps to identify the trends and patterns across the variables.</p>
+
+                        <h3>Line Graphs:</h3>
+                        <ul>
+                            <li>Two dimensional graphs</li>
+                            <li>Horizontal axis (or X-axis) marks the independent variables whereas vertical axis (or
+                                Y-axis) marks the dependent variables.</li>
+                            <li>Data points are marked according to the (x, y) coordinate values.</li>
+                            <li>Data points are joined by a line to obtain the line graph.</li>
+                        </ul>
+
+                        <h3>Bar Chart:</h3>
+                        <ul>
+                            <li>Two dimensional graphs</li>
+                            <li>Horizontal axis (or X-axis) marks the independent variables whereas vertical axis (or
+                                Y-axis) marks the dependent variables.</li>
+                            <li>Data points are marked according to the (x, y) coordinate values.</li>
+                            <li>Data points represented by bars either horizontally or vertically.</li>
+                        </ul>
+
+                        <h3>Histogram or Frequency Polygon:</h3>
+                        <ul>
+                            <li>Two dimensional graphs</li>
+                            <li>Special type of bar chart.</li>
+                            <li>Used to represent continuous variables only.</li>
+                            <li>Used to count the frequency of occurrence of an event.</li>
+                            <li>If we join the data points in a histogram, we obtain a smooth curve.</li>
+                            <li>If a bell-shaped curve is obtained, i.e., y-values first increased, attained a maximum
+                                value and then decreased. In this type of curve, we say the data is Normally
+                                Distributed.</li>
+                            <li>For ML-data modelling the data must be always normally distributed.</li>
+                        </ul>
+
+                        <h3>Pie Chart:</h3>
+                        <ul>
+                            <li>Graph simulating the share of a complete circle.</li>
+                            <li>Each part of the circle describes the share of the variable in the graph.</li>
+                            <li>It is widely used when we want to present the proportions of different attributes.</li>
+                        </ul>
+
+                        <h3>Scatter Plot:</h3>
+                        <ul>
+                            <li>One of the most useful graphs in machine learning.</li>
+                            <li>A scatter plot is a two-dimensional graph in which each point is obtained by the
+                                intersection of the values of respective x and y values.</li>
+                            <li>Informs us the relationship between two variables.</li>
+                            <li>Sometimes we draw a line in between the curve such that it represents all the data in
+                                the best way possible. Such a line is called the best fit line.</li>
+                        </ul>
+
+                        <h3>Box and Whisker Plot:</h3>
+                        <ul>
+                            <li>Box plot, also known as Box and Whisker plot, is a graphical representation of the
+                                statistical summary of numeric variables.</li>
+                            <div style="display: flex; justify-content: space-between; padding: 10px 10px;">
+                                <div id="image"><img src="MLNotesIMGs/10.png" alt=""
+                                        style="width: 50%; height: auto; margin-right: 20px;">
+                                </div>
+                                <div id="image">
+                                    <ul>
+
+                                        <li>Drawn in a rectangular manner with adjoining whiskers at both ends and a
+                                            line bisecting
+                                            the middle of the rectangle.</li>
+                                        <li>Via a box plot we can obtain the following data:</li>
+                                        <li>Minimum value</li>
+                                        <li>First (or 25th quartile)</li>
+                                        <li>Median (or 50th quartile)</li>
+                                        <li>Third (or 75th quartile)</li>
+                                        <li>Interquartile range</li>
+                                        <li>Maximum value</li>
+                                        <li>Outliers</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <p>• Quartiles divide the data into three equal parts: 25th, 50th, and 75th quartile.</p>
+                            <p>• Difference between third and first quartile is called the Interquartile Range.</p>
+                            <p>• Interquartile range = length of the rectangular box.</p>
+                            <p>• Outliers are extreme values and are shown on the vertical axis.</p>
+                        </ul>
+
+                        <h3>Time Series:</h3>
+                        <ul>
+                            <li>A special type of line graph where the x-axis is always time.</li>
+                        </ul>
+
+                        <h2 id="LimitationOfTraditionalDA">Limitation of traditional Data Analysis</h2>
+                        <h3>Data Analytics in Industries</h3>
+                        <p>Data analytics is being used in each and every industry for improving the performance of the
+                            companies, just like in the example of a cricket match where the captain and coach analyse
+                            the performance of the opponent team and then devise strategies for winning the match. If we
+                            begin to list down the areas where data analytics is being used, the list would be
+                            infinitely long. </p>
+
+                        <div class="use-cases">
+                            <h2>Some of the major industries include:</h2>
+                            <div class="use-cases-grid">
+                                <div class="use-case">
+                                    <h3>Banking</h3>
+                                </div>
+                                <div class="use-case">
+                                    <h3>Healthcare</h3>
+                                </div>
+                                <div class="use-case">
+                                    <h3>Insurance</h3>
+                                </div>
+                                <div class="use-case">
+                                    <h3>Telecom</h3>
+                                </div>
+                                <div class="use-case">
+                                    <h3>Aerospace</h3>
+                                </div>
+                                <div class="use-case">
+                                    <h3>Retailers</h3>
+                                </div>
+                                <div class="use-case">
+                                    <h3>Internet</h3>
+                                </div>
+                                <div class="use-case">
+                                    <h3>E-commerce companies</h3>
+                                </div>
+                            </div>
+                        </div><br>
+
+                        <h3>Limitations of Traditional Analytics</h3>
+                        <ul>
+                            <li><strong>Involved Huge Efforts, Time Consuming:</strong> The traditional data analytics
+                                involved huge efforts from the statisticians and it was very time-consuming, as it
+                                involved a lot of human intervention. This became a liability for the companies because
+                                of additional costs borne by the statisticians, and they failed to provide accurate
+                                results.</li>
+                            <li><strong>Static Data Model:</strong> The models created by statisticians were static in
+                                nature, meaning they needed to be revamped and recalibrated periodically. This led to
+                                additional costs and performance struggles.</li>
+                            <li><strong>Struggle to Manage the Exponential Growth in Data:</strong> With the exponential
+                                growth in volume, velocity, and variability of data, traditional analytics struggled to
+                                manage and integrate the data using their methods.</li>
+                            <li><strong>Lack of Skilled Resources:</strong> Traditional analytics suffered from a lack
+                                of skilled resources. Companies found it difficult to hire good resources, and they
+                                lacked knowledge of advanced tools for efficient data analytics.</li>
+                        </ul>
+
+                        <br>
+                        <h3>Rise of Machine Learning</h3>
+                        <ul>
+                            <li><strong>Human Intervention Reduced, Dynamic Model:</strong> With machine learning, the
+                                challenges faced by traditional analytics were addressed. ML uses complex statistical
+                                methods and modern tools for better and more accurate solutions, with minimal human
+                                intervention.</li>
+                            <li><strong>Managing the Exponential Growth in Data:</strong> Machine learning tools (e.g.,
+                                Python, R, Knime, Julia) efficiently handle both structured and unstructured data, a
+                                challenge for traditional tools (e.g., Minitab, MATLAB, IBM SPSS).</li>
+                        </ul>
+
+                        <br>
+                        <h3>Limitations of Machine Learning</h3>
+                        <ul>
+                            <li><strong>Large Data Requirement:</strong> For training ML models effectively, a large
+                                amount of relevant data is required. Insufficient data can lead to incorrect
+                                predictions.</li>
+                            <li><strong>Lack of Trained Resources:</strong> ML techniques require trained resources for
+                                understanding and interpreting results. Inaccurate or incorrect algorithm selection can
+                                lead to poor performance.</li>
+                            <li><strong>Reliance on Results from ML Techniques:</strong> Sometimes there is too much
+                                reliance on ML-generated results, and human intuition or experience is overlooked.</li>
+                            <li><strong>Treatment of Missing Fields:</strong> Missing data fields need to be imputed
+                                using ML techniques. If not handled properly, it may impact the results and accuracy of
+                                models.</li>
+                        </ul>
+
+                        <br>
+                        <h3>Missing Data</h3>
+                        <p>Whenever the data is not available for certain fields, we say the data is missing for that
+                            field. It could be represented as a "Blank", "N/A", "n.a." (Not Available), or "-". For
+                            example, M.S. Dhoni’s bowling statistics in T20 internationals may show missing data because
+                            he hasn’t bowled in those matches.</p>
+                        <p>As a data scientist, missing values are replaced with other values using techniques that
+                            minimize the impact on the model.</p>
+
+                        <br>
+                        <h3>After ML, What Next?</h3>
+                        <p>With the progress in data science and computing, new-age technologies such as deep learning
+                            and AI are making breakthroughs. Researchers are constantly developing techniques that
+                            require minimal human intervention and provide more accurate results. Deep learning-based
+                            methods are reducing time and costs in data analysis.</p>
+
+                    </section>
+                    <section id="chapter3">
+                        <h1 "#chapter2">3. Python as a Data-Analysis Tool</h1>
+
+                        <h2 id="WhyPython">Why Python?</h2>
+                        <ol>
+                            <li>Python is and object-oriented programming language. Hence creating classes and objects
+                                are easy.</li>
+                            <li>Simple syntax.</li>
+                            <li>Runs on an interpreter system, means that code runs as soon as it is written hence
+                                prototyping becomes easier.</li>
+                            <li>Huge collection of standard libraries.</li>
+                            <li>Can easily get integrated with third party tools hence it become cost saving for
+                                companies.</li>
+                            <li>Python is open source and has a huge community support.</li>
+                        </ol>
+                        <h2 id="JupyterNotebook">Introduction to Jupyter Notebook</h2>
+                        <ul>
+                            <li><strong>An IDE (Integrated Development Environment):</strong> An IDE is a software suite
+                                that consolidates the basic tools that developers need to write and test software.</li>
+                            <li><strong>Jupyter Notebook:</strong> Jupyter Notebook was previously called IPython
+                                Notebook.</li>
+                            <li><strong>Versatility and Shareability:</strong> Jupyter Notebook is versatile and
+                                shareable.</li>
+                            <li><strong>Data Visualization:</strong> It has the ability to display data visualizations
+                                in the same window.</li>
+                            <li><strong>Open-Source Web Application:</strong> Jupyter Notebook is an open-source web
+                                application.</li>
+                            <li><strong>Notebook:</strong> A notebook refers to a collection of codes, documents, and
+                                visualizations all in one place.</li>
+                            <li><strong>Independent Cells:</strong> Jupyter Notebook has independent cells for different
+                                parts of the code, allowing execution of specific code sections without running the
+                                entire code.</li>
+                        </ul>
+
+                        <h3>Features of Jupyter Notebook</h3>
+                        <ul>
+                            <li><strong>Python3 Notebook Dropdown Menu:</strong> In Jupyter Python3 Notebooks, there is
+                                a 4-option dropdown menu:</li>
+                            <ul>
+                                <li><strong>Code:</strong> This option provides a cell where you can write Python code.
+                                </li>
+                                <li><strong>Text:</strong> This option provides a cell where you can write notes in text
+                                    format.</li>
+                                <li><strong>Raw NB Convert:</strong> This option provides a cell for converting the
+                                    notebook into other formats, such as HTML.</li>
+                                <li><strong>Header:</strong> This option takes you to the section where you can write a
+                                    header for the notebook. Note that you need to use a double pound (##) sign to
+                                    ensure that anything after it is treated as a header.</li>
+                            </ul>
+                        </ul>
+
+                        <h2 id="PythonDataTypes">Data Types in Python</h2>
+                        <section
+                            style="margin: 20px 0; padding: 15px; background-color: #f4f4f9; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                            <h3 style="text-align: center; color: #007bff;">Python Data Types</h3>
+                            <ul style="list-style-type: none; padding-left: 0;">
+                                <li
+                                    style="background-color: #007bff; color: white; margin: 8px 0; padding: 12px; border-radius: 5px; font-size: 1.1em;">
+                                    <strong>int:</strong> Integer, a whole number without decimals, e.g., 5, -10, 42.
+                                </li>
+                                <li
+                                    style="background-color: #28a745; color: white; margin: 8px 0; padding: 12px; border-radius: 5px; font-size: 1.1em;">
+                                    <strong>float:</strong> Floating-point number, a number with decimals, e.g., 5.6,
+                                    -3.14, 2.0.
+                                </li>
+                                <li
+                                    style="background-color: #17a2b8; color: white; margin: 8px 0; padding: 12px; border-radius: 5px; font-size: 1.1em;">
+                                    <strong>str:</strong> String, a sequence of characters, e.g., "Hello", "12345".
+                                </li>
+                                <li
+                                    style="background-color: #ffc107; color: white; margin: 8px 0; padding: 12px; border-radius: 5px; font-size: 1.1em;">
+                                    <strong>bool:</strong> Boolean, representing True or False values.
+                                </li>
+                                <li
+                                    style="background-color: #dc3545; color: white; margin: 8px 0; padding: 12px; border-radius: 5px; font-size: 1.1em;">
+                                    <strong>list:</strong> Ordered collection of items, e.g., [1, 2, 3], ["apple",
+                                    "banana"].
+                                </li>
+                                <li
+                                    style="background-color: #6610f2; color: white; margin: 8px 0; padding: 12px; border-radius: 5px; font-size: 1.1em;">
+                                    <strong>tuple:</strong> Immutable ordered collection of items, e.g., (1, 2, 3),
+                                    ("apple", "banana").
+                                </li>
+                                <li
+                                    style="background-color: #fd7e14; color: white; margin: 8px 0; padding: 12px; border-radius: 5px; font-size: 1.1em;">
+                                    <strong>set:</strong> Unordered collection of unique items, e.g., {1, 2, 3},
+                                    {"apple", "banana"}.
+                                </li>
+                                <li
+                                    style="background-color: #6c757d; color: white; margin: 8px 0; padding: 12px; border-radius: 5px; font-size: 1.1em;">
+                                    <strong>dict:</strong> Dictionary, a collection of key-value pairs, e.g., {"name":
+                                    "John", "age": 25}.
+                                </li>
+                                <li
+                                    style="background-color: #343a40; color: white; margin: 8px 0; padding: 12px; border-radius: 5px; font-size: 1.1em;">
+                                    <strong>NoneType:</strong> Represents the absence of a value or a null value, e.g.,
+                                    None.
+                                </li>
+                            </ul>
+                        </section>
+
+                        <h3 style="text-align: center; color: #007bff;">Python Data Types - Key Points</h3>
+
+                        <p><strong>To check data type of any variable:</strong> Use the inbuilt <code>type()</code>
+                            function.
+                            <code>type(var)</code> will return the type of the variable passed as an argument.
+                        </p>
+
+                        <p><strong>Integers:</strong> In Python, there is no limit to how long an <code>int</code> value
+                            can be. Integers are represented by the <code>int</code> class.</p>
+
+                        <p><strong>Floats:</strong> Floats can be represented using <code>e</code> or <code>E</code>
+                            notation, which is called scientific notation.
+                            Floating-point numbers are represented by the <code>float</code> class.</p>
+
+                        <p><strong>Sequence Data Types:</strong> In Python, sequences are ordered collections of similar
+                            or different data types. Sequences allow storing multiple values in an organized and
+                            efficient manner.</p>
+
+                        <p><strong>Strings:</strong> Strings in Python are arrays of bytes representing UNICODE
+                            characters. A string is a collection of one or more characters enclosed in single, double,
+                            or triple quotes. Strings are represented by the <code>str</code> class.
+                            Individual characters of strings can be accessed by indexing.</p>
+
+                        <p><strong>Booleans:</strong> Booleans are Python data types with two built-in values:
+                            <code>True</code> and <code>False</code>.
+                            Note that only these two formats are valid for True and False in Python.
+                        </p>
+
+
+
+                        <h2 id="BasicOperations">Basic Operations</h2>
+                        <section
+                            style="margin: 20px 0; padding: 15px; border-radius: 8px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+                            <h3 style="text-align: center; color: #007bff;">Python Basic Operations - Key Points</h3>
+
+                            <p><strong>Arithmetic Operations:</strong> Python supports basic arithmetic operations like
+                                addition, subtraction, multiplication, division, and modulus.
+                            <ul>
+                                <li><strong>Addition:</strong> <code>a + b</code></li>
+                                <li><strong>Subtraction:</strong> <code>a - b</code></li>
+                                <li><strong>Multiplication:</strong> <code>a * b</code></li>
+                                <li><strong>Division:</strong> <code>a / b</code></li>
+                                <li><strong>Modulus (Remainder):</strong> <code>a % b</code></li>
+                                <li><strong>Exponentiation (Power):</strong> <code>a ** b</code></li>
+                                <li><strong>Floor Division:</strong> <code>a // b</code></li>
+                            </ul>
+                            </p>
+
+                            <p><strong>Comparison Operations:</strong> Used to compare two values and return a boolean
+                                result.
+                            <ul>
+                                <li><strong>Equal to:</strong> <code>a == b</code></li>
+                                <li><strong>Not equal to:</strong> <code>a != b</code></li>
+                                <li><strong>Greater than:</strong> <code>a &gt; b</code></li>
+                                <li><strong>Less than:</strong> <code>a &lt; b</code></li>
+                                <li><strong>Greater than or equal to:</strong> <code>a &gt;= b</code></li>
+                                <li><strong>Less than or equal to:</strong> <code>a &lt;= b</code></li>
+                            </ul>
+                            </p>
+
+                            <p><strong>Logical Operations:</strong> Used to perform logical operations and return
+                                boolean results.
+                            <ul>
+                                <li><strong>AND:</strong> <code>a &amp;&amp; b</code></li>
+                                <li><strong>OR:</strong> <code>a || b</code></li>
+                                <li><strong>NOT:</strong> <code>not a</code></li>
+                            </ul>
+                            </p>
+
+                            <p><strong>Assignment Operations:</strong> Used to assign values to variables.
+                            <ul>
+                                <li><strong>Simple assignment:</strong> <code>a = b</code></li>
+                                <li><strong>Add and assign:</strong> <code>a += b</code></li>
+                                <li><strong>Subtract and assign:</strong> <code>a -= b</code></li>
+                                <li><strong>Multiply and assign:</strong> <code>a *= b</code></li>
+                                <li><strong>Divide and assign:</strong> <code>a /= b</code></li>
+                                <li><strong>Modulo and assign:</strong> <code>a %= b</code></li>
+                                <li><strong>Exponentiate and assign:</strong> <code>a **= b</code></li>
+                                <li><strong>Floor divide and assign:</strong> <code>a //= b</code></li>
+                            </ul>
+                            </p>
+
+                            <p><strong>Membership Operations:</strong> Used to check if a value is present in a sequence
+                                (e.g., a list, tuple, or string).
+                            <ul>
+                                <li><strong>In:</strong> <code>a in b</code></li>
+                                <li><strong>Not in:</strong> <code>a not in b</code></li>
+                            </ul>
+                            </p>
+
+                            <p><strong>Identity Operations:</strong> Used to compare the memory locations of two
+                                objects.
+                            <ul>
+                                <li><strong>Is:</strong> <code>a is b</code></li>
+                                <li><strong>Is not:</strong> <code>a is not b</code></li>
+                            </ul>
+                            </p>
+                        </section>
+
+                        <h2 id="PythonConstructs">Condition Statements & Loops</h2>
+                        <h3>Branching in Python (if-else)</h3>
+
+                        <p><strong>Basic Syntax:</strong></p>
+                        <pre><code class="language-python">if condition:
+                            # Execute if condition is True
+                        elif another_condition:
+                            # Execute if another_condition is True
+                        else:
+                            # Execute if no condition is True</code></pre>
+
+                        <p><strong>Example:</strong></p>
+                        <pre><code class="language-python">def check_number(num):
+                            if num > 0:
+                                print("Positive number")
+                            elif num < 0:
+                                print("Negative number")
+                            else:
+                                print("Zero")
+                        
+                        check_number(10)  # Positive number</code></pre>
+
+                        <p><strong>Key Points:</strong></p>
+                        <ul>
+                            <li><strong>if</strong> - checks the condition; executes if True.</li>
+                            <li><strong>elif</strong> - checks an alternative condition if the first is False.</li>
+                            <li><strong>else</strong> - executes if all the previous conditions are False.</li>
+                            <li>Conditions are evaluated in order. Once a condition is found to be True, no other
+                                conditions are checked.</li>
+                        </ul>
+                        <h3>For Loop in Python</h3>
+
+                        <p><strong>Basic Syntax:</strong></p>
+                        <pre><code class="language-python">for item in iterable:
+    # Execute for each item in iterable</code></pre>
+
+                        <p><strong>Example:</strong></p>
+                        <pre><code class="language-python">fruits = ["apple", "banana", "cherry"]
+
+for fruit in fruits:
+    print(fruit)  # apple, banana, cherry</code></pre>
+
+                        <p><strong>Key Points:</strong></p>
+                        <ul>
+                            <li>Used to iterate over sequences (lists, tuples, strings, etc.).</li>
+                            <li>Can loop over a range using <code>range(start, stop, step)</code>.</li>
+                            <li>Loops through each element one by one.</li>
+                        </ul>
+
+                        ---
+
+                        #### **While Loop in Python**
+
+                        ```html
+                        <h3>While Loop in Python</h3>
+
+                        <p><strong>Basic Syntax:</strong></p>
+                        <pre><code class="language-python">while condition:
+    # Execute as long as condition is True</code></pre>
+
+                        <p><strong>Example:</strong></p>
+                        <pre><code class="language-python">count = 1
+while count <= 5:
+    print(count)
+    count += 1  # Increment count to avoid infinite loop</code></pre>
+
+                        <p><strong>Key Points:</strong></p>
+                        <ul>
+                            <li>The loop continues as long as the condition is True.</li>
+                            <li>Ensure that the condition will eventually become False to avoid infinite loops.</li>
+                            <li>Useful when the number of iterations is not known beforehand.</li>
+                        </ul>
+
+
+                        <h2 id="PythonFunctions">Functions in Python</h2>
+                        <h3>Functions in Python</h3>
+
+                        <p><strong>Basic Syntax:</strong></p>
+                        <pre><code class="language-python">def function_name(parameters):
+    # Function body
+    # Code to execute
+    return result  # Optional, to return a value</code></pre>
+
+                        <p><strong>Example:</strong></p>
+                        <pre><code class="language-python">def greet(name):
+    return "Hello, " + name + "!"
+
+message = greet("Alice")
+print(message)  # Output: Hello, Alice!</code></pre>
+
+                        <p><strong>Key Points:</strong></p>
+                        <ul>
+                            <li><strong>def</strong> is used to define a function in Python.</li>
+                            <li>The function can take parameters (input) and return a value (output).</li>
+                            <li>Functions can be called multiple times with different arguments.</li>
+                            <li>If no <code>return</code> statement is used, the function returns <code>None</code> by
+                                default.</li>
+                            <li>Functions allow you to organize code, reuse logic, and make the code more modular and
+                                readable.</li>
+                            <li>You can define default values for function parameters (e.g.,
+                                <code>def greet(name="Guest")</code>).
+                            </li>
+                        </ul>
+
+                        <h2 id="BasicLibraries">Basic Libraries</h2>
+                        <h3>Python Libraries</h3>
+
+                        <p><strong>Definition:</strong></p>
+                        <p>A library is a collection of functions and methods which allows the user to perform actions
+                            without writing lengthy code to achieve a task.</p>
+
+                        <p><strong>Common Libraries used in Data Analysis:</strong></p>
+                        <ul>
+                            <li><strong>Pandas:</strong> Helps in data manipulation and analysis.</li>
+                            <li><strong>NumPy:</strong> Helps in performing complicated mathematical calculations for
+                                large datasets.</li>
+                            <li><strong>Matplotlib:</strong> Helps in plotting different types of graphs in Python.</li>
+                        </ul>
+
+                        <p><strong>Installing Libraries in Conda Environment:</strong></p>
+                        <p>To install a library, use the following command in the Conda environment:</p>
+                        <pre>(for Anaconda Environment): <code>conda install &lt;library name&gt;</code></pre>
+                        <pre>(for Python Environment): <code>pip install &lt;library name&gt;</code></pre>
+
                     </section>
                 </article>
-
             </main>
         </div>
     </div>
