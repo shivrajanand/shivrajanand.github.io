@@ -325,3 +325,101 @@ p {
         display: block;
     }
 }
+
+/* next button */
+
+/* Light and Dark Mode Media Queries */
+@media (prefers-color-scheme: dark) {
+
+    a {
+        color: #bb86fc; /* Light purple link color in dark mode */
+    }
+
+    #next a {
+        background-color: #333;
+        color: #fff;
+        border: 2px solid #bb86fc;
+        border-radius: 50px;
+        padding: 12px 30px;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 1rem;
+        display: inline-block;
+        transition: background-color 0.3s, transform 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    }
+
+    #next a:hover {
+        background-color: #bb86fc;
+        transform: translateY(-3px);
+    }
+
+    #next a:active {
+        background-color: #3700b3;
+        transform: translateY(1px);
+    }
+
+    #next a:focus {
+        outline: none;
+        border-color: #bb86fc;
+    }
+}
+
+@media (prefers-color-scheme: light) {
+
+    a {
+        color: #6200ee; /* Blue link color in light mode */
+    }
+
+    #next a {
+        background-color: #6200ee;
+        color: #fff;
+        border: 2px solid #6200ee;
+        border-radius: 50px;
+        padding: 12px 30px;
+        text-transform: uppercase;
+        font-weight: bold;
+        font-size: 1rem;
+        display: inline-block;
+        transition: background-color 0.3s, transform 0.3s ease;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    #next a:hover {
+        background-color: #3700b3;
+        transform: translateY(-3px);
+    }
+
+    #next a:active {
+        background-color: #3700b3;
+        transform: translateY(1px);
+    }
+
+    #next a:focus {
+        outline: none;
+        border-color: #3700b3;
+    }
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    #next a {
+        padding: 10px 20px;
+        font-size: 0.9rem; /* Smaller font size on mobile */
+    }
+
+    #next a:hover {
+        transform: translateY(-2px); /* Less intense hover effect on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    #next a {
+        padding: 8px 15px;
+        font-size: 0.85rem; /* Further reduce font size on very small devices */
+    }
+
+    #next a:hover {
+        transform: translateY(-1px);
+    }
+}

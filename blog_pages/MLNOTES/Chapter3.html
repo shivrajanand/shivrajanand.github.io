@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Machine Learning Notes</title>
-    <link rel="stylesheet" href="../assets/css/globalblog.css">
+    <title>Chapter3: Machine Learning Notes</title>
+    <link rel="stylesheet" href="../../assets/css/globalblog.css">
     <!-- Load Prism CSS files with defer -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
@@ -156,7 +156,7 @@
                 <h2 class="nav-title">INDEX</h2>
                 <div class="chapters">
                     <div class="chapter">
-                        <h2><a href="#chapter0">0. Links & Overview</a></h2>
+                        <h2><a href="Chapter1.html#chapter0">0. Links & Overview</a></h2>
                         <ul>
                             <li>Notes PDF Download Link</li>
                             <li>Github Repo Link</li>
@@ -167,31 +167,50 @@
                     <div class="chapter">
                         <h2><a href="#chapter1">1. Getting started with Machine Learning</a></h2>
                         <ul>
-                            <li><a href="#WhatisMachineLearning">What is Machine Learning?</a></li>
-                            <li><a href="#HowMachineLearningWorks">How Machine Learning Works</a></li>
-                            <li><a href="#TypesofMachineLearning">Types of Machine Learning</a></li>
-                            <li><a href="#TypesofData">Types of Data</a></li>
+                            <li><a href="Chapter1.html#WhatisMachineLearning">What is Machine Learning?</a></li>
+                            <li><a href="Chapter1.html#HowMachineLearningWorks">How Machine Learning Works</a></li>
+                            <li><a href="Chapter1.html#TypesofMachineLearning">Types of Machine Learning</a></li>
+                            <li><a href="Chapter1.html#TypesofData">Types of Data</a></li>
                         </ul>
                     </div>
                     <div class="chapter">
-                        <h2><a href="#chapter2">2. Graphical & Analytical Representation of Data</a></h2>
+                        <h2><a href="Chapter2.html#chapter2">2. Graphical & Analytical Representation of Data</a></h2>
                         <ul>
-                            <li><a href="#DataAnalysis&EDA">Data Analysis & EDA</a></li>
-                            <li><a href="#GraphicalRepresentationofData">Graphical Representation of data</a></li>
-                            <li><a href="#LimitationOfTraditionalDA">Limitation of traditional Data Analysis</a></li>
+                            <li><a href="Chapter2.html#DataAnalysis&EDA">Data Analysis & EDA</a></li>
+                            <li><a href="Chapter2.html#GraphicalRepresentationofData">Graphical Representation of
+                                    data</a></li>
+                            <li><a href="Chapter2.html#LimitationOfTraditionalDA">Limitation of traditional Data
+                                    Analysis</a></li>
                         </ul>
                     </div>
 
                     <div class="chapter">
-                        <h2><a href="#chapter2">3. Python as a Data-Analysis Tool</a></h2>
+                        <h2><a href="Chapter3.html#chapter3">3. Python as a Data-Analysis Tool</a></h2>
                         <ul>
                             <li><a href="#WhyPython">Why Python?</a></li>
-                            <li><a href="#JupyterNotebook">Jupyter Notebook/a></li>
+                            <li><a href="#JupyterNotebook">Jupyter Notebook</a></li>
                             <li><a href="#PythonDataTypes">Data Types in Python</a></li>
                             <li><a href="#BasicOperations">Basic Operations</a></li>
                             <li><a href="#PythonConstructs">Condition Statements & Loops</a></li>
                             <li><a href="#PythonFunctions">Functions in Python</a></li>
                             <li><a href="#BasicLibraries">Basic Libraries</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter4.html#chapter4">4. Basic Data Exploration</a></h2>
+                        <ul>
+                            <li><a href="Chapter4.html#PandasDataframe">Pandas Dataframe</a></li>
+                            <li><a href="Chapter4.html#DescriptiveStatistics">Descriptive Statistics of Data</a></li>
+                            <li><a href="Chapter4.html#Numpy">Numpy: A Statistics Module in Python</a></li>
+                            <li><a href="Chapter4.html#Matplotlib">Matplotlib: Graph Plotting</a></li>
+                            <li><a href="Chapter4.html#Pandas">Pandas: Some important Functions</a></li>
+                            <li><a href="Chapter4.html#Univariate">Regression Modelling Approach</a></li>
+                            <li><a href="Chapter4.html#Outliers">Treating Outliers</a></li>
+                            <li><a href="Chapter4.html#Correlation">Correlation</a></li>
+                            <li><a href="Chapter4.html#ANOVA">ANOVA</a></li>
+                            <li><a href="Chapter4.html#TrainingDatasets">Creating Training Datasets</a></li>
+                            <li><a href="Chapter4.html#FeatureScaling">FeatureScaling</a></li>
                         </ul>
                     </div>
                 </div>
@@ -236,412 +255,8 @@
             <!-- Content -->
             <main class="content">
                 <article class="article">
-                    <section id="chapter0">
-                        <h1>Links & Overview</h1>
-                        <ul>
-                            <li>
-                                <p>PDF NOTES <a href="https://drive.google.com/file/d/1NtIWWRx83ejtDvwxT_71OhJsfItPbyOG"
-                                        class="btn" target="_blank"><strong>Download PDF</strong></a></p>
-                            </li>
-                            <li id="githubrepo">Access the <a
-                                    href="https://github.com/shivrajanand/InternshalaTraining3rdSemester"
-                                    target="_blank">GitHub repository</a> for all my Jupyter notebooks</li>
-                            <li id="kaggleproject1"><a
-                                    href="https://www.kaggle.com/code/shivrajanandai/housing-data-set-regression-modelling"
-                                    target="_blank">Kaggle Notebook</a> Link for <strong>Project 1: Housing Data Set
-                                    Regression
-                                    Modelling</strong></li>
-                            <li id="kaggleproject2"><a
-                                    href="https://www.kaggle.com/code/shivrajanandai/training-project-2-population-demography"
-                                    target="_blank">Kaggle Notebook</a> Link for <strong>Project 2: Population
-                                    Demography</strong>
-                            </li>
-                        </ul>
-                    </section>
-                    <section id="chapter1">
-                        <h1>Getting started with MACHINE LEARNING</h1>
-                        <h2 id="WhatisMachineLearning">What is Machine Learning</h2>
-                        <p>Machine learning is the ability of machines, that is, computers to learn and improve from
-                            their past experiences or data, without being explicitly programmed.</p>
-                        <p>Machine learning is the ability of machines, i.e., computers or ideally computer programs,
-                            to learn from the past behaviour or data and to predict the future outcomes without being
-                            explicitly programmed to do so.</p>
-                        <div id="image">
-                            <figure>
-                                <img src="MLNotesIMGs/1.png" alt="Description of the image">
-                                <figcaption>Flowchart of a typical ML model</figcaption>
-                            </figure>
-                        </div>
-
-                        <p>Machine learning algorithms are constantly analysing the world-wide data and using
-                            them to learn and give better predictions.</p>
-
-                        <h2 id="HowMachineLearningWorks">How Machine Learning works</h2>
-                        Machine learning is the ability of machines to learn from past experiences. The past experiences
-                        are called Data. Data is any kind of information and can be represented in any
-                        form like images, pdfs, location, chats or documents etc.</p>
-                        <p>Data collection has risen exponentially in past few decades. All this data is stored and used
-                            in ML models for better functioning.</p>
-                        <p><strong>EXAMPLE PROBLEM1:</strong> Given a bank and a customer associated with bank who wants
-                            a loan, how will
-                            an ML model predict whether to give loan to the customer or not.</p>
-                        <p>The given ML model, say M, will analyse the past data of all the customers who were given a
-                            loan and will classify the set of customers in two category, Good Customer and Bad Customer.
-                        </p>
-                        <ul>
-                            <li>Good Customer: Any customer who repaid the loan on time</li>
-                            <li>Bad Customer: Any customer who didn’t repaid the loan on time.</li>
-                        </ul>
-                        <div id="image">
-                            <figure>
-                                <img src="MLNotesIMGs/2.png" alt="Description of the image">
-                            </figure>
-                        </div>
-                        </p>
-                        <p>Now M will use the previous data and identify a pattern between good and bad customers and
-                            then will use it to place the new customer into one of the classifications. Hence the model
-                            will predict whether the customer should begiven a loan or not on basis of if he/she can
-                            repay the loan or not. Hence in total we can say that ML model analyses
-                            past data and derives patterns and insights from it
-                            and then applies this intelligence on a new piece of
-                            data to predict or recommend actions.</p>
-
-
-                        <h2 id="TypesofMachineLearning">Types of Machine Learning</h2>
-                        <div id="image">
-                            <figure>
-                                <img src="MLNotesIMGs/3.png" alt="Description of the image">
-                            </figure>
-                        </div>
-                        <p>Data is a collection of information about something.The data which contains a target variable
-                            or an output variable that answers a question of interest is called Labelled Data.</p>
-                        <p>Example: Data of patients suffering from a particular disease.</p>
-                        <p>Data stored can be: Name, age, gender, location, Blood type. Weight, height, mean body
-                            temperature etc.</p>
-                        <p>Then we can additionally store a TARGET or Category variable “Was patient completely cured or
-                            not after the treatment”. The answer to this question can be YES or NO. This
-                            target variable is also called <strong>Dependent variable</strong> as it can depend on other
-                            variables listed above. The other data are called as <strong>Independent Variables</strong>.
-                            If the data given just contains independent data and do not have a predefined target
-                            variable or category variable then the dataset is referred to as <strong>Unlabelled
-                                Data</strong>.</p>
-
-
-                        <div class="feature-block">
-                            <h3>SUPERVISED LEARNING</h3>
-                            <ul>
-                                <li>In supervised learning model the ML model learn under supervision, and this
-                                    supervision
-                                    is provided by independent variables and the target variable (or collectively
-                                    Labelled
-                                    data).</li>
-                                <div id="image">
-                                    <figure>
-                                        <img src="MLNotesIMGs/4.png" alt="Description of the image">
-                                        <figcaption>Data Flow in supervised learning model</figcaption>
-                                    </figure>
-                                </div>
-                                <li>The model learns from the Past labelled data and the process is called Training the
-                                    data.
-                                    Once the model is trained, we can feed new unlabelled data to it to predict target
-                                    variable.</li>
-                                <li>There is a target variable involved.</li>
-                                <li>Works only on labelled data.</li>
-                                <li>Most of ML models used in present date are supervised learning due to high
-                                    availability of
-                                    data around us.</li>
-                            </ul>
-                        </div>
-
-                        <div class="feature-block">
-                            <h3>UNSUPERVISED LEARNING</h3>
-                            <ul>
-                                <li>The machine learning that is deployed to find patterns in unlabelled data is called
-                                    unsupervised learning.</li>
-                                <li>Complement of supervised learning.</li>
-                                <li>There is no target variable involved.</li>
-                                <li>Works only on unlabelled data.</li>
-                                <li>This type of model only detects if there is some pattern present in the data or not.
-                                </li>
-                                <li>Since there is no target variable present, the data on which unsupervised learning
-                                    operates is called Unlabelled data.</li>
-                            </ul>
-                        </div>
-
-
-                        <h2 id="TypesofData">Types of data</h2>
-                        <div id="image">
-                            <figure>
-                                <img src="MLNotesIMGs/5.png" alt="Description of the image">
-                                <figcaption>Numerical & Categorical Variables</figcaption>
-                            </figure>
-                        </div>
-                        <p>Data is information about something. A variable represents one specific characteristics of
-                            the data or tells one specific information about the data under consideration. A value of
-                            variable can change for different data points or over time.
-                        </p>
-                        <p>
-                            Example taking about price of mobile phones, if we present the exact price then it is a
-                            numeric variable but if we categorize the price in, say cheap and expensive, then this type
-                            of data will be called as categorical variable.
-                        </p>
-                        <div id="image">
-                            <figure>
-                                <img src="MLNotesIMGs/6.png" alt="Description of the image">
-                                <figcaption>Numerical & Categorical Variables</figcaption>
-                            </figure>
-                        </div>
-                        <p>
-                            <strong>Independent variables</strong> are the one whose value don’t depend on any other
-                            variables.
-                            <br><strong>Dependent variables</strong> are those whose values depend on other independent
-                            variables and
-                            cannot be changed easily.
-                            <strong>Structured variables</strong> always have a structure or format when they are
-                            stored.
-                            Common structures are tabular format of data organization.
-                            <strong>Unstructured Data</strong> have no structure available for the data and no tabular
-                            format is present.
-                            This type of data is human readable but machines cannot directly read these kinds of data.
-                            Example of this data type are images, audio etc.
-                            For machines to understand this type of data the unstructured data is converted to
-                            structured data (usually in form of matrix) and then is read and used in proposed ML model.
-
-                        </p>
-
-                    </section>
-                    <section id="chapter2">
-                        <h1>Graphical & Analytical Representation of Data</h1>
-                        <h2 id="DataAnalysis&EDA">Data Analysis & EDA</h2>
-                        <div style="display: flex; justify-content: space-between; padding: 10px 10px;">
-                            <div id="image"><img src="MLNotesIMGs/7.png" alt=""
-                                    style="width: 50%; height: auto; margin-right: 20px;">
-                                <figcaption>Levels of Data Analysis</figcaption>
-                            </div>
-                            <div id="image"><img src="MLNotesIMGs/8.png" alt=""
-                                    style="width: 50%; height: auto; margin-right: 20px;">
-                                <figcaption>Work flow of ML modellingf</figcaption>
-                            </div>
-                        </div>
-                        <p> <strong>Data Analysis</strong> is the process of studying the available data and drawing
-                            valuable insights or
-                            information from it with the help of any software.
-                            Commonly used analytical tools in industry are: <em>MS excel, python, R, sas, knime, SPSS,
-                                Minitab 18, MATLAB, Tableau</em> etc.
-                            ML models use data analyses to analyse the input data. Hence data analysis is the part of
-                            processing of an ML procedure.
-                        </p>
-
-                        <p> <strong>Exploratory Data Analysis</strong> is a type of Data analysis which is used to find
-                            out the patterns and relationships among the data
-                            variables.
-                            EDA gives the summary of dataset in form of graphs.
-                            The figure on left side shows the levels of Data Analysis.
-                            In descriptive analysis we try to extract information from already available data. This
-                            gives us a high-level picture of the dataset.
-                        </p>
-
-                        <h2 id="GraphicalRepresentationofData">Graphical Representation of data</h2>
-                        <div id="image">
-                            <figure>
-                                <img src="MLNotesIMGs/9.png" alt="Description of the image"
-                                    style="width: 50%; height: auto; margin-right: 20px;">
-                                <figcaption>Graphical Representation of data</figcaption>
-                            </figure>
-                        </div>
-                        <h3>Graphical Representation of Data:</h3>
-                        <p>• It is one of the simplest techniques for drawing insights from the data.</p>
-                        <p>• Helps us to study the relationship between the variables.</p>
-                        <p>• Helps to identify the trends and patterns across the variables.</p>
-
-                        <h3>Line Graphs:</h3>
-                        <ul>
-                            <li>Two dimensional graphs</li>
-                            <li>Horizontal axis (or X-axis) marks the independent variables whereas vertical axis (or
-                                Y-axis) marks the dependent variables.</li>
-                            <li>Data points are marked according to the (x, y) coordinate values.</li>
-                            <li>Data points are joined by a line to obtain the line graph.</li>
-                        </ul>
-
-                        <h3>Bar Chart:</h3>
-                        <ul>
-                            <li>Two dimensional graphs</li>
-                            <li>Horizontal axis (or X-axis) marks the independent variables whereas vertical axis (or
-                                Y-axis) marks the dependent variables.</li>
-                            <li>Data points are marked according to the (x, y) coordinate values.</li>
-                            <li>Data points represented by bars either horizontally or vertically.</li>
-                        </ul>
-
-                        <h3>Histogram or Frequency Polygon:</h3>
-                        <ul>
-                            <li>Two dimensional graphs</li>
-                            <li>Special type of bar chart.</li>
-                            <li>Used to represent continuous variables only.</li>
-                            <li>Used to count the frequency of occurrence of an event.</li>
-                            <li>If we join the data points in a histogram, we obtain a smooth curve.</li>
-                            <li>If a bell-shaped curve is obtained, i.e., y-values first increased, attained a maximum
-                                value and then decreased. In this type of curve, we say the data is Normally
-                                Distributed.</li>
-                            <li>For ML-data modelling the data must be always normally distributed.</li>
-                        </ul>
-
-                        <h3>Pie Chart:</h3>
-                        <ul>
-                            <li>Graph simulating the share of a complete circle.</li>
-                            <li>Each part of the circle describes the share of the variable in the graph.</li>
-                            <li>It is widely used when we want to present the proportions of different attributes.</li>
-                        </ul>
-
-                        <h3>Scatter Plot:</h3>
-                        <ul>
-                            <li>One of the most useful graphs in machine learning.</li>
-                            <li>A scatter plot is a two-dimensional graph in which each point is obtained by the
-                                intersection of the values of respective x and y values.</li>
-                            <li>Informs us the relationship between two variables.</li>
-                            <li>Sometimes we draw a line in between the curve such that it represents all the data in
-                                the best way possible. Such a line is called the best fit line.</li>
-                        </ul>
-
-                        <h3>Box and Whisker Plot:</h3>
-                        <ul>
-                            <li>Box plot, also known as Box and Whisker plot, is a graphical representation of the
-                                statistical summary of numeric variables.</li>
-                            <div style="display: flex; justify-content: space-between; padding: 10px 10px;">
-                                <div id="image"><img src="MLNotesIMGs/10.png" alt=""
-                                        style="width: 50%; height: auto; margin-right: 20px;">
-                                </div>
-                                <div id="image">
-                                    <ul>
-
-                                        <li>Drawn in a rectangular manner with adjoining whiskers at both ends and a
-                                            line bisecting
-                                            the middle of the rectangle.</li>
-                                        <li>Via a box plot we can obtain the following data:</li>
-                                        <li>Minimum value</li>
-                                        <li>First (or 25th quartile)</li>
-                                        <li>Median (or 50th quartile)</li>
-                                        <li>Third (or 75th quartile)</li>
-                                        <li>Interquartile range</li>
-                                        <li>Maximum value</li>
-                                        <li>Outliers</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <p>• Quartiles divide the data into three equal parts: 25th, 50th, and 75th quartile.</p>
-                            <p>• Difference between third and first quartile is called the Interquartile Range.</p>
-                            <p>• Interquartile range = length of the rectangular box.</p>
-                            <p>• Outliers are extreme values and are shown on the vertical axis.</p>
-                        </ul>
-
-                        <h3>Time Series:</h3>
-                        <ul>
-                            <li>A special type of line graph where the x-axis is always time.</li>
-                        </ul>
-
-                        <h2 id="LimitationOfTraditionalDA">Limitation of traditional Data Analysis</h2>
-                        <h3>Data Analytics in Industries</h3>
-                        <p>Data analytics is being used in each and every industry for improving the performance of the
-                            companies, just like in the example of a cricket match where the captain and coach analyse
-                            the performance of the opponent team and then devise strategies for winning the match. If we
-                            begin to list down the areas where data analytics is being used, the list would be
-                            infinitely long. </p>
-
-                        <div class="use-cases">
-                            <h2>Some of the major industries include:</h2>
-                            <div class="use-cases-grid">
-                                <div class="use-case">
-                                    <h3>Banking</h3>
-                                </div>
-                                <div class="use-case">
-                                    <h3>Healthcare</h3>
-                                </div>
-                                <div class="use-case">
-                                    <h3>Insurance</h3>
-                                </div>
-                                <div class="use-case">
-                                    <h3>Telecom</h3>
-                                </div>
-                                <div class="use-case">
-                                    <h3>Aerospace</h3>
-                                </div>
-                                <div class="use-case">
-                                    <h3>Retailers</h3>
-                                </div>
-                                <div class="use-case">
-                                    <h3>Internet</h3>
-                                </div>
-                                <div class="use-case">
-                                    <h3>E-commerce companies</h3>
-                                </div>
-                            </div>
-                        </div><br>
-
-                        <h3>Limitations of Traditional Analytics</h3>
-                        <ul>
-                            <li><strong>Involved Huge Efforts, Time Consuming:</strong> The traditional data analytics
-                                involved huge efforts from the statisticians and it was very time-consuming, as it
-                                involved a lot of human intervention. This became a liability for the companies because
-                                of additional costs borne by the statisticians, and they failed to provide accurate
-                                results.</li>
-                            <li><strong>Static Data Model:</strong> The models created by statisticians were static in
-                                nature, meaning they needed to be revamped and recalibrated periodically. This led to
-                                additional costs and performance struggles.</li>
-                            <li><strong>Struggle to Manage the Exponential Growth in Data:</strong> With the exponential
-                                growth in volume, velocity, and variability of data, traditional analytics struggled to
-                                manage and integrate the data using their methods.</li>
-                            <li><strong>Lack of Skilled Resources:</strong> Traditional analytics suffered from a lack
-                                of skilled resources. Companies found it difficult to hire good resources, and they
-                                lacked knowledge of advanced tools for efficient data analytics.</li>
-                        </ul>
-
-                        <br>
-                        <h3>Rise of Machine Learning</h3>
-                        <ul>
-                            <li><strong>Human Intervention Reduced, Dynamic Model:</strong> With machine learning, the
-                                challenges faced by traditional analytics were addressed. ML uses complex statistical
-                                methods and modern tools for better and more accurate solutions, with minimal human
-                                intervention.</li>
-                            <li><strong>Managing the Exponential Growth in Data:</strong> Machine learning tools (e.g.,
-                                Python, R, Knime, Julia) efficiently handle both structured and unstructured data, a
-                                challenge for traditional tools (e.g., Minitab, MATLAB, IBM SPSS).</li>
-                        </ul>
-
-                        <br>
-                        <h3>Limitations of Machine Learning</h3>
-                        <ul>
-                            <li><strong>Large Data Requirement:</strong> For training ML models effectively, a large
-                                amount of relevant data is required. Insufficient data can lead to incorrect
-                                predictions.</li>
-                            <li><strong>Lack of Trained Resources:</strong> ML techniques require trained resources for
-                                understanding and interpreting results. Inaccurate or incorrect algorithm selection can
-                                lead to poor performance.</li>
-                            <li><strong>Reliance on Results from ML Techniques:</strong> Sometimes there is too much
-                                reliance on ML-generated results, and human intuition or experience is overlooked.</li>
-                            <li><strong>Treatment of Missing Fields:</strong> Missing data fields need to be imputed
-                                using ML techniques. If not handled properly, it may impact the results and accuracy of
-                                models.</li>
-                        </ul>
-
-                        <br>
-                        <h3>Missing Data</h3>
-                        <p>Whenever the data is not available for certain fields, we say the data is missing for that
-                            field. It could be represented as a "Blank", "N/A", "n.a." (Not Available), or "-". For
-                            example, M.S. Dhoni’s bowling statistics in T20 internationals may show missing data because
-                            he hasn’t bowled in those matches.</p>
-                        <p>As a data scientist, missing values are replaced with other values using techniques that
-                            minimize the impact on the model.</p>
-
-                        <br>
-                        <h3>After ML, What Next?</h3>
-                        <p>With the progress in data science and computing, new-age technologies such as deep learning
-                            and AI are making breakthroughs. Researchers are constantly developing techniques that
-                            require minimal human intervention and provide more accurate results. Deep learning-based
-                            methods are reducing time and costs in data analysis.</p>
-
-                    </section>
                     <section id="chapter3">
-                        <h1 "#chapter2">3. Python as a Data-Analysis Tool</h1>
+                        <h1 "#chapter3">3. Python as a Data-Analysis Tool</h1>
 
                         <h2 id="WhyPython">Why Python?</h2>
                         <ol>
@@ -965,6 +580,10 @@ print(message)  # Output: Hello, Alice!</code></pre>
                         <pre>(for Python Environment): <code>pip install &lt;library name&gt;</code></pre>
 
                     </section>
+                    <section id="next">
+                        <a href="Chapter4.html#Chapter4">NEXT--></a>
+                    </section>
+                    
                 </article>
             </main>
         </div>
@@ -973,7 +592,7 @@ print(message)  # Output: Hello, Alice!</code></pre>
     <!-- Load scripts with defer -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-    <script defer src="../assets/js/globalblog.js"></script>
+    <script defer src="../../assets/js/globalblog.js"></script>
 
     <!-- Fallback for Prism if CDN fails -->
     <script>

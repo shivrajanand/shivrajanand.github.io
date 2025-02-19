@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter1: Machine Learning Notes</title>
+    <link rel="stylesheet" href="../../assets/css/globalblog.css">
+    <!-- Load Prism CSS files with defer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <!-- Add error handling for script loading -->
+    <script>
+        window.addEventListener('error', function (e) {
+            if (e.target.tagName === 'SCRIPT') {
+                console.error('Script loading failed:', e.target.src);
+                alert('Failed to load script: ' + e.target.src);
+            }
+        }, true);
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 60px;
+            /* Adjust based on your navbar height */
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+
+        #image {
+            width: 100%;
+            /* Or a specific width */
+            height: auto;
+            /* Or any height you prefer */
+            overflow: hidden;
+            /* Ensures no overflow */
+            display: flex;
+            flex-direction: column;
+            /* Stack children (image and caption) vertically */
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            /* Border around the container */
+        }
+
+        [data-theme="dark"] #image {
+            border: 1px solid white;
+            /* Dark mode border color */
+        }
+
+        #image figure {
+            width: 100%;
+            /* Ensure the figure takes up the full width */
+            margin: 0;
+            text-align: center;
+            /* Center align the caption */
+        }
+
+        #image img {
+            width: 100%;
+            /* Ensures the image takes the full width of the container */
+            height: auto;
+            /* Maintains the aspect ratio */
+            object-fit: contain;
+            /* Ensure the image fits within the div */
+        }
+
+        #image figcaption {
+            font-size: 1em;
+            /* Caption text size */
+            margin-top: 10px;
+            /* Space between the image and caption */
+            color: #333;
+            /* Text color */
+            font-style: italic;
+            /* Italicize caption text */
+            text-align: center;
+            border-top: 2px solid #ccc;
+            /* Border between image and caption */
+            padding-top: 5px;
+            /* Space between image and border */
+            padding-bottom: 15px;
+            /* Space below the caption for a clean look */
+            width: 100%;
+            /* Ensures the caption takes up the full width */
+        }
+
+
+        [data-theme="dark"] #image figcaption {
+            color: white;
+            border: white 1px solid;
+        }
+
+
+
+        p {
+            text-align: justify;
+        }
+
+        /* Unordered List Style */
+        ul {
+            list-style-type: none;
+        }
+
+        ul .li {
+            margin-bottom: 10px;
+        }
+
+        [data-theme="dark"] li a {
+            color: white;
+        }
+
+
+        @media (max-width: 768px) {
+            #image {
+                width: 100%;
+                /* or a specific width */
+                /* or any height you prefer */
+                overflow: hidden;
+                /* Ensures no overflow */
+            }
+
+            #image img {
+                width: 100%;
+                object-fit: contain;
+                /* Ensure the image fits within the div while maintaining its aspect ratio */
+            }
+        }
+    </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-3MEXW2XNBM');
+</script>
+
+<body>
+    <div class="app">
+        <!-- Mobile Nav Overlay -->
+        <div id="navOverlay" class="nav-overlay hidden"></div>
+
+        <!-- Navigation -->
+        <nav id="sidebar" class="sidebar">
+            <div class="nav-content">
+                <button id="closeNav" class="close-nav">&times;</button>
+                <h2 class="nav-title">INDEX</h2>
+                <div class="chapters">
+                    <div class="chapter">
+                        <h2><a href="Chapter1#chapter0">0. Links & Overview</a></h2>
+                        <ul>
+                            <li>Notes PDF Download Link</li>
+                            <li>Github Repo Link</li>
+                            <li>Project 1: Kaggle</li>
+                            <li>Project 2: Kaggle</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2><a href="#chapter1">1. Getting started with Machine Learning</a></h2>
+                        <ul>
+                            <li><a href="#WhatisMachineLearning">What is Machine Learning?</a></li>
+                            <li><a href="#HowMachineLearningWorks">How Machine Learning Works</a></li>
+                            <li><a href="#TypesofMachineLearning">Types of Machine Learning</a></li>
+                            <li><a href="#TypesofData">Types of Data</a></li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2><a href="Chapter2.html#chapter2">2. Graphical & Analytical Representation of Data</a></h2>
+                        <ul>
+                            <li><a href="Chapter2.html#DataAnalysis&EDA">Data Analysis & EDA</a></li>
+                            <li><a href="Chapter2.html#GraphicalRepresentationofData">Graphical Representation of data</a></li>
+                            <li><a href="Chapter2.html#LimitationOfTraditionalDA">Limitation of traditional Data Analysis</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter3.html#chapter3">3. Python as a Data-Analysis Tool</a></h2>
+                        <ul>
+                            <li><a href="Chapter3.html#WhyPython">Why Python?</a></li>
+                            <li><a href="Chapter3.html#JupyterNotebook">Jupyter Notebook</a></li>
+                            <li><a href="Chapter3.html#PythonDataTypes">Data Types in Python</a></li>
+                            <li><a href="Chapter3.html#BasicOperations">Basic Operations</a></li>
+                            <li><a href="Chapter3.html#PythonConstructs">Condition Statements & Loops</a></li>
+                            <li><a href="Chapter3.html#PythonFunctions">Functions in Python</a></li>
+                            <li><a href="Chapter3.html#BasicLibraries">Basic Libraries</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter4.html#chapter4">4. Basic Data Exploration</a></h2>
+                        <ul>
+                            <li><a href="Chapter4.html#PandasDataframe">Pandas Dataframe</a></li>
+                            <li><a href="Chapter4.html#DescriptiveStatistics">Descriptive Statistics of Data</a></li>
+                            <li><a href="Chapter4.html#Numpy">Numpy: A Statistics Module in Python</a></li>
+                            <li><a href="Chapter4.html#Matplotlib">Matplotlib: Graph Plotting</a></li>
+                            <li><a href="Chapter4.html#Pandas">Pandas: Some important Functions</a></li>
+                            <li><a href="Chapter4.html#Univariate">Regression Modelling Approach</a></li>
+                            <li><a href="Chapter4.html#Outliers">Treating Outliers</a></li>
+                            <li><a href="Chapter4.html#Correlation">Correlation</a></li>
+                            <li><a href="Chapter4.html#ANOVA">ANOVA</a></li>
+                            <li><a href="Chapter4.html#TrainingDatasets">Creating Training Datasets</a></li>
+                            <li><a href="Chapter4.html#FeatureScaling">FeatureScaling</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <button id="menuButton" class="menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </button>
+                <button id="themeToggle" class="theme-toggle">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path d="M12 2v2" />
+                        <path d="M12 20v2" />
+                        <path d="m4.93 4.93 1.41 1.41" />
+                        <path d="m17.66 17.66 1.41 1.41" />
+                        <path d="M2 12h2" />
+                        <path d="M20 12h2" />
+                        <path d="m6.34 17.66-1.41 1.41" />
+                        <path d="m19.07 4.93-1.41 1.41" />
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    </svg>
+                </button>
+            </header>
+
+            <!-- Content -->
+            <main class="content">
+                <article class="article">
+                    <section id="chapter0">
+                        <h1>Links & Overview</h1>
+                        <ul>
+                            <li>
+                                <p>PDF NOTES <a href="https://drive.google.com/file/d/1NtIWWRx83ejtDvwxT_71OhJsfItPbyOG"
+                                        class="btn" target="_blank"><strong>Download PDF</strong></a></p>
+                            </li>
+                            <li id="githubrepo">Access the <a
+                                    href="https://github.com/shivrajanand/InternshalaTraining3rdSemester"
+                                    target="_blank">GitHub repository</a> for all my Jupyter notebooks</li>
+                            <li id="kaggleproject1"><a
+                                    href="https://www.kaggle.com/code/shivrajanandai/housing-data-set-regression-modelling"
+                                    target="_blank">Kaggle Notebook</a> Link for <strong>Project 1: Housing Data Set
+                                    Regression
+                                    Modelling</strong></li>
+                            <li id="kaggleproject2"><a
+                                    href="https://www.kaggle.com/code/shivrajanandai/training-project-2-population-demography"
+                                    target="_blank">Kaggle Notebook</a> Link for <strong>Project 2: Population
+                                    Demography</strong>
+                            </li>
+                        </ul>
+                    </section>
+                    <section id="chapter1">
+                        <h1>Getting started with MACHINE LEARNING</h1>
+                        <h2 id="WhatisMachineLearning">What is Machine Learning</h2>
+                        <p>Machine learning is the ability of machines, that is, computers to learn and improve from
+                            their past experiences or data, without being explicitly programmed.</p>
+                        <p>Machine learning is the ability of machines, i.e., computers or ideally computer programs,
+                            to learn from the past behaviour or data and to predict the future outcomes without being
+                            explicitly programmed to do so.</p>
+                        <div id="image">
+                            <figure>
+                                <img src="MLNotesIMGs/1.png" alt="Description of the image">
+                                <figcaption>Flowchart of a typical ML model</figcaption>
+                            </figure>
+                        </div>
+
+                        <p>Machine learning algorithms are constantly analysing the world-wide data and using
+                            them to learn and give better predictions.</p>
+
+                        <h2 id="HowMachineLearningWorks">How Machine Learning works</h2>
+                        Machine learning is the ability of machines to learn from past experiences. The past experiences
+                        are called Data. Data is any kind of information and can be represented in any
+                        form like images, pdfs, location, chats or documents etc.</p>
+                        <p>Data collection has risen exponentially in past few decades. All this data is stored and used
+                            in ML models for better functioning.</p>
+                        <p><strong>EXAMPLE PROBLEM1:</strong> Given a bank and a customer associated with bank who wants
+                            a loan, how will
+                            an ML model predict whether to give loan to the customer or not.</p>
+                        <p>The given ML model, say M, will analyse the past data of all the customers who were given a
+                            loan and will classify the set of customers in two category, Good Customer and Bad Customer.
+                        </p>
+                        <ul>
+                            <li>Good Customer: Any customer who repaid the loan on time</li>
+                            <li>Bad Customer: Any customer who didn’t repaid the loan on time.</li>
+                        </ul>
+                        <div id="image">
+                            <figure>
+                                <img src="MLNotesIMGs/2.png" alt="Description of the image">
+                            </figure>
+                        </div>
+                        </p>
+                        <p>Now M will use the previous data and identify a pattern between good and bad customers and
+                            then will use it to place the new customer into one of the classifications. Hence the model
+                            will predict whether the customer should begiven a loan or not on basis of if he/she can
+                            repay the loan or not. Hence in total we can say that ML model analyses
+                            past data and derives patterns and insights from it
+                            and then applies this intelligence on a new piece of
+                            data to predict or recommend actions.</p>
+
+
+                        <h2 id="TypesofMachineLearning">Types of Machine Learning</h2>
+                        <div id="image">
+                            <figure>
+                                <img src="MLNotesIMGs/3.png" alt="Description of the image">
+                            </figure>
+                        </div>
+                        <p>Data is a collection of information about something.The data which contains a target variable
+                            or an output variable that answers a question of interest is called Labelled Data.</p>
+                        <p>Example: Data of patients suffering from a particular disease.</p>
+                        <p>Data stored can be: Name, age, gender, location, Blood type. Weight, height, mean body
+                            temperature etc.</p>
+                        <p>Then we can additionally store a TARGET or Category variable “Was patient completely cured or
+                            not after the treatment”. The answer to this question can be YES or NO. This
+                            target variable is also called <strong>Dependent variable</strong> as it can depend on other
+                            variables listed above. The other data are called as <strong>Independent Variables</strong>.
+                            If the data given just contains independent data and do not have a predefined target
+                            variable or category variable then the dataset is referred to as <strong>Unlabelled
+                                Data</strong>.</p>
+
+
+                        <div class="feature-block">
+                            <h3>SUPERVISED LEARNING</h3>
+                            <ul>
+                                <li>In supervised learning model the ML model learn under supervision, and this
+                                    supervision
+                                    is provided by independent variables and the target variable (or collectively
+                                    Labelled
+                                    data).</li>
+                                <div id="image">
+                                    <figure>
+                                        <img src="MLNotesIMGs/4.png" alt="Description of the image">
+                                        <figcaption>Data Flow in supervised learning model</figcaption>
+                                    </figure>
+                                </div>
+                                <li>The model learns from the Past labelled data and the process is called Training the
+                                    data.
+                                    Once the model is trained, we can feed new unlabelled data to it to predict target
+                                    variable.</li>
+                                <li>There is a target variable involved.</li>
+                                <li>Works only on labelled data.</li>
+                                <li>Most of ML models used in present date are supervised learning due to high
+                                    availability of
+                                    data around us.</li>
+                            </ul>
+                        </div>
+
+                        <div class="feature-block">
+                            <h3>UNSUPERVISED LEARNING</h3>
+                            <ul>
+                                <li>The machine learning that is deployed to find patterns in unlabelled data is called
+                                    unsupervised learning.</li>
+                                <li>Complement of supervised learning.</li>
+                                <li>There is no target variable involved.</li>
+                                <li>Works only on unlabelled data.</li>
+                                <li>This type of model only detects if there is some pattern present in the data or not.
+                                </li>
+                                <li>Since there is no target variable present, the data on which unsupervised learning
+                                    operates is called Unlabelled data.</li>
+                            </ul>
+                        </div>
+
+
+                        <h2 id="TypesofData">Types of data</h2>
+                        <div id="image">
+                            <figure>
+                                <img src="MLNotesIMGs/5.png" alt="Description of the image">
+                                <figcaption>Numerical & Categorical Variables</figcaption>
+                            </figure>
+                        </div>
+                        <p>Data is information about something. A variable represents one specific characteristics of
+                            the data or tells one specific information about the data under consideration. A value of
+                            variable can change for different data points or over time.
+                        </p>
+                        <p>
+                            Example taking about price of mobile phones, if we present the exact price then it is a
+                            numeric variable but if we categorize the price in, say cheap and expensive, then this type
+                            of data will be called as categorical variable.
+                        </p>
+                        <div id="image">
+                            <figure>
+                                <img src="MLNotesIMGs/6.png" alt="Description of the image">
+                                <figcaption>Numerical & Categorical Variables</figcaption>
+                            </figure>
+                        </div>
+                        <p>
+                            <strong>Independent variables</strong> are the one whose value don’t depend on any other
+                            variables.
+                            <br><strong>Dependent variables</strong> are those whose values depend on other independent
+                            variables and
+                            cannot be changed easily.
+                            <strong>Structured variables</strong> always have a structure or format when they are
+                            stored.
+                            Common structures are tabular format of data organization.
+                            <strong>Unstructured Data</strong> have no structure available for the data and no tabular
+                            format is present.
+                            This type of data is human readable but machines cannot directly read these kinds of data.
+                            Example of this data type are images, audio etc.
+                            For machines to understand this type of data the unstructured data is converted to
+                            structured data (usually in form of matrix) and then is read and used in proposed ML model.
+
+                        </p>
+
+                    </section>
+                    <section id="next">
+                        <a href="Chapter2.html#Chapter2">NEXT--></a>
+                    </section>
+                    
+                </article>
+            </main>
+        </div>
+    </div>
+
+    <!-- Load scripts with defer -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script defer src="../../assets/js/globalblog.js"></script>
+
+    <!-- Fallback for Prism if CDN fails -->
+    <script>
+        window.addEventListener('load', function () {
+            if (typeof Prism === 'undefined') {
+                console.error('Prism failed to load');
+                // Add a class to show code without highlighting
+                document.querySelectorAll('pre code').forEach(block => {
+                    block.classList.add('no-highlight');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

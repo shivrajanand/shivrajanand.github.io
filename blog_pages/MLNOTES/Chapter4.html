@@ -1,0 +1,1167 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter4: Machine Learning Notes</title>
+    <link rel="stylesheet" href="../../assets/css/globalblog.css">
+    <!-- Load Prism CSS files with defer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <!-- Add error handling for script loading -->
+    <script>
+        window.addEventListener('error', function (e) {
+            if (e.target.tagName === 'SCRIPT') {
+                console.error('Script loading failed:', e.target.src);
+                alert('Failed to load script: ' + e.target.src);
+            }
+        }, true);
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 60px;
+            /* Adjust based on your navbar height */
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+
+        #image {
+            width: 100%;
+            /* Or a specific width */
+            height: auto;
+            /* Or any height you prefer */
+            overflow: hidden;
+            /* Ensures no overflow */
+            display: flex;
+            flex-direction: column;
+            /* Stack children (image and caption) vertically */
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            /* Border around the container */
+        }
+
+        [data-theme="dark"] #image {
+            border: 1px solid white;
+            /* Dark mode border color */
+        }
+
+        #image figure {
+            width: 100%;
+            /* Ensure the figure takes up the full width */
+            margin: 0;
+            text-align: center;
+            /* Center align the caption */
+        }
+
+        #image img {
+            width: 100%;
+            /* Ensures the image takes the full width of the container */
+            height: auto;
+            /* Maintains the aspect ratio */
+            object-fit: contain;
+            /* Ensure the image fits within the div */
+        }
+
+        #image figcaption {
+            font-size: 1em;
+            /* Caption text size */
+            margin-top: 10px;
+            /* Space between the image and caption */
+            color: #333;
+            /* Text color */
+            font-style: italic;
+            /* Italicize caption text */
+            text-align: center;
+            border-top: 2px solid #ccc;
+            /* Border between image and caption */
+            padding-top: 5px;
+            /* Space between image and border */
+            padding-bottom: 15px;
+            /* Space below the caption for a clean look */
+            width: 100%;
+            /* Ensures the caption takes up the full width */
+        }
+
+
+        [data-theme="dark"] #image figcaption {
+            color: white;
+            border: white 1px solid;
+        }
+
+
+
+        p {
+            text-align: justify;
+        }
+
+        /* Unordered List Style */
+        ul {
+            list-style-type: none;
+        }
+
+        ul .li {
+            margin-bottom: 10px;
+        }
+
+        [data-theme="dark"] li a {
+            color: white;
+        }
+
+
+        @media (max-width: 768px) {
+            #image {
+                width: 100%;
+                /* or a specific width */
+                /* or any height you prefer */
+                overflow: hidden;
+                /* Ensures no overflow */
+            }
+
+            #image img {
+                width: 100%;
+                object-fit: contain;
+                /* Ensure the image fits within the div while maintaining its aspect ratio */
+            }
+        }
+    </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-3MEXW2XNBM');
+</script>
+
+<body>
+    <div class="app">
+        <!-- Mobile Nav Overlay -->
+        <div id="navOverlay" class="nav-overlay hidden"></div>
+
+        <!-- Navigation -->
+        <nav id="sidebar" class="sidebar">
+            <div class="nav-content">
+                <button id="closeNav" class="close-nav">&times;</button>
+                <h2 class="nav-title">INDEX</h2>
+                <div class="chapters">
+                    <div class="chapter">
+                        <h2><a href="Chapter1.html#chapter0">0. Links & Overview</a></h2>
+                        <ul>
+                            <li>Notes PDF Download Link</li>
+                            <li>Github Repo Link</li>
+                            <li>Project 1: Kaggle</li>
+                            <li>Project 2: Kaggle</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2><a href="#chapter1">1. Getting started with Machine Learning</a></h2>
+                        <ul>
+                            <li><a href="Chapter1.html#WhatisMachineLearning">What is Machine Learning?</a></li>
+                            <li><a href="Chapter1.html#HowMachineLearningWorks">How Machine Learning Works</a></li>
+                            <li><a href="Chapter1.html#TypesofMachineLearning">Types of Machine Learning</a></li>
+                            <li><a href="Chapter1.html#TypesofData">Types of Data</a></li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2><a href="Chapter2.html#chapter2">2. Graphical & Analytical Representation of Data</a></h2>
+                        <ul>
+                            <li><a href="Chapter2.html#DataAnalysis&EDA">Data Analysis & EDA</a></li>
+                            <li><a href="Chapter2.html#GraphicalRepresentationofData">Graphical Representation of
+                                    data</a></li>
+                            <li><a href="Chapter2.html#LimitationOfTraditionalDA">Limitation of traditional Data
+                                    Analysis</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter3.html#chapter3">3. Python as a Data-Analysis Tool</a></h2>
+                        <ul>
+                            <li><a href="Chapter3.html#WhyPython">Why Python?</a></li>
+                            <li><a href="Chapter3.html#JupyterNotebook">Jupyter Notebook</a></li>
+                            <li><a href="Chapter3.html#PythonDataTypes">Data Types in Python</a></li>
+                            <li><a href="Chapter3.html#BasicOperations">Basic Operations</a></li>
+                            <li><a href="Chapter3.html#PythonConstructs">Condition Statements & Loops</a></li>
+                            <li><a href="Chapter3.html#PythonFunctions">Functions in Python</a></li>
+                            <li><a href="Chapter3.html#BasicLibraries">Basic Libraries</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#chapter4">4. Basic Data Exploration</a></h2>
+                        <ul>
+                            <li><a href="#PandasDataframe">Pandas Dataframe</a></li>
+                            <li><a href="#DescriptiveStatistics">Descriptive Statistics of Data</a></li>
+                            <li><a href="#Numpy">Numpy: A Statistics Module in Python</a></li>
+                            <li><a href="#Matplotlib">Matplotlib: Graph Plotting</a></li>
+                            <li><a href="#Pandas">Pandas: Some important Functions</a></li>
+                            <li><a href="#Univariate">Univariate Analysis</a></li>
+                            <li><a href="#Outliers">Treating Outliers</a></li>
+                            <li><a href="#Correlation">Correlation</a></li>
+                            <li><a href="#ANOVA">ANOVA</a></li>
+                            <li><a href="#TrainingDatasets">Creating Training Datasets</a></li>
+                            <li><a href="#FeatureScaling">FeatureScaling</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <button id="menuButton" class="menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </button>
+                <button id="themeToggle" class="theme-toggle">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path d="M12 2v2" />
+                        <path d="M12 20v2" />
+                        <path d="m4.93 4.93 1.41 1.41" />
+                        <path d="m17.66 17.66 1.41 1.41" />
+                        <path d="M2 12h2" />
+                        <path d="M20 12h2" />
+                        <path d="m6.34 17.66-1.41 1.41" />
+                        <path d="m19.07 4.93-1.41 1.41" />
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    </svg>
+                </button>
+            </header>
+
+            <!-- Content -->
+            <main class="content">
+                <article class="article">
+                    <section id="chapter4">
+                        <h2 id="PandasDataframe">Pandas Dataframe</h2>
+                        <h3>Creating a DataFrame Object in Jupyter Using Pandas</h3>
+
+                        <p>In Jupyter, you can create a DataFrame object using the Pandas library. Once you have a
+                            DataFrame, you can perform a variety of operations to view or manipulate the data.</p>
+
+                        <h4>1. Displaying the Entire Data</h4>
+                        <p>The following command will display the complete data in a tabular format:</p>
+                        <pre class="language-python"><code class="language-python">"object_name"</code></pre>
+
+                        <h4>2. Displaying the First n Rows</h4>
+                        <p>To view the first 'n' rows of the DataFrame, use the <code>head()</code> function:</p>
+                        <pre class="language-python"><code class="language-python">"data.head(n)"</code></pre>
+
+                        <h4>3. Displaying the Last n Rows</h4>
+                        <p>Similarly, to view the last 'n' rows of the DataFrame, use the <code>tail()</code> function:
+                        </p>
+                        <pre class="language-python"><code class="language-python">"data.tail(n)"</code></pre>
+
+
+                        <h2 id="DescriptiveStatistics">Descriptive Statistics of Data</h2>
+
+                        <h3>Statistical Analysis in Pandas DataFrame</h3>
+
+                        <h4>Minimum and Maximum Values</h4>
+                        <p>The minimum and maximum values provide an expected range within which the values of a
+                            variable are likely to lie.</p>
+                        <p>They also help identify <strong>outliers</strong> and can highlight potential
+                            <strong>errors</strong> or <strong>anomalies</strong> in the data.
+                        </p>
+
+                        <h4>Mean</h4>
+                        <p>The <strong>mean</strong> represents the average value for numeric data.</p>
+
+                        <h4>Quartiles and Data Spread</h4>
+                        <p>The <strong>three quartiles</strong> (25%, 50%, and 75%) represent the spread of the data.
+                        </p>
+
+                        <h4>Uniform Spreading of Data</h4>
+                        <p>If the distance between the following points is similar, the data is uniformly spread:</p>
+                        <ul>
+                            <li>Minimum value and first quartile</li>
+                            <li>First quartile and second quartile</li>
+                            <li>Second quartile and third quartile</li>
+                            <li>Third quartile and maximum value</li>
+                        </ul>
+
+                        <h4>Standard Deviation</h4>
+                        <p>The <strong>standard deviation</strong> measures the spread of data around the mean or
+                            average value.</p>
+                        <ul>
+                            <li>Low standard deviation means most of the values are close to the average value.</li>
+                            <li>High standard deviation means the values are spread out.</li>
+                        </ul>
+
+                        <h4>Descriptive Statistics</h4>
+                        <p>To get a summary of descriptive statistics for all numeric columns, use the following
+                            command:</p>
+                        <pre class="language-python"><code class="language-python">"data.describe()"</code></pre>
+                        <p>This will return statistics such as:</p>
+                        <ul>
+                            <li>Count</li>
+                            <li>Mean</li>
+                            <li>Standard deviation (std)</li>
+                            <li>Minimum value (min)</li>
+                            <li>25% (first quartile)</li>
+                            <li>50% (median or second quartile)</li>
+                            <li>75% (third quartile)</li>
+                            <li>Maximum value (max)</li>
+                        </ul>
+
+                        <h4>Descriptive Statistics for Categorical Columns</h4>
+                        <p>To get descriptive statistics for both numeric and categorical columns, use:</p>
+                        <pre
+                            class="language-python"><code class="language-python">"data.describe(include='all')"</code></pre>
+                        <p>For string variables, this will return:</p>
+                        <ul>
+                            <li>Count</li>
+                            <li>Unique values</li>
+                        </ul>
+
+                        <h4>Data Information</h4>
+                        <p>To get information about the variables (columns) in the DataFrame, use:</p>
+                        <pre class="language-python"><code class="language-python">"data.info()"</code></pre>
+                        <ul>
+                            <li>The <strong>Range index</strong> shows the total number of entries in the DataFrame.
+                            </li>
+                            <li>If the non-null data count is less than the range index count, the difference represents
+                                missing data.</li>
+                            <li><strong>Missing data count</strong> can be calculated as:
+                                <code>Range Index count – Non-null data count</code>
+                            </li>
+                        </ul>
+
+                        <h4>Calculating Specific Statistics for a Variable</h4>
+                        <p>To calculate specific statistics for a column (variable), use the following commands:</p>
+                        <ul>
+                            <li><code>"data['variable name'].mean()"</code> returns the mean of the specified variable.
+                            </li>
+                            <li><code>"data['variable name'].min()"</code> returns the minimum value of the specified
+                                variable.</li>
+                            <li><code>"data['variable name'].max()"</code> returns the maximum value of the specified
+                                variable.</li>
+                            <li><code>"data['variable name'].std()"</code> returns the standard deviation of the
+                                specified variable.</li>
+                            <li><code>"data['variable name'].quantile(.25)"</code> returns the 25th percentile (first
+                                quartile) of the specified variable.</li>
+                            <li><code>"data['variable name'].quantile(.50)"</code> returns the 50th percentile (second
+                                quartile/median) of the specified variable.</li>
+                            <li><code>"data['variable name'].quantile(.75)"</code> returns the 75th percentile (third
+                                quartile) of the specified variable.</li>
+                            <li><code>"data['variable name'].unique()"</code> returns a list of all unique values in the
+                                specified column (often used for categorical variables).</li>
+                        </ul>
+
+                        <h2 id="Numpy">Numpy: A Statistics Module in Python</h2>
+                        <p>NumPy is a powerful library in Python, primarily used for numerical computing. It provides
+                            essential functions for performing statistical operations on data.</p>
+
+                        <h4>Key Functions in NumPy for Statistical Analysis</h4>
+
+                        <ul>
+                            <li><strong>np.mean()</strong>: This function calculates the <strong>mean</strong> (average)
+                                of an array or a list.</li>
+                            <pre class="language-python"><code class="language-python">np.mean(data)</code></pre>
+
+                            <li><strong>np.median()</strong>: This function calculates the <strong>median</strong> (the
+                                middle value) of an array or list.</li>
+                            <pre class="language-python"><code class="language-python">np.median(data)</code></pre>
+
+                            <li><strong>np.std()</strong>: This function calculates the <strong>standard
+                                    deviation</strong>, which tells us how spread out the numbers in the dataset are
+                                from the mean.</li>
+                            <pre class="language-python"><code class="language-python">np.std(data)</code></pre>
+
+                            <li><strong>np.var()</strong>: This function calculates the <strong>variance</strong> of the
+                                data, which is the square of the standard deviation.</li>
+                            <pre class="language-python"><code class="language-python">np.var(data)</code></pre>
+
+                            <li><strong>np.min()</strong>: This function returns the <strong>minimum</strong> value in
+                                an array or list.</li>
+                            <pre class="language-python"><code class="language-python">np.min(data)</code></pre>
+
+                            <li><strong>np.max()</strong>: This function returns the <strong>maximum</strong> value in
+                                an array or list.</li>
+                            <pre class="language-python"><code class="language-python">np.max(data)</code></pre>
+
+                            <li><strong>np.percentile()</strong>: This function computes the <strong>percentile</strong>
+                                of the data at a given point, such as the 25th, 50th (median), or 75th percentile.</li>
+                            <pre
+                                class="language-python"><code class="language-python">np.percentile(data, 25)</code></pre>
+
+                            <li><strong>np.percentile()</strong>: This function computes the <strong>percentile</strong>
+                                of the data at a given point, such as the 25th, 50th (median), or 75th percentile.</li>
+                            <pre
+                                class="language-python"><code class="language-python">np.percentile(data, 25)</code></pre>
+
+                            <li><strong>np.quantile()</strong>: Similar to <strong>percentile</strong>, it returns the
+                                quantiles of the data.</li>
+                            <pre
+                                class="language-python"><code class="language-python">np.quantile(data, 0.25)</code></pre>
+                        </ul>
+
+                        <h4>Additional Statistical Operations</h4>
+                        <ul>
+                            <li><strong>np.corrcoef()</strong>: This function calculates the <strong>correlation
+                                    coefficient</strong> between two or more variables.</li>
+                            <pre
+                                class="language-python"><code class="language-python">np.corrcoef(data1, data2)</code></pre>
+
+                            <li><strong>np.cov()</strong>: This function computes the <strong>covariance</strong> matrix
+                                between two or more variables.</li>
+                            <pre class="language-python"><code class="language-python">np.cov(data1, data2)</code></pre>
+                        </ul>
+
+                        <h4>Using NumPy with DataFrames</h4>
+                        <p>NumPy is frequently used in conjunction with pandas to perform fast statistical computations
+                            on large datasets. For example, we can apply NumPy statistical functions to a column in a
+                            pandas DataFrame:</p>
+                        <pre class="language-python"><code class="language-python">import pandas as pd
+import numpy as np
+
+# Example DataFrame
+data = pd.DataFrame({
+    'Age': [25, 30, 35, 40, 45],
+    'Salary': [50000, 60000, 65000, 70000, 75000]
+})
+
+# Applying NumPy functions to DataFrame columns
+mean_age = np.mean(data['Age'])
+median_salary = np.median(data['Salary'])
+std_age = np.std(data['Age'])
+
+print(f"Mean Age: {mean_age}, Median Salary: {median_salary}, Standard Deviation of Age: {std_age}")
+</code></pre>
+
+                        <h4>Conclusion</h4>
+                        <p>NumPy is an essential library in Python for performing statistical operations. Its functions
+                            are optimized for efficiency and can be used with both small and large datasets to gain
+                            insights through basic descriptive statistics and advanced statistical analysis.</p>
+
+                        <h2 id="Matplotlib">Matplotlib: Graph Plotting</h2>
+                        <div
+                            style="display: flex; flex-wrap: wrap; justify-content: space-between; padding: 10px 10px;">
+                            <!-- First Row -->
+                            <div id="image" style="flex: 1 0 30%; margin-right: 20px; margin-bottom: 20px;">
+                                <img src="MLNotesIMGs/11.png" alt="" style="width: 100%; height: auto;">
+                                <figcaption>LINE CHART</figcaption>
+                            </div>
+                            <div id="image" style="flex: 1 0 30%; margin-right: 20px; margin-bottom: 20px;">
+                                <img src="MLNotesIMGs/12.png" alt="" style="width: 100%; height: auto;">
+                                <figcaption>BAR CHART</figcaption>
+                            </div>
+                            <div id="image" style="flex: 1 0 30%; margin-right: 20px; margin-bottom: 20px;">
+                                <img src="MLNotesIMGs/13.png" alt="" style="width: 100%; height: auto;">
+                                <figcaption>HISTOGRAM</figcaption>
+                            </div>
+
+                            <!-- Second Row -->
+                            <div id="image" style="flex: 1 0 30%; margin-right: 20px; margin-bottom: 20px;">
+                                <img src="MLNotesIMGs/14.png" alt="" style="width: 100%; height: auto;">
+                                <figcaption>PIE CHART</figcaption>
+                            </div>
+                            <div id="image" style="flex: 1 0 30%; margin-right: 20px; margin-bottom: 20px;">
+                                <img src="MLNotesIMGs/15.png" alt="" style="width: 100%; height: auto;">
+                                <figcaption>SCATTER PLOT</figcaption>
+                            </div>
+                            <div id="image" style="flex: 1 0 30%; margin-right: 20px; margin-bottom: 20px;">
+                                <img src="MLNotesIMGs/16.png" alt="" style="width: 100%; height: auto;">
+                                <figcaption>BOXPLOT</figcaption>
+                            </div>
+                        </div>
+                        <br>
+                        <h3>Matplotlib: Graph Plotting</h3>
+
+                        <p>Matplotlib is a widely used Python library for creating static, animated, and interactive
+                            visualizations. It provides a variety of plotting functions to represent data graphically.
+                        </p>
+
+                        <h4>Basic Plotting in Matplotlib</h4>
+                        <p>The most common type of plot in Matplotlib is the <strong>line plot</strong>. You can create
+                            line plots using the <code>plt.plot()</code> function.</p>
+
+                        <pre class="language-python"><code class="language-python">import matplotlib.pyplot as plt
+
+# Example data
+x = [1, 2, 3, 4, 5]
+y = [2, 3, 5, 7, 11]
+
+# Create a line plot
+plt.plot(x, y)
+
+# Display the plot
+plt.show()</code></pre>
+
+                        <p>This will display a simple line plot with the data provided in <code>x</code> and
+                            <code>y</code>.
+                        </p>
+
+                        <h4>Types of Plots in Matplotlib</h4>
+                        <ul>
+                            <li><strong>Line Plot:</strong> A simple plot that shows data points connected by straight
+                                lines.</li>
+                            <pre class="language-python"><code class="language-python">plt.plot(x, y)</code></pre>
+
+                            <li><strong>Scatter Plot:</strong> Used to show the relationship between two numerical
+                                variables. Points are plotted as individual dots.</li>
+                            <pre class="language-python"><code class="language-python">plt.scatter(x, y)</code></pre>
+
+                            <li><strong>Bar Plot:</strong> Displays data with rectangular bars, where the length of each
+                                bar is proportional to the value it represents.</li>
+                            <pre class="language-python"><code class="language-python">plt.bar(x, y)</code></pre>
+
+                            <li><strong>Histogram:</strong> Used to show the distribution of a dataset by dividing it
+                                into bins and counting the number of data points in each bin.</li>
+                            <pre
+                                class="language-python"><code class="language-python">plt.hist(data, bins=10)</code></pre>
+
+                            <li><strong>Pie Chart:</strong> A circular plot that is divided into sections, where each
+                                section represents a part of the whole.</li>
+                            <pre
+                                class="language-python"><code class="language-python">plt.pie(sizes, labels=labels)</code></pre>
+                        </ul>
+
+                        <h4>Customizing the Plot</h4>
+                        <p>Matplotlib allows customization of various aspects of the plot, such as titles, labels, and
+                            colors.</p>
+
+                        <ul>
+                            <li><strong>Title:</strong> Add a title to the plot using <code>plt.title()</code></li>
+                            <pre
+                                class="language-python"><code class="language-python">plt.title('My Plot Title')</code></pre>
+
+                            <li><strong>Axis Labels:</strong> Label the x-axis and y-axis using
+                                <code>plt.xlabel()</code> and <code>plt.ylabel()</code>
+                            </li>
+                            <pre
+                                class="language-python"><code class="language-python">plt.xlabel('X-Axis Label')</code></pre>
+                            <pre
+                                class="language-python"><code class="language-python">plt.ylabel('Y-Axis Label')</code></pre>
+
+                            <li><strong>Grid:</strong> Add a grid to the plot using <code>plt.grid(True)</code></li>
+                            <pre class="language-python"><code class="language-python">plt.grid(True)</code></pre>
+
+                            <li><strong>Line Style & Color:</strong> Customize the line style (solid, dashed) and color
+                                using the <code>linestyle</code> and <code>color</code> parameters.</li>
+                            <pre
+                                class="language-python"><code class="language-python">plt.plot(x, y, linestyle='--', color='r')</code></pre>
+                        </ul>
+
+                        <h4>Multiple Plots in One Figure</h4>
+                        <p>You can plot multiple graphs in a single figure using <code>plt.subplot()</code> to specify
+                            the grid layout.</p>
+
+                        <pre class="language-python"><code class="language-python">plt.subplot(1, 2, 1)  # (rows, columns, index)
+plt.plot(x, y)
+plt.title('Plot 1')
+
+plt.subplot(1, 2, 2)
+plt.scatter(x, y)
+plt.title('Plot 2')
+
+plt.show()</code></pre>
+
+                        <h4>Saving the Plot</h4>
+                        <p>Once you've created a plot, you can save it to a file using <code>plt.savefig()</code>.</p>
+
+                        <pre class="language-python"><code class="language-python">plt.plot(x, y)
+plt.title('My Graph')
+plt.savefig('my_graph.png')</code></pre>
+
+                        <p>This will save the plot as a PNG file named "my_graph.png" in the current working directory.
+                        </p>
+
+                        <h4>Conclusion</h4>
+                        <p>Matplotlib is a powerful tool for visualizing data and generating various types of plots to
+                            understand data distributions, relationships, and trends. By customizing your plots, you can
+                            tailor them to meet your specific needs and better communicate your insights.</p>
+
+
+
+                        <h2 id="Pandas">Pandas: Some important Functions</h2>
+                        <h3>Pandas: Advanced Functions</h3>
+
+                        <p>Pandas is a powerful Python library for data manipulation and analysis. Beyond basic data
+                            handling, it offers advanced functions to perform complex operations on data.</p>
+
+                        <h4>1. GroupBy Functionality</h4>
+                        <p>The <strong>groupby()</strong> function is used for splitting the data into groups based on
+                            some criteria (e.g., a column or a set of columns), applying a function to each group, and
+                            then combining the results.</p>
+                        <pre
+                            class="language-python"><code class="language-python">df.groupby('column_name').mean()</code></pre>
+                        <p>This will return the mean of each group for the specified column.</p>
+
+                        <h5>Other GroupBy Operations</h5>
+                        <ul>
+                            <li><strong>Count:</strong> <code>df.groupby('column_name').count()</code></li>
+                            <li><strong>Sum:</strong> <code>df.groupby('column_name').sum()</code></li>
+                            <li><strong>Standard Deviation:</strong> <code>df.groupby('column_name').std()</code></li>
+                            <li><strong>Custom Functions:</strong>
+                                <code>df.groupby('column_name').agg({'col1': 'sum', 'col2': 'mean'})</code>
+                            </li>
+                        </ul>
+
+                        <h4>2. Pivot Tables</h4>
+                        <p>Pivot tables are useful to summarize data by creating cross-tabulations. This function allows
+                            you to transform and aggregate your data.</p>
+                        <pre
+                            class="language-python"><code class="language-python">df.pivot_table(values='value_column', index='row_column', columns='column_column', aggfunc='mean')</code></pre>
+                        <p>This creates a pivot table where values are aggregated by the <code>aggfunc</code> (e.g.,
+                            mean).</p>
+
+                        <h4>3. Merging DataFrames</h4>
+                        <p>Pandas provides multiple ways to merge two DataFrames, such as <strong>merge()</strong>,
+                            <strong>join()</strong>, and <strong>concat()</strong>.
+                        </p>
+
+                        <h5>Merge</h5>
+                        <p>The <strong>merge()</strong> function combines two DataFrames on a common column or index
+                            (like SQL joins).</p>
+                        <pre
+                            class="language-python"><code class="language-python">df1.merge(df2, on='common_column', how='inner')</code></pre>
+                        <ul>
+                            <li><strong>how:</strong> Specifies how to merge the DataFrames. Options include:
+                                <ul>
+                                    <li><code>'inner'</code> (default): Only the intersection of both DataFrames will be
+                                        included.</li>
+                                    <li><code>'outer'</code>: Union of both DataFrames will be included.</li>
+                                    <li><code>'left'</code>: All records from the left DataFrame.</li>
+                                    <li><code>'right'</code>: All records from the right DataFrame.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h5>Concat</h5>
+                        <p><strong>concat()</strong> is used to concatenate multiple DataFrames along a particular axis
+                            (rows or columns).</p>
+                        <pre
+                            class="language-python"><code class="language-python">pd.concat([df1, df2], axis=0)</code></pre>
+                        <p>Here, <code>axis=0</code> will stack the DataFrames vertically (row-wise). To stack
+                            horizontally, use <code>axis=1</code>.</p>
+
+                        <h4>4. Handling Missing Data</h4>
+                        <p>Pandas provides powerful tools to handle missing data.</p>
+
+                        <h5>Removing Missing Data</h5>
+                        <ul>
+                            <li><strong>Drop missing rows/columns:</strong> <code>df.dropna()</code></li>
+                            <li><strong>Drop columns with missing values:</strong> <code>df.dropna(axis=1)</code></li>
+                        </ul>
+
+                        <h5>Filling Missing Data</h5>
+                        <ul>
+                            <li><strong>Fill with a specific value:</strong> <code>df.fillna(value=0)</code></li>
+                            <li><strong>Fill forward:</strong> <code>df.fillna(method='ffill')</code></li>
+                            <li><strong>Fill backward:</strong> <code>df.fillna(method='bfill')</code></li>
+                        </ul>
+
+                        <h4>5. Apply Function for Row/Column-wise Operations</h4>
+                        <p>Use the <strong>apply()</strong> function to apply a function along the rows or columns of a
+                            DataFrame.</p>
+                        <pre
+                            class="language-python"><code class="language-python">df.apply(np.sqrt, axis=1)</code></pre>
+                        <p>This will apply the square root function to each row.</p>
+
+                        <h4>6. Window Functions</h4>
+                        <p>Window functions allow you to perform operations over a sliding window. For example,
+                            calculating moving averages.</p>
+                        <pre
+                            class="language-python"><code class="language-python">df['rolling_mean'] = df['column_name'].rolling(window=3).mean()</code></pre>
+                        <p>This creates a new column with a rolling mean (moving average) over a window of 3 rows.</p>
+
+                        <h4>7. Categorical Data Operations</h4>
+                        <p>Pandas provides support for categorical data types, which can improve memory usage and
+                            computation speed.</p>
+                        <pre
+                            class="language-python"><code class="language-python">df['category_column'] = df['category_column'].astype('category')</code></pre>
+
+                        <p>You can also perform operations like sorting and counting unique categories:</p>
+                        <ul>
+                            <li><strong>Count unique categories:</strong>
+                                <code>df['category_column'].value_counts()</code>
+                            </li>
+                            <li><strong>Sort by categories:</strong> <code>df['category_column'].sort_values()</code>
+                            </li>
+                        </ul>
+
+                        <h4>8. Time Series Analysis</h4>
+                        <p>Pandas is also powerful for time series analysis. It provides functionality for working with
+                            datetime data and performing time-based aggregations and transformations.</p>
+
+                        <h5>Creating Date Range</h5>
+                        <pre
+                            class="language-python"><code class="language-python">date_range = pd.date_range(start='2022-01-01', periods=10, freq='D')</code></pre>
+                        <p>This creates a range of 10 dates starting from January 1, 2022, with a frequency of 1 day.
+                        </p>
+
+                        <h5>Resampling Time Series</h5>
+                        <p>Use <strong>resample()</strong> to group time series data by a specific time frequency (e.g.,
+                            monthly, weekly).</p>
+                        <pre class="language-python"><code class="language-python">df.resample('M').mean()</code></pre>
+                        <p>This will resample the time series data by month and calculate the mean for each month.</p>
+
+                        <h4>9. Vectorization with Pandas</h4>
+                        <p>Pandas operations are optimized for performance using vectorized operations. Avoid looping
+                            over DataFrame rows manually, as this is much slower than using Pandas built-in vectorized
+                            methods.</p>
+
+                        <pre
+                            class="language-python"><code class="language-python">df['new_column'] = df['column1'] + df['column2']</code></pre>
+                        <p>This will add the values in <code>column1</code> and <code>column2</code> without needing a
+                            loop.</p>
+
+                        <h4>10. Chaining Operations</h4>
+                        <p>Pandas allows chaining operations to perform complex data transformations in a more readable
+                            and efficient way. However, be careful with it as it may sometimes lead to issues with
+                            memory and performance.</p>
+                        <pre
+                            class="language-python"><code class="language-python">df.dropna().groupby('category_column').mean().sort_values(by='value_column', ascending=False)</code></pre>
+
+                        <h4>Conclusion</h4>
+                        <p>These advanced functions in Pandas allow you to perform complex data manipulations,
+                            aggregations, and transformations efficiently. By mastering these techniques, you can handle
+                            and analyze data at a much deeper level.</p>
+
+                        <h2 id="Univariate">Univariate Analysis</h2>
+                        <h3>Univariate Analysis</h3>
+
+                        <p>Univariate analysis refers to the analysis of a single variable to summarize and find
+                            patterns in the data. It involves examining the distribution, central tendency, variability,
+                            and other statistical properties of the variable.</p>
+
+                        <h4>1. What information does this variable represent?</h4>
+                        <p>This question is aimed at understanding the meaning or significance of the variable. It is
+                            important to clearly understand what the variable represents in the context of the data. For
+                            example, it could represent a person's age, a product's price, or a customer's purchase
+                            behavior.</p>
+
+                        <h4>2. What is the data type for this variable?</h4>
+                        <p>It is essential to know the data type of the variable because it determines how the data is
+                            analyzed. Data types can include:</p>
+                        <ul>
+                            <li><strong>Numeric:</strong> Continuous (e.g., age, salary) or Discrete (e.g., number of
+                                products sold).</li>
+                            <li><strong>Categorical:</strong> Ordinal (e.g., rankings) or Nominal (e.g., gender, color).
+                            </li>
+                            <li><strong>Boolean:</strong> True/False values indicating presence or absence of a feature.
+                            </li>
+                            <li><strong>Datetime:</strong> Represents time-based data.</li>
+                        </ul>
+
+                        <h4>3. Do the few sample values we can analyse without any computation help make sense?</h4>
+                        <p>Before performing any complex computations, it's helpful to check a few sample values from
+                            the data to ensure they make sense. For example, if you are analyzing ages, you should not
+                            see negative numbers or values greater than 100 unless the data is clearly incorrect or out
+                            of the expected range. Spotting such issues early can save time and effort during the
+                            analysis.</p>
+
+                        <h4>4. Does the statistical description (mean, median, max, min, standard deviation, etc.) make
+                            any sense?</h4>
+                        <p>It's crucial to look at basic statistical summaries to check if they make sense:</p>
+                        <ul>
+                            <li><strong>Mean:</strong> The average value of the variable.</li>
+                            <li><strong>Median:</strong> The middle value when the data is sorted. It helps understand
+                                skewness in the data.</li>
+                            <li><strong>Max and Min:</strong> The highest and lowest values in the data.</li>
+                            <li><strong>Standard Deviation:</strong> Measures the spread or variability of the data.
+                            </li>
+                            <li><strong>Quartiles:</strong> Divide the data into four equal parts (25%, 50%, 75%).</li>
+                        </ul>
+                        <p>If the mean is much higher than the median, this suggests positive skewness. If the standard
+                            deviation is very high, it indicates that the data has a wide spread.</p>
+
+                        <h4>5. Do the target variables contain any outliers that we need to treat?</h4>
+                        <p>Outliers are values that are significantly higher or lower than the majority of the data.
+                            Identifying and treating outliers is an essential part of data cleaning because they can
+                            affect statistical calculations and the quality of model predictions. Techniques to identify
+                            outliers include:</p>
+                        <ul>
+                            <li><strong>Boxplots:</strong> Visual representation to identify outliers outside the
+                                interquartile range (IQR).</li>
+                            <li><strong>Z-scores:</strong> A Z-score greater than 3 or less than -3 can be considered an
+                                outlier.</li>
+                            <li><strong>Quantiles:</strong> Observing values beyond the 1st or 99th percentile.</li>
+                        </ul>
+
+                        <h4>6. Are there any missing values in the target variable?</h4>
+                        <p>Missing values in the target variable (or any variable) need to be addressed. These missing
+                            values can be imputed or removed based on the context and the proportion of missing data.
+                            Some common techniques for handling missing data are:</p>
+                        <ul>
+                            <li><strong>Imputation:</strong> Fill in missing values with the mean, median, or mode.</li>
+                            <li><strong>Forward or Backward Fill:</strong> Use the previous or next available value to
+                                fill missing values in time series data.</li>
+                            <li><strong>Deletion:</strong> Remove rows with missing values (only if the missing data is
+                                minimal).</li>
+                        </ul>
+
+                        <h4>7. What is the distribution of the target variable over its range: Normal or skewed?</h4>
+                        <p>Understanding the distribution of the target variable is important because it affects which
+                            statistical methods and algorithms to use:</p>
+                        <ul>
+                            <li><strong>Normal Distribution:</strong> Data that follows a bell-shaped curve, where most
+                                of the data points are clustered around the mean.</li>
+                            <li><strong>Skewed Distribution:</strong> Data that is not symmetrically distributed. If
+                                data is right-skewed, the tail is to the right, and if left-skewed, the tail is to the
+                                left. Skewness can affect statistical analyses.</li>
+                            <li><strong>Visualizing the Distribution:</strong> Use histograms, density plots, or
+                                boxplots to visually inspect the distribution.</li>
+                            <li><strong>Checking Normality:</strong> You can use tests like the Shapiro-Wilk test or
+                                D’Agostino’s K-squared test to check if the data is normally distributed.</li>
+                        </ul>
+
+                        <p>In many cases, if data is skewed, it might be transformed (log transformation or square root
+                            transformation) to make it more normal, which can help in building more reliable models.</p>
+
+                        <h4>Conclusion</h4>
+                        <p>Univariate analysis is a critical first step in understanding individual variables in your
+                            dataset. By answering these questions, you can uncover important insights, spot potential
+                            issues like outliers or missing values, and decide on the next steps for analysis or
+                            modeling.</p>
+
+
+                        <h2 id="Outliers">Treating Outliers</h2>
+                        <h3>OUTLIERS</h3>
+
+                        <p><strong>An outlier</strong> is a data point that is distant from other data points. Its value
+                            lies outside the usual range of the rest of the values in the data, hence the term outlier.
+                        </p>
+
+                        <p>There can be data points whose absolute values are within the range, but when viewed in the
+                            context of other information or variables, the data point may be an outlier.</p>
+
+                        <p><strong>Strictly speaking, outliers</strong> are data points that are very distant from the
+                            rest of the observations.</p>
+
+                        <p><strong>Mathematically, outliers</strong> have data values either less than the lower limit
+                            or higher than the upper limit:</p>
+                        <ul>
+                            <li><strong>Lower limit</strong> = minimum values – IQR</li>
+                            <li><strong>Upper limit</strong> = maximum value + IQR</li>
+                        </ul>
+
+                        <p>The <strong>Seaborn</strong> library of Python has the capability to ignore missing values
+                            and create box plots easily.</p>
+
+                        <h3>Why Outliers Occur?</h3>
+
+                        <ul>
+                            <li>Outliers can occur due to genuine variability in the data or due to errors in the
+                                recording of data.</li>
+                            <li>Outliers cause serious problems in statistical analysis of data.</li>
+                            <li>Outliers substantially change the perception of data by altering the statistical values
+                                and hence produce wrong predictions.</li>
+                        </ul>
+
+                        <h3>Treating Outliers</h3>
+
+                        <h4>Different Ways of Treating Outliers</h4>
+
+                        <ul>
+                            <li><strong>Deletion:</strong>
+                                <p>In this method, we remove the entire row. This results in a reduced data size, and
+                                    valuable information can be lost. However, it does not cause significant loss in
+                                    large datasets.</p>
+                            </li>
+                            <li><strong>Capping or Imputing:</strong>
+                                <p>Outliers are replaced with the average value, median value, mode value, or the limit
+                                    values, whichever makes the least impact on the variable.</p>
+                            </li>
+                            <li><strong>Data Transformation:</strong>
+                                <p>Transform the variable to its log, square, or cube root. Since the log, square, or
+                                    cube root of an outlier is likely to fall within the range of the log, square, or
+                                    cube roots of the rest of the data points.</p>
+                            </li>
+                            <li><strong>Binning:</strong>
+                                <p>Different bins are formed based on the values of variables, and outliers are treated
+                                    accordingly.</p>
+                            </li>
+                        </ul>
+
+
+
+                        <h3>Treating Missing Values</h3>
+                        <div id="image"><img src="MLNotesIMGs/17.png" alt=""></div>
+                        <p><strong>NOTE: </strong>Note:
+                            Deletion is preferred over Imputing as any model learns from target variables and hence via
+                            imputing it would learn not from actual data but inferred one. For independent variables
+                            imputation is preferred
+                        </p>
+                        <p>The fit transform function is defined in Simple-Imputer file in the Impute module from the
+                            Sklearn library.
+                            We can create an imputer object using the Simple-Imputer function that takes two arguments.
+                            Missing values: These are the values which are to be imputed.
+                            Strategy: This is the function or method applied to impute the values
+                            Thenn the fit transform function is called on the imputer object with argument containing
+                            array of variables on which imputation is to be done.
+                        </p>
+
+                        <h2 id="Correlation">Correlation</h2>
+
+                        <p>Correlation is a measure of dependence or association between two variables, i.e., how one
+                            variable changes in relation to the other.</p>
+
+                        <p>Correlation can be of three types:</p>
+                        <ul>
+                            <li><strong>Positive correlation:</strong> Directly proportional</li>
+                            <li><strong>Negative correlation:</strong> Inversely proportional</li>
+                            <li><strong>Zero correlation:</strong> No pattern of relation</li>
+                        </ul>
+
+                        <p>Graphically, correlation can be observed via a scatter plot, whereas mathematically it is
+                            calculated using the correlation coefficient, usually denoted by <strong>r</strong>.</p>
+
+                        <p>The correlation coefficient, <strong>r</strong>, can take any value between -1 and 1:</p>
+                        <ul>
+                            <li><strong>r ∈ [-1, 1]</strong></li>
+                            <li><strong>Positive correlation:</strong> r ∈ (0, 1]</li>
+                            <li><strong>Negative correlation:</strong> r ∈ [-1, 0)</li>
+                            <li><strong>Zero correlation:</strong> r ∈ 0</li>
+                        </ul>
+
+                        <p>In Python, we can find the correlation coefficient using both Pandas and NumPy:</p>
+
+                        <ul>
+                            <li><strong>Pandas:</strong> The function <code>variable1.corr(variable2)</code> will return
+                                a real value between -1 and 1, which is the correlation coefficient.</li>
+                            <li><strong>NumPy:</strong> The function <code>numpy.corrcoef(variable1, variable2)</code>
+                                will return a matrix of correlation coefficients.</li>
+                        </ul>
+
+                        <p>The function <code>data.drop(columns = []).corr()</code> can be used to get a matrix of
+                            correlation coefficients for the data variables on both the x and y axes. Note that the
+                            diagonal values will always be 1, as any variable has a direct relationship with itself.</p>
+
+                        <p>From this correlation matrix, we can identify which variables have a strong correlation with
+                            our target variable. Only those variables that show a high correlation (either positive or
+                            negative) with the target variable should be selected for building the model.</p>
+
+                        <h3>Important Note:</h3>
+
+                        <p>If two independent variables are highly correlated with each other and also with the
+                            dependent variable, using both variables in the model may result in a suboptimal or poorly
+                            understood model. In such cases:</p>
+
+                        <ul>
+                            <li>The model will most likely use only one of those highly correlated variables in the
+                                equation, considering the other variable statistically insignificant.</li>
+                            <li>The predictive power of the other variable is already explained by the first variable.
+                            </li>
+                            <li>Between the two highly correlated variables, the correct one must be chosen.</li>
+                        </ul>
+
+                        <h2 id="ANOVA">ANOVA</h2>
+
+                        <div
+                            style="display: flex; flex-wrap: wrap; justify-content: space-between; padding: 10px 10px;">
+                            <!-- First Row -->
+                            <div id="image" style="flex: 1 0 30%; margin-right: 20px; margin-bottom: 20px;">
+                                <img src="MLNotesIMGs/18.png" alt="" style="width: 100%; height: auto;">
+                            </div>
+                            <div id="image" style="flex: 1 0 30%; margin-right: 20px; margin-bottom: 20px;">
+                                <img src="MLNotesIMGs/19.png" alt="" style="width: 100%; height: auto;">
+                            </div>
+                        </div>
+
+                        <h3>ANOVA (Analysis of Variables)</h3>
+
+                        <p><strong>ANOVA</strong> stands for Analysis of Variables.</p>
+
+                        <p>It checks if the mean of the target variable across the unique values of a categorical
+                            variable are equal or not.</p>
+
+                        <p>When we apply ANOVA, we have a certain hypothesis regarding the result.</p>
+
+                        <h4>Values Obtained from ANOVA</h4>
+                        <ul>
+                            <li><strong>F-value:</strong> A large value.</li>
+                            <li><strong>P-value:</strong> If <code>p-value < 0.05</code>, it means there is less than a
+                                5% probability that the difference in means is purely a coincidence. Or, we can say
+                                there is a 95% chance that the difference in means actually exists.</li>
+                        </ul>
+
+                        <p>ANOVA can tell whether a categorical variable impacts the target variable or not, but it
+                            cannot determine the strength of the impact.</p>
+
+                        <h4>Treating Categorical Variables</h4>
+
+                        <p>Sometimes, we have to treat categorical variables like numerical variables in order to
+                            operate with them. This process of transforming a categorical variable into a set of
+                            numerical or Boolean variables is called <strong>creation of dummy variables</strong>.</p>
+
+                        <p>The number of dummy variables depends on the number of unique values in the categorical
+                            variables.</p>
+
+                        <ul>
+                            <li>If a categorical variable has <strong>n levels</strong>, then the number of dummy
+                                variables required is <strong>n-1</strong>, as the last variable’s value can be deduced
+                                by the other <strong>n-1</strong> values already.</li>
+                        </ul>
+
+                        <p>The <code>get_dummies</code> function of Pandas is used to generate dummy variables.</p>
+
+                        <p>If the number of levels for a categorical variable is high, we use another technique called
+                            <strong>Binning</strong>.
+                        </p>
+
+                        <h4>Binning Technique</h4>
+                        <p>In the <strong>Binning</strong> technique, we follow these steps:</p>
+
+                        <ol>
+                            <li>Create a list of bin-variables for the categorical data.</li>
+                            <li>Use the <code>cut</code> function of Pandas to place the desired column’s values into
+                                appropriate bins. Usually, in this step, we create a new table or data frame.</li>
+                            <li>Merge the original table and the new table.</li>
+                            <li>To make the data frame clean, delete (or drop) columns that are duplicate or
+                                unnecessary.</li>
+                            <li>After completing the above steps, we can create dummy variables.</li>
+                        </ol>
+
+                        <h2 id="TrainingDatasets">Creating Training Datasets</h2>
+
+                        <h4>Separating Dependent and Independent Variables</h4>
+                        <p>Dependent variables are split into a separate data frame called <strong>Y</strong>.</p>
+                        <p>Independent variables are split into a data frame called <strong>X</strong>.</p>
+                        <p>To separate the data frames, we use the function <code>iloc</code>.</p>
+                        <p>Note that <code>iloc</code> does not include the last index from the index range.</p>
+
+                        <h4>Training and Testing Data</h4>
+                        <p><strong>Training data</strong> is the data on which a model is built. This is the data from
+                            which the model learns, where both output and input are known.</p>
+                        <p><strong>Test data</strong> is a subset of the original data used to examine how well the
+                            model has learned. The model predicts the target variable values for the test data, and then
+                            the predicted values are compared with actual values to check how many of them were
+                            correctly predicted.</p>
+
+                        <h4>Split Ratio</h4>
+                        <p>The <strong>Split Ratio</strong> is defined as:</p>
+                        <ul>
+                            <li><strong>Split ratio = (% size of train data) / (% size of test data)</strong></li>
+                        </ul>
+                        <p>The split ratio changes based on the size of the original datasets and the problem
+                            statements. The ideal split ratio is usually <strong>70:30</strong> (i.e., 70% training data
+                            and 30% test data).</p>
+
+                        <p>Both dependent and independent datasets, <strong>X</strong> and <strong>Y</strong>, are split
+                            into train and test datasets. Hence, we get 4 datasets:</p>
+                        <ul>
+                            <li><strong>X_train</strong>: Independent training data</li>
+                            <li><strong>X_test</strong>: Independent test data</li>
+                            <li><strong>Y_train</strong>: Dependent training data</li>
+                            <li><strong>Y_test</strong>: Dependent test data</li>
+                        </ul>
+
+                        <p>To achieve this in Python, we use the <code>train_test_split</code> function from the
+                            <strong>model_selection</strong> module of the <strong>sklearn</strong> library.
+                        </p>
+
+
+                        <h2 id="FeatureScaling">FeatureScaling</h2>
+                        <h3>FEATURE SCALING</h3>
+
+                        <p><strong>Feature scaling</strong> refers to the process of scaling all the feature variables
+                            (or independent variables) to the same range.</p>
+
+                        <p>Note that the variation in magnitude and range of features causes two problems:</p>
+                        <ul>
+                            <li>Variables with higher magnitude and range will have more impact compared to those with
+                                smaller ranges.</li>
+                            <li>Due to this, the model might not predict properly since it is not giving equal weight to
+                                both the variables.</li>
+                        </ul>
+
+                        <p>The gradient descent algorithm used to find the coefficients of linear regression may take a
+                            long time to converge.</p>
+
+                        <p>To overcome these problems, the variables are scaled to have similar magnitudes and ranges so
+                            that the model is not biased towards a particular variable.</p>
+
+                        <p>This procedure becomes more important in algorithms where some measure of distance between
+                            data points is involved, like:</p>
+                        <ul>
+                            <li>Logistic Regression</li>
+                            <li>Linear Regression</li>
+                            <li>K Nearest Neighbours</li>
+                            <li>Principal Component Analysis (PCA)</li>
+                        </ul>
+
+                        <p>However, this procedure is not required for tree-based algorithms.</p>
+
+                        <h4>Methods of Feature Scaling</h4>
+                        <ul>
+                            <li><strong>Standardisation</strong><br>
+                                It rescales the feature values so that they have the properties of a Standard Normal
+                                Distribution with mean 0 and standard deviation 1.
+                                <p><code>x' = (x - μ) / σ</code> where <code>x'</code> is the new value, <code>x</code>
+                                    is the old value, <code>μ</code> is the mean, and <code>σ</code> is the standard
+                                    deviation.</p>
+                            </li>
+
+                            <li><strong>Min-Max Scaling</strong><br>
+                                The value range for the transformed variables lies between [0, 1].
+                                <p><code>x' = (x - min(x)) / (max(x) - min(x))</code></p>
+                            </li>
+
+                            <li><strong>Normalisation</strong><br>
+                                The range is fixed from -1 to +1. It is also called mean normalization.
+                                <p><code>x' = (x - μ) / (max(x) - min(x))</code></p>
+                            </li>
+                        </ul>
+
+                        <h4>Feature Scaling in Python</h4>
+                        <p><strong>Standardisation</strong> method should be used for scaling the feature variables when
+                            building a linear regression model. A linear regression model assumes the input variables to
+                            be normally distributed.</p>
+
+                        <p>The pre-processing library of Sklearn can be used to perform standardisation.</p>
+
+                    </section>
+                    <section id="next">
+                        <a href="Chapter5.html#Chapter5" style="color: red">NEXT--></a>
+                    </section>
+                </article>
+            </main>
+        </div>
+    </div>
+
+    <!-- Load scripts with defer -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script defer src="../../assets/js/globalblog.js"></script>
+
+
+    <!-- Fallback for Prism if CDN fails -->
+    <script>
+        window.addEventListener('load', function () {
+            if (typeof Prism === 'undefined') {
+                console.error('Prism failed to load');
+                // Add a class to show code without highlighting
+                document.querySelectorAll('pre code').forEach(block => {
+                    block.classList.add('no-highlight');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>
