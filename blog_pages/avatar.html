@@ -9,15 +9,7 @@
     <!-- Load Prism CSS files with defer -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
-    <!-- Add error handling for script loading -->
-    <script>
-        window.addEventListener('error', function (e) {
-            if (e.target.tagName === 'SCRIPT') {
-                console.error('Script loading failed:', e.target.src);
-                alert('Failed to load script: ' + e.target.src);
-            }
-        }, true);
-    </script>
+
 
     <style>
         html {
@@ -161,7 +153,15 @@
 
     </style>
 </head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
+    gtag('config', 'G-3MEXW2XNBM');
+</script>
 <body>
     <div class="app">
         <!-- Mobile Nav Overlay -->

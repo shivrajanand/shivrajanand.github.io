@@ -5,41 +5,29 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AVATAR Presentation – Java-Python Translation</title>
+    <link rel="stylesheet" href="../assets/css/globalblog.css">
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f9f9f9;
-            color: #333;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-
-        .container {
-            max-width: 900px;
-            width: 90%;
-            background: white;
-            padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-            text-align: center;
-        }
-
-        h1,
-        h3 {
-            color: #222;
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 60px;
+            /* Adjust based on your navbar height */
         }
 
         .pdf-container {
-            margin: 20px 0;
             position: relative;
+            margin-top: 30px;
             padding-top: 56.25%;
-            border: 3px solid #007bff;
-            border-radius: 20px;
+            /* 16:9 Aspect Ratio */
             overflow: hidden;
+            border-radius: 12px;
+        }
+
+        @media (max-width: 768px) {
+            .pdf-container {
+                height: 5
+                /* 1:1 Aspect Ratio */
+            }
+            
         }
 
         .pdf-container iframe {
@@ -52,75 +40,80 @@
             border-radius: 8px;
         }
 
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* Horizontally center */
+            align-items: center;
+            /* Vertically center */
+            height: 25vh;
+            /* Make the container full height of the viewport (optional) */
+        }
+
         .btn {
-            background: linear-gradient(135deg, #007bff, #0056b3);
+            background: linear-gradient(135deg, #6a5dff, #4e43f3);
             color: white;
-            padding: 12px 24px;
-            text-decoration: none;
-            border-radius: 5px;
-            display: inline-block;
+            padding: 14px 30px;
+            margin: 5px 5px;
             font-size: 16px;
-            font-weight: bold;
-            transition: 0.3s;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 10px;
+            display: inline-block;
+            transition: background 0.3s ease, transform 0.2s ease;
         }
 
         .btn:hover {
-            background: linear-gradient(135deg, #0056b3, #004494);
+            background: linear-gradient(135deg, #4e43f3, #6a5dff);
+            transform: translateY(-3px);
         }
 
-        ul {
-            text-align: left;
-            padding: 0 20px;
-            list-style: none;
-        }
-
-        ul li::before {
-            content: "\2714";
-            color: #007bff;
-            font-weight: bold;
-            margin-right: 10px;
-        }
-
-        .footer {
-            margin-top: 30px;
-            font-size: 14px;
-            color: #666;
-        }
-
-        @media (max-width: 768px) {
-            .container {
-                padding: 15px;
-            }
-
-            .pdf-container {
-                padding-top: 135%;
-            }
-
-            .btn {
-                width: 50%;
-                padding: 14px 20px;
-                font-size: 18px;
-            }
+        .btn:focus {
+            outline: none;
         }
 
         .notes {
+            width: 100%;
             max-width: 900px;
-            margin: 30px auto;
-            padding: 20px;
-            background: #f9f9f9;
+            background-color: #fff;
+            padding: 30px;
             border-radius: 12px;
-            box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.1);
-            font-family: 'Arial', sans-serif;
+            box-shadow: 0px 8px 20px rgba(0, 0, 0, 0.1);
+            margin: 30px 0;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #111827;
+            --bg-secondary: #1f2937;
+            --bg-tertiary: #374151;
+            --text-primary: #ffffff;
+            --text-secondary: #d1d5db;
+            --text-hover: #60a5fa;
+            --border-color: #374151;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+        }
+
+        .notes {
+            width: 100%;
+            max-width: 900px;
+            background-color: var(--bg-primary);
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0px 8px 20px var(--shadow-color);
+            margin: 30px 0;
+            color: var(--text-primary);
         }
 
         .notes h2 {
             text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: #333;
+            font-size: 28px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            border-bottom: 2px solid var(--text-hover);
+            padding-bottom: 12px;
             text-transform: uppercase;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #007BFF;
         }
 
         .notes ul {
@@ -129,60 +122,38 @@
         }
 
         .notes li {
-            margin-bottom: 15px;
-            padding: 15px;
-            border-left: 4px solid #007BFF;
-            background: #ffffff;
+            background: var(--bg-secondary);
+            padding: 5px;
+            margin-bottom: 5px;
+            border-left: 6px solid var(--text-hover);
             border-radius: 8px;
             transition: all 0.3s ease-in-out;
         }
 
-        .notes li:hover {
-            background: #f0f8ff;
-        }
-
         .notes li strong {
-            color: #007BFF;
-            font-size: 18px;
+            font-size: 1rem;
+            color: var(--text-hover);
         }
 
-        .notes ul ul {
-            margin-top: 10px;
-            padding-left: 20px;
+        .footer {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 30px;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+            background: var(--bg-primary);
+            box-shadow: 0px -2px 5px var(--shadow-color);
         }
 
-        .notes ul ul li {
-            background: none;
-            border-left: none;
-            font-size: 16px;
-            color: #444;
-            padding: 5px 10px;
-            line-height: 1.6;
+        .footer a {
+            color: var(--text-hover);
+            text-decoration: none;
+            font-weight: bold;
         }
 
-        .notes code {
-            background: #e8e8e8;
-            padding: 3px 6px;
-            font-family: 'Courier New', monospace;
-            border-radius: 5px;
-        }
-
-        @media (max-width: 768px) {
-            .notes {
-                padding: 15px;
-            }
-
-            .notes h2 {
-                font-size: 20px;
-            }
-
-            .notes li strong {
-                font-size: 16px;
-            }
-
-            .notes ul ul li {
-                font-size: 14px;
-            }
+        .footer a:hover {
+            color: var(--text-primary);
         }
     </style>
 </head>
@@ -197,42 +168,136 @@
 </script>
 
 <body>
-    <div class="container">
-        <h1>Machine Learning Training by InterShala: Notes and Review</h1>
-        <h3>Author: Shivraj Anand</h3>
-        <p>A comprehensive summary of key machine learning concepts and techniques covered in the Intern Shala course.
-        </p>
+    <div class="app">
+        <!-- Mobile Nav Overlay -->
+        <div id="navOverlay" class="nav-overlay hidden"></div>
 
-        <div class="pdf-container">
-            <!-- Embed Google Drive PDF using iframe -->
-            <iframe src="https://drive.google.com/file/d/1NtIWWRx83ejtDvwxT_71OhJsfItPbyOG/preview" width="100%"
-                height="600"></iframe>
-        </div>
+        <!-- Navigation -->
+        <nav id="sidebar" class="sidebar">
+            <div class="nav-content">
+                <button id="closeNav" class="close-nav">&times;</button>
+                <h2 class="nav-title"></h2>
+                <div class="chapters">
+                    <div class="chapter">
+                        <h2>PDF</h2>
+                        <ul>
+                            <li><a href="#pdf-container">NOTES PDF</a></li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>Speaker Notes</h2>
+                        <ul>
+                            <li><a href="#githubrepo">Github Repo</a></li>
+                            <li><a href="#kaggleproject1">Kaggle: Project 1</a></li>
+                            <li><a href="#kaggleproject1">Kaggle: Project 2</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
 
-        <p><a href="https://drive.google.com/file/d/1NtIWWRx83ejtDvwxT_71OhJsfItPbyOG" class="btn"
-                target="_blank">Download PDF</a></p>
 
-        <div class="notes">
-            <ul>
-                <li>Access the <a href="https://github.com/shivrajanand/InternshalaTraining3rdSemester"
-                        target="_blank">GitHub repository</a> for all my Jupyter notebooks</li>
-                <li><a href="https://www.kaggle.com/code/shivrajanandai/housing-data-set-regression-modelling"
-                        target="_blank">Kaggle Notebook</a> Link for <strong>Project 1: Housing Data Set Regression
-                        Modelling</strong></li>
-                <li><a href="https://www.kaggle.com/code/shivrajanandai/training-project-2-population-demography"
-                        target="_blank">Kaggle Notebook</a> Link for <strong>Project 2: Population Demography</strong>
-                </li>
-            </ul>
-        </div>
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <button id="menuButton" class="menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </button>
+                <button id="themeToggle" class="theme-toggle">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path d="M12 2v2" />
+                        <path d="M12 20v2" />
+                        <path d="m4.93 4.93 1.41 1.41" />
+                        <path d="m17.66 17.66 1.41 1.41" />
+                        <path d="M2 12h2" />
+                        <path d="M20 12h2" />
+                        <path d="m6.34 17.66-1.41 1.41" />
+                        <path d="m19.07 4.93-1.41 1.41" />
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    </svg>
+                </button>
+            </header>
 
-        <div class="footer">
-            <p>For feedback or collaboration, connect with me on <a
-                    href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=shivrajanand"
-                    target="_blank">LinkedIn</a>.</p>
-            <p><a href="https://shivrajanand.github.io">Visit my Portfolio</a></p>
-            <p>&copy; 2025 Shivraj Anand</p>
+            <!-- Content -->
+            <main class="content">
+                <article class="article">
+                    <section>
+                        <h1>Machine Learning Training by InterShala: Notes and Review</h1>
+                        <h3>Author: Shivraj Anand</h3>
+                        <p>A comprehensive summary of key machine learning concepts and techniques covered in the Intern
+                            Shala course.
+                        </p>
+
+                        <h2>PDF NOTES(Scroll down): Total 72 pages</h2>
+                        <div class="pdf-container" id="pdf-container">
+                            <iframe src="https://drive.google.com/file/d/1NtIWWRx83ejtDvwxT_71OhJsfItPbyOG/preview"
+                                width="100%" height="600"></iframe>
+                        </div>
+
+                        <div class="button-container">
+                            <p><a href="https://drive.google.com/file/d/1NtIWWRx83ejtDvwxT_71OhJsfItPbyOG" class="btn"
+                                    target="_blank">Download PDF</a></p>
+                        </div>
+
+                        <div class="notes">
+                            <ul>
+                                <li id="githubrepo">Access the <a href="https://github.com/shivrajanand/InternshalaTraining3rdSemester"
+                                        target="_blank">GitHub repository</a> for all my Jupyter notebooks</li>
+                                <li id="kaggleproject1"><a href="https://www.kaggle.com/code/shivrajanandai/housing-data-set-regression-modelling"
+                                        target="_blank">Kaggle Notebook</a> Link for <strong>Project 1: Housing Data Set
+                                        Regression
+                                        Modelling</strong></li>
+                                <li id="kaggleproject2"><a href="https://www.kaggle.com/code/shivrajanandai/training-project-2-population-demography"
+                                        target="_blank">Kaggle Notebook</a> Link for <strong>Project 2: Population
+                                        Demography</strong>
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="footer">
+                            <p>For feedback or collaboration, connect with me on <a
+                                    href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=shivrajanand"
+                                    target="_blank">LinkedIn</a>.</p>
+                            <p><a href="https://shivrajanand.github.io">Visit my Portfolio</a></p>
+                            <p>&copy; 2025 Shivraj Anand</p>
+                        </div>
+                    </section>
+                </article>
+
+            </main>
         </div>
     </div>
+
+    <!-- Load scripts with defer -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script defer src="../assets/js/globalblog.js"></script>
+
+    <!-- Fallback for Prism if CDN fails -->
+    <script>
+        window.addEventListener('load', function () {
+            if (typeof Prism === 'undefined') {
+                console.error('Prism failed to load');
+                // Add a class to show code without highlighting
+                document.querySelectorAll('pre code').forEach(block => {
+                    block.classList.add('no-highlight');
+                });
+            }
+        });
+    </script>
 </body>
 
 </html>
