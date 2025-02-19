@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Guide</title>
+    <link rel="stylesheet" href="../assets/css/pythonguide.css">
+    <!-- Load Prism CSS files with defer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <!-- Add error handling for script loading -->
+    <script>
+        window.addEventListener('error', function (e) {
+            if (e.target.tagName === 'SCRIPT') {
+                console.error('Script loading failed:', e.target.src);
+                alert('Failed to load script: ' + e.target.src);
+            }
+        }, true);
+    </script>
+</head>
+
+<body>
+    <div class="app">
+        <!-- Mobile Nav Overlay -->
+        <div id="navOverlay" class="nav-overlay hidden"></div>
+
+        <!-- Navigation -->
+        <nav id="sidebar" class="sidebar">
+            <div class="nav-content">
+                <button id="closeNav" class="close-nav">&times;</button>
+                <h2 class="nav-title">Python Guide</h2>
+                <div class="chapters">
+                    <div class="chapter">
+                        <h2>1. Introduction to Python</h2>
+                        <ul>
+                            <li>What is Python?</li>
+                            <li>History and Evolution of Python</li>
+                            <li>Installing Python (Windows, macOS, Linux)</li>
+                            <li>Setting Up a Python Development Environment</li>
+                            <li>Running Your First Python Script</li>
+                        </ul>
+                    </div>
+                    <!-- <div class="chapter">
+                        <h2>2. Python Basics</h2>
+                        <ul>
+                            <li>Variables and Data Types</li>
+                            <li>Operators in Python</li>
+                            <li>Conditional Statements</li>
+                            <li>Loops</li>
+                            <li>User Input and Output</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>3. Functions and Modules</h2>
+                        <ul>
+                            <li>Defining and Calling Functions</li>
+                            <li>Function Arguments and Return Values</li>
+                            <li>Built-in Functions</li>
+                            <li>Creating and Importing Modules</li>
+                            <li>Lambda Functions and Higher-Order Functions</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>4. Data Structures</h2>
+                        <ul>
+                            <li>Lists and Methods</li>
+                            <li>Tuples</li>
+                            <li>Dictionaries</li>
+                            <li>Sets</li>
+                            <li>Stack, Queue, and Deque</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>5. File Handling</h2>
+                        <ul>
+                            <li>Reading and Writing Files</li>
+                            <li>File Handling with with open()</li>
+                            <li>Working with Directories</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>6. Object-Oriented Programming</h2>
+                        <ul>
+                            <li>Classes and Objects</li>
+                            <li>Inheritance, Polymorphism, Encapsulation</li>
+                            <li>Magic Methods</li>
+                            <li>Class and Static Methods</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>7. Exception Handling</h2>
+                        <ul>
+                            <li>try, except, finally</li>
+                            <li>Raising Exceptions</li>
+                            <li>Custom Exceptions</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>8. Python Libraries and Frameworks</h2>
+                        <ul>
+                            <li>numpy</li>
+                            <li>pandas</li>
+                            <li>matplotlib and seaborn</li>
+                            <li>BeautifulSoup and requests</li>
+                            <li>GUI Development with Tkinter</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>9. Advanced Python Concepts</h2>
+                        <ul>
+                            <li>Decorators and Generators</li>
+                            <li>Threading and Multiprocessing</li>
+                            <li>Memory Management</li>
+                            <li>Metaprogramming</li>
+                            <li>asyncio</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>10. Database Connectivity</h2>
+                        <ul>
+                            <li>SQLite</li>
+                            <li>MySQL and PostgreSQL</li>
+                            <li>SQLAlchemy</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>11. Web Development</h2>
+                        <ul>
+                            <li>Flask</li>
+                            <li>Django</li>
+                            <li>REST API Development</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>12. Testing and Debugging</h2>
+                        <ul>
+                            <li>Debugging Tools</li>
+                            <li>Unit Testing</li>
+                            <li>pytest</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>13. Working with APIs</h2>
+                        <ul>
+                            <li>Consuming APIs</li>
+                            <li>Creating and Deploying REST APIs</li>
+                            <li>Authentication with OAuth and JWT</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>14. Data Science and Machine Learning</h2>
+                        <ul>
+                            <li>Data Preprocessing</li>
+                            <li>Machine Learning Basics</li>
+                            <li>Deep Learning</li>
+                            <li>NLP</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>15. Automation with Python</h2>
+                        <ul>
+                            <li>selenium</li>
+                            <li>pyautogui</li>
+                            <li>Automating Emails and Excel Files</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>16. Cybersecurity</h2>
+                        <ul>
+                            <li>Hashing and Encryption</li>
+                            <li>Web Security</li>
+                            <li>Ethical Hacking</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>17. Deployment and Cloud Computing</h2>
+                        <ul>
+                            <li>Packaging Python Projects</li>
+                            <li>Deploying on AWS, Heroku, Google Cloud</li>
+                            <li>Dockerizing Python Applications</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>18. Competitive Programming</h2>
+                        <ul>
+                            <li>Efficient Coding Practices</li>
+                            <li>Solving Problems on LeetCode, CodeChef</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>19. Python for IoT</h2>
+                        <ul>
+                            <li>Raspberry Pi</li>
+                            <li>Arduino with Python</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2>20. Career and Next Steps</h2>
+                        <ul>
+                            <li>Python Roadmap</li>
+                            <li>Open Source Contribution</li>
+                            <li>Building a Portfolio</li>
+                        </ul>
+                    </div> -->
+                </div>
+            </div>
+        </nav>
+
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <button id="menuButton" class="menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </button>
+                <button id="themeToggle" class="theme-toggle">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path d="M12 2v2" />
+                        <path d="M12 20v2" />
+                        <path d="m4.93 4.93 1.41 1.41" />
+                        <path d="m17.66 17.66 1.41 1.41" />
+                        <path d="M2 12h2" />
+                        <path d="M20 12h2" />
+                        <path d="m6.34 17.66-1.41 1.41" />
+                        <path d="m19.07 4.93-1.41 1.41" />
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    </svg>
+                </button>
+            </header>
+
+            <!-- Content -->
+            <main class="content">
+                <article class="article">
+                    <section>
+                        <h1>Getting Started with Python</h1>
+                        <p>
+                            Python is a high-level, interpreted programming language known for its simplicity and
+                            readability.
+                            It's an excellent choice for beginners while being powerful enough for professional
+                            development.
+                        </p>
+
+                        <h2>Installation</h2>
+                        <p>
+                            Before you start programming with Python, you'll need to download and install it on your
+                            computer.
+                            Visit the official Python website at python.org to download the latest version.
+                        </p>
+
+                        <div class="code-block">
+                            <h3>Your First Python Program</h3>
+                            <pre><code class="language-python">def fibonacci(n):
+    """Return the nth Fibonacci number."""
+    if n <= 1:
+        return n
+    return fibonacci(n-1) + fibonacci(n-2)
+
+# Generate first 10 Fibonacci numbers
+for i in range(10):
+    print(fibonacci(i))</code></pre>
+                        </div>
+
+                        <div class="feature-block">
+                            <h3>Key Features of Python</h3>
+                            <ul>
+                                <li>Easy to learn and read</li>
+                                <li>Large standard library</li>
+                                <li>Cross-platform compatibility</li>
+                                <li>Strong community support</li>
+                                <li>Extensive third-party packages</li>
+                            </ul>
+                        </div>
+
+                        <div class="use-cases">
+                            <h2>Python Use Cases</h2>
+                            <div class="use-cases-grid">
+                                <div class="use-case">
+                                    <h3>Web Development</h3>
+                                    <p>Build web applications using frameworks like Django and Flask</p>
+                                </div>
+                                <div class="use-case">
+                                    <h3>Data Science</h3>
+                                    <p>Analyze and visualize data using libraries like Pandas and Matplotlib</p>
+                                </div>
+                                <div class="use-case">
+                                    <h3>Machine Learning</h3>
+                                    <p>Create AI models using TensorFlow and PyTorch</p>
+                                </div>
+                                <div class="use-case">
+                                    <h3>Automation</h3>
+                                    <p>Automate tasks and create scripts for system administration</p>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                </article>
+            </main>
+        </div>
+    </div>
+
+    <!-- Load scripts with defer -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script defer src="../assets/js/pythonguide.js"></script>
+
+    <!-- Fallback for Prism if CDN fails -->
+    <script>
+        window.addEventListener('load', function () {
+            if (typeof Prism === 'undefined') {
+                console.error('Prism failed to load');
+                // Add a class to show code without highlighting
+                document.querySelectorAll('pre code').forEach(block => {
+                    block.classList.add('no-highlight');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

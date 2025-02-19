@@ -13,5 +13,13 @@
         "category": "Machine Learning",
         "description": "A comprehensive summary of key machine learning concepts and techniques covered in the Intern Shala course.",
         "link": "../blog_pages/MlNotes.html"
+    },
+
+    {
+        "title": "A complete guide to Python Programming",
+        "date": "LAUNCH DATE",
+        "category": "Programming, Python",
+        "description": "",
+        "link": "../blog_pages/pythonguide.html"
     }
 ]
