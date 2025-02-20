@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter4: Machine Learning Notes</title>
+    <link rel="stylesheet" href="../../assets/css/globalblog.css">
+    <!-- Load Prism CSS files with defer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <!-- Add error handling for script loading -->
+    <script>
+        window.addEventListener('error', function (e) {
+            if (e.target.tagName === 'SCRIPT') {
+                console.error('Script loading failed:', e.target.src);
+                alert('Failed to load script: ' + e.target.src);
+            }
+        }, true);
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 60px;
+            /* Adjust based on your navbar height */
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+
+        #image {
+            width: 100%;
+            /* Or a specific width */
+            height: auto;
+            /* Or any height you prefer */
+            overflow: hidden;
+            /* Ensures no overflow */
+            display: flex;
+            flex-direction: column;
+            /* Stack children (image and caption) vertically */
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            /* Border around the container */
+        }
+
+        [data-theme="dark"] #image {
+            border: 1px solid white;
+            /* Dark mode border color */
+        }
+
+        #image figure {
+            width: 100%;
+            /* Ensure the figure takes up the full width */
+            margin: 0;
+            text-align: center;
+            /* Center align the caption */
+        }
+
+        #image img {
+            width: 100%;
+            /* Ensures the image takes the full width of the container */
+            height: auto;
+            /* Maintains the aspect ratio */
+            object-fit: contain;
+            /* Ensure the image fits within the div */
+        }
+
+        #image figcaption {
+            font-size: 1em;
+            /* Caption text size */
+            margin-top: 10px;
+            /* Space between the image and caption */
+            color: #333;
+            /* Text color */
+            font-style: italic;
+            /* Italicize caption text */
+            text-align: center;
+            border-top: 2px solid #ccc;
+            /* Border between image and caption */
+            padding-top: 5px;
+            /* Space between image and border */
+            padding-bottom: 15px;
+            /* Space below the caption for a clean look */
+            width: 100%;
+            /* Ensures the caption takes up the full width */
+        }
+
+
+        [data-theme="dark"] #image figcaption {
+            color: white;
+            border: white 1px solid;
+        }
+
+
+
+        p {
+            text-align: justify;
+        }
+
+        /* Unordered List Style */
+        ul {
+            list-style-type: none;
+        }
+
+        ul .li {
+            margin-bottom: 10px;
+        }
+
+        [data-theme="dark"] li a {
+            color: white;
+        }
+
+
+        @media (max-width: 768px) {
+            #image {
+                width: 100%;
+                /* or a specific width */
+                /* or any height you prefer */
+                overflow: hidden;
+                /* Ensures no overflow */
+            }
+
+            #image img {
+                width: 100%;
+                object-fit: contain;
+                /* Ensure the image fits within the div while maintaining its aspect ratio */
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        .notebook {
+            width: 100%;
+            margin: auto;
+        }
+
+        .cell {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            color: currentColor;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 10px 0;
+        }
+
+        .input,
+        .output {
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        pre {
+            overflow-x: auto;
+            text-align: left;
+        }
+
+        @media (max-width: 600px) {
+            .notebook {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-3MEXW2XNBM');
+</script>
+
+<body>
+    <div class="app">
+        <!-- Mobile Nav Overlay -->
+        <div id="navOverlay" class="nav-overlay hidden"></div>
+
+        <!-- Navigation -->
+        <nav id="sidebar" class="sidebar">
+            <div class="nav-content">
+                <button id="closeNav" class="close-nav">&times;</button>
+                <h2 class="nav-title">INDEX</h2>
+                <div class="chapters">
+                    <div class="chapter">
+                        <h2><a href="Chapter1.html#chapter0">0. Links & Overview</a></h2>
+                        <ul>
+                            <li>Notes PDF Download Link</li>
+                            <li>Github Repo Link</li>
+                            <li>Project 1: Kaggle</li>
+                            <li>Project 2: Kaggle</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2><a href="#chapter1">1. Getting started with Machine Learning</a></h2>
+                        <ul>
+                            <li><a href="Chapter1.html#WhatisMachineLearning">What is Machine Learning?</a></li>
+                            <li><a href="Chapter1.html#HowMachineLearningWorks">How Machine Learning Works</a></li>
+                            <li><a href="Chapter1.html#TypesofMachineLearning">Types of Machine Learning</a></li>
+                            <li><a href="Chapter1.html#TypesofData">Types of Data</a></li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2><a href="Chapter2.html#chapter2">2. Graphical & Analytical Representation of Data</a></h2>
+                        <ul>
+                            <li><a href="Chapter2.html#DataAnalysis&EDA">Data Analysis & EDA</a></li>
+                            <li><a href="Chapter2.html#GraphicalRepresentationofData">Graphical Representation of
+                                    data</a></li>
+                            <li><a href="Chapter2.html#LimitationOfTraditionalDA">Limitation of traditional Data
+                                    Analysis</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter3.html#chapter3">3. Python as a Data-Analysis Tool</a></h2>
+                        <ul>
+                            <li><a href="Chapter3.html#WhyPython">Why Python?</a></li>
+                            <li><a href="Chapter3.html#JupyterNotebook">Jupyter Notebook</a></li>
+                            <li><a href="Chapter3.html#PythonDataTypes">Data Types in Python</a></li>
+                            <li><a href="Chapter3.html#BasicOperations">Basic Operations</a></li>
+                            <li><a href="Chapter3.html#PythonConstructs">Condition Statements & Loops</a></li>
+                            <li><a href="Chapter3.html#PythonFunctions">Functions in Python</a></li>
+                            <li><a href="Chapter3.html#BasicLibraries">Basic Libraries</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter4.html#chapter4">4. Basic Data Exploration</a></h2>
+                        <ul>
+                            <li><a href="Chapter4.html#PandasDataframe">Pandas Dataframe</a></li>
+                            <li><a href="Chapter4.html#DescriptiveStatistics">Descriptive Statistics of Data</a></li>
+                            <li><a href="Chapter4.html#Numpy">Numpy: A Statistics Module in Python</a></li>
+                            <li><a href="Chapter4.html#Matplotlib">Matplotlib: Graph Plotting</a></li>
+                            <li><a href="Chapter4.html#Pandas">Pandas: Some important Functions</a></li>
+                            <li><a href="Chapter4.html#Univariate">Univariate Analysis</a></li>
+                            <li><a href="Chapter4.html#Outliers">Treating Outliers</a></li>
+                            <li><a href="Chapter4.html#Correlation">Correlation</a></li>
+                            <li><a href="Chapter4.html#ANOVA">ANOVA</a></li>
+                            <li><a href="Chapter4.html#TrainingDatasets">Creating Training Datasets</a></li>
+                            <li><a href="Chapter4.html#FeatureScaling">FeatureScaling</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter5.html#chapter5">5. Regression Modelling</a></h2>
+                        <ul>
+                            <li><a href="Chapter5.html#RegressionIntroduction">Introduction</a></li>
+                            <li><a href="Chapter5.html#ModelEvaluationMetrics">Model Evaluation Metrics</a></li>
+                            <li><a href="Chapter5.html#LinearRegression">Linear Regressin</a></li>
+                            <li><a href="Chapter5.html#CostFunctionCurve">Cost Function Curve</a></li>
+                            <li><a href="Chapter5.html#GradientDescent">Gradient Descent</a></li>
+                            <li><a href="Chapter5.html#AssumptionsofLinearReg">Assumptions of Linear Regression</a></li>
+                            <li><a href="Chapter5.html#StepsofLinearReg">Steps of Linear Regression</a></li>
+                            <li><a href="Chapter5.html#OutcomeOfLinearReg">Outcome of Linear Regression</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter6.html#chapter6">6. Feature Engineering</a></h2>
+                        <ul>
+                            <li><a href="Chapter6.html#FetEngIntroduction">Introduction</a></li>
+                            <li><a href="Chapter6.html#TransformationTech">Transformation Techniques</a></li>
+                            <li><a href="Chapter6.html#CategoricalEncoding">Categorical Encoding</a></li>
+                            <li><a href="Chapter6.html#FeatureExtraction">Feature Extraction</a></li>
+                            <li><a href="Chapter6.html#DimensionalityReduction">Dimensionality Reduction</a></li>
+                            <li><a href="Chapter6.html#AdvancedDimensionalityReduction">Advanced Dimensionality
+                                    Reduction</a></li>
+                            <li><a href="Chapter6.html#ForwardSelection">Forward Selection</a></li>
+                            <li><a href="Chapter6.html#BackwardSelection">Backward Selection</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#chapter7">7. Logistic Regression</a></h2>
+                        <ul>
+                            <li><a href="#LogisticIntroduction">Introduction</a></li>
+                            <li><a href="#LogisticEvalMetric">Evaluation Metrics</a>
+                                <ul>
+                                    <li><a href="#ConfusionMatrix">Confusion Matrix</a></li>
+                                    <li><a href="#Accuracy">Accuracy</a></li>
+                                    <li><a href="#Precision">Precision</a></li>
+                                    <li><a href="#Recall">Recall</a></li>
+                                    <li><a href="#LogLoss">Log Loss Model</a></li>
+                                    <li><a href="#AucRoc">AUC ROC Curve</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#Implement">Implementation</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <button id="menuButton" class="menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </button>
+                <button id="themeToggle" class="theme-toggle">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path d="M12 2v2" />
+                        <path d="M12 20v2" />
+                        <path d="m4.93 4.93 1.41 1.41" />
+                        <path d="m17.66 17.66 1.41 1.41" />
+                        <path d="M2 12h2" />
+                        <path d="M20 12h2" />
+                        <path d="m6.34 17.66-1.41 1.41" />
+                        <path d="m19.07 4.93-1.41 1.41" />
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    </svg>
+                </button>
+            </header>
+
+            <!-- Content -->
+            <main class="content">
+                <article class="article">
+                    <section id="chapter7">
+                        <h2 id="LogisticIntroduction">Introduction</h2>
+
+                        <p>Logistic regression is a classification algorithm used in classification problems where the
+                            target variable is categorical.</p>
+
+                        <p>A categorical variable is one which represents a characteristic that cannot be measured or
+                            counted. Linear regression, however, is not suitable for classification problems due to two
+                            main reasons:</p>
+                        <ul>
+                            <li><strong>Sensitivity to Outliers:</strong> Linear regression is sensitive to outliers. In
+                                classification problems, the presence of an outlier can affect the linear model
+                                drastically, even if it should not influence the predictive model.</li>
+                            <li><strong>Interpretation Issues:</strong> In classification problems, predictions are
+                                often classified. However, linear regression predictions do not have such limiting
+                                values, leading to predictions that can sometimes be meaningless.</li>
+                        </ul>
+
+                        <p>Consider a classification problem where we need to calculate the probability of a data point
+                            belonging to a specific class. The probability or prediction should always be between 0 and
+                            1. However, linear regression can predict values outside this range, which is not useful for
+                            classification problems.</p>
+
+                        <p>To solve this, we use the <strong>logit function</strong>, which maps values between 0 and 1.
+                            The logistic regression line can be derived as:</p>
+                        <p><em>y = mx + c</em></p>
+
+                        <p>To restrict values between 0 and 1, we use the logistic function. Logistic regression is
+                            considered a regression model because it predicts continuous probability values between 0
+                            and 1.</p>
+                        <div
+                            style="background-color: rgba(0, 0, 0, 0.3); border-radius: 10px; padding: 20px; width: fit-content; color: currentColor; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+                            <h3 style="color: inherit;">Logit Function or Sigmoid Function</h3>
+                            <p style="color: inherit;">A function which has a range between 0 and 1 (0 and 1 exclusive).
+                                Irrespective of any input, it will always give output between 0 and 1.</p>
+                            <p><strong>Mathematically, range ∈ (0,1)</strong></p>
+
+                            <!-- MathJax inline equation -->
+                            <p>This function is given as:
+                                <span>\( g(x) = \frac{1}{1 + e^{-x}} \)</span>
+                            </p>
+
+                            <p>If we apply this function in the linear regression line:
+                                <span>\( z = mx + c \)</span>,
+                                we can get the prediction values as:
+                                <span>\( Y_p = g(z) = \frac{1}{1 + e^{-(mx + c)}} \)</span>
+                            </p>
+                        </div>
+
+
+
+                        <p>The term "logistic" comes from the <strong>logit function</strong> used in this process.</p>
+
+                        <p>Logistic regression in Scikit-learn automatically converts the probabilities into classes
+                            using a threshold of 0.50, where values greater than or equal to 0.50 are classified as 1,
+                            and values less than 0.50 are classified as 0.</p>
+
+                        <p>When using logistic regression, we typically use gradient descent to optimize the model.
+                            However, the cost function for logistic regression is more complex than that for linear
+                            regression because it includes an exponential term, resulting in a non-convex cost plot.
+                            Gradient descent, which works only with convex plots, may not be effective with such
+                            non-convex plots.</p>
+
+                        <p>Instead of using the simple cost function in linear regression, logistic regression uses the
+                            <strong>log loss function</strong>, defined as:
+                        </p>
+                        <p>
+                            $$ J = -\frac{1}{n} \sum_{i=1}^{n} \left[ Y_i \log(Y_p) + (1 - Y_i) \log(1 - Y_p) \right] $$
+
+                        </p>
+
+                        <p>Where:</p>
+                        <ul>
+                            <li><strong>Yₚ</strong> is the predicted probability for class 1.</li>
+                            <li><strong>Yᵢ</strong> is the actual class.</li>
+                            <li><strong>n</strong> is the number of observations.</li>
+                        </ul>
+
+                        <p>The method used by logistic regression to fit the best data model is called <strong>Maximum
+                                Likelihood Estimation</strong> (MLE).</p>
+
+
+                        <h2 id="LogisticEvalMetric">Evaluation Metrics</h2>
+
+                        <h3 id="ConfusionMatrix">Confusion Matrix</h3>
+                        <p>
+                            <b>Confusion Matrix</b><br>
+                            • It is used to interpret the model predictions systematically.<br>
+                            • It is a simple NxN matrix, where N is the number of distinct classes in the target
+                            variable.<br>
+                            • Most of the problems have two classes, often called binary classes: the classes are
+                            referred as class 0 (negative class) and class 1 (positive class).<br>
+                            • If the outcome is + or – and the actual value is also + or – then we mark it as TRUE.<br>
+                            • If the outcome does not match with the actual value, we mark it as FALSE.<br>
+                            • This is the basic platform of representation for most of the classification metrics.
+                        </p>
+
+                        <div style="text-align: center; margin-top: 20px;">
+                            <img src="MLNotesIMGs/35.png" alt="Confusion Matrix"
+                                style="max-width: 80%; height: auto; border: 2px solid #ccc; border-radius: 8px;">
+                        </div>
+
+                        <h3 id="Accuracy">Accuracy</h3>
+                        <p>
+                            <b>Accuracy Formula:</b><br>
+                            Accuracy = \(\dfrac{\text{Correct Predictions}}{\text{Total Predictions}}\) =
+                            \(\dfrac{\text{TP} + \text{TN}}{\text{FP} + \text{FN} + \text{TP} +
+                            \text{TN}}\)<br><br>
+
+                            • Higher accuracy indicates a better model. This is true when the data is balanced.<br>
+                            • <b>Imbalanced Data:</b> It refers to a dataset with disproportionate numbers of either
+                            positive or negative classes, where both classes are not equally or nearly equally
+                            distributed.<br>
+                            • Using accuracy as an evaluation metric on unbalanced data does not provide reliable
+                            results.<br>
+                        </p>
+
+
+                        <h3 id="Precision">Precision</h3>
+                        <p>
+                            <b>Precision Formula:</b><br>
+                            Precision = \(\dfrac{\text{TP}}{\text{FP} + \text{TP}}\)<br><br>
+
+                            • Precision is helpful in the case of imbalanced data.<br>
+                            • Precision is used when avoiding false positives is more essential than encountering false
+                            negatives.<br><br>
+
+
+                        </p>
+
+                        <h3 id="Recall">Recall</h3>
+                        <p>
+                            <b>Recall Formula:</b><br>
+                            Recall = \(\dfrac{\text{TP}}{\text{FN} + \text{TP}}\)<br><br>
+
+                            • Recall is used when avoiding false negatives is prioritized over encountering false
+                            positives.<br>
+                            • Precision and recall have a relationship as shown in a graph: as one increases, a drop in
+                            the other is observed. However, this is a weak relation.<br><br>
+
+                            • In case you are unsure about which metric to use, another metric called the F1-score is
+                            used, which is the harmonic mean of precision and recall.<br>
+                            F1 = \(\dfrac{2}{\dfrac{1}{\text{Precision}} + \dfrac{1}{\text{Recall}}}\)<br>
+                            The F1-score is maximized when Precision = Recall.<br>
+                        </p>
+                        <h3 id="LogLoss">Log Loss Model</h3>
+                        <p>
+                            <b>Log Loss (Logarithmic Loss) Explanation:</b><br><br>
+
+                            • The log loss function calculates the error of a classification model.<br>
+                            • A smaller value of log loss indicates a better performing model.<br>
+                            • The farther a predicted probability is from its true class, the higher the log
+                            loss.<br><br>
+
+                            As shown in the figure on the left, although the metrics of both models (C1 and C2) are the
+                            same, the log loss of C1 is greater than C2. Therefore, Model C2 is a better model based on
+                            log loss.<br><br>
+
+                            <b>Log Loss Formula:</b><br>
+                            \( \text{Log Loss} = -\frac{1}{n} \sum_{i=1}^{n} \left[ y_i \log(p_i) + (1 - y_i) \log(1 -
+                            p_i) \right] \)<br><br>
+
+                            Where:<br>
+                            - \( n \) = Number of observations<br>
+                            - \( y_i \) = Actual class (0 or 1)<br>
+                            - \( p_i \) = Predicted probability for class 1<br><br>
+
+                        <div style="text-align:center; margin-top: 20px;">
+                            <img src="MLNotesIMGs/36.png" alt="Log Loss Visualization"
+                                style="max-width: 80%; border: 2px solid #ccc;">
+                        </div><br>
+                        </p>
+
+                        <h3 id="AucRoc">AUC ROC Curve</h3>
+                        <p>
+                            <b>AUC-ROC Explanation:</b><br><br>
+
+                            • AUC-ROC is a performance measurement for classification models across different threshold
+                            values.<br>
+                            • <b>AUC</b> stands for Area Under the Curve, and it is used to evaluate the model's ability
+                            to distinguish between the positive class (1s) and the negative class (0s).<br>
+                            • A higher AUC value indicates a better model in predicting 0s as 0s and 1s as 1s, i.e.,
+                            better at distinguishing between classes.<br>
+                            • However, AUC works best when datasets are nearly balanced.<br><br>
+
+                            The AUC-ROC curve is created by calculating the values of:<br>
+                            - <b>FPR (False Positive Rate):</b> The proportion of negative instances incorrectly
+                            classified as positive.<br>
+                            \( \text{FPR} = \frac{\text{FP}}{\text{TN} + \text{FP}} \)<br>
+                            - <b>TPR (True Positive Rate):</b> The proportion of positive instances correctly
+                            classified.<br>
+                            \( \text{TPR} = \frac{\text{TP}}{\text{TP} + \text{FN}} \)<br><br>
+
+                            Both FPR and TPR range from 0 to 1.<br>
+                            The graph of AUC-ROC is plotted with FPR on the x-axis and TPR on the y-axis for various
+                            threshold values.<br>
+                            The area under the graph is considered to be 1 squared unit.<br><br>
+
+                            • AUC values greater than 0.95 may indicate that there could be some error in the model, as
+                            the model is performing too well (potential overfitting).<br><br>
+                        </p>
+
+
+                        <h2 id="Implement">Implementation</h2>
+                        <h3>Data Dictionary</h3>
+                        <p>
+                            A data dictionary is a centralized repository of information about data, including meaning,
+                            relationships to other data, origin, usage, and format.
+                        </p>
+
+                        <h3>Sample Dataset</h3>
+                        <p>The dataset contains bank customer details and includes the following types of data:</p>
+                        <ul>
+                            <li><strong>Demographic Information:</strong> Customer ID, vintage, age, etc.</li>
+                            <li><strong>Customer Bank Relationship:</strong> Customer’s net worth, branch code, and days
+                                since the last transaction.</li>
+                            <li><strong>Transactional Information:</strong> Current balance, previous month-end balance,
+                                churn, etc.</li>
+                        </ul>
+
+                        <h3>Objective</h3>
+                        <p>
+                            Our objective is to predict whether the churn average balance of a customer falls below the
+                            minimum balance in the next quarter.
+                        </p>
+
+                        <h3>Class-wise Data Distribution</h3>
+                        <ul>
+                            <li>The target variable follows an approximately 80-20 distribution.</li>
+                            <li>This indicates that the data is imbalanced.</li>
+                        </ul>
+
+                        <div class="notebook">
+                            <div class="cell">
+                                <div class="input">
+                                    <pre><code>data['churn'].value_counts()/len(data)</code></pre>
+                                </div>
+                                <div class="output">
+                                    <pre>0    0.806317<br>1    0.193683<br>Name: churn, dtype: float64</pre>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Handling Imbalanced Data</h3>
+                        <ul>
+                            <li>Since the data distribution is in an 8:2 ratio, weights are assigned as 2:8 to balance
+                                the model.</li>
+                            <li>In the code block, the <code>class_weight</code> is set to <code>balanced</code> to
+                                adjust for this imbalance.</li>
+                        </ul>
+
+                        <h3>Effect on Logistic Regression Model</h3>
+                        <ul>
+                            <li>Since class 1 has fewer instances, the Logistic Regression model tends to focus more on
+                                classifying class 0, as most errors come from class 0.</li>
+                            <li>Setting <code>class_weight='balanced'</code> applies a multiplier to class 1 errors,
+                                meaning errors in class 1 contribute more to model training.</li>
+                            <li>This approach is useful in cases of imbalanced data to prevent the model from being
+                                biased toward the majority class.</li>
+                        </ul>
+
+                        <h3>Prediction in Logistic Regression</h3>
+                        <ul>
+                            <li>Logistic Regression provides two types of predictions:
+                                <ul>
+                                    <li><strong>Value Prediction:</strong> Direct classification of instances into class
+                                        0 or class 1.</li>
+                                    <li><strong>Probability Prediction:</strong> The model outputs a 2D list where:
+                                        <ul>
+                                            <li>The first column contains probabilities for class 0.</li>
+                                            <li>The second column contains probabilities for class 1.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+
+
+                        <div class="notebook">
+                            <div class="cell">
+                                <div class="input">
+                                    <pre><code>from sklearn.linear_model import LogisticRegression as LR<br>classifier = LR(class_weight='balanced')</code></pre>
+                                </div>
+                                <div class="input">
+                                    <pre><code>classifier.fit(x_train, y_train)<br>predicted_values = classifier.predict(x_test) #predicting class<br>predicted_probabilities = classifier.predict_proba(x_test) #predicting probabilities</code></pre>
+                                </div>
+                                <div class="input">
+                                    <pre><code>predicted_values</code></pre>
+                                </div>
+                                <div class="output">
+                                    <pre>array([1, 0, 0, ..., 0, 0, 0], dtype=int64)/pre>
+                                </div>
+                                <div class="input"><pre><code>predicted_probabilities, predicted_probabilities.shape</code></pre>
+                                </div>
+                                <div class="output">
+                                    <pre>(array([[1.57352866e-01, 8.42647134e-01],<br>[5.32054801e-01, 4.67945199e-01],<br>[5.88884137e-01, 4.11115863e-01],<br>...,<br>[8.85768467e-01, 1.14231533e-01],<br>[9.99947393e-01, 5.26073255e-05],<br>[5.12731898e-01, 4.87268102e-01]]),<br>(4414, 2))</pre>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Evaluation Metrics  -->
+                        <h3>Model Performance Analysis</h3>
+                        <ul>
+                            <li>The model has an accuracy of <strong>72%</strong>. While this is fairly good, we must
+                                evaluate precision and recall due to data imbalance.</li>
+                        </ul>
+                        <div class="notebook">
+                            <div class="cell">
+                                <div class="input">
+                                    <pre><code>#accuracy metric<br>classifier.score(x_test, y_test)</code></pre>
+                                </div>
+                                <div class="output">
+                                    <pre>#0.7134118713185319</pre>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Precision and Recall</h3>
+                        <ul>
+                            <li><strong>Precision:</strong> Around <strong>38%</strong>, meaning 38% of the positive
+                                predictions are false positives.</li>
+                            <li><strong>Recall:</strong> Around <strong>66%</strong>, meaning only 66% of actual
+                                positive cases are correctly predicted.</li>
+                        </ul>
+                        <div class="notebook">
+                            <div class="class">
+                                <div class="input">
+                                    <pre><code>#claculating the precision score<br>from sklearn.metrics import precision_score<br>precision = precision_score(y_test, predicted_values)<br>precision</code></pre>
+                                </div>
+                                <div class="output">
+                                    <pre>0.36671001300390116</pre>
+                                </div>
+
+                                <div class="input">
+                                    <pre><code>#calculating recall score<br>from sklearn.metrics import recall_score<br>recall = recall_score(y_test, predicted_values)<br>recall</code></pre>
+                                </div>
+                                <div class="output">
+                                    <pre>0.6596491228070176</pre>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Business Considerations</h3>
+                        <ul>
+                            <li>If a bank offers gifts to prevent customer churn, <strong>recall</strong> is prioritized
+                                to reduce the risk of missing actual churn cases. False positives (non-churning
+                                customers getting gifts) are acceptable.</li>
+                            <li>If the gift offer is costly, <strong>precision</strong> is prioritized to avoid
+                                unnecessary spending, but this risks missing actual churners.</li>
+                        </ul>
+
+                        <h3>F1-Score Evaluation</h3>
+                        <ul>
+                            <li>The <strong>F1-score</strong> is <strong>0.47</strong>. Since F1-score &lt; 0.5, the
+                                model is not performing well.</li>
+                            <li>To get a summary of all metrics in one place, we use the <strong>PRF Summary</strong>.
+                            </li>
+                        </ul>
+                        <div class="notebook">
+                            <div class="cell">
+                                <div class="input">
+                                    <pre><code>#f1 score from library<br>from sklearn.metrics import f1_score<br>f1 = f1_score(y_test, predicted_values)<br>f1</code></pre>
+                                </div>
+                                <div class="output">
+                                    <pre>0.4713748432929378</pre>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Support Metric</h3>
+                        <ul>
+                            <li>Support represents the number of instances for each class (class 0 and class 1) in the
+                                dataset.</li>
+                            <li>The function returns a list of two values for each metric: one for class 0 and one for
+                                class 1.</li>
+                        </ul>
+                        <div class="notebook">
+                            <div class="cell">
+                                <div class="input">
+                                    <pre><code>from sklearn.metrics import precision_recall_fscore_support as PRF_summary<br>precision, recall, f1, support = PRF_summary(y_test, predicted_values)<br>precision, recall, f1, support</code></pre>
+                                </div>
+                                <div class="output">
+                                    <pre>(array([0.8988178 , 0.36671001]),<br>array([0.72632762, 0.65964912]),<br>array([0.8034188 , 0.47137484]),<br>array([3559,  855], dtype=int64))</pre>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Classification Report</h3>
+                        <ul>
+                            <li>Another function to obtain performance metrics is <strong>Sklearn’s classification
+                                    report</strong>.</li>
+                            <li>This function provides a well-formatted summary of precision, recall, and F1-score.</li>
+                            <li><strong>Drawback:</strong> The values cannot be directly used as they are for
+                                representation purposes only.</li>
+                        </ul>
+                        <div class="notebook">
+                            <div class="cell">
+                                <div class="input">
+                                    <pre><code>from sklearn.metrics import classification_report<br>k = classification_report(y_test, predicted_values)<br>print(k)</code></pre>
+                                </div>
+                                <div class="output">
+                                    <pre><table border-collapse: collapse; cellspacing="10" cellpadding="8">
+                                        <tr>
+                                            <td></td>
+                                            <td>precision</td>
+                                            <td>recall</td>
+                                            <td>f1-score</td>
+                                            <td>support</td>
+                                        </tr>
+                                        <tr>
+                                            <td>0</td>
+                                            <td>0.90</td>
+                                            <td>0.73</td>
+                                            <td>0.80</td>
+                                            <td>3559</td>
+                                        </tr>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>0.37</td>
+                                            <td>0.66</td>
+                                            <td>0.47</td>
+                                            <td>855</td>
+                                        </tr>
+                                        <tr>
+                                            <td>accuracy</td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>0.71</td>
+                                            <td>4414</td>
+                                        </tr>
+                                        <tr>
+                                            <td>macro avg</td>
+                                            <td>0.64</td>
+                                            <td>0.70</td>
+                                            <td>0.64</td>
+                                            <td>4414</td>
+                                        </tr>
+                                        <tr>
+                                            <td>weighted avg</td>
+                                            <td>0.80</td>
+                                            <td>0.71</td>
+                                            <td>0.74</td>
+                                            <td>4414</td>
+                                        </tr>
+                                    </table></pre>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Precision-Recall Curve</h3>
+                        <ul>
+                            <li>Sklearn’s <code>precision_recall_curve</code> function returns three values:
+                                <strong>precision points</strong>, <strong>recall points</strong>, and <strong>threshold
+                                    points</strong>.
+                            </li>
+                            <li>This function calculates precision and recall for every possible threshold between
+                                probabilities 0 and 1.</li>
+                            <li>The threshold list has one element fewer than precision and recall, so we skip the last
+                                value.</li>
+                            <li>Using these data points, we can plot a <strong>precision-recall trade-off
+                                    graph</strong>.</li>
+                            <li>The optimal threshold, where precision and recall balance best, is around
+                                <strong>0.55</strong>.
+                            </li>
+                        </ul>
+                        <div class="notebook">
+                            <div class="cell">
+                                <div class="input">
+                                    <pre><code>from sklearn.metrics import precision_recall_curve<br>precision_points, recall_points, threshold_points = precision_recall_curve(y_test, predicted_probabilities[:,1])<br><br>precision_points.shape, recall_points.shape, threshold_points.shape</code></pre>
+                                </div>
+                                <div class="output">
+                                    <pre>((4414,), (4414,), (4413,))</pre>
+                                </div>
+                            </div>
+
+                            <div class="cell">
+                                <div class="input">
+                                    <pre><code>plt.figure(figsize=(7,5), dpi=100)<br>plt.plot(threshold_points, precision_points[:-1], color = 'green', label = 'Precision')<br>plt.plot(threshold_points, recall_points[:-1], color = 'orange', label = 'Recall')<br>plt.xlabel('Threshold points', fontsize = 15)<br>plt.ylabel('Score', fontsize=15)<br>plt.title('Precision-Recall Tradeoff', fontsize = 20)<br>plt.legend()</code></pre>
+                                </div>
+                                <div class="output">
+                                    <pre><div id="image"><img src="MLNotesIMGs/37.png" alt="" style="width: 50%;"></div></pre>
+                                </div>
+                            </div>
+                            <h3>AUC ROC Curve</h3>
+                            <ul>
+                                <li>The green line is the TPR vs FPR curve.</li>
+                                <li>The red line is ROC curve with AUC = 0.5. This is a simple plot of line y = x.</li>
+                                <li>The area under the curve is obtained by the ROC-AUC-SCORE.</li>
+                                <li>The result obtained is pretty average</li>
+                            </ul>
+
+
+                            <div class="notebook">
+                                <div class="cell">
+                                    <div class="input">
+                                        <pre><code>from sklearn.metrics import roc_curve, roc_auc_score<br>fpr, tpr, threshold = roc_curve(y_test, predicted_probabilities[:,1])
+                                            #passing probabilities of class 1</code></pre>
+                                    </div>
+                                    <div class="input">
+                                        <pre><code>plt.figure(figsize=(7,5), dpi=100)<br>plt.plot(fpr, tpr, color = 'green')<br>plt.plot([0,1], [0,1], label = 'baseline', color = 'red')<br>plt.xlabel('FPR', fontsize = 15)<br>plt.ylabel('TPR', fontsize = 15)<br>plt.title('AUC-ROC', fontsize=20)<br>plt.show()</code></pre>
+                                    </div>
+                                    <div class="output">
+                                        <pre><div id="image"><img src="MLNotesIMGs/38.png" alt="" style="width: 50%;"></div></pre>
+                                    </div>
+                                    <div class="input">
+                                        <pre><code>roc_auc_score(y_test, predicted_probabilities[:,1])</code></pre>
+                                    </div>
+                                    <div class="output">
+                                        <pre></pre>0.7502899329432507
+                                    </div>
+                                </div>
+                            </div>
+
+                            <h3>Coefficent plot</h3>
+                            <div class="notebook">
+                                <div class="cell">
+                                    <div class="input">
+                                        <pre><code>"#arranging the data<br>c = classifier.coef_.reshape(-1)<br>x = X.columns<br><br>coeff_plot = pd.DataFrame({<br>'coefficients':c,<br>'variable':x<br>})<br><br>#sorting the values<br>coeff_plot = coeff_plot.sort_values(by='coefficients')<br>coeff_plot.head()<br>"
+                                    </code></pre>
+                                    </div>
+                                    <div class="output">
+                                        <pre><table table border-collapse: collapse; cellspacing="10" cellpadding="8">
+                                        <tr>
+                                            <th>Index</th>
+                                            <th>Coefficients</th>
+                                            <th>Variable</th>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td>-2.151261</td>
+                                            <td>current_balance</td>
+                                        </tr>
+                                        <tr>
+                                            <td>13</td>
+                                            <td>-0.426585</td>
+                                            <td>current_month_credit</td>
+                                        </tr>
+                                        <tr>
+                                            <td>17</td>
+                                            <td>-0.365368</td>
+                                            <td>current_month_balance</td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td>-0.295344</td>
+                                            <td>previous_month_end_balance</td>
+                                        </tr>
+                                        <tr>
+                                            <td>18</td>
+                                            <td>-0.240270</td>
+                                            <td>previous_month_balance</td>
+                                        </tr>
+                                    </table></pre>
+                                    </div>
+                                </div>
+                                <div class="cell">
+                                    <div class="input">
+                                        <pre><code>"plt.figure(figsize = (8,6), dpi = 120)<br>plt.barh(coeff_plot['variable'], coeff_plot['coefficients'])<br>plt.xlabel('Coefficient Magnitude')<br>plt.ylabel('Variables')<br>plt.title('Coefficient Plot')<br>"
+                                        </code></pre>
+                                    </div>
+                                    <div class="output">
+                                        <pre><div id="image"><img src="MLNotesIMGs/39.png" alt="" style="width: 50%;"></div></pre>
+                                    </div>
+                                </div>
+                            </div>
+                            <p>
+                                <li>The top three variables with high coefficients are in strong favour of class 1. That means the customer might churn which makes sense as he/she is withdrawing more money.</li>
+                                <li>Variables like current balance supports class 0 as customer is putting more and more money in bank.</li>
+                            </p>
+                        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                    </section>
+                    <section id="next">
+                        <a href="Chapter7.html#Chapter7">NEXT--></a>
+                    </section>
+
+
+                </article>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Load scripts with defer -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script defer src="../../assets/js/globalblog.js"></script>
+
+
+    <!-- Fallback for Prism if CDN fails -->
+    <script>
+        window.addEventListener('load', function () {
+            if (typeof Prism === 'undefined') {
+                console.error('Prism failed to load');
+                // Add a class to show code without highlighting
+                document.querySelectorAll('pre code').forEach(block => {
+                    block.classList.add('no-highlight');
+                });
+            }
+        });
+    </script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+
+</body>
+
+</html>
