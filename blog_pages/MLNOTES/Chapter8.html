@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter7: Logistic Regression</title>
+    <link rel="stylesheet" href="../../assets/css/globalblog.css">
+    <!-- Load Prism CSS files with defer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <!-- Add error handling for script loading -->
+    <script>
+        window.addEventListener('error', function (e) {
+            if (e.target.tagName === 'SCRIPT') {
+                console.error('Script loading failed:', e.target.src);
+                alert('Failed to load script: ' + e.target.src);
+            }
+        }, true);
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 60px;
+            /* Adjust based on your navbar height */
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+
+        #image {
+            width: 100%;
+            /* Or a specific width */
+            height: auto;
+            /* Or any height you prefer */
+            overflow: hidden;
+            /* Ensures no overflow */
+            display: flex;
+            flex-direction: column;
+            /* Stack children (image and caption) vertically */
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            /* Border around the container */
+        }
+
+        [data-theme="dark"] #image {
+            border: 1px solid white;
+            /* Dark mode border color */
+        }
+
+        #image figure {
+            width: 100%;
+            /* Ensure the figure takes up the full width */
+            margin: 0;
+            text-align: center;
+            /* Center align the caption */
+        }
+
+        #image img {
+            width: 100%;
+            /* Ensures the image takes the full width of the container */
+            height: auto;
+            /* Maintains the aspect ratio */
+            object-fit: contain;
+            /* Ensure the image fits within the div */
+        }
+
+        #image figcaption {
+            font-size: 1em;
+            /* Caption text size */
+            margin-top: 10px;
+            /* Space between the image and caption */
+            color: #333;
+            /* Text color */
+            font-style: italic;
+            /* Italicize caption text */
+            text-align: center;
+            border-top: 2px solid #ccc;
+            /* Border between image and caption */
+            padding-top: 5px;
+            /* Space between image and border */
+            padding-bottom: 15px;
+            /* Space below the caption for a clean look */
+            width: 100%;
+            /* Ensures the caption takes up the full width */
+        }
+
+
+        [data-theme="dark"] #image figcaption {
+            color: white;
+            border: white 1px solid;
+        }
+
+
+
+        p {
+            text-align: justify;
+        }
+
+        /* Unordered List Style */
+        ul {
+            list-style-type: none;
+        }
+
+        ul .li {
+            margin-bottom: 10px;
+        }
+
+        [data-theme="dark"] li a {
+            color: white;
+        }
+
+
+        @media (max-width: 768px) {
+            #image {
+                width: 100%;
+                /* or a specific width */
+                /* or any height you prefer */
+                overflow: hidden;
+                /* Ensures no overflow */
+            }
+
+            #image img {
+                width: 100%;
+                object-fit: contain;
+                /* Ensure the image fits within the div while maintaining its aspect ratio */
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        .notebook {
+            width: 100%;
+            margin: auto;
+        }
+
+        .cell {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            color: currentColor;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 10px 0;
+        }
+
+        .input,
+        .output {
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        pre {
+            overflow-x: auto;
+            text-align: left;
+        }
+
+        @media (max-width: 600px) {
+            .notebook {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+
+        .graph-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .graph-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .graph-img {
+            flex: 1;
+            text-align: center;
+        }
+
+        .graph-img img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .graph-desc {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: var(--card-bg);
+            color: var(--text-color, #333);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .graph-desc h3 {
+            margin-bottom: 5px;
+        }
+
+        .graph-desc p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Mobile View: 1-column layout */
+        @media (max-width: 768px) {
+            .graph-container {
+                grid-template-columns: 1fr;
+            }
+
+            .graph-item {
+                flex-direction: column;
+            }
+
+            .graph-img,
+            .graph-desc {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-3MEXW2XNBM');
+</script>
+
+<body>
+    <div class="app">
+        <!-- Mobile Nav Overlay -->
+        <div id="navOverlay" class="nav-overlay hidden"></div>
+
+        <!-- Navigation -->
+        <nav id="sidebar" class="sidebar">
+            <div class="nav-content">
+                <button id="closeNav" class="close-nav">&times;</button>
+                <h2 class="nav-title">INDEX</h2>
+                <div class="chapters">
+                    <div class="chapter">
+                        <h2><a href="Chapter1.html#chapter0">0. Links & Overview</a></h2>
+                        <ul>
+                            <li>Notes PDF Download Link</li>
+                            <li>Github Repo Link</li>
+                            <li>Project 1: Kaggle</li>
+                            <li>Project 2: Kaggle</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2><a href="#chapter1">1. Getting started with Machine Learning</a></h2>
+                        <ul>
+                            <li><a href="Chapter1.html#WhatisMachineLearning">What is Machine Learning?</a></li>
+                            <li><a href="Chapter1.html#HowMachineLearningWorks">How Machine Learning Works</a></li>
+                            <li><a href="Chapter1.html#TypesofMachineLearning">Types of Machine Learning</a></li>
+                            <li><a href="Chapter1.html#TypesofData">Types of Data</a></li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2><a href="Chapter2.html#chapter2">2. Graphical & Analytical Representation of Data</a></h2>
+                        <ul>
+                            <li><a href="Chapter2.html#DataAnalysis&EDA">Data Analysis & EDA</a></li>
+                            <li><a href="Chapter2.html#GraphicalRepresentationofData">Graphical Representation of
+                                    data</a></li>
+                            <li><a href="Chapter2.html#LimitationOfTraditionalDA">Limitation of traditional Data
+                                    Analysis</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter3.html#chapter3">3. Python as a Data-Analysis Tool</a></h2>
+                        <ul>
+                            <li><a href="Chapter3.html#WhyPython">Why Python?</a></li>
+                            <li><a href="Chapter3.html#JupyterNotebook">Jupyter Notebook</a></li>
+                            <li><a href="Chapter3.html#PythonDataTypes">Data Types in Python</a></li>
+                            <li><a href="Chapter3.html#BasicOperations">Basic Operations</a></li>
+                            <li><a href="Chapter3.html#PythonConstructs">Condition Statements & Loops</a></li>
+                            <li><a href="Chapter3.html#PythonFunctions">Functions in Python</a></li>
+                            <li><a href="Chapter3.html#BasicLibraries">Basic Libraries</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter4.html#chapter4">4. Basic Data Exploration</a></h2>
+                        <ul>
+                            <li><a href="Chapter4.html#PandasDataframe">Pandas Dataframe</a></li>
+                            <li><a href="Chapter4.html#DescriptiveStatistics">Descriptive Statistics of Data</a></li>
+                            <li><a href="Chapter4.html#Numpy">Numpy: A Statistics Module in Python</a></li>
+                            <li><a href="Chapter4.html#Matplotlib">Matplotlib: Graph Plotting</a></li>
+                            <li><a href="Chapter4.html#Pandas">Pandas: Some important Functions</a></li>
+                            <li><a href="Chapter4.html#Univariate">Univariate Analysis</a></li>
+                            <li><a href="Chapter4.html#Outliers">Treating Outliers</a></li>
+                            <li><a href="Chapter4.html#Correlation">Correlation</a></li>
+                            <li><a href="Chapter4.html#ANOVA">ANOVA</a></li>
+                            <li><a href="Chapter4.html#TrainingDatasets">Creating Training Datasets</a></li>
+                            <li><a href="Chapter4.html#FeatureScaling">FeatureScaling</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter5.html#chapter5">5. Regression Modelling</a></h2>
+                        <ul>
+                            <li><a href="Chapter5.html#RegressionIntroduction">Introduction</a></li>
+                            <li><a href="Chapter5.html#ModelEvaluationMetrics">Model Evaluation Metrics</a></li>
+                            <li><a href="Chapter5.html#LinearRegression">Linear Regressin</a></li>
+                            <li><a href="Chapter5.html#CostFunctionCurve">Cost Function Curve</a></li>
+                            <li><a href="Chapter5.html#GradientDescent">Gradient Descent</a></li>
+                            <li><a href="Chapter5.html#AssumptionsofLinearReg">Assumptions of Linear Regression</a></li>
+                            <li><a href="Chapter5.html#StepsofLinearReg">Steps of Linear Regression</a></li>
+                            <li><a href="Chapter5.html#OutcomeOfLinearReg">Outcome of Linear Regression</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter6.html#chapter6">6. Feature Engineering</a></h2>
+                        <ul>
+                            <li><a href="Chapter6.html#FetEngIntroduction">Introduction</a></li>
+                            <li><a href="Chapter6.html#TransformationTech">Transformation Techniques</a></li>
+                            <li><a href="Chapter6.html#CategoricalEncoding">Categorical Encoding</a></li>
+                            <li><a href="Chapter6.html#FeatureExtraction">Feature Extraction</a></li>
+                            <li><a href="Chapter6.html#DimensionalityReduction">Dimensionality Reduction</a></li>
+                            <li><a href="Chapter6.html#AdvancedDimensionalityReduction">Advanced Dimensionality
+                                    Reduction</a></li>
+                            <li><a href="Chapter6.html#ForwardSelection">Forward Selection</a></li>
+                            <li><a href="Chapter6.html#BackwardSelection">Backward Selection</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#chapter7">7. Logistic Regression</a></h2>
+                        <ul>
+                            <li><a href="#LogisticIntroduction">Introduction</a></li>
+                            <li><a href="#LogisticEvalMetric">Evaluation Metrics</a>
+                                <ul>
+                                    <li><a href="#ConfusionMatrix">Confusion Matrix</a></li>
+                                    <li><a href="#Accuracy">Accuracy</a></li>
+                                    <li><a href="#Precision">Precision</a></li>
+                                    <li><a href="#Recall">Recall</a></li>
+                                    <li><a href="#LogLoss">Log Loss Model</a></li>
+                                    <li><a href="#AucRoc">AUC ROC Curve</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#Implement">Implementation</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#chapter8">8. Decision Trees</a></h2>
+                        <ul>
+                            <li><a href="#paravsnonpara">Parametric v/s Non-Parametric Models</a></li>
+                            <li><a href="#WorkingofDT">Working of Decision Trees</a></li>
+                            <li><a href="#TypesofDT">Types of Decision Trees</a></li>
+                            <li><a href="#Splitting">Splitting Criteria of Tree Nodes</a>
+                                <ul>
+                                    <li><a href="#gini">Gini Impurity</a></li>
+                                    <li><a href="#IG">Information Gain</a></li>
+                                    <li><a href="#gini">Decision Tree Regressor</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#Implementation">Implementation</a>
+                                <ul>
+                                    <li><a href="#Initiation">Initiation</a></li>
+                                    <li><a href="#Visualization">Visualization</a></li>
+                                    <li><a href="#Improvements">HyperParameter Tuning</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <button id="menuButton" class="menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </button>
+                <button id="themeToggle" class="theme-toggle">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path d="M12 2v2" />
+                        <path d="M12 20v2" />
+                        <path d="m4.93 4.93 1.41 1.41" />
+                        <path d="m17.66 17.66 1.41 1.41" />
+                        <path d="M2 12h2" />
+                        <path d="M20 12h2" />
+                        <path d="m6.34 17.66-1.41 1.41" />
+                        <path d="m19.07 4.93-1.41 1.41" />
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    </svg>
+                </button>
+            </header>
+
+            <!-- Content -->
+            <main class="content">
+                <article class="article">
+                    <section id="chapter8">
+
+                        <h2 id="paravsnonpara">Parametric v/s Non-Parametric Models</h2>
+
+                        <h3>Introduction</h3>
+                        <p>We used linear regression for regression problems and logistic regression for classification
+                            problems. Decision Trees can handle both problems.</p>
+                        <p>Machine learning can be described as the construction of a function, <strong>f</strong>, that
+                            maps input variables (<strong>x</strong>) to output variables (<strong>y</strong>):
+                            <strong>y = f(x)</strong>.
+                        </p>
+                        <p>The job of an ML Engineer is to find the best mathematical model for the function.</p>
+                        <p>Unlike linear or logistic regressions, decision tree algorithms do not have any assumptions.
+                        </p>
+
+                        <h3>PARAMETRIC MODELS</h3>
+                        <ul>
+                            <li>These models make strong assumptions about the form of the mapping function.</li>
+                            <li>Very simple and interpretable.</li>
+                            <li>The set of parameters does not depend upon the amount of data.</li>
+                            <li>A learning model that summarizes data with a set of parameters of fixed size
+                                (independent of the number of training examples) is called a parametric model. <br>
+                                <strong>Source:</strong> <em>(Book) Artificial Intelligence: A Modern Approach</em>.
+                            </li>
+                        </ul>
+
+                        <h4>Working Steps of Parametric Models:</h4>
+                        <ul>
+                            <li>Select a form for the function.</li>
+                            <li>Learn the coefficient/parameters for the function from the training data.</li>
+                        </ul>
+
+                        <h4>Benefits:</h4>
+                        <ul>
+                            <li><strong>Simpler:</strong> Easier to understand and interpret results.</li>
+                            <li><strong>Fast:</strong> Very fast to learn from data.</li>
+                            <li><strong>Less Data:</strong> Do not require as much training data and can work well even
+                                if the fit to the data is not perfect.</li>
+                        </ul>
+
+                        <h4>Limitations:</h4>
+                        <ul>
+                            <li><strong>Constrained:</strong> Highly constrained to the specified form.</li>
+                            <li><strong>Limited Complexity:</strong> More suited to simpler problems.</li>
+                            <li><strong>Poor Fit:</strong> Unlikely to match the exact underlying mapping function.</li>
+                        </ul>
+
+                        <h3>NON-PARAMETRIC MODELS</h3>
+                        <ul>
+                            <li>These algorithms do not make strong assumptions about the form of the mapping function.
+                            </li>
+                            <li>They are free to form any functional form from the data.</li>
+                            <li>Non-parametric methods are good when you have a lot of data and no prior knowledge and
+                                when you don’t want to worry too much about choosing the right features. <br>
+                                <strong>Source:</strong> <em>(Book) Artificial Intelligence: A Modern Approach</em>.
+                            </li>
+                            <li>They best fit the training data in constructing the mapping function while maintaining
+                                some flexibility to generalize to unseen data.</li>
+                        </ul>
+
+                        <h4>Benefits:</h4>
+                        <ul>
+                            <li><strong>Flexibility:</strong> Capable of fitting a large number of functional forms.
+                            </li>
+                            <li><strong>Power:</strong> No assumptions or weak assumptions about the underlying
+                                function.</li>
+                            <li><strong>Performance:</strong> Can result in higher performance models for prediction.
+                            </li>
+                        </ul>
+
+                        <h4>Limitations:</h4>
+                        <ul>
+                            <li><strong>More Data:</strong> Require a lot more training data to estimate the mapping
+                                function.</li>
+                            <li><strong>Slower:</strong> Slower to train as they often have far more parameters.</li>
+                            <li><strong>Overfitting:</strong> Higher risk of overfitting the training data and harder to
+                                explain why specific predictions are made.</li>
+                        </ul>
+                        <br>
+                        <table
+                            style="width: 100%; border-collapse: collapse; text-align: left; font-family: Arial, sans-serif; font-size: 16px;">
+                            <tr>
+                                <th style="border: 1px solid currentColor; padding: 10px;">Aspect</th>
+                                <th style="border: 1px solid currentColor; padding: 10px;">Parametric Models</th>
+                                <th style="border: 1px solid currentColor; padding: 10px;">Non-Parametric Models</th>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid currentColor; padding: 10px;"><strong>Assumptions</strong>
+                                </td>
+                                <td style="border: 1px solid currentColor; padding: 10px;">Make strong assumptions about
+                                    the data distribution.</td>
+                                <td style="border: 1px solid currentColor; padding: 10px;">Do not assume a specific data
+                                    distribution.</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid currentColor; padding: 10px;"><strong>Flexibility</strong>
+                                </td>
+                                <td style="border: 1px solid currentColor; padding: 10px;">Limited flexibility due to
+                                    predefined assumptions.</td>
+                                <td style="border: 1px solid currentColor; padding: 10px;">Highly flexible, capable of
+                                    capturing complex patterns.</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid currentColor; padding: 10px;"><strong>Data
+                                        Requirement</strong></td>
+                                <td style="border: 1px solid currentColor; padding: 10px;">Requires less data to train
+                                    effectively.</td>
+                                <td style="border: 1px solid currentColor; padding: 10px;">Needs a large amount of
+                                    training data.</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid currentColor; padding: 10px;">
+                                    <strong>Interpretability</strong>
+                                </td>
+                                <td style="border: 1px solid currentColor; padding: 10px;">Easy to interpret and
+                                    explain.</td>
+                                <td style="border: 1px solid currentColor; padding: 10px;">Harder to interpret due to
+                                    complex structures.</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid currentColor; padding: 10px;"><strong>Training
+                                        Time</strong></td>
+                                <td style="border: 1px solid currentColor; padding: 10px;">Faster to train.</td>
+                                <td style="border: 1px solid currentColor; padding: 10px;">Slower to train due to high
+                                    complexity.</td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid currentColor; padding: 10px;"><strong>Overfitting</strong>
+                                </td>
+                                <td style="border: 1px solid currentColor; padding: 10px;">Lower risk of overfitting.
+                                </td>
+                                <td style="border: 1px solid currentColor; padding: 10px;">Higher risk of overfitting.
+                                </td>
+                            </tr>
+                            <tr>
+                                <td style="border: 1px solid currentColor; padding: 10px;"><strong>Example
+                                        Models</strong></td>
+                                <td style="border: 1px solid currentColor; padding: 10px;">Linear Regression, Logistic
+                                    Regression, Naive Bayes.</td>
+                                <td style="border: 1px solid currentColor; padding: 10px;">Decision Trees, k-NN, Random
+                                    Forest, Neural Networks.</td>
+                            </tr>
+                        </table>
+
+
+                        <h2 id="WorkingofDT">Working of Decision Trees</h2>
+                        <h3>Decision Trees</h3>
+                        <ul>
+                            <li>Every time we split the dataset based on some condition/decision, we get a decision
+                                tree.</li>
+                            <li>We tend to separate all the positive classes from negative classes using a decision
+                                tree.</li>
+                            <li>In an ideal case, we find a feature that can split the dataset into pure nodes.</li>
+                            <li>A pure node is one in which all the data points exhibit the desired behavior or belong
+                                to the same class.</li>
+                            <li>The objective of decision trees is to have pure nodes.</li>
+                            <li>A decision tree with pure nodes is good at segregating data into respective classes.
+                            </li>
+                            <li>A decision tree can have multiple splits.</li>
+                            <li>Purity of nodes helps to decide how splitting should be done.</li>
+                        </ul>
+
+                        <h3>Terminology</h3>
+                        <ul>
+                            <li><strong>Root Node:</strong> Represents the entire population or dataset.</li>
+                            <li><strong>Splitting:</strong> Process of dividing a node into two or more sub-nodes.</li>
+                            <li><strong>Decision Node:</strong> When a sub-node is divided into further sub-nodes, the
+                                original sub-node is called a decision node.</li>
+                            <li><strong>Leaf/Terminal Node:</strong> A node that does not split any further.</li>
+                            <li><strong>Branch/Sub-tree:</strong> A subsection of the entire tree.</li>
+                            <li><strong>Parent Node:</strong> A node that is divided into sub-nodes.</li>
+                            <li><strong>Child Node:</strong> A sub-node derived from a parent node.</li>
+                            <li><strong>Depth of the Tree:</strong> The length of the longest path from the root node to
+                                the leaf node.</li>
+                            <ul>
+                                <li>The root node has a depth of <strong>0</strong>.</li>
+                            </ul>
+                        </ul>
+
+                        <h2 id="TypesofDT">Types of Decision Trees</h2>
+                        <h3>Types of Decision Trees</h3>
+                        <ul>
+                            <li><strong>Classification Decision Tree:</strong>
+                                <ul>
+                                    <li>Used when the target variable is categorical in nature (e.g., Yes/No, Spam/Not
+                                        Spam).</li>
+                                    <li>It classifies data points into predefined categories based on feature
+                                        conditions.</li>
+                                    <li>The decision boundaries formed by classification trees are often stepwise and
+                                        may not always be smooth.</li>
+                                    <li>Common use cases include spam detection, loan approval, and medical diagnosis.
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li><strong>Regression Decision Tree:</strong>
+                                <ul>
+                                    <li>Used when the target variable is continuous in nature (e.g., predicting house
+                                        prices, temperature, or sales revenue).</li>
+                                    <li>Instead of predicting distinct categories, it predicts real-valued outputs by
+                                        computing the mean of observations in a region.</li>
+                                    <li>The splits in the tree aim to minimize variance within each partition of data.
+                                    </li>
+                                    <li>Common use cases include stock price forecasting, customer spending predictions,
+                                        and demand estimation.</li>
+                                </ul>
+                            </li>
+
+                            <li><strong>Key Differences:</strong>
+                                <ul>
+                                    <li>Classification trees predict <strong>labels</strong>, whereas regression trees
+                                        predict <strong>numeric values</strong>.</li>
+                                    <li>Loss functions differ: classification trees often use <strong>Gini
+                                            impurity</strong> or <strong>entropy</strong>, while regression trees use
+                                        <strong>mean squared error (MSE)</strong>.
+                                    </li>
+                                    <li>Regression trees can model <strong>complex relationships</strong> but are prone
+                                        to overfitting, requiring pruning or regularization.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h2 id="Splitting">Splitting Criteria of Tree Nodes</a>
+
+                            <h3 id="gini">Gini Impurity</h3>
+                            <p>Gini impurity measures the impurity of nodes.</p>
+                            <p>\(\text{Gini impurity} = 1 - \text{Gini}\)</p>
+                            <p>Gini is the probability that two elements chosen randomly from a population are of the
+                                same class.</p>
+                            <ul>
+                                <li>For a pure node, \( Gini = 1 \)</li>
+                                <li>Range of Gini is from 0 to 1</li>
+                            </ul>
+
+                            <h4>Properties of Gini Impurity:</h4>
+                            <ul>
+                                <li>Helps in deciding the best split</li>
+                                <li>Lower the Gini impurity, higher will be the homogeneity of the nodes</li>
+                                <li>Works only with categorical variables</li>
+                                <li>Performs binary splits only</li>
+                                <li>Lower the Gini impurity → higher the purity of nodes → higher the homogeneity of
+                                    nodes</li>
+                            </ul>
+
+                            <h4>Calculating Gini Impurity:</h4>
+                            <ol>
+                                <li>Calculate Gini impurity for sub-nodes:
+                                    \[
+                                    \text{Gini impurity} = 1 - \sum_{i=1}^{n} p_i^2
+                                    \]
+                                    where \( p_i^2 \) is the probability of any two random data points belonging to
+                                    class \( i \).
+                                </li>
+                                <li>Calculate the Gini impurity for the split:
+                                    \[
+                                    \text{Weighted Gini impurity} = (\text{weight of the node}) \times (\text{Gini
+                                    impurity})
+                                    \]
+                                    The split producing the minimum Gini impurity is selected as the first split.
+                                </li>
+                            </ol>
+
+                            <h3 id="IG">Information Gain</h3>
+                            <p>Information gain is the information needed to describe the parent node minus the
+                                information needed to describe the children nodes.</p>
+                            <p>More homogeneous nodes result in higher information gain.</p>
+                            <p>\(\text{IG} = 1 - \text{Entropy (sub-nodes)}\)</p>
+
+                            <h4>Entropy Calculation:</h4>
+                            \[
+                            \text{Entropy} = -P_1 \log P_1 - P_2 \log P_2 - P_3 \log P_3 - ... - P_n \log P_n
+                            \]
+                            where \( P_1, P_2, P_3, ..., P_n \) are the proportions of each class in the node, and the
+                            base of the logarithm is \( n \).
+
+                            <h4>Steps to Calculate Entropy for a Split:</h4>
+                            <ol>
+                                <li>Calculate entropy of parent nodes</li>
+                                <li>Calculate entropy of each child node</li>
+                                <li>Compute the weighted average entropy of the split</li>
+                                <li>If the weighted entropy of the child node is greater than the parent node, ignore
+                                    the split</li>
+                            </ol>
+
+                            <<h3 id="gini">Decision Tree Regressor</h3>
+                                <p>Since information gain and Gini impurity cannot be applied to continuous variables,
+                                    we
+                                    use variance reduction.</p>
+
+                                <h4>Variance Calculation:</h4>
+                                \[
+                                \text{Variance} = \frac{\sum_{i=1}^{n} (x_i - \mu)^2}{n}
+                                \]
+                                where \( x_i \) is a data point, \( \mu \) is the mean, and \( n \) is the number of
+                                samples.
+
+                                <h4>Steps to Calculate Variance for a Split:</h4>
+                                <ol>
+                                    <li>Calculate variance of each child node using the standard formula.</li>
+                                    <li>Calculate the variance of the split as the weighted average variance of each
+                                        child
+                                        split.</li>
+                                </ol>
+
+                                <p><strong>Note:</strong> Applicable only on continuous variables.</p>
+
+
+
+
+                                <h2 id="Implementation">Implementation</a>
+                                    <h2 id="Initiation">Initiation</h2>
+                                    <div class="notebook">
+                                        <div class="cell">
+                                            <pre><code>from sklearn.tree import DecisionTreeClassifier as DTC<br>classifier = DTC(class_weight='balanced')<br># classifier = DTC()</code></pre>
+                                            <pre><code>classifier.fit(X_train, y_train)<br>predicted_values = classifier.predict(X_train)</code></pre>
+                                            <pre><code>predicted_values[:30]</code></pre>
+                                            <pre>array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0,<br>           0, 0, 0, 0, 1, 0, 1, 0], dtype=int64)</pre>
+                                        </div>
+
+                                        <div class="cell">
+                                            <pre><code>#classification report <br> from sklearn.metrics import classification_report <br> print(classification_report(y_train, predicted_values))</code></pre>
+
+                                            <pre><table style="width: 50%; border-collapse: collapse; text-align: center; font-family: Arial, sans-serif; border: 1px solid #ddd;">
+                                                <thead>
+                                                    <tr>
+                                                        <th >  </th>
+                                                        <th >Precision</th>
+                                                        <th >Recall</th>
+                                                        <th >F1-Score</th>
+                                                        <th >Support</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td >0</td>
+                                                        <td >1.00</td>
+                                                        <td >1.00</td>
+                                                        <td >1.00</td>
+                                                        <td >14234</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td >1</td>
+                                                        <td >1.00</td>
+                                                        <td >1.00</td>
+                                                        <td >1.00</td>
+                                                        <td >3419</td>
+                                                    </tr>
+                                                    <tr >
+                                                        <td >Accuracy</td>
+                                                        <td >    </td>
+                                                        <td >    </td>
+                                                        <td >1.00</td>
+                                                        <td >17653</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td >Macro Avg</td>
+                                                        <td >1.00</td>
+                                                        <td >1.00</td>
+                                                        <td >1.00</td>
+                                                        <td >17653</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td >Weighted Avg</td>
+                                                        <td >1.00</td>
+                                                        <td >1.00</td>
+                                                        <td >1.00</td>
+                                                        <td >17653</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            </pre>
+                                        </div>
+
+                                        <div class="cell">
+                                            <pre><code>predicted_values = classifier.predict(X_test) <br> print(classification_report(y_test, predicted_values))</code></pre>
+
+                                            <pre><table style="width: 50%; border-collapse: collapse; text-align: center; font-family: Arial, sans-serif; border: 1px solid #ddd;">
+                                                <thead>
+                                                    <tr>
+                                                        <th >    </th>
+                                                        <th >Precision</th>
+                                                        <th >Recall</th>
+                                                        <th >F1-Score</th>
+                                                        <th >Support</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <td >0</td>
+                                                        <td >0.86</td>
+                                                        <td >0.87</td>
+                                                        <td >0.86</td>
+                                                        <td >3559</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td >1</td>
+                                                        <td >0.42</td>
+                                                        <td >0.40</td>
+                                                        <td >0.41</td>
+                                                        <td >855</td>
+                                                    </tr>
+                                                    <tr >
+                                                        <td >Accuracy</td>
+                                                        <td >    </td>
+                                                        <td >    </td>
+                                                        <td >0.78</td>
+                                                        <td >4414</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td >Macro Avg</td>
+                                                        <td >0.64</td>
+                                                        <td >0.63</td>
+                                                        <td >0.64</td>
+                                                        <td >4414</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td >Weighted Avg</td>
+                                                        <td >0.77</td>
+                                                        <td >0.78</td>
+                                                        <td >0.77</td>
+                                                        <td >4414</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                            </pre>
+                                        </div>
+
+                                    </div>
+                                    <h2 id="Visualization">Visualization</h2>
+                                    <div class="notebook">
+                                        <div class="cell">
+                                            <pre><code>from sklearn.tree import export_graphviz<br>export_graphviz(decision_tree=classifier, <br>out_file='tree_viz', <br>max_depth=None, <br>feature_names=X.columns, <br>label=None, impurity=False)<br>
+                                        </code></pre>
+                                        </div>
+                                        <div class="cell">
+                                            <pre><code>from graphviz import render<br>render(filepath='tree_viz', <br>format='png', <br>engine='neato')<br>
+                                        </code></pre>
+                                            <pre><div id="image"><figcaption>tree_viz.png</figcaption><img src="MLNotesIMGs/40.png" alt="tree_viz.png" style="width: 100%; height: auto;"></div></pre>
+                                        </div>
+
+                                    </div>
+
+                                    <h2 id="Improvements">HyperParameter Tuning</h2>
+                                    <p>
+                                        These methods are used to prevent overfitting in decision trees.
+                                        Pruning is the technique of preventing a decision tree from overfitting by
+                                        tuning its characteristics
+                                        To analyse the effect of different hyperparameter of decision tree on the
+                                        train-test score we created two function as shown in figure. The effect function
+                                        plots the curve between train and test score.
+
+                                    </p>
+                                    <div class="graph-container">
+                                        <!-- Graph 1 -->
+                                        <div class="graph-item">
+                                            <div class="graph-img">
+                                                <img src="MLNotesIMGs/41.png" alt="Graph 1">
+                                            </div>
+                                            <div class="graph-desc">
+                                                <h3>Max Depth</h3>
+                                                <p>On applying the score-effect function we created on the max-depth
+                                                    parameter of decision tree we can see that:
+                                                    As max depth increases the train score increases significantly but
+                                                    the test score on other hand decreases with it.
+                                                    Note that the train and test score both increased together till a
+                                                    point. After that point, we can say the tree started
+                                                    overfitting which led to the drastic decrease of train score and
+                                                    increase of train score.</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Graph 2 -->
+                                        <div class="graph-item">
+                                            <div class="graph-img">
+                                                <img src="MLNotesIMGs/42.png" alt="Graph 2">
+                                            </div>
+                                            <div class="graph-desc">
+                                                <h3>Min Sample Split</h3>
+                                                <p>Min-sample-split tell the decision tree what is the minimum number of
+                                                    required observation in any given node in
+                                                    order to split it. (default = 2) For small parameters train and test
+                                                    score have large variation. For large values train
+                                                    and test score match accordingly. For very large values there is a
+                                                    dip for both train and test score which led to
+                                                    underfitting of data. Optimal range: 950-1000.</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Graph 3 -->
+                                        <div class="graph-item">
+                                            <div class="graph-img">
+                                                <img src="MLNotesIMGs/43.png" alt="Graph 3">
+                                            </div>
+                                            <div class="graph-desc">
+                                                <h3>Max Leaf</h3>
+                                                <p>Max leaf nodes specifies maximum terminal nodes allowed. For very low
+                                                    values tree is underfitting.
+                                                    For very high values tree is overfitting. According to this plot
+                                                    overfitting starts after 25.</p>
+                                            </div>
+                                        </div>
+
+                                        <!-- Graph 4 -->
+                                        <div class="graph-item">
+                                            <div class="graph-img">
+                                                <img src="MLNotesIMGs/44.png" alt="Graph 4">
+                                            </div>
+                                            <div class="graph-desc">
+                                                <h3>Min Sample Leaf</h3>
+                                                <p>Min-sample-leaf denotes the minimum number of sample points to be
+                                                    present for splitting.
+                                                    Clearly as values keep on increasing the model escapes overfitting
+                                                    for a small range of values
+                                                    after which it starts to underfit.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <p>
+                                        Macro parameters like max-depth prevents tree from growing on a macro level and
+                                        other three parameters fine tune the decision tree on micro level.
+                                        So, a good practice is to first find the best range for the tree on a macro
+                                        level so that tree do not overfit and after that fine tune the other three
+                                        parameters.
+
+                                    </p>
+
+
+                    </section>
+                    <section id="next">
+                        <a href="Chapter9.html#Chapter9">NEXT--></a>
+                    </section>
+
+
+                </article>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Load scripts with defer -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script defer src="../../assets/js/globalblog.js"></script>
+
+
+    <!-- Fallback for Prism if CDN fails -->
+    <script>
+        window.addEventListener('load', function () {
+            if (typeof Prism === 'undefined') {
+                console.error('Prism failed to load');
+                // Add a class to show code without highlighting
+                document.querySelectorAll('pre code').forEach(block => {
+                    block.classList.add('no-highlight');
+                });
+            }
+        });
+    </script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+
+</body>
+
+</html>
