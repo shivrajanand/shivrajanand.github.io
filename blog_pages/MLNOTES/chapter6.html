@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter4: Machine Learning Notes</title>
+    <link rel="stylesheet" href="../../assets/css/globalblog.css">
+    <!-- Load Prism CSS files with defer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <!-- Add error handling for script loading -->
+    <script>
+        window.addEventListener('error', function (e) {
+            if (e.target.tagName === 'SCRIPT') {
+                console.error('Script loading failed:', e.target.src);
+                alert('Failed to load script: ' + e.target.src);
+            }
+        }, true);
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 60px;
+            /* Adjust based on your navbar height */
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+
+        #image {
+            width: 100%;
+            /* Or a specific width */
+            height: auto;
+            /* Or any height you prefer */
+            overflow: hidden;
+            /* Ensures no overflow */
+            display: flex;
+            flex-direction: column;
+            /* Stack children (image and caption) vertically */
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            /* Border around the container */
+        }
+
+        [data-theme="dark"] #image {
+            border: 1px solid white;
+            /* Dark mode border color */
+        }
+
+        #image figure {
+            width: 100%;
+            /* Ensure the figure takes up the full width */
+            margin: 0;
+            text-align: center;
+            /* Center align the caption */
+        }
+
+        #image img {
+            width: 100%;
+            /* Ensures the image takes the full width of the container */
+            height: auto;
+            /* Maintains the aspect ratio */
+            object-fit: contain;
+            /* Ensure the image fits within the div */
+        }
+
+        #image figcaption {
+            font-size: 1em;
+            /* Caption text size */
+            margin-top: 10px;
+            /* Space between the image and caption */
+            color: #333;
+            /* Text color */
+            font-style: italic;
+            /* Italicize caption text */
+            text-align: center;
+            border-top: 2px solid #ccc;
+            /* Border between image and caption */
+            padding-top: 5px;
+            /* Space between image and border */
+            padding-bottom: 15px;
+            /* Space below the caption for a clean look */
+            width: 100%;
+            /* Ensures the caption takes up the full width */
+        }
+
+
+        [data-theme="dark"] #image figcaption {
+            color: white;
+            border: white 1px solid;
+        }
+
+
+
+        p {
+            text-align: justify;
+        }
+
+        /* Unordered List Style */
+        ul {
+            list-style-type: none;
+        }
+
+        ul .li {
+            margin-bottom: 10px;
+        }
+
+        [data-theme="dark"] li a {
+            color: white;
+        }
+
+
+        @media (max-width: 768px) {
+            #image {
+                width: 100%;
+                /* or a specific width */
+                /* or any height you prefer */
+                overflow: hidden;
+                /* Ensures no overflow */
+            }
+
+            #image img {
+                width: 100%;
+                object-fit: contain;
+                /* Ensure the image fits within the div while maintaining its aspect ratio */
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-3MEXW2XNBM');
+</script>
+
+<body>
+    <div class="app">
+        <!-- Mobile Nav Overlay -->
+        <div id="navOverlay" class="nav-overlay hidden"></div>
+
+        <!-- Navigation -->
+        <nav id="sidebar" class="sidebar">
+            <div class="nav-content">
+                <button id="closeNav" class="close-nav">&times;</button>
+                <h2 class="nav-title">INDEX</h2>
+                <div class="chapters">
+                    <div class="chapter">
+                        <h2><a href="Chapter1.html#chapter0">0. Links & Overview</a></h2>
+                        <ul>
+                            <li>Notes PDF Download Link</li>
+                            <li>Github Repo Link</li>
+                            <li>Project 1: Kaggle</li>
+                            <li>Project 2: Kaggle</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2><a href="#chapter1">1. Getting started with Machine Learning</a></h2>
+                        <ul>
+                            <li><a href="Chapter1.html#WhatisMachineLearning">What is Machine Learning?</a></li>
+                            <li><a href="Chapter1.html#HowMachineLearningWorks">How Machine Learning Works</a></li>
+                            <li><a href="Chapter1.html#TypesofMachineLearning">Types of Machine Learning</a></li>
+                            <li><a href="Chapter1.html#TypesofData">Types of Data</a></li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2><a href="Chapter2.html#chapter2">2. Graphical & Analytical Representation of Data</a></h2>
+                        <ul>
+                            <li><a href="Chapter2.html#DataAnalysis&EDA">Data Analysis & EDA</a></li>
+                            <li><a href="Chapter2.html#GraphicalRepresentationofData">Graphical Representation of
+                                    data</a></li>
+                            <li><a href="Chapter2.html#LimitationOfTraditionalDA">Limitation of traditional Data
+                                    Analysis</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter3.html#chapter3">3. Python as a Data-Analysis Tool</a></h2>
+                        <ul>
+                            <li><a href="Chapter3.html#WhyPython">Why Python?</a></li>
+                            <li><a href="Chapter3.html#JupyterNotebook">Jupyter Notebook</a></li>
+                            <li><a href="Chapter3.html#PythonDataTypes">Data Types in Python</a></li>
+                            <li><a href="Chapter3.html#BasicOperations">Basic Operations</a></li>
+                            <li><a href="Chapter3.html#PythonConstructs">Condition Statements & Loops</a></li>
+                            <li><a href="Chapter3.html#PythonFunctions">Functions in Python</a></li>
+                            <li><a href="Chapter3.html#BasicLibraries">Basic Libraries</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter4.html#chapter4">4. Basic Data Exploration</a></h2>
+                        <ul>
+                            <li><a href="Chapter4.html#PandasDataframe">Pandas Dataframe</a></li>
+                            <li><a href="Chapter4.html#DescriptiveStatistics">Descriptive Statistics of Data</a></li>
+                            <li><a href="Chapter4.html#Numpy">Numpy: A Statistics Module in Python</a></li>
+                            <li><a href="Chapter4.html#Matplotlib">Matplotlib: Graph Plotting</a></li>
+                            <li><a href="Chapter4.html#Pandas">Pandas: Some important Functions</a></li>
+                            <li><a href="Chapter4.html#Univariate">Univariate Analysis</a></li>
+                            <li><a href="Chapter4.html#Outliers">Treating Outliers</a></li>
+                            <li><a href="Chapter4.html#Correlation">Correlation</a></li>
+                            <li><a href="Chapter4.html#ANOVA">ANOVA</a></li>
+                            <li><a href="Chapter4.html#TrainingDatasets">Creating Training Datasets</a></li>
+                            <li><a href="Chapter4.html#FeatureScaling">FeatureScaling</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter5.html#chapter5">5. Regression Modelling</a></h2>
+                        <ul>
+                            <li><a href="Chapter5.html#RegressionIntroduction">Introduction</a></li>
+                            <li><a href="Chapter5.html#ModelEvaluationMetrics">Model Evaluation Metrics</a></li>
+                            <li><a href="Chapter5.html#LinearRegression">Linear Regressin</a></li>
+                            <li><a href="Chapter5.html#CostFunctionCurve">Cost Function Curve</a></li>
+                            <li><a href="Chapter5.html#GradientDescent">Gradient Descent</a></li>
+                            <li><a href="Chapter5.html#AssumptionsofLinearReg">Assumptions of Linear Regression</a></li>
+                            <li><a href="Chapter5.html#StepsofLinearReg">Steps of Linear Regression</a></li>
+                            <li><a href="Chapter5.html#OutcomeOfLinearReg">Outcome of Linear Regression</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#chapter6">6. Feature Engineering</a></h2>
+                        <ul>
+                            <li><a href="#FetEngIntroduction">Introduction</a></li>
+                            <li><a href="#TransformationTech">Transformation Techniques</a></li>
+                            <li><a href="#CategoricalEncoding">Categorical Encoding</a></li>
+                            <li><a href="#FeatureExtraction">Feature Extraction</a></li>
+                            <li><a href="#DimensionalityReduction">Dimensionality Reduction</a></li>
+                            <li><a href="#AdvancedDimensionalityReduction">Advanced Dimensionality Reduction</a></li>
+                            <li><a href="#ForwardSelection">Forward Selection</a></li>
+                            <li><a href="#BackwardSelection">Backward Selection</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <button id="menuButton" class="menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </button>
+                <button id="themeToggle" class="theme-toggle">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path d="M12 2v2" />
+                        <path d="M12 20v2" />
+                        <path d="m4.93 4.93 1.41 1.41" />
+                        <path d="m17.66 17.66 1.41 1.41" />
+                        <path d="M2 12h2" />
+                        <path d="M20 12h2" />
+                        <path d="m6.34 17.66-1.41 1.41" />
+                        <path d="m19.07 4.93-1.41 1.41" />
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    </svg>
+                </button>
+            </header>
+
+            <!-- Content -->
+            <main class="content">
+                <article class="article">
+                    <section id="chapter6">
+                        <h2 id="FetEngIntroduction">Introduction</h2>
+                        <h3>Feature Engineering</h3>
+                        <ul>
+                            <li>Features of a data are the independent variables we use to make predictions.</li>
+                            <li>To improve predictions, we can:
+                                <ul>
+                                    <li>Add external data</li>
+                                    <li>Use existing data more intelligently</li>
+                                </ul>
+                            </li>
+                            <li>Feature Engineering is the science of extracting more information from existing data.
+                            </li>
+                            <li>No new data is added, but the data we already have is made more useful with respect to
+                                the problem.</li>
+                        </ul>
+                        <div id="image">
+                            <img src="MLNotesIMGs/30.png" alt="">
+                        </div>
+
+                        <p><strong>NOTE:</strong> Feature generation refers to creating new features from the existing
+                            data and not simply transforming the values of existing features.</p>
+
+                        <h2 id="TransformationTech">Transformation Techniques</h2>
+                        <div
+                            style="display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: auto auto; gap: 10px; width: 100%; min-height: 300px;">
+                            <div
+                                style="display: flex; justify-content: center; align-items: center; border: 2px solid #ccc;">
+                                <img src="MLNotesIMGs/31.png" alt="Image 1"
+                                    style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center; align-items: center; border: 2px solid #ccc; text-align: left; font-size: 16px; padding: 10px;">
+                                <ul>
+                                    <li>Transformation is done to linearize the relationship between target variable and
+                                        the feature.</li>
+                                    <li>Feature transformation is model specific.</li>
+                                    <li>Transformation can be done to remove skewness in the data curve y vs x,</li>
+                                    <li>For right skewed data usually nth root or logarithmic transformation is done.
+                                    </li>
+                                    <li>For left skewed data usually nth power or exponential transformation is done.
+                                    </li>
+                                </ul>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center; align-items: center; border: 2px solid #ccc; text-align: left; font-size: 16px; padding: 10px;">
+                                <ul>
+                                    <li>In our example, in the original raw data set the flat area distribution is right
+                                        skewed as shown in graph on top</li>
+                                    <li>The result of logarithmic transformation on the graph can be seen in the graph
+                                        on right.</li>
+                                </ul>
+                            </div>
+                            <div
+                                style="display: flex; justify-content: center; align-items: center; border: 2px solid #ccc;">
+                                <img src="MLNotesIMGs/32.png" alt="Image 2"
+                                    style="width: 100%; height: 100%; object-fit: cover;">
+                            </div>
+                        </div>
+
+
+
+
+
+                        <h2 id="CategoricalEncoding">Categorical Encoding</h2>
+                        <p><strong>Categorical encoding</strong> is a variable transformation technique for the
+                            categorical variables.</p>
+
+                        <h3>DUMMY ENCODING</h3>
+                        <p>A separate dummy feature is created for every level present in the categorical column.</p>
+
+                        <h3>LABEL ENCODING</h3>
+                        <p>The model detects the relation between the individual categories by itself using the gradient
+                            descent. Label encoding is simple to apply. However, in dummy encoding, too many features
+                            are added, which results in a lower level of learning.</p>
+                        <ul>
+                            <li>Label encoding is used when we want to preserve the existing order among the different
+                                categories of the columns.</li>
+                            <li>This way the dimensionality (number of input variables) remains the same.</li>
+                            <li>Label encoding is used when the order among different levels is known.</li>
+                        </ul>
+
+                        <h3>BINNING</h3>
+                        <p><strong>Binning</strong> is the process of aggregating data points in different categories to
+                            reduce redundancy.</p>
+                        <p>This can be implemented on both numerical and categorical columns and also helps in One-Hot
+                            Encoding and creating dummy variables.</p>
+
+                        <h4>In binning, we look at the following:</h4>
+                        <ul>
+                            <li>Binning of categorical variables</li>
+                            <li>Binning of sparse categories</li>
+                            <li>Binning of continuous variables</li>
+                        </ul>
+
+                        <h2 id="FeatureExtraction">Feature Extraction</h2>
+                        <ul>
+                            <li>Feature extraction is the process of extracting information from the original features.
+                            </li>
+                            <li>The extracted feature contains the information in simpler form</li>
+                            <li>This helps in increasing the model performance.</li>
+
+                        </ul>
+                        <h2 id="DimensionalityReduction">Dimensionality Reduction</h2>
+                        <h2>Dimensionality Reduction and Feature Selection</h2>
+
+                        <p><strong>High dimensionality</strong> can become a problem for prediction modeling. As the
+                            number of independent variables increases, visualizing them becomes challenging.
+                            Dimensionality reduction is the process of reducing the number of variables from the data to
+                            ensure that the reduced data conveys maximum information. To achieve dimensionality
+                            reduction, we use the concept of <strong>Feature Selection</strong>.</p>
+
+                        <h3>Missing Value Ratio (MVR)</h3>
+                        <p>The <strong>Missing Value Ratio (MVR)</strong> is calculated as:</p>
+                        <p><strong>Ratio of missing values = </strong> (Number of missing values) / (Total number of
+                            observations)</p>
+                        <p>We set a threshold value, say Th, for the missing value ratio (MVR). Based on this, the
+                            following actions are taken:</p>
+                        <ul>
+                            <li>If MVR ≤ Th, the variable can be estimated.</li>
+                            <li>If MVR > Th, the variable can be dropped.</li>
+                        </ul>
+                        <p>It is important to set the threshold very carefully.</p>
+
+                        <h3>Low Variance Removal Technique</h3>
+                        <p>In predictive modeling, we often eliminate features with low variance as they do not
+                            contribute much to the predictive power of the model. Here, we normalize using a normalizer,
+                            not a standard scaler, because a standard scaler would change the variance to 1, making it
+                            impossible to compare the variances of different features.</p>
+
+                        <h4>To Remove Categorical Variables:</h4>
+                        <div id="image">
+                            <img src="MLNotesIMGs/33.png" alt="">
+                        </div>
+                        <p>High frequency refers to low variance. In this method, we use the concept of <strong>Variance
+                                Inflation Factor (VIF)</strong> to compute autocorrelation and remove variables
+                            accordingly.</p>
+
+                        <h2 id="AdvancedDimensionalityReduction">Advanced Dimensionality Reduction</h2>
+                        <p>There are two methods for advanced dimensionality reduction:</p>
+                        <ol>
+                            <li>
+                                <p><strong>Forward selection of features</strong></p>
+                            </li>
+                            <li>
+                                <p><strong>Backward elimination of features</strong></p>
+                            </li>
+                        </ol>
+                        <p>To use these methods, we need an evaluation metric to determine whether any given feature
+                            should be selected in the final model or not. The metric used will be <strong>Adjusted
+                                R²</strong>.</p>
+
+                        <h3>Adjusted R²</h3>
+
+                        <p>The R² metric has a problem in that it does not consider the number of input variables in the
+                            model. The values tend to increase marginally even if the newly added features have zero to
+                            minimal importance. To counter this issue, <strong>Adjusted R²</strong> is introduced. This
+                            metric takes into account the number of input features, which reduces the model's
+                            performance if the added features do not have a significant effect.</p>
+
+                        <p><strong>Adjusted R² formula:</strong></p>
+                        <p>\( \text{Adjusted } R^{2} = 1 - \left( \frac{n-1}{n-(k+1)} \right) (1 - R^{2}) \)</p>
+
+                        <ul>
+                            <li><strong>n</strong> = sample size or total number of observations</li>
+                            <li><strong>k</strong> = number of input variables</li>
+                            <li><strong>R²</strong> = normal R-squared metric</li>
+                        </ul>
+
+                        <p>In the case of simple R², where there are no input variables, <strong>k = 0</strong>. This
+                            turns the entire expression into Adjusted R² = R².</p>
+
+                        <h4>Case I: New feature added contributes significantly to model performance</h4>
+                        <p>When the new feature is significant, the increase in R² value will counter the decrement in
+                            Adjusted R² due to the increase in k, ultimately leading to an increase in Adjusted R².</p>
+
+                        <h4>Case II: New feature added does not contribute significantly to model performance</h4>
+                        <p>If the new feature is insignificant, there is little or no increase in R², but the increase
+                            in k will cause the whole expression to decrease.</p>
+
+                        <p>So, to sum up, Adjusted R² is beneficial when dealing with models that consider multiple
+                            features.</p>
+
+                        <h2 id="ForwardSelection">Forward Selection</h2>
+                        <p>In forward selection, we start with an empty model and add one feature at a time. We evaluate
+                            the model at each step and select the feature that gives the best performance. This process
+                            is repeated until no further improvement is observed.</p>
+                        <ul>
+                            <li>STEP1 : For every independent variable, build a linear regression model individually.
+                                Choose the independent variable with the highest adj-R2 score and call it var1.
+
+                            </li>
+                            <li>STEP2: Repeat the above process by using the var1 as the base independent variable and
+                                combining it with every other independent variable to build a regression model. Choose
+                                the combination with highest adj-R2.
+                            </li>
+                            <li>STEP3: Repeat the above process until the maximum number of features has been obtained
+                                or the adj-R2 is no longer increasing</li>
+                        </ul>
+                        <h2 id="BackwardSelection">Backward Selection</h2>
+                        <p>In backward selection, we start with all the features and remove one feature at a time. We
+                            evaluate the model at each step and remove the feature that gives the best performance. This
+                            process is repeated until no further improvement is observed.</p>
+                        <h3>Algorithm: BACKWARD ELIMINATION OF FEATURES</h3>
+                        <ul style="list-style-type: disc; padding-left: 20px;">
+                            <li>STEP 1 : Build a model with all the independent variables. Adjusted R2 value of this model will be base-line adjusted R2 value.</li>
+                            <li>STEP 2:
+                                <ul style="list-style-type: circle; padding-left: 20px;">
+                                    <li style="margin-left: 10px;">Step 2.1 : Drop 1 independent variable at a time</li>
+                                    <li style="margin-left: 10px;">Step 2.2 : Build a regression model using all other independent variables</li>
+                                    <li style="margin-left: 10px;">Step 2.3 : Calculate the corresponding adjusted – R2.</li>
+                                    <li style="margin-left: 10px;">Step 2.4 : Repeat the steps 2.1 – 2.3 for all independent variables</li>
+                                </ul>
+                            </li>
+                            <li>STEP 3: Subtract the baseline adjusted-R2 from all calculated adjusted-R2 values and record the difference.</li>
+                            <li>STEP 4: Make the maximum difference value as the new baseline adjusted-R2 and permanently drop the independent variable corresponding to it.</li>
+                            <li>STEP 5: Repeat the process for the required number of times, which is equal to the number of variables we want to be left with after the completion of backward-elimination-of-features-algorithm.</li>
+                        </ul>
+                        
+                        <!-- FINAL RESULT  -->
+                        <p>On performing backward elimination on our linear regression model, we also keep track of adjusted R2 every time we remove a feature. The graph below shows the remaining features vs adjusted R2 at each iteration when we eliminated a feature.</p>
+
+                        <div id="image" style="width: 50%; height: auto;">
+                            <img src="MLNotesIMGs/34.png" alt="Remaining Features vs Adjusted R2" style="max-width: 100%; height: auto;">
+                        </div>
+                        
+                        <p>The blue mark is such that if we want to keep the minimum number of features while retaining model performance as much as possible. On the other hand, the green dot represents such a point after which adjusted R2 almost flattens out. So, at this point, we can maximize the model performance and remove only the insignificant variables without harming the adjusted R2 score.</p>
+                        
+                        <h3>QUESTION: Why do we need two methods that do almost the same thing?</h3>
+                        
+                        <p>Adjusted R2 has a major drawback that it is computationally expensive. Suppose we have N number of features and it is evident that in every step, one feature is removed from consideration. The total number of models to be created iteration-wise will be:</p>
+                        <p><strong>N + (N-1) + (N-2) + (N-3) + … + 3 + 2 + 1 = N(N+1)/2 ~ N²</strong></p>
+                        
+                        <p>For huge datasets, both techniques can be expensive, so we must set a goal:</p>
+                        <ul>
+                            <li>Set model interpretation as a priority and only select a small subset of best features to interpret the model (Forward selection is preferred as it focuses on choosing the best features).</li>
+                            <li>Or strictly remove the features which negligibly add to the model performance (Backward selection is preferred as it focuses on removing the redundant columns first).</li>
+                        </ul>
+                        
+                        <p>Another improvement that can be made is to set a threshold for adjusted R2 such that after getting incremented to that point, the program will stop.</p>
+                        
+
+                    </section>
+                    <section id="next">
+                        <a href="Chapter6.html#Chapter6">NEXT--></a>
+                    </section>
+
+
+                </article>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Load scripts with defer -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script defer src="../../assets/js/globalblog.js"></script>
+
+
+    <!-- Fallback for Prism if CDN fails -->
+    <script>
+        window.addEventListener('load', function () {
+            if (typeof Prism === 'undefined') {
+                console.error('Prism failed to load');
+                // Add a class to show code without highlighting
+                document.querySelectorAll('pre code').forEach(block => {
+                    block.classList.add('no-highlight');
+                });
+            }
+        });
+    </script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+
+</body>
+
+</html>

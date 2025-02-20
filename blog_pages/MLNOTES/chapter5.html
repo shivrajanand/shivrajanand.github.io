@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter4: Machine Learning Notes</title>
+    <link rel="stylesheet" href="../../assets/css/globalblog.css">
+    <!-- Load Prism CSS files with defer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <!-- Add error handling for script loading -->
+    <script>
+        window.addEventListener('error', function (e) {
+            if (e.target.tagName === 'SCRIPT') {
+                console.error('Script loading failed:', e.target.src);
+                alert('Failed to load script: ' + e.target.src);
+            }
+        }, true);
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 60px;
+            /* Adjust based on your navbar height */
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+
+        #image {
+            width: 100%;
+            /* Or a specific width */
+            height: auto;
+            /* Or any height you prefer */
+            overflow: hidden;
+            /* Ensures no overflow */
+            display: flex;
+            flex-direction: column;
+            /* Stack children (image and caption) vertically */
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            /* Border around the container */
+        }
+
+        [data-theme="dark"] #image {
+            border: 1px solid white;
+            /* Dark mode border color */
+        }
+
+        #image figure {
+            width: 100%;
+            /* Ensure the figure takes up the full width */
+            margin: 0;
+            text-align: center;
+            /* Center align the caption */
+        }
+
+        #image img {
+            width: 100%;
+            /* Ensures the image takes the full width of the container */
+            height: auto;
+            /* Maintains the aspect ratio */
+            object-fit: contain;
+            /* Ensure the image fits within the div */
+        }
+
+        #image figcaption {
+            font-size: 1em;
+            /* Caption text size */
+            margin-top: 10px;
+            /* Space between the image and caption */
+            color: #333;
+            /* Text color */
+            font-style: italic;
+            /* Italicize caption text */
+            text-align: center;
+            border-top: 2px solid #ccc;
+            /* Border between image and caption */
+            padding-top: 5px;
+            /* Space between image and border */
+            padding-bottom: 15px;
+            /* Space below the caption for a clean look */
+            width: 100%;
+            /* Ensures the caption takes up the full width */
+        }
+
+
+        [data-theme="dark"] #image figcaption {
+            color: white;
+            border: white 1px solid;
+        }
+
+
+
+        p {
+            text-align: justify;
+        }
+
+        /* Unordered List Style */
+        ul {
+            list-style-type: none;
+        }
+
+        ul .li {
+            margin-bottom: 10px;
+        }
+
+        [data-theme="dark"] li a {
+            color: white;
+        }
+
+
+        @media (max-width: 768px) {
+            #image {
+                width: 100%;
+                /* or a specific width */
+                /* or any height you prefer */
+                overflow: hidden;
+                /* Ensures no overflow */
+            }
+
+            #image img {
+                width: 100%;
+                object-fit: contain;
+                /* Ensure the image fits within the div while maintaining its aspect ratio */
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+    </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-3MEXW2XNBM');
+</script>
+
+<body>
+    <div class="app">
+        <!-- Mobile Nav Overlay -->
+        <div id="navOverlay" class="nav-overlay hidden"></div>
+
+        <!-- Navigation -->
+        <nav id="sidebar" class="sidebar">
+            <div class="nav-content">
+                <button id="closeNav" class="close-nav">&times;</button>
+                <h2 class="nav-title">INDEX</h2>
+                <div class="chapters">
+                    <div class="chapter">
+                        <h2><a href="Chapter1.html#chapter0">0. Links & Overview</a></h2>
+                        <ul>
+                            <li>Notes PDF Download Link</li>
+                            <li>Github Repo Link</li>
+                            <li>Project 1: Kaggle</li>
+                            <li>Project 2: Kaggle</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2><a href="#chapter1">1. Getting started with Machine Learning</a></h2>
+                        <ul>
+                            <li><a href="Chapter1.html#WhatisMachineLearning">What is Machine Learning?</a></li>
+                            <li><a href="Chapter1.html#HowMachineLearningWorks">How Machine Learning Works</a></li>
+                            <li><a href="Chapter1.html#TypesofMachineLearning">Types of Machine Learning</a></li>
+                            <li><a href="Chapter1.html#TypesofData">Types of Data</a></li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2><a href="Chapter2.html#chapter2">2. Graphical & Analytical Representation of Data</a></h2>
+                        <ul>
+                            <li><a href="Chapter2.html#DataAnalysis&EDA">Data Analysis & EDA</a></li>
+                            <li><a href="Chapter2.html#GraphicalRepresentationofData">Graphical Representation of
+                                    data</a></li>
+                            <li><a href="Chapter2.html#LimitationOfTraditionalDA">Limitation of traditional Data
+                                    Analysis</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter3.html#chapter3">3. Python as a Data-Analysis Tool</a></h2>
+                        <ul>
+                            <li><a href="Chapter3.html#WhyPython">Why Python?</a></li>
+                            <li><a href="Chapter3.html#JupyterNotebook">Jupyter Notebook</a></li>
+                            <li><a href="Chapter3.html#PythonDataTypes">Data Types in Python</a></li>
+                            <li><a href="Chapter3.html#BasicOperations">Basic Operations</a></li>
+                            <li><a href="Chapter3.html#PythonConstructs">Condition Statements & Loops</a></li>
+                            <li><a href="Chapter3.html#PythonFunctions">Functions in Python</a></li>
+                            <li><a href="Chapter3.html#BasicLibraries">Basic Libraries</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter4.html#chapter4">4. Basic Data Exploration</a></h2>
+                        <ul>
+                            <li><a href="Chapter4.html#PandasDataframe">Pandas Dataframe</a></li>
+                            <li><a href="Chapter4.html#DescriptiveStatistics">Descriptive Statistics of Data</a></li>
+                            <li><a href="Chapter4.html#Numpy">Numpy: A Statistics Module in Python</a></li>
+                            <li><a href="Chapter4.html#Matplotlib">Matplotlib: Graph Plotting</a></li>
+                            <li><a href="Chapter4.html#Pandas">Pandas: Some important Functions</a></li>
+                            <li><a href="Chapter4.html#Univariate">Univariate Analysis</a></li>
+                            <li><a href="Chapter4.html#Outliers">Treating Outliers</a></li>
+                            <li><a href="Chapter4.html#Correlation">Correlation</a></li>
+                            <li><a href="Chapter4.html#ANOVA">ANOVA</a></li>
+                            <li><a href="Chapter4.html#TrainingDatasets">Creating Training Datasets</a></li>
+                            <li><a href="Chapter4.html#FeatureScaling">FeatureScaling</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#chapter5">5. Regression Modelling</a></h2>
+                        <ul>
+                            <li><a href="#RegressionIntroduction">Introduction</a></li>
+                            <li><a href="#ModelEvaluationMetrics">Model Evaluation Metrics</a></li>
+                            <li><a href="#LinearRegression">Linear Regressin</a></li>
+                            <li><a href="#CostFunctionCurve">Cost Function Curve</a></li>
+                            <li><a href="#GradientDescent">Gradient Descent</a></li>
+                            <li><a href="#AssumptionsofLinearReg">Assumptions of Linear Regression</a></li>
+                            <li><a href="#StepsofLinearReg">Steps of Linear Regression</a></li>
+                            <li><a href="#OutcomeOfLinearReg">Outcome of Linear Regression</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <button id="menuButton" class="menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </button>
+                <button id="themeToggle" class="theme-toggle">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path d="M12 2v2" />
+                        <path d="M12 20v2" />
+                        <path d="m4.93 4.93 1.41 1.41" />
+                        <path d="m17.66 17.66 1.41 1.41" />
+                        <path d="M2 12h2" />
+                        <path d="M20 12h2" />
+                        <path d="m6.34 17.66-1.41 1.41" />
+                        <path d="m19.07 4.93-1.41 1.41" />
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    </svg>
+                </button>
+            </header>
+
+            <!-- Content -->
+            <main class="content">
+                <article class="article">
+                    <section id="chapter5">
+                        <h2 id="RegressionIntroduction">Introduction</h2>
+                        <h3>The Simple Model</h3>
+                        <p>The simplest model that can be created will predict
+                            that the target will have mean values. This model, although looking fine, has the
+                            capacity to destroy the predictive accuracy of the model as average values cannot
+                            predict the large values and also very small target values.</p>
+                        <div id="image">
+                            <img id="20png" src="MLNotesIMGs/20.png" alt="">
+                        </div>
+
+
+
+
+                        <h3>Overcoming the Issue</h3>
+                        <p>To overcome this, we can use more filters like using the average of gradings of the target,
+                            etc. In our example, we first created a model based on the average of sale prices and then a
+                            model based on the average of sale prices with respect to grades.</p>
+
+                        <h3>Residual Plotting</h3>
+                        <p>Scatter plots are created by the method of residual plotting. Residual plotting is nothing
+                            but a scatter plot of residual values.</p>
+                        <p><strong>Residual values = predicted value - actual value</strong></p>
+
+                        <h3>Creating Residuals</h3>
+                        <p>In our example, both mean sales residuals and grade mean sales residuals are created and then
+                            visualized in two different scatter plots against a line of 0 residual, i.e., a line
+                            representing 100% accurate predictions (green).</p>
+                        <div id="image">
+                            <img src="MLNotesIMGs/21.png" alt="">
+                        </div>
+
+
+                        <h2 id="ModelEvaluationMetrics">Model Evaluation Metrics</h2>
+                        <h3>MODEL EVALUATION METRICS</h3>
+                        <p>To check how good or bad our model predictions are, we use model evaluation metrics:</p>
+                        <ul>
+                            <li>Mean Absolute Error (MAE)</li>
+                            <li>Mean Square Error (MSE)</li>
+                            <li>Root Mean Square Error (RMSE)</li>
+                        </ul>
+
+                        <h3>MEAN ABSOLUTE ERROR (MAE)</h3>
+                        <p>We know that residual = prediction – actual.</p>
+                        <p><strong>Mean Error</strong> = \(\frac{Error_1 + Error_2 + Error_3 + \dots}{\text{Total number
+                            of data points}}\)</p>
+                        <p><strong>Mean Absolute Error</strong> =
+                            $$
+                            \text{Mean Absolute Error} = \frac{1}{n} \sum_{i=0}^{n-1} |X_i - X_m|
+                            $$
+                        </p>
+                        <p>The Mean Absolute Error tells us how far, on average, the actual point is expected to lie
+                            from the predicted point.</p>
+
+                        <h3>MEAN SQUARE ERROR (MSE)</h3>
+                        <p><strong>Mean Square Error</strong> =
+                            $$
+                            \text{Mean Square Error} = \frac{1}{n} \sum_{i=0}^{n-1} (X_i - X_m)^2
+                            $$
+                        </p>
+                        <p>This turns all the differences between the actual and the predicted into a positive quantity.
+                            It incurs an extra penalty for larger differences between the actual and predicted values.
+                        </p>
+
+                        <h3>ROOT MEAN SQUARE ERROR (RMSE)</h3>
+                        <p><strong>Root Mean Square Error</strong> =
+                            $$
+                            \text{Root Mean Square Error} = \sqrt{\frac{1}{n} \sum_{i=0}^{n-1} (X_i - X_m)^2}
+                            $$
+                        </p>
+                        <p>Large errors are penalized, but the scale of error is closer to that of the Mean Absolute
+                            Error.</p>
+
+                        <h3>R<sup>2</sup> - EVALUATION METRIC</h3>
+                        <p>It gives us the relative error of a regression model with respect to the simple mean
+                            regression model.</p>
+                        <p><strong>R<sup>2</sup> = 1 -
+                                $$
+                                \frac{\sum_{i=0}^{n} (Y_{pi} - Y_i)^2}{\sum_{i=0}^{n} (Y_{mi} - Y_i)^2}
+                                $$
+                            </strong></p>
+
+                        <p><strong>R<sup>2</sup> = 1 - \frac{n \times \text{MSE of simple mean model}}{n \times
+                                \text{MSE of regression model we want to evaluate}}</strong></p>
+                        <p><strong>R<sup>2</sup> = 1 - \frac{\text{MSE of simple mean model}}{\text{MSE of regression
+                                model we want to evaluate}}</strong></p>
+                        <p>The ratio is “The mean square error of the regression model we want to evaluate over the mean
+                            square error of the simple mean regression model”.</p>
+                        <p>The lower the ratio, the better the model.</p>
+                        <p>For a perfect model (100% accurate predictions), R<sup>2</sup> = 1.</p>
+                        <p>For a mean prediction model (Y<sub>p</sub> = Y<sub>m</sub>), R<sup>2</sup> = 0.</p>
+                        <p>For any model that is better than a mean prediction model but not a perfect model, \( 0 < R^2
+                                < 1 \).</p>
+                                <p>In reality, \( -\infty < R^2 < 1 \).</p>
+                                        <p>A negative R-squared means the predicted model is worse than the mean model.
+                                        </p>
+
+                                        <h3>INTERPRETATION OF R<sup>2</sup></h3>
+                                        <p>R<sup>2</sup> explains the degree to which your input variable explains the
+                                            variation of your target or output variable. For example, an R<sup>2</sup>
+                                            value of 0.8 means 80% of the variation in the output variable is explained
+                                            by the input variables.</p>
+                                        <p>The higher the R<sup>2</sup>, the more the variation explained by the input
+                                            variable, and hence, the better the model.</p>
+                                        <p>On adding more variables, the R<sup>2</sup> value will remain the same or
+                                            increase, even if the variables have no role in improving the model.</p>
+
+                                        <h3>ADJUSTED R<sup>2</sup></h3>
+                                        <p>To solve this problem, we have another metric evaluation called the Adjusted
+                                            R<sup>2</sup>. This penalizes the result for adding variables that do not
+                                            improve the existing model.</p>
+
+                                        <h2 id="LinearRegression">Linear Regression</h2>
+                                        <ul>
+                                            <li>Linear regression models the linear relationship between dependent and
+                                                independent variables.</li>
+                                            <li>In these models, we try to find a straight line which fits our data
+                                                well, usually in a scatter plot.</li>
+                                            <li>The linear regression model is nothing but the line.</li>
+                                            <li>The best model is the line which fits the data points with the least
+                                                error.</li>
+                                            <li>Now since we are dealing with a straight line, we must try to
+                                                mathematically analyze it.</li>
+                                            <li>The equation of a straight line is:
+                                                $$ y = mx + c $$
+                                                where:
+                                                <ul>
+                                                    <li>\( y \) = dependent variable (Output)</li>
+                                                    <li>\( x \) = independent variable (input)</li>
+                                                    <li>\( m \) = slope of the line</li>
+                                                    <li>\( c \) = y-intercept of the line (point at which the line cuts
+                                                        the y-axis)</li>
+                                                </ul>
+                                            </li>
+                                            <li>Different lines with the same slope but different intercepts are
+                                                parallel to each other. Changing the intercept just shifts the line
+                                                upward or downward.</li>
+                                            <li>Different lines with the same intercept but different slopes have the
+                                                same point of concurrence but are at different angles from the axes.
+                                            </li>
+                                            <li><strong>NOTE:</strong> Slope is the rate at which \( y \) increases with
+                                                respect to \( x \).</li>
+                                        </ul>
+
+
+                                        <h2 id="CostFunctionCurve">Cost Function Curve</h2>
+                                        <h3>Model Fitting for Sale Price Data</h3>
+
+                                        <p>In our example, we are trying to create a regression model that best fits the
+                                            data plot of <strong>Sale Price vs. Flat Area</strong>. Here's how we
+                                            approach it:</p>
+
+                                        <h3>1. Trial and Error Method</h3>
+                                        <p>Initially, we plot two different graphs using a hit-and-trial method to
+                                            determine the best-fitting model. Below are the results:</p>
+                                        <div id="image">
+                                            <img src="MLNotesIMGs/22.png" alt="">
+                                        </div>
+                                        <p>Note that the cost function is simply the <strong>Mean Square Error
+                                                (MSE)</strong> of the model. As visible in Plot 2, it has a lower MSE,
+                                            but it's still not a good fit. Next, we attempt to automate the process by
+                                            creating a new data frame with the <strong>Slope</strong> and corresponding
+                                            <strong>Cost</strong> (MSE) values. This new curve, <strong>Cost vs.
+                                                Slope</strong>, is referred to as the <strong>Cost Function
+                                                Curve</strong>.
+                                        </p>
+
+                                        <h3>2. Convex Curve</h3>
+                                        <p>The <strong>Cost Function Curve</strong> initially has a high MSE. As we
+                                            adjust the slope, the cost keeps decreasing until it reaches a minimum
+                                            value, after which it starts increasing again. This type of curve is called
+                                            a <strong>Convex Curve</strong>.</p>
+                                        <div id="image">
+                                            <img src="MLNotesIMGs/23.png" alt="">
+                                        </div>
+                                        <p>In convex curves, there is only one minimum value, known as the
+                                            <strong>Global Minimum</strong>.
+                                        </p>
+
+                                        <p>In contrast, non-convex curves may have multiple minimum points, known as
+                                            <strong>Local Minimums</strong>.
+                                        </p>
+
+                                        <h3>3. Finding the Best Slope</h3>
+                                        <p>From the Cost Function Curve, we can determine the best slope for our
+                                            regression model fitting. Here, the intercept is kept constant.</p>
+
+                                        <h3>4. Three-Dimensional Graph</h3>
+                                        <p>Now, if we vary both the intercept and the slope simultaneously, we will get
+                                            a three-dimensional graph. In this graph, the minimum value depends on both
+                                            the slope and the intercept.</p>
+
+                                        <h3>5. Finding the Cost Function with Respect to Changing Intercept</h3>
+                                        <p>We repeat the same process for finding the cost function curve with respect
+                                            to changing intercept values.</p>
+
+                                        <h3>6. Repeated Cycle for Optimal Values</h3>
+                                        <p>While we might obtain a minimum value of intercept, this does not necessarily
+                                            mean that we've found the best pair of slope (m) and intercept (c). In both
+                                            analyses, one of these values was kept constant. When the cycle is repeated
+                                            several times, it converges to the most optimum values for both
+                                            <strong>m</strong> and <strong>c</strong>.
+                                        </p>
+
+                                        <p>For our model, the best-fit equation is:</p>
+                                        <p>
+                                            <span class="math">
+                                                y = 219x + 39428
+                                            </span>
+                                        </p>
+                                        <p>Here, <strong>m = 219</strong> and <strong>c = 39428</strong>.</p>
+
+                                        <h3>7. Limitation with Multiple Input Variables</h3>
+                                        <p>If the data involves more than one input variable, the cyclic process becomes
+                                            less practical. This method doesn't scale well when more dimensions are
+                                            added.</p>
+
+                                        <h3>8. Gradient Descent Algorithm</h3>
+                                        <p>To overcome the limitations of the manual cyclic process, we use the
+                                            <strong>Gradient Descent Algorithm</strong>. This algorithm helps us
+                                            efficiently find the optimal slope and intercept values, especially when
+                                            there are multiple input variables.
+                                        </p>
+
+
+                                        <h2 id="GradientDescent">Gradient Descent</h2>
+                                        <p>Gradient descent is an optimization algorithm that works iteratively and aims
+                                            to find the minimum value of a convex function with respect to a set of
+                                            parameters.</p>
+
+                                        <h4>STEP 1: RANDOM INITIALIZATION</h4>
+                                        <p>Here we have two parameters: slope, \( m \), and intercept, \( c \).</p>
+                                        <p>Both can be initialized to a small value, say 0, but initializing the
+                                            intercept to the intercept of the mean regression model is preferred.</p>
+                                        <p>In our example, we used \( m = 0.1 \) and \( c = \) mean of sale prices.</p>
+
+                                        <h4>STEP 2: GENERATE PREDICTIONS</h4>
+                                        <p>Now we will be predicting values using the equation: \( Y_p = mX + c \)</p>
+                                        <p>Here, \( Y_p \) is the sale price and \( X \) is the flat area.</p>
+
+                                        <h4>STEP 3: CALCULATING THE COST</h4>
+                                        <p>We will be using Mean Squared Error as the cost function and will represent
+                                            it by \( T \).</p>
+                                        <p>Clearly, the cost function depends on \( m \) and \( c \).</p>
+
+                                        <h4>STEP 4: UPDATING PARAMETERS</h4>
+                                        <p>Updating of variables takes place according to the following formulas:</p>
+                                        <p>\( m_{\text{new}} = m_{\text{old}} - \alpha G_m \)</p>
+                                        <p>\( C_{\text{new}} = C_{\text{old}} - \alpha G_c \)</p>
+
+                                        <p>Here, \( Z \) can be positive or negative. To find \( Z \), we use the
+                                            concept of partial differentiation.</p>
+                                        <p>Partial differentiation of the “cost-function curve with variation of \( m
+                                            \)” with respect to \( m \) will give the slope of the tangent function to
+                                            the curve.</p>
+                                        <p>If the slope is positive, then the tangent is to the right of the minimum
+                                            point; hence, \( Z \) will be positive in order to reach the minimum point.
+                                        </p>
+                                        <p>If the slope is negative, then the tangent is to the left of the minimum
+                                            point; hence, \( Z \) should be negative in order to reach the minimum
+                                            point.</p>
+                                        <p>Conclusion: \( Z \) has the same sign as the slope.</p>
+
+                                        <h4>Working Rule of Gradient Descent Algorithm</h4>
+                                        <p>We have the update statements as:</p>
+                                        <p>\( m_{\text{new}} = m_{\text{old}} - \alpha G_m \)</p>
+                                        <p>\( C_{\text{new}} = C_{\text{old}} - \alpha G_c \)</p>
+
+                                        <h4>MSE (Mean Squared Error) Calculation</h4>
+                                        <p>MSE can be defined as:</p>
+                                        <p>\[
+                                            MSE = \frac{1}{n} \sum_{i=1}^{n} (y_{pi} - y_i)^2
+                                            \]</p>
+
+                                        <p>Putting \( MSE = T(m, c) \) and \( y_{pi} = mx_i + c \), we get:</p>
+                                        <p>\[
+                                            T = \frac{1}{n} \sum (mx_i + c - y_i)^2
+                                            \]</p>
+
+                                        <h4>Partial Differentiation of the Cost Function</h4>
+                                        <p>Now, partial differentiating the cost function \( T \) with respect to \( m
+                                            \) and \( c \) gives us the respective gradient as:</p>
+                                        <p>\[
+                                            G_m = \frac{\partial T}{\partial m} = \frac{2}{n} \sum_{i=1}^{n} x_i (mx_i +
+                                            c - y_i)
+                                            \]</p>
+
+                                        <p>\[
+                                            G_c = \frac{\partial T}{\partial c} = \frac{2}{n} \sum_{i=1}^{n} (mx_i + c -
+                                            y_i)
+                                            \]</p>
+
+                                        <p>Here \( G_m \) and \( G_c \) are the gradients of the cost function with
+                                            respect to \( m \) and \( c \), respectively.</p>
+
+                                        <h4>Update Rules</h4>
+                                        <p>Let \( Z_m = \alpha G_m \), then:</p>
+                                        <p>\( m_{\text{new}} = m_{\text{old}} - \alpha G_m \)</p>
+
+                                        <p>Let \( Z_c = \alpha G_c \), then:</p>
+                                        <p>\( C_{\text{new}} = C_{\text{old}} - \alpha G_c \)</p>
+
+                                        <p>Here, \( \alpha \) (learning rate) is a moderator that controls the process
+                                            of updating the parameters:</p>
+                                        <ul>
+                                            <li>If \( \alpha \) is high, the cost function can bounce out of the range.
+                                            </li>
+                                            <li>If \( \alpha \) is low, the cost function might take numerous iterations
+                                                to converge.</li>
+                                        </ul>
+
+                                        <h4>Convergence Condition</h4>
+                                        <p>The next step of the algorithm is to check our prediction’s reliability:</p>
+                                        <p>If \( \text{previous value of cost function} - \text{new value of cost
+                                            function} < \text{threshold value} \) (order of \( 10^{-x} \)),</p>
+                                                <p>Then we say that the algorithm has converged.</p>
+                                                <p>Otherwise, we repeat the process after updating the parameters.</p>
+
+                                                <h4>Application of Gradient Descent Algorithm</h4>
+                                                <p>Now we apply the Gradient Descent Algorithm in Python in our given
+                                                    dataset in two ways:</p>
+                                                <ul>
+                                                    <li>First, we apply it on the first 30 data values.
+                                                        <div id="image">
+                                                            <img src="MLNotesIMGs/25.png" alt="">
+                                                        </div>
+                                                    </li>
+                                                    <li>Second, we apply it on the complete dataset.
+                                                        <div id="image">
+                                                            <img src="MLNotesIMGs/24.png" alt="">
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                                <p><br>The python code [<a href="Chapter1.html#Chapter0">Project1
+                                                        LINK</a>] of implementation of the Gradient Descent Algorithm
+                                                    is given below. We have defined function to
+                                                <ul>
+                                                    <li>Initialize parameter</li>
+                                                    <li>Generate predictions</li>
+                                                    <li>Compute cost or MSE</li>
+                                                    <li>Gradient generation</li>
+                                                    <li>Parameter updating</li>
+                                                    <li>Result generator</li>
+                                                </ul>
+                                        </p>
+
+
+                                        <h2 id="AssumptionsofLinearReg">Assumptions of Linear Regression</h2>
+                                        <h3>Linear Relationship</h3>
+                                        <ul>
+                                            <li>The target and independent variable must follow a linear relationship.
+                                                It does not have to be strictly linear (i.e., correlation = 1), but it
+                                                should follow the fundamental property of a line.</li>
+                                            <li>The fundamental property of a straight line states that \( Y \) changes
+                                                with \( X \), and for every change in \( \Delta X \), the quantum change
+                                                in \( Y \), i.e., \( \Delta Y \), should be similar irrespective of the
+                                                value of \( X \).</li>
+                                            <li>Therefore, to apply linear regression, the rate of change of \( Y \)
+                                                with respect to \( X \) should be almost constant.</li>
+                                            <li>To deal with non-linear data, we convert it into linear data using
+                                                variable transformation operations like squaring, square root,
+                                                logarithms, etc.</li>
+                                        </ul>
+
+                                        <h3>Homoscedasticity</h3>
+                                        <ul>
+                                            <li>Homoscedasticity refers to the constant variance of error terms.</li>
+                                            <li>The opposite of this concept is Heteroscedasticity, which may arise due
+                                                to either non-linearity of data or the presence of outliers.</li>
+                                        </ul>
+                                        <div id="image">
+                                            <img src="MLNotesIMGs/26.png" alt="">
+                                        </div>
+
+                                        <h3>Normal Distribution of Error</h3>
+                                        <ul>
+                                            <li>Error terms with respect to the regression line should be normally
+                                                distributed.</li>
+                                            <li>Errors that do not follow a normal distribution cause parameter
+                                                estimation to be unstable, ultimately resulting in misleading
+                                                coefficients.</li>
+                                            <li>To address this issue, we scale the data to a linear scale using any
+                                                appropriate transformation.</li>
+                                        </ul>
+
+                                        <h3>No Correlation Between Error Terms</h3>
+                                        <ul>
+                                            <li>The condition where there is an inherent pattern between error terms is
+                                                called <strong>Auto Correlation</strong>.</li>
+                                            <li>Strong correlation between error terms is typically found in time series
+                                                data.</li>
+                                            <li>This type of correlation exists when previous values of \( Y \) affect
+                                                the next value of \( Y \), which is not accounted for in the linear
+                                                regression model.</li>
+                                            <li>As a result, misinterpretations in the model's outcome may occur.</li>
+                                        </ul>
+
+                                        <h3>Multicollinearity</h3>
+                                        <ul>
+                                            <li>When there is collinearity between two independent variables of high
+                                                order (i.e., greater than 0.5), then the variation in the target
+                                                variable explained by one variable is already explained by the other
+                                                variable.</li>
+                                            <li>In such cases, we keep only one variable and eliminate the others to
+                                                avoid redundancy.</li>
+                                            <li>Multicollinearity among independent variables must be removed to ensure
+                                                model accuracy.</li>
+                                            <li>To decide which variable to remove, we use the concept of
+                                                <strong>Variance Inflation Factor (VIF)</strong>.
+                                            </li>
+                                        </ul>
+                                        <h3>Variance Inflation Factor (VIF)</h3>
+                                        <ul>
+                                            <li>
+                                                <p>VIF is used for diagnosing multicollinearity.</p>
+                                            </li>
+                                            <li>
+                                                <p>It quantifies the correlation between two independent variables.</p>
+                                            </li>
+                                            <li>
+                                                <p>The higher the VIF value associated with any independent variable,
+                                                    the
+                                                    more correlated this variable is with other independent variables in
+                                                    the
+                                                    dataset.
+                                            </li>
+                                            <li>
+                                                <p>For instance, let there be 9 independent variables in the dataset: \(
+                                                    V_1, V_2, V_3, V_4, V_5, V_6, V_7, V_8, V_9 \).</p>
+                                            </li>
+                                            <li>
+                                                <p>To calculate the VIF of \( V_1 \) with respect to all other
+                                                    variables,
+                                                    we treat \( V_1 \) as the dependent variable and all other variables
+                                                    as
+                                                    independent variables.</p>
+                                            </li>
+                                            <li>
+                                                <p>Next, we attempt to predict \( V_1 \) using the other independent
+                                                    variables and calculate the corresponding \( R^2 \) score.</p>
+                                            </li>
+                                            <li>
+                                                <p>We then calculate the VIF using the formula:
+                                                <p>\( \text{VIF} = \frac{1}{1 - R^2} \)</p>
+                                </p>
+                                </li>
+                                <li>
+                                    <p>Clearly, a lower \( R^2 \) implies a lower VIF.</p>
+                                </li>
+                                <li>
+                                    <p>A low VIF means that the independent variable is not strongly correlated
+                                        with other independent variables.</p>
+                                </li>
+                                <li>
+                                    <p>A VIF value of 5 is considered a good threshold.</p>
+                                </li>
+                                <li>
+                                    <p>If \( \text{VIF} > 5 \), it suggests that the variable is very well
+                                        explained by other variables and can be excluded from the model.</p>
+                                </li>
+                                </ul>
+
+
+                                <h2 id="StepsofLinearReg">Steps of Linear Regression</h2>
+                                <h3>Steps in Implementing Linear Regression Model</h3>
+                                <ol>
+                                    <li>Importing libraries and dataset</li>
+                                    <li>Checking for multicollinearity and removing it</li>
+                                    <li>Scaling the dataset</li>
+                                    <li>Creating test and train partitions</li>
+                                    <li>Implementing the linear regression model using Scikit-learn</li>
+                                    <li>Generating predictions over the test set</li>
+                                    <li>Evaluating the model</li>
+                                    <li>Plotting the residuals</li>
+                                    <li>Verifying the assumptions of linear regression</li>
+                                    <li>Visualizing the coefficients to interpret the model result</li>
+                                </ol>
+
+                                <h2 id="OutcomeOfLinearReg">Outcome of Linear Regression</h2>
+                                <p>Before importing the dataset, it must be prepared under the following steps:
+                                    <strong>Preprocessing</strong>
+                                </p>
+                                <ol>
+                                    <li>Exploring the target and the independent variables</li>
+                                    <li>Treating the outliers and missing values in independent and target variables
+                                    </li>
+                                    <li>Transforming the categorical variables into numerical variables using dummy
+                                        encoding</li>
+                                </ol>
+
+                                <p>The implementation of these steps is described in my Python .ipynb notebook. Click on
+                                    the icon to access it.</p>
+
+                                <h3>Some Important Interpretations from the Models:</h3>
+                                <div id="image">
+                                    <img src="MLNotesIMGs/27.png" alt="">
+                                </div>
+                                <ul>
+                                    <li>Most of the residuals are densely populated between limits 200,000 and -200,000,
+                                        so we can say residuals are normally distributed.</li>
+                                    <li>However, the residual plot resembles neither a cone shape nor a pipe shape, so
+                                        there is still room for improvement in the data.</li>
+                                    <li>Additionally, there are some outliers.</li>
+                                </ul>
+
+                                <h3>Residual Plot Interpretation:</h3>
+                                <div id="image">
+                                    <img src="MLNotesIMGs/28.png" alt="">
+                                </div>
+                                <ul>
+                                    <li>This is a plot between residual (error) and their frequency counts.</li>
+                                    <li>The residuals are approximately normal, so one of our assumptions of linear
+                                        regression holds true.</li>
+                                    <li>Note that there are still some outliers on the far right.</li>
+                                </ul>
+
+                                <h3>Outcome of Regression Modelling:</h3>
+                                <div id="image">
+                                    <img src="MLNotesIMGs/29.png" alt="">
+                                </div>
+                                <ul>
+                                    <li>Zip code has the highest coefficient, indicating that location plays a major
+                                        role in determining sale price.</li>
+                                    <li>The area of the house and overall grade also have a significant impact on the
+                                        sale price.</li>
+                                    <li>Year since renovation is negatively significant, meaning customers are more
+                                        likely to buy houses that are recently renovated.</li>
+                                    <li>Longitude is negatively significant, while Latitude is positively significant,
+                                        suggesting a geographical dependency in the sale prices.</li>
+                                </ul>
+                    </section>
+
+
+                    <section id="next">
+                        <a href="Chapter6.html#Chapter6">NEXT--></a>
+                    </section>
+                </article>
+            </main>
+        </div>
+    </div>
+
+    <!-- Load scripts with defer -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script defer src="../../assets/js/globalblog.js"></script>
+
+
+    <!-- Fallback for Prism if CDN fails -->
+    <script>
+        window.addEventListener('load', function () {
+            if (typeof Prism === 'undefined') {
+                console.error('Prism failed to load');
+                // Add a class to show code without highlighting
+                document.querySelectorAll('pre code').forEach(block => {
+                    block.classList.add('no-highlight');
+                });
+            }
+        });
+    </script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+
+</body>
+
+</html>
