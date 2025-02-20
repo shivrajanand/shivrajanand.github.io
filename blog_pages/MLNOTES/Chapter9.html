@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chapter7: Logistic Regression</title>
+    <link rel="stylesheet" href="../../assets/css/globalblog.css">
+    <!-- Load Prism CSS files with defer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <!-- Add error handling for script loading -->
+    <script>
+        window.addEventListener('error', function (e) {
+            if (e.target.tagName === 'SCRIPT') {
+                console.error('Script loading failed:', e.target.src);
+                alert('Failed to load script: ' + e.target.src);
+            }
+        }, true);
+    </script>
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 60px;
+            /* Adjust based on your navbar height */
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+
+        #image {
+            width: 100%;
+            /* Or a specific width */
+            height: auto;
+            /* Or any height you prefer */
+            overflow: hidden;
+            /* Ensures no overflow */
+            display: flex;
+            flex-direction: column;
+            /* Stack children (image and caption) vertically */
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            /* Border around the container */
+        }
+
+        [data-theme="dark"] #image {
+            border: 1px solid white;
+            /* Dark mode border color */
+        }
+
+        #image figure {
+            width: 100%;
+            /* Ensure the figure takes up the full width */
+            margin: 0;
+            text-align: center;
+            /* Center align the caption */
+        }
+
+        #image img {
+            width: 100%;
+            /* Ensures the image takes the full width of the container */
+            height: auto;
+            /* Maintains the aspect ratio */
+            object-fit: contain;
+            /* Ensure the image fits within the div */
+        }
+
+        #image figcaption {
+            font-size: 1em;
+            /* Caption text size */
+            margin-top: 10px;
+            /* Space between the image and caption */
+            color: #333;
+            /* Text color */
+            font-style: italic;
+            /* Italicize caption text */
+            text-align: center;
+            border-top: 2px solid #ccc;
+            /* Border between image and caption */
+            padding-top: 5px;
+            /* Space between image and border */
+            padding-bottom: 15px;
+            /* Space below the caption for a clean look */
+            width: 100%;
+            /* Ensures the caption takes up the full width */
+        }
+
+
+        [data-theme="dark"] #image figcaption {
+            color: white;
+            border: white 1px solid;
+        }
+
+
+
+        p {
+            text-align: justify;
+        }
+
+        /* Unordered List Style */
+        ul {
+            list-style-type: none;
+        }
+
+        ul .li {
+            margin-bottom: 10px;
+        }
+
+        [data-theme="dark"] li a {
+            color: white;
+        }
+
+
+        @media (max-width: 768px) {
+            #image {
+                width: 100%;
+                /* or a specific width */
+                /* or any height you prefer */
+                overflow: hidden;
+                /* Ensures no overflow */
+            }
+
+            #image img {
+                width: 100%;
+                object-fit: contain;
+                /* Ensure the image fits within the div while maintaining its aspect ratio */
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
+        .notebook {
+            width: 100%;
+            margin: auto;
+        }
+
+        .cell {
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            width: 100%;
+            color: currentColor;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 10px 0;
+        }
+
+        .input,
+        .output {
+            padding: 10px;
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        pre {
+            overflow-x: auto;
+            text-align: left;
+        }
+
+        @media (max-width: 600px) {
+            .notebook {
+                width: 100%;
+                padding: 10px;
+            }
+        }
+
+        .graph-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .graph-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .graph-img {
+            flex: 1;
+            text-align: center;
+        }
+
+        .graph-img img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .graph-desc {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: var(--card-bg);
+            color: var(--text-color, #333);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .graph-desc h3 {
+            margin-bottom: 5px;
+        }
+
+        .graph-desc p {
+            margin: 0;
+            font-size: 14px;
+        }
+
+        /* Mobile View: 1-column layout */
+        @media (max-width: 768px) {
+            .graph-container {
+                grid-template-columns: 1fr;
+            }
+
+            .graph-item {
+                flex-direction: column;
+            }
+
+            .graph-img,
+            .graph-desc {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-3MEXW2XNBM');
+</script>
+
+<body>
+    <div class="app">
+        <!-- Mobile Nav Overlay -->
+        <div id="navOverlay" class="nav-overlay hidden"></div>
+
+        <!-- Navigation -->
+        <nav id="sidebar" class="sidebar">
+            <div class="nav-content">
+                <button id="closeNav" class="close-nav">&times;</button>
+                <h2 class="nav-title">INDEX</h2>
+                <div class="chapters">
+                    <div class="chapter">
+                        <h2><a href="Chapter1.html#chapter0">0. Links & Overview</a></h2>
+                        <ul>
+                            <li>Notes PDF Download Link</li>
+                            <li>Github Repo Link</li>
+                            <li>Project 1: Kaggle</li>
+                            <li>Project 2: Kaggle</li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2><a href="#chapter1">1. Getting started with Machine Learning</a></h2>
+                        <ul>
+                            <li><a href="Chapter1.html#WhatisMachineLearning">What is Machine Learning?</a></li>
+                            <li><a href="Chapter1.html#HowMachineLearningWorks">How Machine Learning Works</a></li>
+                            <li><a href="Chapter1.html#TypesofMachineLearning">Types of Machine Learning</a></li>
+                            <li><a href="Chapter1.html#TypesofData">Types of Data</a></li>
+                        </ul>
+                    </div>
+                    <div class="chapter">
+                        <h2><a href="Chapter2.html#chapter2">2. Graphical & Analytical Representation of Data</a></h2>
+                        <ul>
+                            <li><a href="Chapter2.html#DataAnalysis&EDA">Data Analysis & EDA</a></li>
+                            <li><a href="Chapter2.html#GraphicalRepresentationofData">Graphical Representation of
+                                    data</a></li>
+                            <li><a href="Chapter2.html#LimitationOfTraditionalDA">Limitation of traditional Data
+                                    Analysis</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter3.html#chapter3">3. Python as a Data-Analysis Tool</a></h2>
+                        <ul>
+                            <li><a href="Chapter3.html#WhyPython">Why Python?</a></li>
+                            <li><a href="Chapter3.html#JupyterNotebook">Jupyter Notebook</a></li>
+                            <li><a href="Chapter3.html#PythonDataTypes">Data Types in Python</a></li>
+                            <li><a href="Chapter3.html#BasicOperations">Basic Operations</a></li>
+                            <li><a href="Chapter3.html#PythonConstructs">Condition Statements & Loops</a></li>
+                            <li><a href="Chapter3.html#PythonFunctions">Functions in Python</a></li>
+                            <li><a href="Chapter3.html#BasicLibraries">Basic Libraries</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter4.html#chapter4">4. Basic Data Exploration</a></h2>
+                        <ul>
+                            <li><a href="Chapter4.html#PandasDataframe">Pandas Dataframe</a></li>
+                            <li><a href="Chapter4.html#DescriptiveStatistics">Descriptive Statistics of Data</a></li>
+                            <li><a href="Chapter4.html#Numpy">Numpy: A Statistics Module in Python</a></li>
+                            <li><a href="Chapter4.html#Matplotlib">Matplotlib: Graph Plotting</a></li>
+                            <li><a href="Chapter4.html#Pandas">Pandas: Some important Functions</a></li>
+                            <li><a href="Chapter4.html#Univariate">Univariate Analysis</a></li>
+                            <li><a href="Chapter4.html#Outliers">Treating Outliers</a></li>
+                            <li><a href="Chapter4.html#Correlation">Correlation</a></li>
+                            <li><a href="Chapter4.html#ANOVA">ANOVA</a></li>
+                            <li><a href="Chapter4.html#TrainingDatasets">Creating Training Datasets</a></li>
+                            <li><a href="Chapter4.html#FeatureScaling">FeatureScaling</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter5.html#chapter5">5. Regression Modelling</a></h2>
+                        <ul>
+                            <li><a href="Chapter5.html#RegressionIntroduction">Introduction</a></li>
+                            <li><a href="Chapter5.html#ModelEvaluationMetrics">Model Evaluation Metrics</a></li>
+                            <li><a href="Chapter5.html#LinearRegression">Linear Regressin</a></li>
+                            <li><a href="Chapter5.html#CostFunctionCurve">Cost Function Curve</a></li>
+                            <li><a href="Chapter5.html#GradientDescent">Gradient Descent</a></li>
+                            <li><a href="Chapter5.html#AssumptionsofLinearReg">Assumptions of Linear Regression</a></li>
+                            <li><a href="Chapter5.html#StepsofLinearReg">Steps of Linear Regression</a></li>
+                            <li><a href="Chapter5.html#OutcomeOfLinearReg">Outcome of Linear Regression</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter6.html#chapter6">6. Feature Engineering</a></h2>
+                        <ul>
+                            <li><a href="Chapter6.html#FetEngIntroduction">Introduction</a></li>
+                            <li><a href="Chapter6.html#TransformationTech">Transformation Techniques</a></li>
+                            <li><a href="Chapter6.html#CategoricalEncoding">Categorical Encoding</a></li>
+                            <li><a href="Chapter6.html#FeatureExtraction">Feature Extraction</a></li>
+                            <li><a href="Chapter6.html#DimensionalityReduction">Dimensionality Reduction</a></li>
+                            <li><a href="Chapter6.html#AdvancedDimensionalityReduction">Advanced Dimensionality
+                                    Reduction</a></li>
+                            <li><a href="Chapter6.html#ForwardSelection">Forward Selection</a></li>
+                            <li><a href="Chapter6.html#BackwardSelection">Backward Selection</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#chapter7">7. Logistic Regression</a></h2>
+                        <ul>
+                            <li><a href="#LogisticIntroduction">Introduction</a></li>
+                            <li><a href="#LogisticEvalMetric">Evaluation Metrics</a>
+                                <ul>
+                                    <li><a href="#ConfusionMatrix">Confusion Matrix</a></li>
+                                    <li><a href="#Accuracy">Accuracy</a></li>
+                                    <li><a href="#Precision">Precision</a></li>
+                                    <li><a href="#Recall">Recall</a></li>
+                                    <li><a href="#LogLoss">Log Loss Model</a></li>
+                                    <li><a href="#AucRoc">AUC ROC Curve</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="#Implement">Implementation</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="Chapter8.html#chapter8">8. Decision Trees</a></h2>
+                        <ul>
+                            <li><a href="Chapter8.html#paravsnonpara">Parametric v/s Non-Parametric Models</a></li>
+                            <li><a href="Chapter8.html#WorkingofDT">Working of Decision Trees</a></li>
+                            <li><a href="Chapter8.html#TypesofDT">Types of Decision Trees</a></li>
+                            <li><a href="Chapter8.html#Splitting">Splitting Criteria of Tree Nodes</a>
+                                <ul>
+                                    <li><a href="Chapter8.html#gini">Gini Impurity</a></li>
+                                    <li><a href="Chapter8.html#IG">Information Gain</a></li>
+                                    <li><a href="Chapter8.html#gini">Decision Tree Regressor</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="Chapter8.html#Implementation">Implementation</a>
+                                <ul>
+                                    <li><a href="Chapter8.html#Initiation">Initiation</a></li>
+                                    <li><a href="Chapter8.html#Visualization">Visualization</a></li>
+                                    <li><a href="Chapter8.html#Improvements">HyperParameter Tuning</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#chapter9">8. Decision Trees</a></h2>
+                        <ul>
+                            <li><a href="#Introduction">Ensemble Models</a></li>
+                            <li><a href="#Bagging">Bagging: Random Forest</a></li>
+                            <li><a href="#Implementation">Implementation</a></li>
+                            <li><a href="#Tuning">Hyper Parameter Tuning</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <button id="menuButton" class="menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </button>
+                <button id="themeToggle" class="theme-toggle">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path d="M12 2v2" />
+                        <path d="M12 20v2" />
+                        <path d="m4.93 4.93 1.41 1.41" />
+                        <path d="m17.66 17.66 1.41 1.41" />
+                        <path d="M2 12h2" />
+                        <path d="M20 12h2" />
+                        <path d="m6.34 17.66-1.41 1.41" />
+                        <path d="m19.07 4.93-1.41 1.41" />
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    </svg>
+                </button>
+            </header>
+
+            <!-- Content -->
+            <main class="content">
+                <article class="article">
+                    <section id="chapter9">
+                        <h2 id="Introduction">Ensemble Models</h2>
+                        <p>The idea behind <strong>Ensemble Modeling</strong> is that using multiple models together
+                            often leads to better predictions than using a single model. The final prediction is based
+                            on the combined results of individual models.</p>
+
+                        <h3>Methods of Ensemble Modeling</h3>
+                        <ul>
+                            <li><strong>Mode/Vote (for Classification):</strong> In this method, we create <em>n</em>
+                                models, each predicting a category. The final prediction is the <strong>mode</strong>
+                                (most frequently occurring value) among them.</li>
+                            <li><strong>Averaging (for Regression):</strong> For continuous variables, we take the
+                                <strong>average</strong> of predictions from different models to determine the final
+                                output.
+                            </li>
+                        </ul>
+
+                        <h3>Pros of Ensemble Modeling</h3>
+                        <ul>
+                            <li>Captures diverse signals and patterns.</li>
+                            <li>Reduces incorrect predictions.</li>
+                            <li>Minimizes overfitting.</li>
+                            <li>Improves overall model performance.</li>
+                        </ul>
+
+                        <h3>Cons of Ensemble Modeling</h3>
+                        <ul>
+                            <li>Increases model complexity.</li>
+                            <li>Lacks interpretability, which can be a concern in business and finance.</li>
+                            <li>Requires more computational resources.</li>
+                        </ul>
+
+
+                        <h2 id="Bagging">Bagging: Random Forest</h2>
+                        <p><strong>Bootstrap Sampling</strong> is a method of creating different training datasets for
+                            models by randomly sampling from the original dataset <em>with replacement</em>.</p>
+
+                        <h3>How Bootstrap Sampling Works?</h3>
+                        <ul>
+                            <li>Each model receives a <strong>random sample</strong> from the original dataset.</li>
+                            <li>Sampling is done <strong>with replacement</strong>, meaning the same data point can
+                                appear multiple times.</li>
+                            <li>For example, if we have 26 data points: <code>a, b, c, d, …, z</code>:
+                                <ul>
+                                    <li>We randomly pick one data point and place it in <strong>Bootstrap Sample
+                                            1</strong>.</li>
+                                    <li>This process is repeated <strong>26 times</strong> (allowing repetitions) until
+                                        the sample is complete.</li>
+                                    <li>Similarly, we can create multiple bootstrap samples for different models.</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                        <h3>Mathematical Interpretation</h3>
+                        <p>For <strong>n</strong> data points, a total of <strong>n!</strong> bootstrap samples can be
+                            created.</p>
+                        <div class="random-forest-container">
+                            <h2>Random Forest: A Special Case of Bagging</h2>
+
+                            <p><strong>Random Forest</strong> is an ensemble learning method where multiple decision
+                                trees are trained, and their predictions are combined to make the final decision.</p>
+
+                            <h3>How Random Forest Works?</h3>
+                            <ul>
+                                <li>The base model for Random Forest is a <strong>Decision Tree</strong>.</li>
+                                <li>Each tree in the forest makes an independent prediction.</li>
+                                <li>The final prediction is made by <strong>combining</strong> the results of all trees
+                                    (majority vote for classification, average for regression).</li>
+                            </ul>
+
+                            <h3>Randomness in Random Forest</h3>
+                            <ul>
+                                <li><strong>Row Sampling (Data Sampling):</strong>
+                                    <ul>
+                                        <li>Each tree is trained on a <strong>random subset</strong> of data (bootstrap
+                                            sampling).</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Feature Sampling:</strong>
+                                    <ul>
+                                        <li>At <strong>each split</strong>, a random subset of features is considered
+                                            instead of using all features.</li>
+                                    </ul>
+                                </li>
+                            </ul>
+
+                            <p>This results in a **two-fold randomness effect**:
+                                <br>✔ Data randomness (at tree level)
+                                <br>✔ Feature randomness (at split level)
+                            </p>
+                        </div>
+
+
+                        <h2 id="Implementation">Implementation</h2>
+                        <h2 id="Tuning">Hyper Parameter Tuning</h2>
+                    </section>
+                    <section id="next">
+                        <a href="Chapter10.html#Chapter10">NEXT--></a>
+                    </section>
+
+
+                </article>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Load scripts with defer -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script defer src="../../assets/js/globalblog.js"></script>
+
+
+    <!-- Fallback for Prism if CDN fails -->
+    <script>
+        window.addEventListener('load', function () {
+            if (typeof Prism === 'undefined') {
+                console.error('Prism failed to load');
+                // Add a class to show code without highlighting
+                document.querySelectorAll('pre code').forEach(block => {
+                    block.classList.add('no-highlight');
+                });
+            }
+        });
+    </script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+
+</body>
+
+</html>

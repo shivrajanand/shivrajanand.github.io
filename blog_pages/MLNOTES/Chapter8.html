@@ -735,6 +735,9 @@
 
                                 <h2 id="Implementation">Implementation</a>
                                     <h2 id="Initiation">Initiation</h2>
+                                    <p>he data we are using is the same as used in the logistic regression modelling.
+                                        Target variable is still the ‘churn’ variable. We used the Decision Tree
+                                        Classifier class of tree module of Sklearn library. </p>
                                     <div class="notebook">
                                         <div class="cell">
                                             <pre><code>from sklearn.tree import DecisionTreeClassifier as DTC<br>classifier = DTC(class_weight='balanced')<br># classifier = DTC()</code></pre>
@@ -742,11 +745,19 @@
                                             <pre><code>predicted_values[:30]</code></pre>
                                             <pre>array([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0,<br>           0, 0, 0, 0, 1, 0, 1, 0], dtype=int64)</pre>
                                         </div>
-
+                                    </div>
+                                    <p>It is clearly visible from the classification reports that when used on
+                                        training data the model shows a perfect score of 1 but when the same model is
+                                        used on test data the metrics drops significantly. This is due to Overfitting of
+                                        model.</p>
+                                    <p>The classifier model tries to learn each and every data from the training set but
+                                        suffers radically when it comes to applying it on the test set. </p>
+                                    <div class="notebook">
                                         <div class="cell">
-                                            <pre><code>#classification report <br> from sklearn.metrics import classification_report <br> print(classification_report(y_train, predicted_values))</code></pre>
+                                            <div class="cell">
+                                                <pre><code>#classification report <br> from sklearn.metrics import classification_report <br> print(classification_report(y_train, predicted_values))</code></pre>
 
-                                            <pre><table style="width: 50%; border-collapse: collapse; text-align: center; font-family: Arial, sans-serif; border: 1px solid #ddd;">
+                                                <pre><table style="width: 50%; border-collapse: collapse; text-align: center; font-family: Arial, sans-serif; border: 1px solid #ddd;">
                                                 <thead>
                                                     <tr>
                                                         <th >  </th>
@@ -795,12 +806,12 @@
                                                 </tbody>
                                             </table>
                                             </pre>
-                                        </div>
+                                            </div>
 
-                                        <div class="cell">
-                                            <pre><code>predicted_values = classifier.predict(X_test) <br> print(classification_report(y_test, predicted_values))</code></pre>
+                                            <div class="cell">
+                                                <pre><code>predicted_values = classifier.predict(X_test) <br> print(classification_report(y_test, predicted_values))</code></pre>
 
-                                            <pre><table style="width: 50%; border-collapse: collapse; text-align: center; font-family: Arial, sans-serif; border: 1px solid #ddd;">
+                                                <pre><table style="width: 50%; border-collapse: collapse; text-align: center; font-family: Arial, sans-serif; border: 1px solid #ddd;">
                                                 <thead>
                                                     <tr>
                                                         <th >    </th>
@@ -849,106 +860,176 @@
                                                 </tbody>
                                             </table>
                                             </pre>
+                                            </div>
+
+                                        </div>
+                                        <p>Due to the memorizing nature of the classifier instance the model shows
+                                            perfect score in training classification reports but a significantly low
+                                            score in testing classification report.</p>
+                                        <p>If the model is performing too well on the training data but the performance
+                                            drops significantly over the test it is called the overfitting model or
+                                            Memorizing model.
+                                            If the model is not learning and consistently performing poorly over the
+                                            test and the train set then it is called the underfitting model.
+                                            When a model shows almost equal results over both train and test set it is
+                                            called best fit model.
+                                        </p>
+                                        <div class="overfitting-analysis">
+                                            <h3>Why Did the Decision Tree Overfit While the Linear Model Didn’t?</h3>
+
+                                            <p>The primary reason for this difference lies in the nature of the models:
+                                            </p>
+
+                                            <ul>
+                                                <li><strong>Linear models</strong> are <span
+                                                        style="color: var(--highlight-color);">parametric</span> models,
+                                                    meaning they have a fixed and finite set of parameters to learn
+                                                    from the data.</li>
+                                                <li><strong>Decision trees</strong> are <span
+                                                        style="color: var(--highlight-color);">non-parametric</span>
+                                                    models, meaning they continue learning from the data until no
+                                                    further patterns remain.</li>
+                                            </ul>
+
+                                            <h3>Visualizing Overfitting with Graphviz</h3>
+                                            <p>To understand the depth and complexity of our decision tree, we can use
+                                                the <strong>Graphviz</strong> module in Python to visualize its
+                                                structure.</p>
                                         </div>
 
-                                    </div>
-                                    <h2 id="Visualization">Visualization</h2>
-                                    <div class="notebook">
-                                        <div class="cell">
-                                            <pre><code>from sklearn.tree import export_graphviz<br>export_graphviz(decision_tree=classifier, <br>out_file='tree_viz', <br>max_depth=None, <br>feature_names=X.columns, <br>label=None, impurity=False)<br>
+                                        <h2 id="Visualization">Visualization</h2>
+
+
+                                        <h3>Step 1: Generating the Tree Structure</h3>
+                                        <ul>
+                                            <li>First, we generate the tree structure using the classifier instance.
+                                            </li>
+                                            <li>We use the <code>export_graphviz</code> function to create an
+                                                intermediary file containing information about the nodes and
+                                                edges of the tree.</li>
+                                        </ul>
+
+                                        <h3>Step 2: Creating a Visual Representation</h3>
+                                        <ul>
+                                            <li>Using the <strong>Graphviz</strong> module, we convert this file into a
+                                                PNG image.</li>
+                                            <li>This process creates a tree visualization that can be easily
+                                                analyzed.</li>
+                                        </ul>
+
+                                        <h3>Understanding the Output</h3>
+                                        <ul>
+                                            <li>The full decision tree is extremely large and difficult to interpret
+                                                without zooming in.</li>
+                                            <li>By analyzing the leaf nodes, we can conclude that the tree
+                                                memorizes the dataset, leading to an overfitted model.</li>
+                                        </ul>
+                                        <div class="notebook">
+                                            <div class="cell">
+                                                <pre><code>from sklearn.tree import export_graphviz<br>export_graphviz(decision_tree=classifier, <br>out_file='tree_viz', <br>max_depth=None, <br>feature_names=X.columns, <br>label=None, impurity=False)<br>
                                         </code></pre>
-                                        </div>
-                                        <div class="cell">
-                                            <pre><code>from graphviz import render<br>render(filepath='tree_viz', <br>format='png', <br>engine='neato')<br>
+                                            </div>
+                                            <div class="cell">
+                                                <pre><code>from graphviz import render<br>render(filepath='tree_viz', <br>format='png', <br>engine='neato')<br>
                                         </code></pre>
-                                            <pre><div id="image"><figcaption>tree_viz.png</figcaption><img src="MLNotesIMGs/40.png" alt="tree_viz.png" style="width: 100%; height: auto;"></div></pre>
+                                                <pre><div id="image"><figcaption>tree_viz.png</figcaption><img src="MLNotesIMGs/40.png" alt="tree_viz.png" style="width: 100%; height: auto;"></div></pre>
+                                            </div>
+
                                         </div>
 
-                                    </div>
 
-                                    <h2 id="Improvements">HyperParameter Tuning</h2>
-                                    <p>
-                                        These methods are used to prevent overfitting in decision trees.
-                                        Pruning is the technique of preventing a decision tree from overfitting by
-                                        tuning its characteristics
-                                        To analyse the effect of different hyperparameter of decision tree on the
-                                        train-test score we created two function as shown in figure. The effect function
-                                        plots the curve between train and test score.
+                                        <h2 id="Improvements">HyperParameter Tuning</h2>
+                                        <p>
+                                            These methods are used to prevent overfitting in decision trees.
+                                            Pruning is the technique of preventing a decision tree from overfitting by
+                                            tuning its characteristics
+                                            To analyse the effect of different hyperparameter of decision tree on the
+                                            train-test score we created two function as shown in figure. The effect
+                                            function
+                                            plots the curve between train and test score.
 
-                                    </p>
-                                    <div class="graph-container">
-                                        <!-- Graph 1 -->
-                                        <div class="graph-item">
-                                            <div class="graph-img">
-                                                <img src="MLNotesIMGs/41.png" alt="Graph 1">
+                                        </p>
+                                        <div class="graph-container">
+                                            <!-- Graph 1 -->
+                                            <div class="graph-item">
+                                                <div class="graph-img">
+                                                    <img src="MLNotesIMGs/41.png" alt="Graph 1">
+                                                </div>
+                                                <div class="graph-desc">
+                                                    <h3>Max Depth</h3>
+                                                    <p>On applying the score-effect function we created on the max-depth
+                                                        parameter of decision tree we can see that:
+                                                        As max depth increases the train score increases significantly
+                                                        but
+                                                        the test score on other hand decreases with it.
+                                                        Note that the train and test score both increased together till
+                                                        a
+                                                        point. After that point, we can say the tree started
+                                                        overfitting which led to the drastic decrease of train score and
+                                                        increase of train score.</p>
+                                                </div>
                                             </div>
-                                            <div class="graph-desc">
-                                                <h3>Max Depth</h3>
-                                                <p>On applying the score-effect function we created on the max-depth
-                                                    parameter of decision tree we can see that:
-                                                    As max depth increases the train score increases significantly but
-                                                    the test score on other hand decreases with it.
-                                                    Note that the train and test score both increased together till a
-                                                    point. After that point, we can say the tree started
-                                                    overfitting which led to the drastic decrease of train score and
-                                                    increase of train score.</p>
+
+                                            <!-- Graph 2 -->
+                                            <div class="graph-item">
+                                                <div class="graph-img">
+                                                    <img src="MLNotesIMGs/42.png" alt="Graph 2">
+                                                </div>
+                                                <div class="graph-desc">
+                                                    <h3>Min Sample Split</h3>
+                                                    <p>Min-sample-split tell the decision tree what is the minimum
+                                                        number of
+                                                        required observation in any given node in
+                                                        order to split it. (default = 2) For small parameters train and
+                                                        test
+                                                        score have large variation. For large values train
+                                                        and test score match accordingly. For very large values there is
+                                                        a
+                                                        dip for both train and test score which led to
+                                                        underfitting of data. Optimal range: 950-1000.</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Graph 3 -->
+                                            <div class="graph-item">
+                                                <div class="graph-img">
+                                                    <img src="MLNotesIMGs/43.png" alt="Graph 3">
+                                                </div>
+                                                <div class="graph-desc">
+                                                    <h3>Max Leaf</h3>
+                                                    <p>Max leaf nodes specifies maximum terminal nodes allowed. For very
+                                                        low
+                                                        values tree is underfitting.
+                                                        For very high values tree is overfitting. According to this plot
+                                                        overfitting starts after 25.</p>
+                                                </div>
+                                            </div>
+
+                                            <!-- Graph 4 -->
+                                            <div class="graph-item">
+                                                <div class="graph-img">
+                                                    <img src="MLNotesIMGs/44.png" alt="Graph 4">
+                                                </div>
+                                                <div class="graph-desc">
+                                                    <h3>Min Sample Leaf</h3>
+                                                    <p>Min-sample-leaf denotes the minimum number of sample points to be
+                                                        present for splitting.
+                                                        Clearly as values keep on increasing the model escapes
+                                                        overfitting
+                                                        for a small range of values
+                                                        after which it starts to underfit.</p>
+                                                </div>
                                             </div>
                                         </div>
+                                        <p>
+                                            Macro parameters like max-depth prevents tree from growing on a macro level
+                                            and
+                                            other three parameters fine tune the decision tree on micro level.
+                                            So, a good practice is to first find the best range for the tree on a macro
+                                            level so that tree do not overfit and after that fine tune the other three
+                                            parameters.
 
-                                        <!-- Graph 2 -->
-                                        <div class="graph-item">
-                                            <div class="graph-img">
-                                                <img src="MLNotesIMGs/42.png" alt="Graph 2">
-                                            </div>
-                                            <div class="graph-desc">
-                                                <h3>Min Sample Split</h3>
-                                                <p>Min-sample-split tell the decision tree what is the minimum number of
-                                                    required observation in any given node in
-                                                    order to split it. (default = 2) For small parameters train and test
-                                                    score have large variation. For large values train
-                                                    and test score match accordingly. For very large values there is a
-                                                    dip for both train and test score which led to
-                                                    underfitting of data. Optimal range: 950-1000.</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- Graph 3 -->
-                                        <div class="graph-item">
-                                            <div class="graph-img">
-                                                <img src="MLNotesIMGs/43.png" alt="Graph 3">
-                                            </div>
-                                            <div class="graph-desc">
-                                                <h3>Max Leaf</h3>
-                                                <p>Max leaf nodes specifies maximum terminal nodes allowed. For very low
-                                                    values tree is underfitting.
-                                                    For very high values tree is overfitting. According to this plot
-                                                    overfitting starts after 25.</p>
-                                            </div>
-                                        </div>
-
-                                        <!-- Graph 4 -->
-                                        <div class="graph-item">
-                                            <div class="graph-img">
-                                                <img src="MLNotesIMGs/44.png" alt="Graph 4">
-                                            </div>
-                                            <div class="graph-desc">
-                                                <h3>Min Sample Leaf</h3>
-                                                <p>Min-sample-leaf denotes the minimum number of sample points to be
-                                                    present for splitting.
-                                                    Clearly as values keep on increasing the model escapes overfitting
-                                                    for a small range of values
-                                                    after which it starts to underfit.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <p>
-                                        Macro parameters like max-depth prevents tree from growing on a macro level and
-                                        other three parameters fine tune the decision tree on micro level.
-                                        So, a good practice is to first find the best range for the tree on a macro
-                                        level so that tree do not overfit and after that fine tune the other three
-                                        parameters.
-
-                                    </p>
+                                        </p>
 
 
                     </section>
