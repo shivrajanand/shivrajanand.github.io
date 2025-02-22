@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Feedback</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e3f2fd;
+            color: #0d47a1;
+            text-align: center;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-radius: 20px;
+            background: linear-gradient(135deg, #0d47a1, #1976d2);
+            color: white;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: slideDown 0.5s ease-out;
+        }
+
+        .header h1 {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.7);
+            animation: glow 1.5s infinite alternate;
+        }
+
+        @keyframes glow {
+            from {
+                text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+            }
+
+            to {
+                text-shadow: 0 0 20px rgba(255, 255, 255, 1);
+            }
+        }
+
+        .nav-container {
+            display: flex;
+            align-items: center;
+            margin-left: auto;
+            /* Pushes it to the right */
+            gap: 15px;
+        }
+
+        .nav-buttons {
+            display: flex;
+            gap: 15px;
+            right: 0;
+        }
+
+        .nav-buttons a {
+            text-decoration: none;
+            color: white;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 8px 15px;
+            border-radius: 10px;
+            transition: background 0.3s;
+        }
+
+        .nav-buttons a:hover {
+            background: rgba(255, 255, 255, 0.4);
+        }
+
+        .toggle-btn {
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-left: auto;
+        }
+
+        .toggle-btn svg {
+            width: 30px;
+            height: 30px;
+            fill: white;
+            transition: transform 0.3s;
+        }
+
+        .toggle-btn:hover svg {
+            transform: rotate(20deg);
+        }
+
+        .dark-mode {
+            background-color: #0a192f;
+            color: #ffffff;
+        }
+
+        .dark-mode .header {
+            background: linear-gradient(135deg, #001f3f, #003366);
+        }
+
+        .dark-mode .toggle-btn svg {
+            fill: #ffcc00;
+        }
+
+        .container {
+            max-width: 600px;
+            height: 75vh;
+            margin: 30px auto;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            background: white;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .dark-mode .container {
+            background: #112240;
+            box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1);
+        }
+
+        .container:hover {
+            transform: scale(1.02);
+        }
+
+        iframe {
+            width: 100%;
+            height: 65vh;
+            border: none;
+        }
+
+        @media (max-width: 768px) {
+            .header {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-container {
+                margin-left: 1px;
+                /* Pushes it to the right */
+                gap: 15px;
+            }
+
+            .nav-buttons {
+                flex-direction: row;
+                align-items: center;
+                margin-top: 2px;
+            }
+
+            .nav-buttons a {
+                width: 100%;
+                text-align: center;
+                padding: 2px;
+            }
+
+            .container {
+                width: 90%;
+                padding: 15px;
+            }
+
+            
+        } 
+    </style>
+</head>
+
+<body onload="loadDarkMode()">
+    <div class="header">
+        <h1>ML Course Feedback</h1>
+        <div class="nav-container">
+            <div class="nav-buttons">
+                <a href="#">Portfolio</a>
+                <a href="#">Blog</a>
+                <a href="#">Course</a>
+            </div>
+            <button class="toggle-btn" onclick="toggleDarkMode()">
+                <svg id="toggle-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="12" cy="12" r="4" />
+                    <path d="M12 2v2" />
+                    <path d="M12 20v2" />
+                    <path d="m4.93 4.93 1.41 1.41" />
+                    <path d="m17.66 17.66 1.41 1.41" />
+                    <path d="M2 12h2" />
+                    <path d="M20 12h2" />
+                    <path d="m6.34 17.66-1.41 1.41" />
+                    <path d="m19.07 4.93-1.41 1.41" />
+                </svg>
+            </button>
+        </div>
+    </div>
+    <div class="container">
+        <h2>We Value Your Feedback</h2>
+        <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSeusczKD0lMZCu9S7UqFWBlW6yIJ4XJlYu8wx_uAaAmlHJ2Pg/viewform?embedded=true"></iframe>
+    </div>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle("dark-mode");
+            const isDarkMode = document.body.classList.contains("dark-mode");
+            localStorage.setItem("darkMode", isDarkMode);
+            updateIcon(isDarkMode);
+        }
+
+        function loadDarkMode() {
+            const isDarkMode = localStorage.getItem("darkMode") === "true";
+            if (isDarkMode) {
+                document.body.classList.add("dark-mode");
+            }
+            updateIcon(isDarkMode);
+        }
+
+        function updateIcon(isDarkMode) {
+            const iconPath = document.getElementById("toggle-path");
+            if (isDarkMode) {
+                iconPath.setAttribute("d", "M12 4a8 8 0 1 0 0 16 8 8 0 0 0 0-16z"); // Moon icon
+            } else {
+                iconPath.setAttribute("d", "M12 2a1 1 0 0 1 1 1v2a1 1 0 0 1-2 0V3a1 1 0 0 1 1-1z..."); // Sun icon
+            }
+        }
+    </script>
+</body>
+
+</html>
