@@ -1,0 +1,1092 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Development of an Autocorrect System Using Language
+        and Channel Models</title>
+    <link rel="stylesheet" href="../assets/css/globalblog.css">
+    <!-- Load Prism CSS files with defer -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+
+
+    <style>
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: 60px;
+            /* Adjust based on your navbar height */
+        }
+
+        html,
+        body {
+            overflow-x: hidden;
+            width: 100%;
+        }
+
+        /* General styling for the h1 tag */
+        h1 {
+            font-size: 3em;
+            font-weight: bold;
+            text-align: center;
+            padding: 20px;
+            margin: 10px 0;
+            color: currentColor;
+            border-radius: 20px;
+            /* This makes the text color adapt to the current text color */
+            transition: color 0.3s ease;
+            /* Smooth transition for color change */
+        }
+
+        /* Light mode styles */
+        @media (prefers-color-scheme: light) {
+            h1 {
+                color: #333;
+                /* Dark color for text in light mode */
+                background-color: #f9f9f9;
+                /* Light background for light mode */
+            }
+        }
+
+        /* Dark mode styles */
+        @media (prefers-color-scheme: dark) {
+            h1 {
+                color: #f0f0f0;
+                /* Light color for text in dark mode */
+                background-color: #333;
+                /* Dark background for dark mode */
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 1.5em;
+            }
+        } 
+        .pdf-container {
+            position: relative;
+            margin-top: 30px;
+            padding-top: 56.25%;
+            /* 16:9 Aspect Ratio */
+            overflow: hidden;
+            border-radius: 12px;
+        }
+
+        .pdf-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border: none;
+            border-radius: 8px;
+        }
+
+        p {
+            text-align: justify;
+        }
+
+        .button-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            /* Horizontally center */
+            align-items: center;
+            /* Vertically center */
+            height: 25vh;
+            /* Make the container full height of the viewport (optional) */
+        }
+
+        /* Styles for the notebook */
+        .notebook {
+            width: 100%;
+            margin: 0 auto;
+            padding: 10px;
+            /* Minimal padding */
+            box-sizing: border-box;
+        }
+
+        /* Cell style inside the notebook */
+        .cell {
+            background-color: rgba(0, 0, 0, 0.05);
+            border-radius: 5px;
+            padding: 10px;
+            /* Minimal padding */
+            width: 100%;
+            color: currentColor;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            /* Subtle shadow */
+            margin: 5px 0;
+            /* Minimal margin */
+        }
+
+
+
+        /* Code block styling (pre and code) */
+        pre {
+            padding: 5px;
+            /* Minimal padding */
+            border-radius: 4px;
+            /* Smaller radius for a more compact look */
+            margin: 5px 0;
+            /* Minimal margin */
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            font-size: 15px;
+            /* Slightly smaller font for mobile */
+            line-height: 1.3;
+            /* Tight line height for better space utilization */
+            white-space: nowrap;
+            /* Prevent wrapping of long lines of code */
+            background-color: rgba(0, 0, 0, 0.05);
+            color: #212121;
+            border: 1px solid #ddd;
+            overflow-x: auto;
+            /* Horizontal scrolling */
+            overflow-y: hidden;
+            /* Disable vertical scroll if not needed */
+        }
+
+        pre code {
+            font-weight: bolder;
+        }
+
+        /* For dark mode */
+        [data-theme="dark"] pre {
+            background-color: rgba(0, 0, 0, 0.4);
+            color: #f5f5f5;
+            border: 1px solid #444;
+        }
+
+        /* Mobile view adjustments */
+        @media (max-width: 600px) {
+            .notebook {
+                padding: 5px;
+                /* Minimal padding for mobile */
+            }
+
+            .cell {
+                padding: 8px;
+                /* Slightly reduced padding for mobile */
+            }
+
+            pre {
+                padding: 3px;
+                /* Reduced padding for mobile */
+                font-size: 12px;
+                /* Smaller font for better fitting */
+                margin: 3px 0;
+                /* Minimal margin for mobile */
+                max-height: none;
+                /* No max-height to allow scrolling */
+                overflow-x: auto;
+                /* Enable horizontal scrolling */
+                white-space: nowrap;
+                /* Prevent line wrapping */
+            }
+        }
+
+        /* Default styles for light mode */
+        section h3 {
+            font-size: 1.5em;
+            font-weight: 600;
+            color: #000000;
+            margin: 10px 0;
+            padding: 5px 0;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid #e0e0e0;
+            transition: color 0.3s ease, transform 0.3s ease, border-bottom-color 0.3s ease;
+        }
+
+        /* Hover effect */
+        section h3:hover {
+            color: #007bff;
+            transform: translateX(5px);
+            border-bottom-color: #007bff;
+        }
+
+        [data-theme="dark"] section h3 {
+            color: #dbcaca;
+            /* Lighter color for dark mode */
+            border-bottom: 2px solid #444;
+            /* Darker border for dark mode */
+        }
+
+        [data-theme="dark"] section h3:hover {
+            color: #ff6347;
+            /* Change color to a warm color (e.g., tomato) for dark mode hover */
+            transform: translateX(5px);
+            /* Slight movement to the right on hover */
+            border-bottom-color: #ff6347;
+            /* Change border color to tomato on hover */
+        }
+
+        .footer {
+            font-size: 14px;
+            color: var(--text-secondary);
+            margin-top: 30px;
+            text-align: center;
+            padding: 15px 0;
+            width: 100%;
+            background: var(--bg-primary);
+            box-shadow: 0px -2px 5px var(--shadow-color);
+        }
+
+        .footer a {
+            color: var(--text-hover);
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .footer a:hover {
+            color: var(--text-primary);
+        }
+    </style>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-3MEXW2XNBM');
+</script>
+
+<body>
+    <div class="app">
+        <!-- Mobile Nav Overlay -->
+        <div id="navOverlay" class="nav-overlay hidden"></div>
+
+        <!-- Navigation -->
+        <nav id="sidebar" class="sidebar">
+            <div class="nav-content">
+                <button id="closeNav" class="close-nav">&times;</button>
+                <h2 class="nav-title">Table of Contents</h2>
+                <div class="chapters">
+                    <div class="chapter">
+                        <h2><a href="#chapter1">Introduction</a></h2>
+                        <ul>
+                            <li><a href="#aboutheproject">Abstract</a></li>
+                            <li><a href="#introductionToAutocorrectSystems">Introduction to Autocorrect Systems</a></li>
+                            <li><a href="#importanceAndApplication">Importance and Applications</a></li>
+                            <li><a href="#problemStatement">Problem Statement</a></li>
+                            <li><a href="#bjectiveOfTheProject">Objective of the Project</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#chapter2">Dataset and Data Preprocessing</a></h2>
+                        <ul>
+                            <li><a href="#DatasetDescription">Dataset Description</a></li>
+                            <li><a href="#DataCleaningAndPreprocessing">Data Cleaning and Preprocessing</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#chapter3">Methodology</a></h2>
+                        <ul>
+                            <li><a href="#SpellingCorrectionAndTypesOfErrors">Spelling Correction and Types of
+                                    Errors</a></li>
+                            <li><a href="#ErrorCorrectionAlgorithmicApproach">Error Correction Algorithmic Approach</a>
+                            </li>
+                            <li><a href="#GeneratingCandidateWords">Generating Candidate Words</a></li>
+                            <li><a href="#LanguageModel">Language Model</a></li>
+                            <li><a href="#ChannelModel">Channel Model</a></li>
+                            <li><a href="#ModelCompilation">Model Compilation</a></li>
+                            <li><a href="#BuildingTheAutcorrectorFunction">Building the autcorrector function</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#chapter4">Conclusion</a></h2>
+                        <ul>
+                            <li><a href="#conclusion">Conclusion</a></li>
+                            <li><a href="#limitations">Limitations</a></li>
+                            <li><a href="#futureWorkAndImprovements">Future Work And Improvements</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#chapter5">References</a></h2>
+                    </div>
+
+                </div>
+            </div>
+        </nav>
+
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Header -->
+            <header class="header">
+                <button id="menuButton" class="menu-button">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <line x1="4" x2="20" y1="12" y2="12" />
+                        <line x1="4" x2="20" y1="6" y2="6" />
+                        <line x1="4" x2="20" y1="18" y2="18" />
+                    </svg>
+                </button>
+
+                <button id="themeToggle" class="theme-toggle">
+                    <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="4" />
+                        <path d="M12 2v2" />
+                        <path d="M12 20v2" />
+                        <path d="m4.93 4.93 1.41 1.41" />
+                        <path d="m17.66 17.66 1.41 1.41" />
+                        <path d="M2 12h2" />
+                        <path d="M20 12h2" />
+                        <path d="m6.34 17.66-1.41 1.41" />
+                        <path d="m19.07 4.93-1.41 1.41" />
+                    </svg>
+                    <svg class="moon-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                    </svg>
+                </button>
+
+                <div class="right-buttons">
+                    <a href="https://shivrajanand.github.io" class="btn">PORTFOLIO</a>
+                </div>
+            </header>
+
+            <!-- Content -->
+            <main class="content">
+                <article class="article">
+                    <h1>Development of an Autocorrect System Using Language and Channel
+                        Models</h1>
+                    <section id="chapter1">
+                        <h2>Introduction</h2>
+
+                        <h3 id="aboutheproject">Abstract</h3>
+                        <p>This paper presents a minor project completed as part of my <strong>7th semester</strong> in
+                            the <strong>B.Tech</strong> program in <strong>Computer Science and Technology</strong> at
+                            <strong>B. P. Mandal College of Engineering, Madhepura</strong>. The project focuses on the
+                            development of an <strong>autocorrect model</strong> using <strong>natural language
+                                processing (NLP)</strong> techniques. The primary objective is to design a system that
+                            can effectively identify and correct spelling errors in text data. The dataset used for this
+                            project is composed of public domain book excerpts from <strong>Project Gutenberg</strong>,
+                            along with a list of frequent words from the <strong>British National Corpus (BNC)</strong>
+                            and <strong>Vocabulary.com</strong>. This diverse dataset serves as a solid foundation for
+                            training the model, enabling it to handle real-world text with variations in spelling and
+                            vocabulary.
+                        </p>
+
+                        <p>The project was completed as part of an internship in <strong>NLP</strong> under the guidance
+                            of <strong>InternShala</strong>, where I gained valuable experience working with large-scale
+                            text data and applying machine learning algorithms. Throughout the internship, I explored
+                            different techniques in <strong>NLP</strong>, focusing on <em>text preprocessing</em>,
+                            <em>error detection</em>, and <em>word suggestion models</em>. The final model was evaluated
+                            for accuracy and performance, providing insights into the effectiveness of different methods
+                            for spelling correction.
+                        </p>
+
+                        <p>The full details of the project, including the code and dataset, can be accessed on my
+                            <u><a href="https://www.kaggle.com/shivrajanandai"><strong>Kaggle profile</strong></a></u>
+                            <a
+                                href="https://www.kaggle.com/code/shivrajanandai/development-of-an-autocorrect-system"><em>here</em></a>
+                            and the dataset can be
+                            downloaded from <a
+                                href="https://www.kaggle.com/datasets/shivrajanandai/spelling-corrector-dataset"><em>here</em></a>.
+                            This project
+                            contributes to the growing field of <strong>NLP</strong> and demonstrates practical
+                            applications of <strong>text correction systems</strong> in real-world scenarios.
+                        </p>
+                        <h3 id="introductionToAutocorrectSystems">Introduction to Autocorrect Systems</h3>
+                        <p>Autocorrect systems are designed to automatically correct spelling or grammatical errors in
+                            text.
+                            These systems play a crucial role in improving typing efficiency and enhancing user
+                            experience in
+                            digital communication platforms. By leveraging natural language processing and machine
+                            learning
+                            techniques, autocorrect systems can predict and correct errors in real-time.</p>
+
+
+                        <h3 id="importanceAndApplication">Importance and Applications</h3>
+                        <p>Autocorrect systems are essential for text input on mobile devices, word processors, and
+                            search
+                            engines. They help users to quickly compose text without the frustration of manually
+                            correcting
+                            errors. These systems are widely used in applications ranging from social media platforms to
+                            email
+                            clients and voice-to-text software.</p>
+
+                        <h3 id="problemStatement">Problem Statement</h3>
+                        <p>Despite significant advances, current autocorrect systems still struggle with handling
+                            contextsensitive
+                            errors, non-standard inputs, and complex misspellings. This project aims to address these
+                            challenges by developing an intelligent autocorrect system using language and channel
+                            models.</p>
+
+                        <h3 id="bjectiveOfTheProject">Objective of the Project</h3>
+                        <p>The primary objective of this project is to develop a simple yet effective autocorrect system
+                            using unigrams and the noisy channel model. By leveraging unigrams to predict the most
+                            probable
+                            word based on the given context and using the noisy channel model to detect and correct
+                            errors
+                            in typing, this approach aims to enhance the accuracy and usability of the autocorrect
+                            system in
+                            real-world scenarios.
+                            Note that the autocorrection system will be built without any explicit model training. The
+                            model is going to be purely probabilistic which has its own advantages as listed:</p>
+
+                        <ol style="margin-left: 25px;">
+                            <li><strong>Simplicity and Efficiency: </strong>The unigram model is computationally
+                                efficient, requiring no complex training and minimal processing time.</li>
+                            <li><strong>Low Memory Usage: </strong>It stores only word frequencies, making it
+                                lightweight
+                                and efficient in terms of memory.</li>
+                            <li><strong>Robust for Small Datasets: </strong>Works well with limited data, providing
+                                reasonable performance without needing large datasets.</li>
+                            <li><strong>Interpretability: </strong>The model is easy to understand and interpret, as it
+                                simply relies on word frequencies.</li>
+                            <li><strong>Lower Risk of Overfitting: </strong>Since there’s no complex model training, the
+                                unigram model avoids the risk of overfitting.</li>
+                            <li><strong>Robustness to Domain Variations: </strong>It performs well for common words and
+                                typical text, making it practical for general use cases.</li>
+                            <li><strong>Low Risk of Bias: </strong>Without training, the model avoids biases that may
+                                arise from data selection or learning processes.</li>
+                        </ol>
+                    </section>
+
+
+                    <section id="chapter2">
+                        <h2>Dataset and Data Preprocessing</h2>
+                        <h3 id="DatasetDescription">Dataset Description</h3>
+
+                        <p>The dataset for this project is composed of public domain book excerpts from Project
+                            Gutenberg, combined with a list of the most frequent words from the British National Corpus
+                            and Vocabulary.com. The dataset includes a wide range of words and phrases, providing a
+                            solid basis for training the autocorrect model.</p>
+
+                        <p>The dataset available to me was in the form of a .txt file.</p>
+
+                        <p>The dataset is formed majorly using two text sources:</p>
+
+                        <ol>
+                            <li><strong>Project Gutenberg Texts:</strong> Project Gutenberg is a large collection of
+                                public domain books, which includes thousands of literary works across different genres,
+                                time periods, and writing styles. The texts are freely available and widely used in
+                                research involving natural language processing (NLP). These texts contain various
+                                writing styles, character names, and vocabulary, which can introduce real-world spelling
+                                mistakes and variations. The excerpts from these books serve as the primary text source
+                                for identifying common spelling errors.</li>
+
+                            <li><strong>British National Corpus (BNC) and Vocabulary:</strong> The British National
+                                Corpus (BNC) is a widely used resource in linguistics and computational linguistics. It
+                                is a collection of samples of written and spoken English, compiled to be representative
+                                of modern British English. The dataset includes both frequent words from the BNC and
+                                other common English words. The vocabulary list acts as a reference for identifying
+                                correct word suggestions for misspelled words by comparing against common, correctly
+                                spelled words.</li>
+                        </ol>
+
+                        <ul>
+                            <li>The dataset (.txt file) contains 64,88,666 words.</li>
+                        </ul>
+
+                        <h3 id="DataCleaningAndPreprocessing">Data Cleaning and Preprocessing</h3>
+                        <p>Data preprocessing involves cleaning the dataset by removing irrelevant or noisy data,
+                            handling
+                            missing values, and ensuring the text is in a consistent format. This step is crucial to
+                            improve the
+                            performance of the model.</p>
+                        <p>In the preprocessing stage of the available dataset I only had to do two things:</p>
+                        <ol style="margin-left: 25px;">
+                            <li>Remove all the special characters and numbers from the dataset.</li>
+                            <li>Convert all the words to lowercase.</li>
+                        </ol>
+
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>import re <br>def words(text): <br>&emsp;&emsp;return re.findall(r’\w+’, text . lower ()) <br>words(file)</code></pre>
+                            </div>
+                        </div>
+
+                        <p>The next step of data preprocessing was to extract all the unique word set,
+                            <strong>Vocabulary</strong>. Using the Counter class from Collections to produce a
+                            dictionary containing count of each
+                            word in our dataset. This is needed to generate probabilistic language model.
+                        </p>
+
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>WORDS = Counter ( words ( file ))<br>len(WORDS)</code></pre>
+                                <pre>32,198</pre>
+                            </div>
+                        </div>
+
+                        <p>There are total of 32,198 unique words in the dataset hence the same is Vocabulary Size</p>
+                    </section>
+
+
+                    <section id="chapter3">
+                        <h2>Methodology</h2>
+                        <h3 id="SpellingCorrectionAndTypesOfErrors">Spelling Correction and Types of errors</h3>
+                        <p>Spelling correction is the process of detecting and correcting misspelled words in a given
+                            text.
+                            Spelling correction can be divided into two subtasks</p>
+                        <ul>
+                            <li><strong>Spelling checker:</strong> This types of system checks for spelling errors and
+                                report if found.</li>
+                            <li><strong>Autocorrector:</strong> These systems are an extension to spelling checker. Not
+                                only do they find
+                                and report a spelling mistake but also suggest and/or automatically corrects with the
+                                most
+                                appropriate word.</li>
+                        </ul>
+                        <br>
+                        <p>Spelling correction models typically rely on the concept of edit distance, which measures the
+                            number of changes (insertions, deletions, substitutions, and transpositions) required to
+                            transform a
+                            misspelled word into a valid word in the language. Given a misspelled word, the system
+                            generates
+                            candidate words by applying common spelling error transformations based on the most likely
+                            character-level edits. The correct word is then chosen based on its context in the sentence
+                            or its
+                            frequency in the language.</p>
+                        <p>To improve the system’s accuracy, language models are employed to predict the likelihood of
+                            a word in a given context. A probabilistic language model, such as an n-gram model, is used
+                            to determine which candidate word is the most probable based on the surrounding words.</p>
+
+                        <h3>Types of spelling errors</h3>
+                        <p>We can broadly classify the errors into <strong>3 major categories</strong>:</p>
+
+                        <ol style="margin-left: 20px;">
+                            <li style="margin-bottom: 10px;"><strong>Non-Word Errors</strong>
+                                <ul style="margin-left: 20px;">
+                                    <li style="margin-bottom: 10px;">In this type of error, the error word is an invalid
+                                        word.</li>
+                                    <li style="margin-bottom: 10px;"><em>Example:</em> Language is misspelled as
+                                        <u>"lanuage"</u> and Hello is misspelled as <u>"hellop"</u>.
+                                    </li>
+                                    <li style="margin-bottom: 10px;">To correct this kind of word, there are two steps:
+                                        <ol style="margin-left: 20px;">
+                                            <li style="margin-bottom: 5px;">Given input word <strong>w</strong>,
+                                                generate a set of candidate words.</li>
+                                            <li style="margin-bottom: 5px;">Pick the word with maximum probability
+                                                using a language model.</li>
+                                        </ol>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li style="margin-bottom: 10px;"><strong>Real-Word Errors</strong>
+                                <ul style="margin-left: 20px;">
+                                    <li style="margin-bottom: 10px;">In this type of error, the error word is a valid
+                                        word.</li>
+                                    <li style="margin-bottom: 10px;"><em>Example:</em> "three" is misspelled as
+                                        <u>"there"</u> and "bucked" is misspelled as <u>"buckled"</u>.
+                                    </li>
+                                    <li style="margin-bottom: 10px;">To correct this kind of word, there are three
+                                        steps:
+                                        <ol style="margin-left: 20px;">
+                                            <li style="margin-bottom: 5px;">Given input word <strong>w</strong>,
+                                                generate a set of candidate words.</li>
+                                            <li style="margin-bottom: 5px;">Pick the word with maximum probability
+                                                using a language model.</li>
+                                            <li style="margin-bottom: 5px;">Here, a noisy channel model or a
+                                                classifier is used additionally since we need to discard the word which
+                                                is real, but has no meaning in the context.</li>
+                                        </ol>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li style="margin-bottom: 10px;"><strong>Cognitive Errors (Homophonic Errors)</strong>
+                                <ul style="margin-left: 20px;">
+                                    <li style="margin-bottom: 10px;">In this type of error, the error word and correct
+                                        word are phonetically similar but differ in meaning or spelling.</li>
+                                </ul>
+                            </li>
+                        </ol>
+
+                        <h3 id="ErrorCorrectionAlgorithmicApproach">Error Correction Algorithmic Approach</h3>
+
+
+                        <ol style="margin-left: 20px;">
+                            <li style="margin-bottom: 10px;"><strong>Generate Candidate Words</strong>
+                                <ul style="margin-left: 20px;">
+                                    <li style="margin-bottom: 10px;">Words with similar spellings (Words having small
+                                        edit distance using string similarity).</li>
+                                </ul>
+                            </li>
+
+                            <li style="margin-bottom: 10px;"><strong>Language Model</strong>
+                                <ul style="margin-left: 20px;">
+                                    <li style="margin-bottom: 10px;">Probability of occurrence of each candidate word.
+                                    </li>
+                                    <li style="margin-bottom: 10px;">Can use any N-gram model.</li>
+                                </ul>
+                            </li>
+
+                            <li style="margin-bottom: 10px;"><strong>Channel Model</strong>
+                                <ul style="margin-left: 20px;">
+                                    <li style="margin-bottom: 10px;">Obtain \( P(x|w) \) using the noisy channel model.
+                                    </li>
+                                    <li style="margin-bottom: 10px;">del[x, y]: Count of <i>xy</i> typed as <i>x</i>.
+                                    </li>
+                                    <li style="margin-bottom: 10px;">ins[x, y]: Count of <i>x</i> typed as <i>xy</i>.
+                                    </li>
+                                    <li style="margin-bottom: 10px;">sub[x, y]: Count of <i>x</i> typed as <i>y</i>.
+                                    </li>
+                                    <li style="margin-bottom: 10px;">trans[x, y]: Count of <i>xy</i> typed as <i>yx</i>.
+                                    </li>
+                                    <li style="margin-bottom: 10px;">The formula for \( P(x|w) \) is as follows:
+                                        <p style="margin-left: 20px;">
+                                            $$
+                                            P(x|w) =
+                                            \begin{cases}
+                                            \frac{\text{del}[w_{i-1}, w_i]}{\text{count}[w_{i-1}w_i]} & \text{if
+                                            deletion} \\
+                                            \frac{\text{ins}[w_{i-1}, x_i]}{\text{count}[w_{i-1}]} & \text{if insertion}
+                                            \\
+                                            \frac{\text{sub}[x_i, w_i]}{\text{count}[w_i]} & \text{if substitution} \\
+                                            \frac{\text{trans}[w_i, w_{i+1}]}{\text{count}[w_i w_{i+1}]} & \text{if
+                                            transposition}
+                                            \end{cases}
+                                            $$
+                                        </p>
+                                    </li>
+                                </ul>
+                            </li>
+
+                            <li style="margin-bottom: 10px;"><strong>Probability of the Word</strong>
+                                <ul style="margin-left: 20px;">
+                                    <li style="margin-bottom: 10px;">For each candidate word, calculate \( P(x|w) \times
+                                        P(w) \).</li>
+                                    <li style="margin-bottom: 10px;">The product of the output of the language model and
+                                        channel model.</li>
+                                </ul>
+                            </li>
+                        </ol>
+
+
+                        <h3 id="GeneratingCandidateWords">Generating Candidate Words</h3>
+                        <p>Generating candidate words is the first step in the autocorrect process. This project uses
+                            edit
+                            distance algorithms and phonetic matching to generate a list of possible corrections for a
+                            given misspelled word. The candidates are ranked based on their likelihood of being the
+                            correct word.</p>
+
+                        <p>1. Firstly we generate all possible candidate words (whether they hold meaning or not) using
+                            insertion, deletion, substitution and transposition.</p>
+
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>def edits1 ( word ):<br>&emsp;&emsp;splits = [( word [:i], word [i:]) for i in range (len ( word ) + 1)]<br>&emsp;&emsp;insertion = [sw1 + c + sw2 for sw1 , sw2 in splits for c in letters ]<br>&emsp;&emsp;deletion = [sw1 + sw2 [1:] for sw1 , sw2 in splits if sw2]<br>&emsp;&emsp;substitution = [sw1 + c + sw2 [1:] for sw1 , sw2 in splits if sw2 for c in letters ]<br>&emsp;&emsp;transpose = [sw1 + sw2 [1] + sw2 [0] + sw2 [2:] for sw1 , sw2 in splits if len (sw2 ) >1]<br>&emsp;&emsp;return set ( deletion + insertion + substitution + transpose )</code></pre>
+                            </div>
+                        </div>
+
+                        <p>2. Next we filter out those candidate keys which are present in our vocabulary.</p>
+
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>def known (words):<br>&emsp;&emsp;return set (w for w in words if w in WORDS)</code></pre>
+                            </div>
+                        </div>
+
+                        <h3 id="LanguageModel">Language Model</h3>
+                        <p>The language model is responsible for predicting the most likely word in a given context. A
+                            statistical n-gram model is used, where the probability of a word is conditioned on the
+                            previous
+                            n − 1 words. This model helps to improve prediction accuracy by considering word sequence
+                            dependencies.</p>
+                        <p>The taks of our langauge model was to predict the probability of the occurence of a word in
+                            the
+                            vocabulary by using a very simple formula.</p>
+
+                        $$P(word) = \frac{\text{total occurence of word}}{\text{total number of words}}$$
+
+                        <p>To implement this I defined a function that return the probability of word:</p>
+
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>def P(word, N=sum(WORDS.values())):<br>&emsp;&emsp;return WORDS[word]/N</code></pre>
+                            </div>
+                            <div class="cell">
+                                <pre><code>P('the')</code></pre>
+                                <pre>0.07154004401278254</pre>
+                            </div>
+                        </div>
+
+                        <h3 id="ChannelModel">Channel Model</h3>
+                        <p>The channel model simulates the errors introduced during typing. It models the likelihood
+                            of different types of errors, such as substitutions, deletions, insertions, and
+                            transpositions. This
+                            model helps to estimate the probability of a word being misspelled and guides the
+                            autocorrect
+                            system in selecting the correct word.</p>
+                        <p>The channel model in my project aims to generate all the potential correction for a
+                            misspelled
+                            word by returning:</p>
+                        <ul>
+                            <li>The word itself, if it is correct</li>
+                            <li>Its possible edits (if its a common misspelling)</li>
+                            <li>Valid word from vocabulary that match the edits</li>
+                        </ul>
+
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>def candidates ( word ):<br>&emsp;&emsp;return list ( known ([ word ])) or list ( known ( edits1 ( word ))) or [ word ]</code></pre>
+                            </div>
+                            <div class="cell">
+                                <pre><code>candidates ('lanuage')</code></pre>
+                                <pre>['language']</pre>
+                            </div>
+                            <div class="cell">
+                                <pre><code>candidates ('the')</code></pre>
+                                <pre>['the']</pre>
+                            </div>
+                            <div class="cell">
+                                <pre><code>candidates ('lave')</code></pre>
+                                <pre>['lane','lava','ave','wave','late','lace','lame','gave','slave','love','dave','cave','have','save','leave','lake','live']</pre>
+                            </div>
+                        </div>
+
+                        <p>Next step is to select the word from set of candidates which have highest probability of
+                            being correct.</p>
+
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>def correction(word):<br>&emsp;&emsp;return max ( candidates ( word ), key =P)</code></pre>
+                            </div>
+                            <div class="cell">
+                                <pre><code>correction('lave')</code></pre>
+                                <pre>"have"</pre>
+                            </div>
+                            <div class="cell">
+                                <pre><code>correction('lanuage')</code></pre>
+                                <pre>"language"</pre>
+                            </div>
+                        </div>
+
+
+                        <h3 id="ModelCompilation">Model Compilation</h3>
+                        <p>Now that our probabilistic model is ready we need to compile all the steps together. Here is
+                            how a sample sentence is corrected step by step.</p>
+
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>sentence = "how are you"</code></pre>
+                            </div>
+                        </div>
+
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>tokens = sentence.split()<br>tokens</code></pre>
+                                <pre>["how","are","you"]</pre>
+                            </div>
+                        </div>
+
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>corrected_sentence = []<br>for i in range(len(tokens)):<br>&emsp;&emsp;corrected_token = correction(tokens[i])<br>&emsp;&emsp;corrected_sentence.append(corrected_token)</code></pre>
+                            </div>
+                            <div class="cell">
+                                <pre><code>corrected_sentence</code></pre>
+                                <pre>["how", "are", "you"]</pre>
+                            </div>
+                            <div class="cell">
+                                <pre><code>" ".join(corrected_sentence)</code></pre>
+                                <pre>"how are you"</pre>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <h3 id="BuildingTheAutcorrectorFunction">Building the autcorrector function</h3>
+                        <h4><strong>Algorithm of Autocorrector Function</strong></h4>
+                        <ol style="margin-left: 20px; padding-left: 20px;">
+                            <li style="margin-bottom: 10px;">The input sentence is converted into lowercase.</li>
+                            <li style="margin-bottom: 10px;"> <strong>Tokenization: </strong>The lowercased sentence is
+                                converted into words.</li>
+                            <li style="margin-bottom: 10px;">For each token:
+                                <ol style="margin-left: 20px; padding-left: 20px;">
+                                    <li style="margin-bottom: 10px;">The token is checked for any error and an
+                                        appropriate correction is returned:
+                                        <ul style="margin-left: 20px; padding-left: 20px;">
+                                            <li style="margin-bottom: 5px;">The word itself, if it is correct</li>
+                                            <li style="margin-bottom: 5px;">Its possible edits (if it's a common
+                                                misspelling)</li>
+                                            <li style="margin-bottom: 5px;">Valid word from vocabulary that match the
+                                                edits</li>
+                                        </ul>
+                                    </li>
+                                </ol>
+                            </li>
+                            <li style="margin-bottom: 10px;">This corrected token is added to the "correct sentence
+                                list".</li>
+                            <li style="margin-bottom: 10px;">Finally, a sentence is produced using the join function of
+                                the list.</li>
+                        </ol>
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>def sentence_corrector(sentence):<br>sentence = sentence.lower()<br>&emsp;&emsp;tokens = sentence.split()<br>&emsp;&emsp;corrected_sentence = []<br>&emsp;&emsp;for i in range(len(tokens)):<br>&emsp;&emsp;&emsp;&emsp;corrected_token = correction(tokens[i])<br>&emsp;&emsp;&emsp;&emsp;corrected_sentence.append(corrected_token)<br>&emsp;&emsp;return ' '.join(corrected_sentence)
+                                </code></pre>
+                            </div>
+                        </div>
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>sentence_corrector("natural lanuage processing")</code></pre>
+                                <pre>"natural language processing"</pre>
+                            </div>
+                        </div>
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>sentence_corrector("i am diing gret")</code></pre>
+                                <pre>"i am doing great"</pre>
+                            </div>
+                        </div>
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>sentence_corrector("natural lanuage processing")</code></pre>
+                                <pre>"natural language processing"</pre>
+                            </div>
+                        </div>
+
+
+
+                    </section>
+
+
+                    <section id="chapter4">
+                        <h2>Conclusion</h2>
+                        <h3 id="conclusion">Conclusion</h3>
+                        <p>In this project, we implemented an unigram-based autocorrect model through a probabilistic
+                            method and noisy channel model. The model performed extremely well (<strong>about
+                                100%</strong>) on its own dataset, revealing the strength of probabilistic error
+                            correction under some conditions. A major drawback, though, is that it relies heavily on
+                            unigrams, limiting the model's comprehension of word relations and context. Although it
+                            works fine on the same dataset, it falters when used across different datasets. It suggests
+                            that the system is suited for a particular set of datasets instead of being an overall
+                            autocorrect system.</p>
+
+                        <p>Although it has high accuracy on its training set, the model struggles with other datasets,
+                            highlighting its inappropriateness for general uses such as chatbots or mixed language
+                            environments. However, for <strong>specific applications</strong> where the data set is
+                            clearly defined, the system provides a streamlined solution with less storage and
+                            computational requirements than more sophisticated models such as neural networks.</p>
+
+                        <p>One of the greatest challenges was the small size of the dataset, with only <strong>6.6
+                                million words</strong>. While this was enough for initial testing, making it larger
+                            would increase coverage. Further, while the model gives important insights into
+                            probabilistic error correction, it could be improved by including more sophisticated
+                            methods, such as <em><u>bigram</u> and <u>trigram</u></em> models to achieve wider context
+                            or using small neural networks for higher accuracy without loss of computational efficiency.
+                        </p>
+
+                        <p>Therefore, although the existing model is good for particular, constrained datasets, further
+                            optimization such as incorporating <em>context-awareness</em> and investigating lightweight
+                            neural networks can significantly improve its performance, allowing it to be more suitable
+                            for different real-world applications.</p>
+
+                        <h3 id="limitations">Limitations</h3>
+
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>sentence_corrector('this is a big siging for us')</code></pre>
+                                <pre>Actual__: 'this is a big singing for us'</pre>
+                                <pre>Expected: 'this is a big signing for us'</pre>
+                            </div>
+                        </div>
+
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>sentence_corrector('i love how versatile acress she is')</code></pre>
+                                <pre>Actual__: 'i love how versatile across she is'</pre>
+                                <pre>Expected: 'i love how versatile actress she is'</pre>
+                            </div>
+                        </div>
+
+                        <ol style="margin: 20px 0; padding-left: 20px; color: currentColor;">
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Limited Context
+                                    Awareness:</strong> One
+                                major limitation is that this model doesn’t understand the broader context of sentences.
+                                It only looks at individual words, which means it might struggle with words that sound
+                                the same but have different meanings depending on the context (like "bass" for a fish
+                                vs. "bass" for music).
+                            </li>
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Challenges with Complex Sentence
+                                    Structures:</strong> The model doesn’t account for sentence structure, so it might
+                                not perform well with more complicated sentences. This means it can miss errors related
+                                to grammar and sentence flow.
+                            </li>
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Regional and Spelling
+                                    Variations:</strong> The model might have trouble when dealing with different
+                                regional spellings or variations in English. For example, it might struggle to
+                                distinguish between "colour" (UK) and "color" (US).
+                            </li>
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Dependence on Dataset
+                                    Quality:</strong>
+                                The performance of this model heavily depends on the quality and diversity of the
+                                dataset used. If the dataset doesn't cover all possible word types or contexts, the
+                                model may produce incorrect results when exposed to new types of text.
+                            </li>
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Difficulty Detecting Semantic
+                                    Errors:</strong> While the model is great at spotting spelling mistakes, it can't
+                                always tell when a word is used incorrectly in a sentence. It focuses more on spelling,
+                                rather than meaning, so it might miss errors like confusing "affect" with "effect."
+                            </li>
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Limited to Simple Punctuation
+                                    Mistakes:</strong> The model struggles with punctuation errors, such as missing
+                                commas or periods. Its focus on spelling and words means it’s less effective for fixing
+                                more complex sentence-level issues like these.
+                            </li>
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Not Adaptable to New
+                                    Terms:</strong> The
+                                model can’t handle evolving language or slang that wasn’t present in its training data.
+                                If new words or phrases emerge, the model won't be able to handle them unless retrained.
+                            </li>
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Computational
+                                    Trade-offs:</strong> While
+                                the unigram model is fast and efficient, it often sacrifices accuracy in more complex
+                                cases. More advanced models could handle these cases better, but at the cost of more
+                                computational power.
+                            </li>
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Difficulty with Rare or Unknown
+                                    Words:</strong> The model struggles with rare words or words not in its dictionary.
+                                If it encounters something unfamiliar, it might not be able to correct it properly,
+                                making it less reliable in those situations.
+                            </li>
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Handling Multiple Errors in a
+                                    Word:</strong> If a word has multiple errors (e.g., "missspelled" instead of
+                                "misspelled"), the model might only correct one of them, leaving the rest. This means it
+                                might not always fix everything in a word when there are multiple mistakes.
+                            </li>
+                        </ol>
+
+
+                        <h3 id="futureWorkAndImprovements">Future Work And Improvements</h3>
+                        <ol style="margin: 20px 0; padding-left: 20px; color: currentColor;">
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Use of Bi-grams and
+                                    Tri-grams:</strong>
+                                One improvement would be to incorporate bi-grams and tri-grams models. These models
+                                capture more context and allow the system to account for word order, improving the
+                                autocorrection for phrases rather than just individual words.
+                            </li>
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Neural Network Models:</strong>
+                                Another
+                                enhancement could involve utilizing neural network models. By enabling the model to
+                                learn patterns and nuances in data, neural networks would improve the system’s ability
+                                to handle complex spelling and grammar errors.
+                            </li>
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Expanding the Dataset:</strong>
+                                Expanding
+                                the dataset to include a broader range of words and phrases will allow the model to
+                                better handle various contexts. The model’s performance will improve significantly with
+                                more diverse data, especially when dealing with slang, region-specific words, and
+                                specialized vocabulary.
+                            </li>
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Incorporating Contextual Semantic
+                                    Understanding:</strong> Integrating a deeper understanding of context would allow
+                                the model to better predict the correct word based on the meaning of the entire
+                                sentence, not just the individual tokens. This would improve the overall performance and
+                                accuracy of the correction system.
+                            </li>
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Deep Learning for Robust
+                                    Predictions:</strong> Future work could explore the integration of advanced deep
+                                learning techniques, which would enable more robust predictions for complex sentences
+                                and improve accuracy in error detection and correction.
+                            </li>
+                            <li style="margin: 10px 0; font-size: 1.1em; line-height: 1.6;">
+                                <strong style="color: currentColor; font-weight: 600;">Incorporating More Complex
+                                    Language
+                                    Features:</strong> By including more complex language features, such as sentence
+                                structure, tone, or sentiment analysis, the model can be made more sophisticated,
+                                ultimately leading to better performance in context-specific scenarios like chatbots or
+                                virtual assistants.
+                            </li>
+                        </ol>
+
+                    </section>
+
+
+                    <section id="chapter5">
+                        <h2 id="references">References</h2>
+                        <ol style="margin: 20px 0; padding-left: 20px; color: currentColor; font-size: 1em;">
+                            <li style="margin: 10px 0; line-height: 1.6;">
+                                <strong style="font-weight: 600;">Project Gutenberg.</strong> ”Project Gutenberg -
+                                Public Domain Books.” Available at:
+                                <a href="https://www.gutenberg.org/" target="_blank"
+                                    style="color: #007bff;">https://www.gutenberg.org/</a>.
+                            </li>
+                            <li style="margin: 10px 0; line-height: 1.6;">
+                                <strong style="font-weight: 600;">British National Corpus.</strong> ”British National
+                                Corpus.” Available at:
+                                <a href="https://www.natcorp.ox.ac.uk/" target="_blank"
+                                    style="color: #007bff;">https://www.natcorp.ox.ac.uk/</a>.
+                            </li>
+                            <li style="margin: 10px 0; line-height: 1.6;">
+                                <strong style="font-weight: 600;">Mays, E., T. D. Harris, and R. L. Kaplan.</strong> ”A
+                                study of spell checking and error correction models.”
+                                Journal of Artificial Intelligence Research, vol. 10, pp. 1-23, 2010.
+                            </li>
+                            <li style="margin: 10px 0; line-height: 1.6;">
+                                <strong style="font-weight: 600;">Mikolov, T., K. Chen, G. Corrado, and J.
+                                    Dean.</strong> ”Efficient Estimation of Word Representations in Vector Space.”
+                                In Proceedings of the International Conference on Learning Representations (ICLR), 2013.
+                            </li>
+                            <li style="margin: 10px 0; line-height: 1.6;">
+                                <strong style="font-weight: 600;">Brill, E.</strong> ”A Corpus-based Approach to
+                                Language Production.”
+                                Proceedings of the 28th Annual Meeting of the Association for Computational Linguistics
+                                (ACL), pp. 85-94, 1990.
+                            </li>
+                        </ol>
+
+                    </section>
+
+                </article>
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Load scripts with defer -->
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+    <script defer src="../assets/js/globalblog.js"></script>
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
+
+
+    <!-- Fallback for Prism if CDN fails -->
+    <script>
+        window.addEventListener('load', function () {
+            if (typeof Prism === 'undefined') {
+                console.error('Prism failed to load');
+                // Add a class to show code without highlighting
+                document.querySelectorAll('pre code').forEach(block => {
+                    block.classList.add('no-highlight');
+                });
+            }
+        });
+    </script>
+</body>
+
+</html>

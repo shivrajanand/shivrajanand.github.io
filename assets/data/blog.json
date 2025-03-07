@@ -13,5 +13,13 @@
         "category": "Machine Learning",
         "description": "A comprehensive summary of key machine learning concepts and techniques covered in the Intern Shala course.",
         "link": "../blog_pages/MLNOTES/Chapter1.html"
+    },
+
+    {
+        "title": "Development of an Autocorrect System Using Language and Channel Models",
+        "date": "March 07, 2025",
+        "category": "Natural Language Processing",
+        "description": "A comprehensive summary of key machine learning concepts and techniques covered in the Intern Shala course.",
+        "link": "../blog_pages/btechminor.html"
     }
 ]
