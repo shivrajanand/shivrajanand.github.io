@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - Page Not Found</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        h1 {
+            font-size: 60px;
+            color: #ff4f4f;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            font-size: 50px;
+            color: #ff4f4f;
+            margin-bottom: 20px;
+        }
+
+        .video-container {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            /* Allow height to adjust */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        video {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+            /* Ensures full visibility */
+        }
+
+
+        .footer {
+            width: 100%;
+            max-width: 800px;
+            padding: 20px;
+            background: #333;
+            color: white;
+            border-radius: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 10px;
+        }
+
+        .nav-links a {
+            color: #ffcc00;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 20px;
+            transition: 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #ffcc00;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 40px;
+            }
+            h2 {
+                font-size: 30px;
+            }
+
+            .video-container {
+                height: 200px;
+            }
+        }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+
+<body>
+
+    <h1>404 ERROR</h1>
+    <h2>PAGE NOT FOUND</h2>
+
+    <div class="video-container">
+        <video autoplay loop>
+            <source src="assets/Images/404.mp4" type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+
+
+    <div class="footer">
+        <div class="nav-links">
+            <a href="https://shivrajanand.github.io/">Home</a> |
+            <a href="https://shivrajanand.github.io/pages/blog.html">Blogs & Projects</a> |
+            <a href="https://shivrajanand.github.io/#contact">Contact</a>
+        </div>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/shivrajanandai/" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=shivrajanand"
+                target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://www.github.com/shivrajanand" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.kaggle.com/shivrajanandai" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-kaggle"></i>
+            </a>
+            <a href="https://x.com/shivrajanand_ai" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-twitter"></i>
+            </a>
+        </div>
+    </div>
+
+</body>
+
+</html>
