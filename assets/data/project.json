@@ -3,26 +3,26 @@
     "title": "Library Management System in Python",
     "description": "A simple command prompt based LMS system in python",
     "tags": ["Python", "pip", "command prompt"],
-    "link": "#"
+    "link": "https://github.com/shivrajanand/Library-Management-System-in-Python"
 
   },
   {
     "title": "Responsive Chatbot in Python",
     "description": "A voice enable chatbot that responds to predefined user queries",
     "tags": ["Python", "Pyttsx3", "SpeechRecognition"],
-    "link": "#"
+    "link": "https://mega.nz/folder/aAAjHKgL#H0iNwcNrkr61VoBdipx9zw"
   },
   {
     "title": "Machine Learning Analysis on Housing Sales Dataset",
-    "description": "The project is focused on analyzing a dataset to predict house sale prices based on different attributes, particularly using regression models and evaluating their effectiveness.",
+    "description": "The project is focused on analyzing a dataset to predict house sale prices based on different attributes, particularly using regression models and evaluating their effectiveness. Download exe and readme of my project from link",
     "tags": ["Python", "Pandas", "Matplotlib"],
-    "link": "#"
+    "link": "https://www.kaggle.com/code/shivrajanandai/housing-data-set-regression-modelling"
   },
   {
     "title": "Result Analysis and Progress Report Generator",
     "description": "This project involves analyzing students' academic progress by generating personalized progress reports based on their marks and CGPA scores over multiple semesters.",
     "tags": ["Python", "Pandas", "Matplotlib"],
-    "link": "#"
+    "link": "https://github.com/shivrajanand/Result-Analysis-Progress-Report-Generator"
   },
 
   {
