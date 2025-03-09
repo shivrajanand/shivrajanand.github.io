@@ -184,6 +184,15 @@
             /* Right inner dark */
         }
 
+        .sidebar #closebutton {
+            color: white;
+            font-size: 1.5rem;
+            text-align: left;
+            display: block;
+            width: fit-content;
+            margin-bottom: 1rem;
+        }
+
 
         body.dark .sidebar {
             background: #1d0c92;
@@ -530,7 +539,7 @@
     </nav>
 
     <div class="sidebar" id="sidebar">
-        <a href="javascript:void(0)" onclick="toggleSidebar()"><strong>✖ Close</strong></a>
+        <a id = "closebutton" href="javascript:void(0)" onclick="toggleSidebar()"><strong>✖ Close</strong></a>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="pages/projects.html">Projects</a>

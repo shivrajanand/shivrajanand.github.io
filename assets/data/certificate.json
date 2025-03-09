@@ -1,0 +1,177 @@
+[
+  {
+    "title": "1st Semester B.Tech.(C.S.E.) Result",
+    "tags": ["B.Tech", "1st Sem", "CSE", "SGPA 8.73", "CGPA 8.73", "BPMCE"],
+    "path": "certificates/1stSemBtechResult.jpg",
+    "type": "Academic"
+  },
+  {
+    "title": "2nd Semester B.Tech.(C.S.E.) Result",
+    "tags": ["B.Tech", "2nd Sem", "CSE", "SGPA 8.17", "CGPA 8.47", "BPMCE"],
+    "path": "certificates/2ndSemBtechResult.jpg",
+    "type": "Academic"
+  },
+  {
+    "title": "3rd Semester B.Tech.(C.S.E.) Result",
+    "tags": ["B.Tech", "3rd Sem", "CSE", "SGPA 8.46", "CGPA 8.47", "BPMCE"],
+    "path": "certificates/3rdSemBtechResult.jpg",
+    "type": "Academic"
+  },
+  {
+    "title": "4th Semester B.Tech.(C.S.E.) Result",
+    "tags": ["B.Tech", "4th Sem", "CSE", "SGPA 8.89", "CGPA 8.60", "BPMCE"],
+    "path": "certificates/4thSemBtechResult.jpg",
+    "type": "Academic"
+  },
+  {
+    "title": "5th Semester B.Tech.(C.S.E.) Result",
+    "tags": ["B.Tech", "5th Sem", "CSE", "SGPA 8.63", "CGPA 8.60", "BPMCE"],
+    "path": "certificates/5thSemBtechResult.jpg",
+    "type": "Academic"
+  },
+  {
+    "title": "6th Semester B.Tech.(C.S.E.) Result",
+    "tags": ["B.Tech", "6th Sem", "CSE", "SGPA 8.74", "CGPA 8.63", "BPMCE"],
+    "path": "certificates/6thSemBtechResult.jpg",
+    "type": "Academic"
+  },
+  {
+    "title": "GATE (CS) 2024 Score Card",
+    "tags": ["GATE 2024", "CSE", "Score 445", "AIR 8532", "Qualified"],
+    "path": "certificates/Gate CS'24 ScoreCard_page-0001.jpg",
+    "type": "Academic"
+  },
+  {
+    "title": "मेधावी छात्र प्रोत्साहन पुरस्कार: प्रशस्ति पत्र",
+    "tags": ["Award", "Academic", "Topper", "CSE", "BPMCE"],
+    "path": "certificates/2ndyear1stRank.jpg",
+    "type": "Academic"
+  },
+  {
+    "title": "3rd prize | Project Presentation | Engineer's Day 2022",
+    "tags": [
+      "Project",
+      "Chatbot",
+      "Python",
+      "Award",
+      "Engineer's Day",
+      "MAAYA"
+    ],
+    "path": "certificates/3rdPrizeEngineersDay.jpg",
+    "type": "Academic"
+  },
+  {
+    "title": "C Training, Spoken Tutorial, IIT Bombay",
+    "tags": ["C", "Training", "Spoken Tutorial", "IIT Bombay"],
+    "path": "certificates/3_ C_page-0001.jpg",
+    "type": "Trainings"
+  },
+  {
+    "title": "C++ Training, Spoken Tutorial, IIT Bombay",
+    "tags": ["C++", "Training", "Spoken Tutorial", "IIT Bombay"],
+    "path": "certificates/4_ C++_page-0001.jpg",
+    "type": "Trainings"
+  },
+  {
+    "title": "Cisco: Introduction to Cybersecurity",
+    "tags": ["Cybersecurity", "Cisco", "Training"],
+    "path": "certificates/5_ cisco ShivrajAnand Introduction to Cybersecurity Ramesh Sir sign_page-0001.jpg",
+    "type": "Trainings"
+  },
+  {
+    "title": "Internshala: Machine Learning Training",
+    "tags": ["Machine Learning", "Internshala", "Training"],
+    "path": "certificates/6_ Machine Learning Training - Certificate of Completion_page-0001.jpg",
+    "type": "Trainings"
+  },
+  {
+    "title": "Advanced C++ Training, Spoken Tutorial, IIT Bombay",
+    "tags": ["C++", "Advanced", "Spoken Tutorial", "IIT Bombay"],
+    "path": "certificates/7_ Advanced CPP-page-001.jpg",
+    "type": "Trainings"
+  },
+  {
+    "title": "Internshala: Data Structures & Algorithms Training",
+    "tags": ["DSA", "Training", "Internshala"],
+    "path": "certificates/8_ Data Structures & Algorithms Training - Certificate of Completion-page-001.jpg",
+    "type": "Trainings"
+  },
+  {
+    "title": "Internshala: Programming with C and C++ Training",
+    "tags": ["C", "C++", "Programming", "Internshala"],
+    "path": "certificates/9_ Programming with C and C++ Training - Certificate of Completion-page-001.jpg",
+    "type": "Trainings"
+  },
+  {
+    "title": "Cisco: NDG LInux Unhatched",
+    "tags": ["Linux", "Cisco", "NDG", "Training"],
+    "path": "certificates/10_ NDG LInux Certificate-page-001.jpg",
+    "type": "Trainings"
+  },
+  {
+    "title": "Python Training, Spoken Tutorial, IIT Bombay",
+    "tags": ["Python", "Training", "Spoken Tutorial", "IIT Bombay"],
+    "path": "certificates/12_ Python-page-001.jpg",
+    "type": "Trainings"
+  },
+  {
+    "title": "NPTEL:Programming, Data Structures And Algorithms Using Python",
+    "tags": ["NPTEL", "DSA", "Python", "Certification"],
+    "path": "certificates/14_ Programming, Data Structures And Algorithms Using Python-page-001.jpg",
+    "type": "Trainings"
+  },
+  {
+    "title": "NPTEL: Data Base Management System",
+    "tags": ["NPTEL", "DBMS", "Database", "Certification"],
+    "path": "certificates/15_ Data Base Management System-page-001.jpg",
+    "type": "Trainings"
+  },
+  {
+    "title": "Java Training, Spoken Tutorial, IIT Bombay",
+    "tags": ["Java", "Training", "Spoken Tutorial", "IIT Bombay"],
+    "path": "certificates/16_ java-page-001.jpg",
+    "type": "Trainings"
+  },
+  {
+    "title": "Internshala NLP training Certifcate",
+    "tags": ["NLP", "Internshala", "Top Performer"],
+    "path": "certificates/17_NLP_Internshala.png",
+    "type": ["Trainings", "Internships"]
+  },
+  {
+    "title": "NSDC NLP training Certifcate",
+    "tags": ["NLP", "NSDC", "Training"],
+    "path": "certificates/18_NLP_NSDC.png",
+    "type": ["Trainings", "Internships"]
+  },
+  {
+    "title": "Technobyte IITP Workshop",
+    "tags": ["Workshop", "IIT Patna", "AIML", "Celesta Fest"],
+    "path": "certificates//2_ Technobyte IITP Workshop AI_page-0001.jpg",
+    "type": ["Workshops"]
+  },
+  {
+    "title": "SkillDarpan Blockchain Introduction",
+    "tags": ["Blockchain", "SkillDarpan", "Workshop"],
+    "path": "certificates/13_ SkillDarpan Blockchain-page-001.jpg",
+    "type": ["Workshops"]
+  },
+  {
+    "title": "UNICEF NIIT Certificate Digital Productivity",
+    "tags": ["UNICEF", "NIIT", "Digital Productivity", "Training"],
+    "path": "certificates/17_ UNICEF NIIT Certificate Digital Productivity-page-001.jpg",
+    "type": ["Workshops"]
+  },
+  {
+    "title": "Innovate Intern Data Analysis Internship",
+    "tags": ["Internship", "Data Analysis", "Innovate Intern"],
+    "path": "certificates/18_ Innovate Intern DA Internship Certificate-page-001.jpg",
+    "type": ["Internships"]
+  },
+  {
+    "title": "Salesforce Developer Virtual Internship",
+    "tags": ["Salesforce", "Internship", "Developer", "Virtual"],
+    "path": "certificates/11_ Salesforce Certificate-page-001.jpg",
+    "type": ["Internships"]
+  }
+]

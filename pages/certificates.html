@@ -2,375 +2,345 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>certificates | Shivraj Anand</title>
-    <link rel="stylesheet" href="../assets/css/certificate.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Certificates | Shivraj Anand</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <style>
+        :root {
+            --bg-light: #f5f9ff;
+            --text-light: #222;
+            --primary: #1f3b87;
+            --accent: #007BFF;
+            --card-light: #ffffff;
+            --bg-dark: #121212;
+            --text-dark: #e0e0e0;
+            --card-dark: #1f1f1f;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', sans-serif;
+            background: var(--bg-light);
+            color: var(--text-light);
+            transition: background 0.3s, color 0.3s;
+            overflow-x: hidden;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        body.dark {
+            background: var(--bg-dark);
+            color: var(--text-dark);
+        }
+
+        header {
+            background: var(--primary);
+            color: white;
+            padding: 20px;
+            border-bottom-right-radius: 40px;
+            border-bottom-left-radius: 40px;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2rem;
+        }
+
+        header p {
+            margin-top: 5px;
+            font-size: 1rem;
+        }
+
+        .toggle-container {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+        }
+
+        .toggle-container input {
+            display: none;
+        }
+
+        .toggle-label {
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #fff;
+        }
+
+        #searchBox,
+        #typeFilter {
+            padding: 10px;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+            outline: none;
+            margin: 10px 5px;
+            transition: border 0.3s;
+            max-width: 90vw;
+        }
+
+        #searchBox:focus,
+        #typeFilter:focus {
+            border-color: var(--primary);
+        }
+
+        body.dark #searchBox,
+        body.dark #typeFilter {
+            background: #1e1e1e;
+            border: 1px solid #555;
+            color: #f0f0f0;
+        }
+
+        #certificate-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            flex: 1;
+        }
+
+        .certificate {
+            background: var(--card-light);
+            border-radius: 12px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.07);
+            overflow: hidden;
+            text-align: center;
+            padding: 10px;
+            transition: transform 0.2s, background 0.3s, color 0.3s;
+        }
+
+        .certificate:hover {
+            transform: translateY(-4px);
+        }
+
+        .certificate img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            max-height: 200px;
+            object-fit: contain;
+        }
+
+        .certificate h3 {
+            margin: 10px 0;
+            color: var(--primary);
+        }
+
+        .certificate p {
+            margin: 5px 0;
+            color: #444;
+        }
+
+        .certificate strong {
+            color: var(--primary);
+        }
+
+        .certificate .tags span {
+            color: var(--accent);
+            margin-right: 5px;
+        }
+
+        body.dark .certificate {
+            background: var(--card-dark);
+            color: var(--text-dark);
+        }
+
+        body.dark .certificate h3,
+        body.dark .certificate strong {
+            color: #90caf9;
+        }
+
+        footer {
+            background: var(--primary);
+            color: white;
+            border-top-right-radius: 40px;
+            border-top-left-radius: 40px;
+            text-align: center;
+            padding: 20px;
+        }
+
+        footer h3 {
+            margin: 0;
+        }
+
+        footer a {
+            color: white;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        footer a:hover {
+            color: #90caf9;
+        }
+
+        @media (max-width: 600px) {
+
+            #searchBox,
+            #typeFilter {
+                width: 90%;
+            }
+
+            .toggle-container {
+                top: 10px;
+                right: 10px;
+            }
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            flex-wrap: wrap;
+            margin: 1rem 0;
+        }
+
+        .social-icons a {
+            color: #ffffff;
+            font-size: 1.4rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #93c5fd;
+            transform: scale(1.2);
+        }
+    </style>
 </head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-3MEXW2XNBM');
-</script>
 
 <body>
     <header>
-        <h1>My Certificates</h1>
-        <p><strong>I have a total of </strong><span id="certificate-count">0</span><strong> Certificates</strong></p>
-        <p><a href="../index.html"><strong>HOME</strong></a></p>
+        <div class="toggle-container">
+            <label class="toggle-label">
+                <i id="themeIcon" class="fas fa-moon"></i>
+                <input type="checkbox" id="darkToggle" />
+            </label>
+        </div>
+        <h1>🎓 My Certificate Collection</h1>
+        <p>Total Certificates: <span id="certificate-count">0</span></p>
     </header>
-    <main>
-        <!-- Academic Achievement Start Here  -->
-        <button class="collapsible">Academic Achievements</button>
-        <div class="content">
-            <div class="grid">
-                <div class="certificate-block">
-                    <img src="certificates/Academic/1stSemBtechResult.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">1st Semester B.Tech.(C.S.E.) Result</h2>
-                        <p class="certificate-description">SGPA: 8.73</p>
-                        <p class="certificate-description">CGPA: 8.73</p>
-                    </div>
-                </div>
 
-                <div class="certificate-block">
-                    <img src="certificates/Academic/2ndSemBtechResult.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">2nd Semester B.Tech.(C.S.E.) Result</h2>
-                        <p class="certificate-description">SGPA: 8.17</p>
-                        <p class="certificate-description">CGPA: 8.47</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Academic/3rdSemBtechResult.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">3rd Semester B.Tech.(C.S.E.) Result</h2>
-                        <p class="certificate-description">SGPA: 8.46</p>
-                        <p class="certificate-description">CGPA: 8.47</p>
-                    </div>
-                </div>
-
-
-                <div class="certificate-block">
-                    <img src="certificates/Academic/4thSemBtechResult.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">4th Semester B.Tech.(C.S.E.) Result</h2>
-                        <p class="certificate-description">SGPA: 8.89</p>
-                        <p class="certificate-description">CGPA: 8.60</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Academic/5thSemBtechResult.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">5th Semester B.Tech.(C.S.E.) Result</h2>
-                        <p class="certificate-description">SGPA: 8.63</p>
-                        <p class="certificate-description">CGPA: 8.60</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Academic/6thSemBtechResult.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">6th Semester B.Tech.(C.S.E.) Result</h2>
-                        <p class="certificate-description">SGPA: 8.74</p>
-                        <p class="certificate-description">CGPA: 8.63</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Academic/Gate CS'24 ScoreCard_page-0001.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">GATE (CS) 2024 Score Card</h2>
-                        <p class="certificate-description"><strong>Marks: 36.28</strong> [Qualifying(General): 27.6]</p>
-                        <p class="certificate-description">SCORE: 445</p>
-                        <p class="certificate-description">AIR 8532</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Academic/2ndyear1stRank.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">मेधावी छात्र प्रोत्साहन पुरस्कार: प्रशस्ति पत्र</h2>
-                        <p class="certificate-description">Achievement award for securing 1st rank in CSE Branch in 2nd
-                            year B.Tech University Examination</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Academic/3rdPrizeEngineersDay.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">3rd prize | Project Presentation | Engineer's Day 2022</h2>
-                        <p class="certificate-description">Displayed Project M.A.A.Y.A. version-A</p>
-                        <p class="certificate-description"><a href="projects.html">Link to project</a>[Responsive
-                            Chatbot in Python]</p>
-                    </div>
-                </div>
-                <!-- Add more certificates here -->
-            </div>
-        </div>
-
-        <!-- Academic Achievement END Here  -->
-
-
-        <!-- Technical Training Start Here  -->
-        <div class="divider"></div>
-        <button class="collapsible">Technical Training</button>
-        <div class="content">
-            <div class="grid">
-                <div class="certificate-block">
-                    <img src="certificates/Technical/3_ C_page-0001.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">C Training, Spoken Tutorial, IIT Bombay</h2>
-                        <p class="certificate-description">...</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Technical/4_ C++_page-0001.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">C++ Training, Spoken Tutorial, IIT Bombay</h2>
-                        <p class="certificate-description">...</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Technical/5_ cisco ShivrajAnand Introduction to Cybersecurity Ramesh Sir sign_page-0001.jpg"
-                        alt="Certificate Image" class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">Cisco: Introduction to Cybersecurity</h2>
-                        <p class="certificate-description">...</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Technical/6_ Machine Learning Training - Certificate of Completion_page-0001.jpg"
-                        alt="Certificate Image" class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">Internshala: Machine Learning Training</h2>
-                        <p class="certificate-description">...</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Technical/7_ Advanced CPP-page-001.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">Advanced C++ Training, Spoken Tutorial, IIT Bombay</h2>
-                        <p class="certificate-description">...</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Technical/8_ Data Structures & Algorithms Training - Certificate of Completion-page-001.jpg"
-                        alt="Certificate Image" class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">Internshala: Data Structures & Algorithms Training</h2>
-                        <p class="certificate-description">...</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Technical/9_ Programming with C and C++ Training - Certificate of Completion-page-001.jpg"
-                        alt="Certificate Image" class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">Internshala: Programming with C and C++ Training</h2>
-                        <p class="certificate-description">...</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Technical/10_ NDG LInux Certificate-page-001.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">Cisco: NDG LInux Unhatched</h2>
-                        <p class="certificate-description">...</p>
-                    </div>
-                </div>
-
-
-                <div class="certificate-block">
-                    <img src="certificates/Technical/12_ Python-page-001.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">Python Training, Spoken Tutorial, IIT Bombay</h2>
-                        <p class="certificate-description" ...</p>
-                    </div>
-                </div>
-
-
-
-                <div class="certificate-block">
-                    <img src="certificates/Technical/14_ Programming, Data Structures And Algorithms Using Python-page-001.jpg"
-                        alt="Certificate Image" class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">NPTEL:Programming, Data Structures And Algorithms Using Python
-                        </h2>
-                        <p class="certificate-description">...</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Technical/15_ Data Base Management System-page-001.jpg"
-                        alt="Certificate Image" class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">NPTEL: Data Base Management System</h2>
-                        <p class="certificate-description">...</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Technical/16_ java-page-001.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">Java Training, Spoken Tutorial, IIT Bombay</h2>
-                        <p class="certificate-description">...</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Technical/17_NLP_Internshala.png" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">Internshala NLP training Certifcate</h2>
-                        <p class="certificate-description">TOP PERFORMER: 90%</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Technical/18_NLP_NSDC.png" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">NSDC NLP training Certifcate</h2>
-                        <p class="certificate-description">...</p>
-                    </div>
-                </div>
-
-
-                <!-- Add more certificates here -->
-            </div>
-        </div>
- 
-
-        <!-- Workshops & Internships Start Here  -->
-        <div class="divider"></div>
-        <button class="collapsible">Workshops & Internships</button>
-        <div class="content">
-            <div class="grid">
-                <div class="certificate-block">
-                    <img src="certificates//Workshops/2_ Technobyte IITP Workshop AI_page-0001.jpg"
-                        alt="Certificate Image" class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">Technobyte IITP Workshop</h2>
-                        <p class="certificate-description">I acquired this certificate during a 2-day workshop in AIML
-                            at Celesta Fest 2023, IIT Patna</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Workshops/13_ SkillDarpan Blockchain-page-001.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">SkillDarpan Blockchain Introduction</h2>
-                        <p class="certificate-description">...</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Workshops/17_ UNICEF NIIT Certificate Digital Productivity-page-001.jpg"
-                        alt="Certificate Image" class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">UNICEF NIIT Certificate Digital Productivity</h2>
-                        <p class="certificate-description">P2E Training by UNICEF</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Workshops/18_ Innovate Intern DA Internship Certificate-page-001.jpg"
-                        alt="Certificate Image" class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">Innovate Intern Data Analysis Internship</h2>
-                        <p class="certificate-description">...</p>
-                    </div>
-                </div>
-
-                <div class="certificate-block">
-                    <img src="certificates/Workshops/11_ Salesforce Certificate-page-001.jpg" alt="Certificate Image"
-                        class="certificate-image">
-                    <div class="certificate-details">
-                        <h2 class="certificate-title">Salesforce Developer Virtual Internship</h2>
-                        <p class="certificate-description">...</p>
-                    </div>
-                </div>
-                <!-- Add more certificates here -->
-            </div>
-        </div>
-
-        <!-- Workshops & Internships Start Here  -->
-    </main>
-
-    
-    <footer class="responsive-footer">
-        <p>
-        <h2>Shivraj Anand Certificate Wall.</h2>
-        </p>
-        <p>
-        <h3><a href="index.html">HOME</a></h3>
-        </p>
-    </footer>
-
-    <div class="modal" id="imageModal">
-        <button class="close" id="closeModal">Close</button>
-        <img id="modalImage" src="" alt="Expanded Certificate">
+    <div style="padding:20px;text-align:center;">
+        <input id="searchBox" type="text" placeholder="Search by name, tag, or description..." />
+        <select id="typeFilter">
+            <option value="All">All Types</option>
+            <option value="Academic">Academic</option>
+            <option value="Trainings">Training</option>
+            <option value="Workshops">Workshop</option>
+            <option value="Internships">Internship</option>
+        </select>
     </div>
 
+    <main id="certificate-container">
+
+    </main>
+
+    <footer>
+        <h3>Connect with Me</h3>
+        <p>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/shivrajanandai/" target="_blank" aria-label="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=shivrajanand"
+                target="_blank" aria-label="LinkedIn">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://www.github.com/shivrajanand" target="_blank" aria-label="GitHub">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.kaggle.com/shivrajanandai" target="_blank" aria-label="Kaggle">
+                <i class="fab fa-kaggle"></i>
+            </a>
+            <a href="https://x.com/shivrajanand_ai" target="_blank" aria-label="Twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="mailto:shivrajanand022002@gmail.com" target="_blank" aria-label="Email">
+                <i class="fa fa-envelope"></i>
+            </a>
+        </div>
+        </p>
+        <p>© 2025 Shivraj Anand</p>
+    </footer>
+
     <script>
-        const collapsibles = document.querySelectorAll(".collapsible");
-        const modal = document.getElementById("imageModal");
-        const modalImage = document.getElementById("modalImage");
-        const closeModal = document.getElementById("closeModal");
+        let certificates = [];
 
-        collapsibles.forEach((collapsible) => {
-            collapsible.addEventListener("click", function () {
-                this.classList.toggle("active");
-                const content = this.nextElementSibling;
-                if (content.style.display === "block") {
-                    content.style.display = "none";
-                } else {
-                    content.style.display = "block";
-                }
+        async function loadCertificates() {
+            try {
+                const res = await fetch('../assets/data/certificate.json');
+                certificates = await res.json();
+                displayCertificates(certificates);
+            } catch (err) {
+                console.error("Failed to load certificates:", err);
+                document.getElementById('certificate-container').innerHTML = "<p style='color:red;'>Failed to load certificates.</p>";
+            }
+        }
+
+        function displayCertificates(data) {
+            const container = document.getElementById('certificate-container');
+            container.innerHTML = '';
+
+            if (data.length === 0) {
+                container.innerHTML = `<div style="width:100%; display:flex; justify-content:center; padding:40px 20px;"><p style="font-size:1.2rem; color:gray; margin:0;">😕 No certificates found matching your criteria.</p></div>`;
+                document.getElementById('certificate-count').textContent = 0;
+                return;
+            }
+
+            data.forEach(cert => {
+                const block = document.createElement('div');
+                block.className = 'certificate';
+
+                const tagsHTML = cert.tags?.map(tag => `<span>#${tag}</span>`).join(' ') || '';
+
+                block.innerHTML = `
+      <img src="${cert.path}" alt="${cert.title}">
+      <h3>${cert.title}</h3>
+      <p>${cert.description || ''}</p>
+      <p><strong>Type:</strong> ${Array.isArray(cert.type) ? cert.type.join(', ') : cert.type}</p>
+      <div class="tags">${tagsHTML}</div>
+    `;
+                container.appendChild(block);
             });
-        });
 
-        document.querySelectorAll(".certificate-image").forEach((image) => {
-            image.addEventListener("click", () => {
-                modalImage.src = image.src;
-                modal.style.display = "flex";
+            document.getElementById('certificate-count').textContent = data.length;
+        }
+
+
+        function filterCertificates() {
+            const search = document.getElementById('searchBox').value.toLowerCase();
+            const type = document.getElementById('typeFilter').value;
+
+            const filtered = certificates.filter(cert => {
+                const inSearch =
+                    cert.title.toLowerCase().includes(search) ||
+                    (cert.description && cert.description.toLowerCase().includes(search)) ||
+                    cert.tags?.some(tag => tag.toLowerCase().includes(search));
+                const inType = type === 'All' || (Array.isArray(cert.type) ? cert.type.includes(type) : cert.type === type);
+
+                return inSearch && inType;
             });
+
+            displayCertificates(filtered);
+        }
+
+        document.getElementById('searchBox').addEventListener('input', filterCertificates);
+        document.getElementById('typeFilter').addEventListener('change', filterCertificates);
+
+        // Dark mode toggle
+        const toggle = document.getElementById('darkToggle');
+        const icon = document.getElementById('themeIcon');
+        toggle.addEventListener('change', () => {
+            document.body.classList.toggle('dark');
+            icon.classList.toggle('fa-moon');
+            icon.classList.toggle('fa-sun');
         });
 
-        closeModal.addEventListener("click", () => {
-            modal.style.display = "none";
-        });
-
-        document.getElementById('certificate-count').textContent = document.querySelectorAll('.certificate-block').length;
+        loadCertificates();
     </script>
 </body>
 
