@@ -2,156 +2,337 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description"
-        content="Explore the portfolio of a versatile Python developer and data analyst skilled in web development, machine learning, and database management. With expertise in Python, C++, NLP research, and fast learning, I deliver innovative solutions. Contact me for collaborations or explore my projects, blogs, and poems.">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shivraj Anand | Portfolio</title>
-    <link rel="stylesheet" href="assets/css/style.css">
-    <!-- Include PDF.js -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.10.377/pdf.min.js"></script>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <meta name="description"
+        content="Explore the portfolio of Shivraj Anand: a versatile Python developer, data analyst, and researcher with expertise in AI, web development, and more.">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        :root {
+            --primary: #007bff;
+            --background-light: #f9f9f9;
+            --background-dark: #121212;
+            --text-light: #ffffff;
+            --text-dark: #1a1a1a;
+            --card-light: #ffffff;
+            --card-dark: #1e1e1e;
+            --transition: 0.3s ease;
+        }
 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-dark);
+            transition: background-color var(--transition), color var(--transition);
+        }
 
+        body.dark {
+            background-color: var(--background-dark);
+            color: var(--text-light);
+        }
+
+        header {
+            text-align: center;
+            padding: 2rem 1rem;
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 4px solid var(--primary);
+        }
+
+        h1 {
+            margin-top: 1rem;
+            font-size: 2rem;
+        }
+
+        .intro {
+            margin-top: 0.5rem;
+            font-size: 1.1rem;
+            color: var(--text-dark);
+        }
+
+        body.dark .intro {
+            color: var(--text-light);
+        }
+
+        .dark-toggle {
+            position: fixed;
+            top: 1rem;
+            right: 1rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 999px;
+            cursor: pointer;
+            z-index: 1001;
+            border: 2px solid var(--text-dark); /* Added border */
+        }
+
+        nav {
+            background: var(--primary);
+            padding: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+        }
+
+        body.dark nav {
+            background: #1d0c92; /* Added dark mode background for nav */
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .sidebar {
+            position: fixed;
+            top: 0;
+            left: -250px;
+            width: 250px;
+            height: 100%;
+            background: var(--primary);
+            padding: 2rem 1rem;
+            transition: var(--transition);
+            z-index: 1000;
+        }
+
+        body.dark .sidebar {
+            background: #1d0c92; /* Added dark mode background for sidebar */
+        }
+
+        .sidebar.active {
+            left: 0;
+        }
+
+        .sidebar a {
+            display: block;
+            margin: 1rem 0;
+            color: white;
+            text-decoration: none;
+        }
+
+        .main-content {
+            max-width: 1100px;
+            margin: auto;
+            padding: 2rem 1rem;
+        }
+
+        section {
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            border-bottom: 2px solid var(--primary);
+            display: inline-block;
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .card {
+            background: var(--card-light);
+            padding: 1rem;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+            transition: var(--transition);
+        }
+
+        body.dark .card {
+            background: var(--card-dark);
+        }
+
+        .card h3 {
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+
+        .social-links {
+            margin-top: 1rem;
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        .social-links a {
+            font-size: 1.5rem;
+            color: var(--primary);
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #0056b3;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background: var(--primary);
+            color: white;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: block;
+            }
+        }
+    </style>
 </head>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-3MEXW2XNBM');
-</script>
-
 <body>
+    <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
 
-    <button class="toggle-dark-mode" onclick="toggleDarkMode()">🌙</button>
+    <nav>
+        <div class="hamburger" onclick="toggleSidebar()">☰</div>
+        <div class="nav-links">
+            <a href="#about">About</a>
+            <a href="#skills">Skills</a>
+            <a href="#projects">Projects</a>
+            <a href="#contact">Contact</a>
+            <a href="/pages/blog.html">Blogs</a>
+            <a href="/pages/certificates.html">Certificates</a>
+            <a href="https://docs.google.com/document/d/1CIleFjZDLq3l6ntBhesIFKIXj7e1vXrV/export?format=pdf" download
+                class="download-btn">
+                <i class="fas fa-download"></i> Resume
+            </a>
+        </div>
+    </nav>
+
+    <div class="sidebar" id="sidebar">
+        <a href="javascript:void(0)" onclick="toggleSidebar()">✖ Close</a>
+        <a href="#about">About</a>
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#contact">Contact</a>
+        <a href="/pages/blog.html">Blogs</a>
+        <a href="/pages/certificates.html">Certificates</a>
+        <a href="https://docs.google.com/document/d/1CIleFjZDLq3l6ntBhesIFKIXj7e1vXrV/export?format=pdf"
+            download>Download Resume</a>
+    </div>
 
     <header>
-        <img src="assets/documents/profile-pic.png" alt="Shivraj Anand"
-            style="width:150px; height:150px; border-radius:50%;">
-        <h1 class="typewriter-text">Shivraj Anand</h1>
-        <p>Highly motivated and results-oriented engineering student with expertise in programming, data analysis, and
-            research.</p>
-        <nav>
-            <div class="hamburger" onclick="toggleMenu()">
-                &#9776; <!-- Hamburger icon -->
-            </div>
-            <div class="nav-links" id="navLinks">
-                <a href="#skills">Skills</a>
-                <a href="pages/projects.html">Projects</a>
-                <a href="pages/certificates.html">Certificates</a>
-                <!-- <a href="pages/ERROR.html">Poetry Page</a> -->
-                <a href="pages/blog.html">Blogs</a>
-                <a href="#contact">Contact</a>
-                <a href="pages/work_with_me.html">Work With Me</a>
-                <a href="https://docs.google.com/document/d/1CIleFjZDLq3l6ntBhesIFKIXj7e1vXrV/export?format=pdf" download>
-                    <i class="fas fa-download"></i> Download Resume
-                </a>
-            </div>
-
-        </nav>
+        <img src="assets/documents/profile-pic.png" alt="Shivraj Anand" class="profile-img" />
+        <h1>Shivraj Anand</h1>
+        <p class="intro">Engineering student with a passion for AI, ML, web development, and impactful research.</p>
     </header>
 
-
-    <main>
-        <section id="about" class="block-section">
-            <h1>About Me</h1>
-            <button class="collapsible">Show More</button>
-            <div class="content">
-                <p><strong>Hello! I'm Shivraj Anand</strong>, an enthusiastic <strong>Computer Science and
-                        Engineering</strong> student with a strong passion for <strong>Artificial Intelligence</strong>,
-                    <strong>Machine Learning</strong>, <strong>Web Development</strong>, and the <strong>Internet of
-                        Things
-                        (IoT)</strong>. I continuously strive to expand my knowledge and overcome challenges through
-                    hands-on projects, internships, and certifications.
-                </p>
-
-                <p>Hello, my name is <strong>Shivraj Anand</strong>, and I'm a keen computer science and engineering
-                    student, highly interested in <strong>artificial intelligence</strong>, <strong>machine
-                        learning</strong>, <strong>web development</strong>, and the <strong>internet of
-                        things</strong>.
-                </p>
-
-                <p>I am consistently expanding my knowledge by working on various projects, taking internships, and
-                    certification programs.</p>
-
-                <p><strong>Python</strong>, <strong>C/C++</strong>, <strong>HTML/CSS</strong>, <strong>data
-                        handling</strong>, <strong>PyTorch</strong>, <strong>.NET</strong>, and <strong>advanced
-                        database
-                        management</strong> – these are a few things that I have learned and still actively exploring
-                    more
-                    about.</p>
-
-                <p>Independent research work in mathematical and computational fields keeps me busy, and mentoring my
-                    peers
-                    on coding and problem-solving is something I love. I am always keen on building impactful projects
-                    that
-                    range from <strong>AI/ML</strong> and <strong>data science</strong> to innovating smart <strong>IoT
-                        solutions</strong> and building creative <strong>web applications</strong>.</p>
-
-                <p>Explore my portfolio and find out what I have done, achieved, and planned!</p>
+    <main class="main-content">
+        <section id="about">
+            <h2 class="section-title">About Me</h2>
+            <div class="card">
+                <p>Hello! I’m <strong>Shivraj Anand</strong>, a Computer Science & Engineering student focused on
+                    innovation and continuous learning. My interests span across Artificial Intelligence, Machine
+                    Learning, Web Development, and IoT. I’ve actively worked on projects, research, and certifications
+                    to sharpen my skills.</p>
             </div>
         </section>
 
-        <section id="skills" class="block-section">
-            <h2>Skills</h2>
-            <button class="collapsible">Show Skills</button>
-            <div class="content">
-                <ul>
-                    <li><strong>Programming:</strong> Python, C, C++</li>
-                    <li><strong>Data Analysis & Machine Learning:</strong> Pandas, NumPy, Matplotlib, Excel,
-                        Scikit-Learn,
-                        PyTorch, Power BI</li>
-                    <li><strong>Database Management:</strong> SQL, DBMS</li>
-                    <li><strong>Web Development:</strong> HTML, CSS, Bootstrap, JavaScript</li>
-                    <li><strong>Tools:</strong> Git, GitHub, ChatGPT prompting</li>
-                    <li><strong>Office:</strong> Excel, Word, PowerPoint</li>
-                    <li><strong>Designing:</strong> Canva</li>
-                    <li><strong>Soft Skills:</strong> Communication (English, Hindi), Content writing</li>
-                </ul>
+        <section id="skills">
+            <h2 class="section-title">Skills</h2>
+            <div class="card-grid">
+                <div class="card">
+                    <h3>Programming</h3>
+                    <p>Python, C, C++</p>
+                </div>
+                <div class="card">
+                    <h3>ML/Data Analysis</h3>
+                    <p>NumPy, Pandas, PyTorch, Scikit-Learn, Excel</p>
+                </div>
+                <div class="card">
+                    <h3>Web Dev</h3>
+                    <p>HTML, CSS, JavaScript, Bootstrap</p>
+                </div>
+                <div class="card">
+                    <h3>Database</h3>
+                    <p>SQL, DBMS</p>
+                </div>
+                <div class="card">
+                    <h3>Tools</h3>
+                    <p>Git, GitHub, Power BI, Canva</p>
+                </div>
+                <div class="card">
+                    <h3>Soft Skills</h3>
+                    <p>Communication, Content Writing</p>
+                </div>
             </div>
         </section>
 
-
-
-
-
-        <section id="contact" class="block-section">
-            <h2>Contact</h2>
-            <p>Email: <a href="mailto:shivrajanand022002@gmail.com">shivrajanand022002@gmail.com</a></p>
-            <p>Phone: +91 8092776242</p>
-            <p>Location: India</p>
-            <div class="social-links">
-                <a href="https://www.instagram.com/shivrajanandai/" target="_blank" rel="noopener noreferrer">
-                    <img src="assets/Images/social_icons/instagram.png" alt="Instagram" title="Instagram">
-                </a>
-                <a href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=shivrajanand"
-                    target="_blank" rel="noopener noreferrer">
-                    <img src="assets/Images/social_icons/linkedin.png" alt="LinkedIn" title="LinkedIn">
-                </a>
-                <a href="https://www.github.com/shivrajanand" target="_blank" rel="noopener noreferrer">
-                    <img src="assets/Images/social_icons/github.png" alt="GitHub" title="GitHub">
-                </a>
-                <a href="https://www.kaggle.com/shivrajanandai" target="_blank" rel="noopener noreferrer">
-                    <img src="assets/Images/social_icons/letter-k.png" alt="Kaggle" title="Kaggle">
-                </a>
-                <a href="https://x.com/shivrajanand_ai" target="_blank" rel="noopener noreferrer">
-                    <img src="assets/Images/social_icons/twitter.png" alt="Twitter" title="Twitter">
-                </a>
+        <section id="projects">
+            <h2 class="section-title">Projects</h2>
+            <div class="card">
+                <p>Explore my work in AI, ML, data science, web apps, and smart IoT systems. Visit the Projects page for
+                    details.</p>
+                <a href="pages/projects.html">View Projects →</a>
             </div>
+        </section>
 
+        <section id="contact">
+            <h2 class="section-title">Contact</h2>
+            <div class="card">
+                <p><strong>Email:</strong> <a
+                        href="mailto:shivrajanand022002@gmail.com">shivrajanand022002@gmail.com</a></p>
+                <p><strong>Phone:</strong> +91 8092776242</p>
+                <p><strong>Location:</strong> India</p>
+                <div class="social-links">
+                    <a href="https://www.instagram.com/shivrajanandai/" target="_blank"><i
+                            class="fab fa-instagram"></i></a>
+                    <a href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=shivrajanand"
+                        target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://www.github.com/shivrajanand" target="_blank"><i class="fab fa-github"></i></a>
+                    <a href="https://www.kaggle.com/shivrajanandai" target="_blank"><i class="fab fa-kaggle"></i></a>
+                    <a href="https://x.com/shivrajanand_ai" target="_blank"><i class="fab fa-twitter"></i></a>
+                </div>
+            </div>
         </section>
     </main>
 
     <footer>
-        <p>Hi, this is Shivraj Anand. Welcome to my website</p>
+        <p>© 2025 Shivraj Anand | All rights reserved.</p>
     </footer>
 
-    <script src="assets/js/index.js"></script>
+    <script>
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+        }
+
+        function toggleSidebar() {
+            document.getElementById('sidebar').classList.toggle('active');
+        }
+    </script>
 </body>
 
 </html>
