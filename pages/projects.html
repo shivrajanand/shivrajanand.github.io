@@ -24,6 +24,14 @@
             box-sizing: border-box;
         }
 
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            position: relative;
+        }
+
         body {
             font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
             background-color: var(--bg-color-light);
@@ -88,6 +96,14 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             outline: none;
         }
+
+        .no-results {
+            text-align: center;
+            font-size: 1.1rem;
+            padding: 2rem;
+            color: var(--text-color, #444);
+        }
+
 
 
         /* ---------- Projects Grid ---------- */
@@ -184,6 +200,10 @@
             transition: opacity 0.2s ease;
         }
 
+        main {
+            padding-bottom: 100px;
+        }
+
         /* ---------- Footer ---------- */
         footer {
             background-color: #007acc;
@@ -193,6 +213,10 @@
             font-size: 0.95rem;
             width: 100%;
             max-width: 100vw;
+
+            position: absolute;
+            bottom: 0;
+            left: 0;
         }
 
         .social-icons {
@@ -308,17 +332,19 @@
 </head>
 
 <body>
-    <header>
-        <a href="../index.html">🏠 Home</a>
-        <button class="toggle-button" onclick="toggleDarkMode()">🌙 Toggle Mode</button>
-    </header>
+    <main>
+        <header>
+            <a href="../index.html">🏠 Home</a>
+            <button class="toggle-button" onclick="toggleDarkMode()">🌙 Toggle Mode</button>
+        </header>
 
-    <div class="search-container">
-        <input type="text" id="searchInput" placeholder="🔍 Search projects or topics/tags...">
-    </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="🔍 Search projects or topics/tags...">
+        </div>
 
 
-    <div id="projects-container" class="projects-grid"></div>
+        <div id="projects-container" class="projects-grid"></div>
+    </main>
 
     <footer>
         <p>Connect with me:</p>
@@ -439,9 +465,17 @@
                     project.tags.some(tag => tag.toLowerCase().includes(query))
                 );
 
-                renderProjects(filtered);
+                const container = document.getElementById('projects-container');
+                container.innerHTML = ''; // Clear previous content
+
+                if (filtered.length === 0) {
+                    container.innerHTML = `<p class="no-results">🔍 No matching projects found.</p>`;
+                } else {
+                    renderProjects(filtered);
+                }
             });
         });
+
 
 
     </script>
