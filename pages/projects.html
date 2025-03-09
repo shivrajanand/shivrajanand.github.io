@@ -2,485 +2,449 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Projects</title>
-    <link rel="stylesheet" href="../assets/css/projects.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Projects</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a2e0e6a337.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-color-light: #e6f0ff;
+            --text-color-light: #003366;
+            --tile-gradient-1-light: linear-gradient(135deg, #c2e9fb, #a1c4fd);
+            --bg-color-dark: #0d1b2a;
+            --text-color-dark: #e0eaff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            background-color: var(--bg-color-light);
+            color: var(--text-color-light);
+            transition: background-color 0.3s, color 0.3s;
+            max-width: 100vw;
+            overflow-x: hidden;
+        }
+
+        body.dark-mode {
+            background-color: var(--bg-color-dark);
+            color: var(--text-color-dark);
+        }
+
+        /* ---------- Header ---------- */
+        header {
+            width: 100%;
+            max-width: 100vw;
+            padding: 1rem 2rem;
+            background-color: #007acc;
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .toggle-button {
+            cursor: pointer;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.3rem;
+            margin-top: 0.5rem;
+        }
+
+        /* -------- SEARCH BAR -------- */
+        .search-container {
+            padding: 1rem 2rem;
+            background-color: #f0f8ff;
+            text-align: center;
+        }
+
+        body.dark-mode .search-container {
+            background-color: #14273e;
+        }
+
+        #searchInput {
+            width: 100%;
+            max-width: 500px;
+            padding: 0.6rem 1rem;
+            border: none;
+            border-radius: 0.8rem;
+            font-size: 1rem;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            outline: none;
+        }
+
+
+        /* ---------- Projects Grid ---------- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+            padding: 1.5rem;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        .project-tile {
+            border-radius: 1rem;
+            padding: 1rem;
+            color: white;
+            transition: transform 0.2s;
+            background: var(--tile-gradient-1-light);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 180px;
+            overflow-wrap: break-word;
+        }
+
+        .project-tile p {
+            font-size: 0.95rem;
+            color: #eaeaea;
+            /* or darker shade if on light background */
+            margin: 0.5rem 0;
+            line-height: 1.4;
+
+        }
+
+        @media (max-width: 768px) {
+            .project-tile p {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: -webkit-box;
+                line-clamp: 3;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                transition: all 0.3s ease;
+            }
+
+            .project-tile p:hover {
+                line-clamp: unset;
+                -webkit-line-clamp: unset;
+                display: block;
+                overflow: visible;
+                text-overflow: unset;
+                white-space: normal;
+            }
+        }
+
+
+
+        .project-tile:hover {
+            transform: translateY(-4px);
+        }
+
+        .project-icon {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-tags {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 0.3rem 0.6rem;
+            border-radius: 0.5rem;
+            margin: 0.2rem 0.4rem 0 0;
+            font-size: 0.75rem;
+        }
+
+        .project-links {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .project-links a {
+            text-decoration: none;
+            color: inherit;
+            /* Or your preferred color */
+            font-size: 1.2rem;
+            margin-right: 0.5rem;
+            transition: opacity 0.2s ease;
+        }
+
+        /* ---------- Footer ---------- */
+        footer {
+            background-color: #007acc;
+            color: white;
+            padding: 1.5rem 1rem;
+            text-align: center;
+            font-size: 0.95rem;
+            width: 100%;
+            max-width: 100vw;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.4rem;
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .social-icons a:hover {
+            color: #1DA1F2;
+            transform: scale(1.2);
+        }
+
+        body.light .social-icons a {
+            color: #1e3a8a;
+        }
+
+        body.dark .social-icons a {
+            color: white;
+        }
+
+        /* ---------- Dark Mode Specific ---------- */
+        body.dark-mode .project-tile {
+            color: white;
+        }
+
+        body.dark-mode header,
+        body.dark-mode footer {
+            background-color: #1a2e49;
+        }
+
+        /* ---------- Responsive Design ---------- */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+                padding: 1rem;
+            }
+
+            .project-tile {
+                padding: 0.8rem;
+                min-height: 160px;
+            }
+
+            .project-icon {
+                font-size: 1.4rem;
+            }
+
+            .tag {
+                font-size: 0.7rem;
+            }
+
+            .project-links {
+                flex-wrap: wrap;
+                justify-content: flex-start;
+            }
+
+            footer {
+                font-size: 0.85rem;
+                padding: 1rem;
+            }
+
+            .social-icons a {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .projects-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.7rem;
+                padding: 0.7rem;
+            }
+
+            .project-tile {
+                padding: 0.6rem;
+                min-height: 150px;
+            }
+
+            .project-icon {
+                font-size: 1.3rem;
+            }
+
+            header a {
+                font-size: 0.95rem;
+            }
+
+            .toggle-button {
+                font-size: 1rem;
+            }
+
+            footer {
+                font-size: 0.8rem;
+            }
+
+            .social-icons a {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
 </head>
 
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-3MEXW2XNBM');
-</script>
-
 <body>
-    <div class="container">
-        <header>
-            <h1>My Projects</h1>
-            <h3>Click on the project to know more</h3>
-            <p><a href="../index.html"><strong>HOME</strong></a></p>
-        </header>
+    <header>
+        <a href="../index.html">🏠 Home</a>
+        <button class="toggle-button" onclick="toggleDarkMode()">🌙 Toggle Mode</button>
+    </header>
 
-        <!-- Project 1 -->
-        <div class="project">
-            <div class="project-header">Library Management System in Python</div>
-            <div class="project-content">
-                <div class="project-details">
-                    <img src="../Projects/Project 1/Library-Management.webp" alt="Main project image">
-                    <div class="project-info">
-                        <h3>Abstract</h3>
-                        <p>A simple command Library Management System in Python</p>
-                        <a href="https://github.com/shivrajanand/Library-Management-System-in-Python">
-                            <h3>Link to access project</h3>
-                        </a>
-                        <h3>Skills Used</h3>
-                        <ul>
-                            <li>Python</li>
-                        </ul>
-                        <h3>Description</h3>
-                        <p>This is a simple command line based project in Python which simulates the working of a
-                            Library</p>
-                    </div>
-                </div>
-                <h3>Screenshots</h3>
-                <div class="screenshots">
-                    <img src="../Projects/Project 1/p1.png" alt="Screenshot 1">
-                    <img src="../Projects/Project 1/p2.png" alt="Screenshot 2">
-                    <img src="../Projects/Project 1/p3.png" alt="Screenshot 3">
-                    <img src="../Projects/Project 1/p4.png" alt="Screenshot 3">
-                    <img src="../Projects/Project 1/p5.png" alt="Screenshot 3">
-                    <img src="../Projects/Project 1/p5.png" alt="Screenshot 3">
-                </div>
-            </div>
-        </div>
-
-        <!-- Project 2 -->
-
-
-        <div class="project" id="project2">
-            <div class="project-header">Responsive Chatbot in python</div>
-            <div class="project-content">
-                <div class="project-details">
-                    <img src="../Projects/Project 2/Robot-working-on-computer-600x400.jpg" alt="Main project image">
-                    <div class="project-info">
-                        <h3>Abstract</h3>
-                        <p>This was the start of my interest in building a full fledged human like AI system. I know its
-                            a bit childish but being an Iron Man fan I always wanted to build something like the JARVIS
-                            AI. Inspired from that I started developing my own system which in turn made me want to
-                            learn AIML in deep. This chatbot however just understands basic commands that are prefedded
-                            to it and also can open some applications which I allow it to do. I got the 3rd rank
-                            certificate for this project at the project presentation on the event of Engineer's day,
-                            2022. <strong>I might have made the project private on github. You can <a
-                                    href="https://mega.nz/folder/aAAjHKgL#H0iNwcNrkr61VoBdipx9zw">download an exe of my
-                                    project fromhere.</a></strong>This is a zip file (463 MB), unzip it and use the
-                            <strong>how_to_use readme</strong> to operate it. It will be fun trust me!
-                        </p>
-                        <a href="https://github.com/shivrajanand/maaya-version-A">
-                            <h3>Link to access project</h3>
-                        </a>
-                        <h3>Skills Used</h3>
-                        <ul>
-                            <li>Python</li>
-                            <li>Pyttsx3</li>
-                            <li>Speech recognition</li>
-                            <li>Pwinput</li>
-                        </ul>
-                        <h3>Description</h3>
-                        <h2>Project Functions</h2>
-                        <p>M.A.A.Y.A. (Modular AI Assistant for Your Assistance) is designed to deliver a wide range of
-                            functionalities. Below is a breakdown of its key features:</p>
-
-                        <h3>1. Authentication</h3>
-                        <p>Ensures secure access to the system. Unauthorized users are denied entry, and security
-                            protocols are triggered.</p>
-
-                        <h3>2. Voice-Activated Commands</h3>
-                        <ul>
-                            <li>Text-to-Speech (TTS) communication for interacting with the user.</li>
-                            <li>Speech recognition for seamless command processing.</li>
-                        </ul>
-
-                        <h3>3. Core Functionalities</h3>
-                        <ul>
-                            <li><strong>User Interaction:</strong> Greets the user based on the time of day.</li>
-                            <li><strong>Introduction:</strong> Provides a self-introduction when prompted.</li>
-                            <li><strong>Internet Search:</strong> Performs Wikipedia and general internet searches.</li>
-                            <li><strong>Music Playback:</strong> Plays music and lists available songs.</li>
-                        </ul>
-
-                        <h3>4. Web Access</h3>
-                        <p>Allows quick access to popular websites via voice commands, including:</p>
-                        <ul>
-                            <li>YouTube</li>
-                            <li>Gmail</li>
-                            <li>Stack Overflow</li>
-                            <li>WhatsApp Web</li>
-                        </ul>
-
-                        <h3>5. System Logs</h3>
-                        <p>Maintains a log file to record user interactions, ensuring data tracking and debugging
-                            capabilities.</p>
-
-                        <h3>6. Shutdown Protocol</h3>
-                        <p>Enables secure shutdown of the assistant, including:</p>
-                        <ul>
-                            <li>Goodbye message to the user.</li>
-                            <li>Cleanup of temporary files.</li>
-                            <li>Uploading log files to a remote repository.</li>
-                        </ul>
-
-                        <h3>Future Enhancements</h3>
-                        <p>The project aims to include additional features such as:</p>
-                        <ul>
-                            <li>Advanced Natural Language Processing (NLP).</li>
-                            <li>Integration with smart home systems.</li>
-                            <li>Task scheduling and reminders.</li>
-                            <li>A graphical user interface (GUI) for better usability.</li>
-                        </ul>
-                    </div>
-                </div>
-                <h3>Screenshots</h3>
-                <div class="screenshots">
-                    <img src="../Projects/Project 2/pic 1.png" alt="Screenshot 1">
-                    <img src="../Projects/Project 2/pic 2.png" alt="Screenshot 2">
-                    <img src="../Projects/Project 2/pic 3.png" alt="Screenshot 3">
-                </div>
-            </div>
-        </div>
-        <!-- Add more project sections here -->
-
-
-        <!-- Project 3 -->
-        <div class="project">
-            <div class="project-header">Machine Learning Analysis on Housing Sales Dataset</div>
-            <div class="project-content">
-                <div class="project-details">
-                    <img src="../Projects/Project 3/main image.png" alt="Main project image">
-                    <div class="project-info">
-                        <h3>Abstract</h3>
-                        <p>Data Analysis & Machine Learning Modelling on Housing sales dataset. I completed this during
-                            my 3rd semester B.Tech. Internship. You can access the kaggle notebook from the link given.
-                        </p>
-                        <a href="https://www.kaggle.com/code/shivrajanandai/housing-data-set-regression-modelling">
-                            <h3>Link to access project</h3>
-                        </a>
-                        <h3>Skills Used</h3>
-                        <ul>
-                            <li>Python</li>
-                            <li>Regression Modelling</li>
-                            <li>Data Analysis & Visualization</li>
-                            <li>Pandas</li>
-                            <li>Matplotlib</li>
-                            <li>Seaborn</li>
-                            <li>Gradient Descent</li>
-                            <li>Statistical Analysis</li>
-                        </ul>
-                        <h3>Description</h3>
-                        <article>
-                            <section>
-                                <h2>Project Overview:</h2>
-                                <p>The project is focused on analyzing a dataset to predict house sale prices based on
-                                    different attributes, particularly using regression models and evaluating their
-                                    effectiveness. The goal is to improve the prediction accuracy by employing different
-                                    strategies, including using the mean sales price, leveraging house grades, and
-                                    applying gradient descent for model optimization.</p>
-                            </section>
-
-                            <section>
-                                <h2>Step-by-Step Description:</h2>
-                                <h3>1. Data Loading & Initial Visualization:</h3>
-                                <p>The dataset is first loaded into a Pandas DataFrame from a CSV file. The dataset
-                                    contains information about various houses, including their sale prices and other
-                                    features.</p>
-                                <p>A simple scatter plot is created comparing the actual sale price of the houses
-                                    against the predicted price using a very basic model—the mean sale price across all
-                                    houses.</p>
-
-                                <h3>2. Predicting with Mean Sale Price:</h3>
-                                <p>The mean of the sale prices is computed and used as the predicted sale price for all
-                                    houses. This represents the simplest predictive model where every house's sale price
-                                    is predicted to be the same as the overall mean sale price.</p>
-                                <p>A scatter plot is used to show both the actual sale prices (in red) and the predicted
-                                    mean prices (in green) for all houses.</p>
-
-                                <h3>3. Improvement with House Grade:</h3>
-                                <p>Instead of using a single mean value for all houses, the model is enhanced by
-                                    calculating the mean sale price based on different house grades (e.g., quality of
-                                    construction or features).</p>
-                                <p>A pivot table is created to calculate the mean sale price for each grade of house,
-                                    and this model is used to predict the sale price for each house. This approach
-                                    improves accuracy by accounting for the differences between house grades.</p>
-                                <p>The residual plot, which shows the difference between the actual and predicted
-                                    prices, is evaluated for both models: the mean price model and the grade-based
-                                    model. The grade-based model shows better alignment with the zero line, indicating
-                                    better accuracy.</p>
-
-                                <h3>4. Model Evaluation:</h3>
-                                <p>The effectiveness of both models is assessed using error metrics such as Mean
-                                    Absolute Error (MAE) and Mean Squared Error (MSE). These metrics are used to
-                                    evaluate the models' performance and to identify which model provides a better fit
-                                    to the data. The goal is to minimize these errors to achieve more accurate
-                                    predictions.</p>
-
-                                <h3>5. Regression with Flat Area (Square Footage):</h3>
-                                <p>The next part of the project involves exploring the relationship between the flat
-                                    area of a house and its sale price. The assumption is that a larger flat area
-                                    corresponds to a higher sale price.</p>
-                                <p>A scatter plot is created to visualize the relationship between flat area
-                                    (independent variable) and sale price (dependent variable).</p>
-                                <p>Initially, a basic regression model (mean regression) is applied, but it is
-                                    recognized that the relationship between flat area and sale price is more complex
-                                    and cannot be captured perfectly by a simple mean.</p>
-
-                                <h3>6. Optimization with Gradient Descent:</h3>
-                                <p>To improve the regression model, the project moves on to implement Gradient Descent,
-                                    a machine learning optimization algorithm. Gradient Descent is used to find the
-                                    optimal parameters (slope and intercept) for the regression line, thus improving the
-                                    model's predictions.</p>
-                                <p>The algorithm starts with initial guesses for the slope and intercept and iteratively
-                                    updates these parameters in the direction that reduces the error (difference between
-                                    predicted and actual prices).</p>
-                                <p>The key to this method is that it automates the process of finding the best-fitting
-                                    line without manually adjusting parameters. By minimizing the cost (error), the
-                                    Gradient Descent method aims to achieve the most accurate prediction.</p>
-                            </section>
-
-                            <section>
-                                <h2>Key Insights:</h2>
-                                <ul>
-                                    <li><strong>Model Improvement:</strong> Moving from a mean-based model to one that
-                                        takes house grade into account significantly improved prediction accuracy. This
-                                        demonstrates the importance of incorporating relevant features into predictive
-                                        models.</li>
-                                    <li><strong>Regression Analysis:</strong> The relationship between house flat area
-                                        and sale price was explored using a basic regression model. While the model
-                                        initially had some errors, it laid the foundation for applying more advanced
-                                        optimization techniques.</li>
-                                    <li><strong>Gradient Descent:</strong> By using Gradient Descent, the project
-                                        illustrates how machine learning techniques can be applied to optimize
-                                        regression models and improve predictions. The iterative nature of Gradient
-                                        Descent helps fine-tune the model’s parameters, leading to better results over
-                                        time.</li>
-                                </ul>
-                            </section>
-
-                            <section>
-                                <h2>Conclusion:</h2>
-                                <p>This project demonstrates the use of simple statistical models and machine learning
-                                    techniques to predict house sale prices. It highlights the importance of considering
-                                    multiple factors, such as house grade and flat area, and the effectiveness of
-                                    optimization algorithms like Gradient Descent to improve model accuracy. The
-                                    comparison of different methods and the evaluation using error metrics provide a
-                                    comprehensive understanding of how to build and refine predictive models.</p>
-                            </section>
-                        </article>
-
-
-                    </div>
-                </div>
-                <h3>Screenshots</h3>
-                <div class="screenshots">
-                    <img src="../Projects/Project 3/pic 1.png" alt="Screenshot 1">
-                    <img src="../Projects/Project 3/pic 2.png" alt="Screenshot 2">
-                    <img src="../Projects/Project 3/pic 3.png" alt="Screenshot 3">
-                    <img src="../Projects/Project 3/pic 4.png" alt="Screenshot 3">
-                    <img src="../Projects/Project 3/pic 5.png" alt="Screenshot 3">
-                    <img src="../Projects/Project 3/pic 5.png" alt="Screenshot 3">
-                </div>
-            </div>
-        </div>
-
-        <!-- project 4 -->
-        <div class="project">
-            <div class="project-header">Result Analysis & Progress Report Generator</div>
-            <div class="project-content">
-                <div class="project-details">
-                    <img src="../Projects/Project 4/main.png" alt="Main project image">
-                    <div class="project-info">
-                        <h3>Abstract</h3>
-                        <p>This project involves analyzing students' academic progress by generating personalized
-                            progress reports based on their marks and CGPA scores over multiple semesters. The data used
-                            for this project is sourced from the 5th-semester results of my college. Using Python, the
-                            dataset is cleaned and transformed for accurate data representation. The main objective is
-                            to plot the CGPA scores for each student, visualize their academic performance over time,
-                            and generate a progress report. The project utilizes the <strong><i>pandas</strong></i> library for
-                            data manipulation and <strong><i>matplotlib</strong></i> for visualizing the student's progress. The
-                            generated reports can be saved as images for easy access and review, helping students and
-                            educators track academic growth and identify areas for improvement.</p>
-                        <a href="https://github.com/shivrajanand/Result-Analysis-Progress-Report-Generator">
-                            <h3>Link to access project</h3>
-                        </a>
-                        <h3>Skills Used</h3>
-                        <ul>
-                            <li>Python Programming</li>
-                            <li>Data Manipulation with pandas</li>
-                            <li>Data Visualization with matplotlib</li>
-                            <li>Report Generation and Saving as Images</li>
-                            <li>Data Cleaning and Transformation</li>
-                        </ul>
-                        <h3>Description</h3>
-                        <article>
-                            <header>
-                                <h1>Student Progress Report and Analysis</h1>
-                            </header>
-
-                            <section>
-                                <h2>Project Overview</h2>
-                                <p>This project involves analyzing student marks and generating a personalized progress
-                                    report for each student. The dataset consists of CGPA scores, semester-wise marks,
-                                    and other relevant academic information. Using Python libraries like
-                                    <strong><i>pandas</strong></i> and <strong><i>matplotlib</strong></i>, the project reads data from a CSV
-                                    file, processes it, and generates visual reports for students. The reports showcase
-                                    the progress of students over multiple semesters, providing insights into their
-                                    academic journey.
-                                </p>
-                            </section>
-
-                            <section>
-                                <h2>Steps Involved</h2>
-                                <h3>1. Data Import and Cleaning</h3>
-                                <p>The first step in the project is importing the dataset from an Excel sheet saved as a
-                                    CSV file. Once the data is imported using <strong><i>pandas</strong></i>, the dataset is
-                                    cleaned by removing unnecessary columns and rows. The first row, containing column
-                                    headers, is adjusted, and invalid or missing values are replaced with zero.</p>
-
-                                <h3>2. Data Transformation</h3>
-                                <p>After cleaning, the columns of the dataset are renamed for better clarity and
-                                    readability. The marks data, which could be in string format (like '-'), is
-                                    transformed into numerical format (floats) to facilitate analysis and plotting.</p>
-
-                                <h3>3. Generating the Progress Report</h3>
-                                <p>For each student, a progress report is generated. This involves fetching their data
-                                    based on their registration number, extracting the CGPA scores from different
-                                    semesters, and plotting them on a graph. The graph is enhanced with text labels for
-                                    each data point to make the progress visible at a glance. The CGPA scores for each
-                                    semester are plotted against the semesters on the X-axis, and the corresponding CGPA
-                                    values are plotted on the Y-axis.</p>
-
-                                <h3>4. Saving Reports</h3>
-                                <p>The generated progress reports are optionally saved as PNG files for each student.
-                                    These reports are stored in a directory, with each file named after the student's
-                                    registration number for easy identification.</p>
-                            </section>
-
-                            <section>
-                                <h2>Code Overview</h2>
-                                <p>The following Python libraries were used:</p>
-                                <ul>
-                                    <li><strong>pandas:</strong> For reading, cleaning, and transforming the dataset.
-                                    </li>
-                                    <li><strong>matplotlib:</strong> For visualizing the progress report in the form of
-                                        graphs.</li>
-                                </ul>
-
-                                <h3>Key Functions</h3>
-                                <p>The core function of the project is
-                                    <strong><i>progress_Report(reg, want_to_save_report = 0)</strong></i>, which takes a student's
-                                    registration number as input and generates a visual progress report for the student.
-                                    If the <strong><i>want_to_save_report</strong></i> parameter is set to 1, the report is saved
-                                    as an image file.
-                                </p>
-
-                                <p>The dataset is processed in the following way:</p>
-                                <ul>
-                                    <li>The first row is removed as it contains the header data.</li>
-                                    <li>The 'Sr.No' column is dropped as it's irrelevant to the report generation.</li>
-                                    <li>Missing values (represented by '-') are replaced with 0 in the dataset.</li>
-                                    <li>All numerical columns are converted to float type to ensure consistency in
-                                        calculations and plotting.</li>
-                                </ul>
-                            </section>
-
-                            <section>
-                                <h2>Conclusion</h2>
-                                <p>This project provides a straightforward approach to analyzing student progress and
-                                    visualizing their academic journey. By generating graphical reports that reflect
-                                    their CGPA progress over multiple semesters, this project helps students understand
-                                    their academic performance and areas where improvement is needed. The code can be
-                                    further enhanced to include additional features such as comparing the performance
-                                    with class averages or generating summary reports for faculty.</p>
-                            </section>
-                        </article>
-
-                    </div>
-                </div>
-                <h3>Screenshots</h3>
-                <div class="screenshots">
-                    <img src="../Projects/Project 4/pic 1.png" alt="Screenshot 1">
-                    <img src="../Projects/Project 4/pic 2.png" alt="Screenshot 1">
-                    <img src="../Projects/Project 4/pic 3.png" alt="Screenshot 1">
-    
-                </div>
-            </div>
-        </div>
-
-        <!-- project 5 -->
-        <div class="project">
-            <div class="project-header">Collatz Conjecture Analysis using Python</div>
-            <div class="project-content">
-                <div class="project-details">
-                    <div class="container">
-                        <h1>Project Section Under Construction</h1>
-                        <p> I am solely responsible for designing, developing, and maintaining every aspect of the content and functionality. Each detail reflects my dedication and expertise. Stay tuned as I continue to enhance this page to showcase my work professionally and effectively.</p>
-                        <div class="loader"></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
-
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="🔍 Search projects...">
     </div>
 
+
+    <div id="projects-container" class="projects-grid"></div>
+
+    <footer>
+        <p>Connect with me:</p>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/shivrajanandai/" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=shivrajanand"
+                target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-linkedin"></i>
+            </a>
+            <a href="https://www.github.com/shivrajanand" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-github"></i>
+            </a>
+            <a href="https://www.kaggle.com/shivrajanandai" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-kaggle"></i>
+            </a>
+            <a href="https://x.com/shivrajanand_ai" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-twitter"></i>
+            </a>
+
+            <a href="https://mailto::shivrajanand022002@gmail.com" target="_blank" rel="noopener noreferrer">
+                <i class="fa fa-envelope"></i>
+            </a>
+        </div>
+        <p>&copy; 2025 Shivraj Anand</p>
+    </footer>
+
     <script>
-        const projects = document.querySelectorAll('.project');
-        projects.forEach(project => {
-            const header = project.querySelector('.project-header');
-            header.addEventListener('click', () => {
-                const content = project.querySelector('.project-content');
-                content.style.display = content.style.display === 'block' ? 'none' : 'block';
+
+        const gradients = [
+            "linear-gradient(135deg, #6a11cb, #2575fc)",       // bluish purple
+            "linear-gradient(135deg, #ff6a00, #ee0979)",       // orange to pink
+            "linear-gradient(135deg, #00c6ff, #0072ff)",       // cyan to blue
+            "linear-gradient(135deg, #f7971e, #ffd200)",       // orange to yellow
+            "linear-gradient(135deg, #f54ea2, #ff7676)",       // pink to coral
+            "linear-gradient(135deg, #17ead9, #6078ea)",       // teal to blue
+            "linear-gradient(135deg, #ff9a8b, #ff6a88)",       // peachy red tones
+            "linear-gradient(135deg, #43cea2, #185a9d)",       // teal to blue
+            "linear-gradient(135deg, #f77062, #fe5196)",       // salmon to pink
+            "linear-gradient(135deg, #36d1dc, #5b86e5)",       // bright cyan to blue
+            "linear-gradient(135deg, #ff4e50, #f9d423)",       // reddish to golden
+            "linear-gradient(135deg, #7f00ff, #e100ff)",       // vibrant purples
+            "linear-gradient(135deg, #2193b0, #6dd5ed)",       // muted ocean blue
+            "linear-gradient(135deg, #fc6076, #ff9a44)",       // pink to orange
+            "linear-gradient(135deg, #00b4db, #0083b0)",       // solid blue tones
+            "linear-gradient(135deg, #ff5858, #f09819)",       // strong orange red
+            "linear-gradient(135deg, #00cdac, #8ddad5)",       // minty green tones
+            "linear-gradient(135deg, #f857a6, #ff5858)",       // bright pink blend
+            "linear-gradient(135deg, #ffb75e, #ed8f03)",       // golden-orange range
+            "linear-gradient(135deg, #2196f3, #21cbf3)"        // mid-tone blue blend
+        ];
+
+
+
+
+
+        async function loadProjects() {
+            const res = await fetch('../assets/data/project.json');
+            const projects = await res.json();
+            renderProjects(projects);
+        }
+
+
+
+        function renderProjects(projects) {
+            const container = document.getElementById('projects-container');
+            container.innerHTML = '';
+
+            projects.forEach(project => {
+                const tile = document.createElement('div');
+                tile.className = 'project-tile';
+
+                const randomGradient = gradients[Math.floor(Math.random() * gradients.length)];
+                tile.style.background = randomGradient;
+
+                tile.innerHTML = `
+            <h3>${project.title}</h3>
+            <p>${project.description}</p>
+            <div class="project-tags">
+                ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+            </div>
+            <div class="project-links">
+                <a href="${project.link}" target="_blank">🔗 View Project</a>
+            </div>
+        `;
+
+                container.appendChild(tile);
+            });
+        }
+
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+        }
+
+        window.addEventListener('DOMContentLoaded', loadProjects);
+
+        // -----------SEARCH BAR LOGIC -----
+
+        let allProjects = [];
+
+        async function loadProjects() {
+            const res = await fetch('../assets/data/project.json');
+            allProjects = await res.json();
+            renderProjects(allProjects);
+        }
+        document.addEventListener('DOMContentLoaded', () => {
+            loadProjects();
+
+            const searchInput = document.getElementById('searchInput');
+            searchInput.addEventListener('input', () => {
+                const query = searchInput.value.toLowerCase();
+
+                const filtered = allProjects.filter(project =>
+                    project.title.toLowerCase().includes(query) ||
+                    project.description.toLowerCase().includes(query) ||
+                    project.tags.some(tag => tag.toLowerCase().includes(query))
+                );
+
+                renderProjects(filtered);
             });
         });
+
+
     </script>
 </body>
 
 </html>
-
-<!-- Code for project tab -->
-
-<!--
-
-<div class="project">
-    <div class="project-header">PROJECT TITLE</div>
-    <div class="project-content">
-        <div class="project-details">
-            <img src="PROJECT MAIN IMAGE FILE" alt="Main project image">
-            <div class="project-info">
-                <h3>Abstract</h3>
-                <p>Project Abstract</p>
-                <a href="PROJECT ACCESS LINK">
-                    <h3>Link to access project</h3>
-                </a>
-                <h3>Skills Used</h3>
-                <ul>
-                    <li>Skill 1</li>
-                </ul>
-                <h3>Description</h3>
-                <p>Project Description</p>
-            </div>
-        </div>
-        <h3>Screenshots</h3>
-        <div class="screenshots">
-            <img src="" alt="Screenshot 1">
-            <img src="" alt="Screenshot 2">
-            <img src="" alt="Screenshot 3">
-        </div>
-    </div>
-</div>
-
--->

@@ -1,0 +1,53 @@
+[
+  {
+    "title": "Library Management System in Python",
+    "description": "A simple command prompt based LMS system in python",
+    "tags": ["Python", "pip", "command prompt"],
+    "link": "#"
+
+  },
+  {
+    "title": "Responsive Chatbot in Python",
+    "description": "A voice enable chatbot that responds to predefined user queries",
+    "tags": ["Python", "Pyttsx3", "SpeechRecognition"],
+    "link": "#"
+  },
+  {
+    "title": "Machine Learning Analysis on Housing Sales Dataset",
+    "description": "The project is focused on analyzing a dataset to predict house sale prices based on different attributes, particularly using regression models and evaluating their effectiveness.",
+    "tags": ["Python", "Pandas", "Matplotlib"],
+    "link": "#"
+  },
+  {
+    "title": "Result Analysis and Progress Report Generator",
+    "description": "This project involves analyzing students' academic progress by generating personalized progress reports based on their marks and CGPA scores over multiple semesters.",
+    "tags": ["Python", "Pandas", "Matplotlib"],
+    "link": "#"
+  },
+
+  {
+    "title": "Report on AVATAR: Java Python Program Translation",
+    "description": "Exploring AVATAR, a parallel corpus for Java-Python program translation, leveraging machine learning models.",
+    "tags": ["Research", "Report", "Python", "Java", "BERT"],
+    "link": "https://shivrajanand.github.io/blog_pages/avatar.html"
+  },
+
+  {
+    "title": "Machine Learning Introductory Course",
+    "description": "An introductory course on ML based on my notes from my training from Internshala made in static website form for faster loading and easy access",
+    "tags": ["Tutorial", "Machine Learning", "Python", "Pandas", "Numpy", "Matplotlib"],
+    "link": "https://shivrajanand.github.io/blog_pages/MLNOTES/Chapter1.html"
+  },
+  {
+    "title": "Development of an Autocorrect System Using Language and Channel Models",
+    "description": "The project focuses on the development of an autocorrect model using natural language processing (NLP) techniques. The system is built using Probabilitics Models rather than training deep neural networks. This is my btech 7th semester minor project",
+    "tags": ["NLP", "Python", "Spacy", "Collections", "Natural Langugage Processing"],
+    "link": "https://shivrajanand.github.io/blog_pages/btechminor.html"
+  },
+  {
+    "title": "Next Word Recommender System using Probabilistic Approach",
+    "description": "A next words recommender system i built during my NLP training. The system uses a probabilistic approach to predict the next word in a sentence.",
+    "tags": ["NLP", "Python", "Spacy", "Collections", "Natural Langugage Processing"],
+    "link": "https://shivrajanand.github.io/blog_pages/NextWordRecommenderSystem.html"
+  }
+]
