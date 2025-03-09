@@ -4,6 +4,7 @@
     "date": "February 11, 2025",
     "category": "Machine Learning",
     "description": "Exploring AVATAR, a dataset for program translation using AI models like PLBART and TransCoder.",
+    "tags":["nlp", "python", "java", "program translation", "BERT"],
     "link": "../blog_pages/avatar.html"
   },
 
@@ -12,6 +13,7 @@
     "date": "February 12, 2025",
     "category": "Machine Learning",
     "description": "A comprehensive summary of key machine learning concepts and techniques covered in the Intern Shala course.",
+    "tags":["machine learning", "python", "pandas", "numpy", "scikitlearn", "matplotlib"],
     "link": "../blog_pages/MLNOTES/Chapter1.html"
   },
 
@@ -20,6 +22,7 @@
     "date": "March 07, 2025",
     "category": "Natural Language Processing",
     "description": "The project focuses on the development of an autocorrect model using natural language processing (NLP) techniques. The system is built using Probabilitics Models rather than training deep neural networks.",
+    "tags":["nlp", "python", "natural language processing", "autocorrect", "spelling-correction"],
     "link": "../blog_pages/btechminor.html"
   },
   {
@@ -27,6 +30,7 @@
     "date": "March 09, 2025",
     "category": "Natural Language Processing",
     "description": "A next words recommender system i built during my NLP training. The system uses a probabilistic approach to predict the next word in a sentence.",
+    "tags":["nlp", "python", "natural language processing", "nextword", "probability"],
     "link": "../blog_pages/NextWordRecommenderSystem.html"
   }
 ]
