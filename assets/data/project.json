@@ -41,13 +41,13 @@
   {
     "title": "Development of an Autocorrect System Using Language and Channel Models",
     "description": "The project focuses on the development of an autocorrect model using natural language processing (NLP) techniques. The system is built using Probabilitics Models rather than training deep neural networks. This is my btech 7th semester minor project",
-    "tags": ["NLP", "Python", "Spacy", "Collections", "Natural Langugage Processing"],
+    "tags": ["NLP", "Python", "Spacy", "Collections", "Natural Language Processing"],
     "link": "https://shivrajanand.github.io/blog_pages/btechminor.html"
   },
   {
     "title": "Next Word Recommender System using Probabilistic Approach",
     "description": "A next words recommender system i built during my NLP training. The system uses a probabilistic approach to predict the next word in a sentence.",
-    "tags": ["NLP", "Python", "Spacy", "Collections", "Natural Langugage Processing"],
+    "tags": ["NLP", "Python", "Spacy", "Collections", "Natural Language Processing"],
     "link": "https://shivrajanand.github.io/blog_pages/NextWordRecommenderSystem.html"
   }
 ]
