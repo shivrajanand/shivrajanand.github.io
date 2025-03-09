@@ -363,7 +363,6 @@
                             <li><a href="#understandingNgram">Understanding N-gram Model</a></li>
                             <li><a href="#implementation">Implementation</a></li>
                             <li><a href="#samplePredictions">Sample Predictions</a></li>
-                            <li><a href="#limitations">Limitations of N-gram Approach</a></li>
                         </ul>
                     </div>
 
@@ -371,26 +370,20 @@
                     <div class="chapter">
                         <h2><a href="#chapter4">Results and Analysis</a></h2>
                         <ul>
-                            <li><a href="#modelPerformance">Model Performance</a></li>
-                            <li><a href="#samplePredictions">Sample Predictions</a></li>
-                            <li><a href="#challengesFaced">Challenges Faced</a></li>
+                            <li><a href="#Results">Results</a></li>
                         </ul>
                     </div>
 
                     <div class="chapter">
-                        <h2><a href="#chapter5">Applications and Future Scope</a></h2>
+                        <h2><a href="#chapter5">Conclusion</a></h2>
                         <ul>
-                            <li><a href="#realWorldApplications">Real-World Applications</a></li>
                             <li><a href="#futureImprovements">Future Improvements</a></li>
                         </ul>
                     </div>
 
                     <div class="chapter">
-                        <h2><a href="#chapter6">Conclusion</a></h2>
-                    </div>
+                        <h2><a href="#chapter6">References and Resources</a></h2>
 
-                    <div class="chapter">
-                        <h2><a href="#chapter7">References and Resources</a></h2>
                     </div>
 
 
@@ -713,29 +706,209 @@
                     <section id="chapter3">
                         <h2 id="chapter3">N-gram Based Approach</h2>
                         <h3 id="understandingNgram">Understanding N-gram Model</h3>
+                        <p>The N-gram model is a statistical language model applied for making predictions about what
+                            the next object in a stream of text would be, depending on the (N−1) preceding ones. It's
+                            among the most basic and well-established methods employed in Natural Language Processing
+                            (NLP) applications such as predicting text, correcting spelling, and machine translation.
+                        </p>
+
+                        <p>An N-gram is a sequence of N items in a text or speech corpus. These can be characters,
+                            syllables, or more often, words. Based on the value of N, the model has varying context:</p>
+
+                        <ul style="margin-left: 20px;">
+                            <li>Unigram (N=1): Takes into account each word separately.</li>
+                            <li>Bigram (N=2): Takes into account the current word depending on the last one.</li>
+                            <li>Trigram (N=3): Takes into account the current word depending on the two preceding ones.
+                            </li><br>
+                        </ul>
+                        <p>
+                            The key idea is that the probability of a word appearing depends only on the previous (N−1)
+                            words, simplifying the complex dependencies in natural language.
+                        </p>
+
+                        <h4>Mathematical Formulation</h4>
+                        <p>$$P(w_n|w_1, w_2, ..., w_{n-1}) \approx P(w_n | w_{n-(N-1)}, ..., w_{n-1}) $$</p>
+                        <p>These probabilities are estimated from a training corps using frequency counts: </p>
+                        <p>$$P(w_n|w_{n-2},w_{n-1}) = \frac{Count(w_{n-2},w_{n-1},w_n)}{Count(w_{n-2},w_{n-1})}$$</p>
+
+
                         <h3 id="implementation">Implementation</h3>
+
+                        <h4>1. Creating Dataframe</h4>
+                        <iframe
+                            src="https://www.kaggle.com/embed/shivrajanandai/next-word-recommender-system?cellIds=18-30&kernelSessionId=226487950"
+                            height="500" style="margin: 0 auto; width: 100%; max-width: 950px;" frameborder="0"
+                            scrolling="auto" title="Next Word Recommender System"></iframe>
+
+
                         <h3 id="samplePredictions">Sample Predictions</h3>
-                        <h3 id="limitations">Limitations of N-gram Approach</h3>
+                        <p>Let's see some sample predictions made by the N-gram model:</p>
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>print(dict(model[('to', 'book')]))</code></pre>
+                                <pre>{'a': 186, 'an': 107, 'at': 9, 'for': 5, 'me': 16, 'some': 13, 'your': 3, 'it': 9, 'the': 11, 'reservations': 6, 'this': 3, 'tickets': 6, 'two': 6, 'flight': 1, 'with': 2, 'reservation': 1, 'shared': 1, 'that': 3, 'movie': 4, 'there': 3, 'four': 1, 'any': 1, 'my': 2, 'through': 1, 'us': 1, 'and': 1, 'anything': 1, 'anymore': 1, "patty's": 1, 'later': 1, 'something': 1, 'uberxl': 1, 'dinner': 1}</pre>
+                            </div>
+                            <div class="cell">
+                                <pre><code>dict(model["good", "to"])</code></pre>
+                                <pre>{'know': 20,
+                                    'me': 56,
+                                    'go': 10,
+                                    'hear': 6,
+                                    'the': 1,
+                                    'you': 2,
+                                    'drive': 1,
+                                    'watch': 1,
+                                    'eat': 1,
+                                    'pass': 1,
+                                    'bring': 1}</pre>
+                            </div>
+                        </div>
+                        <h4>Probabilistic Output</h4>
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>
+                                    unigram_dict = {}<br>
+                                    <br>
+                                    for i in tqdm(range(dataset.shape[0])):<br>
+                                    &emsp;&emsp;for word in dataset['unigram'][i]:<br>
+                                    &emsp;&emsp;&emsp;&emsp;if word[0] in unigram_dict:<br>
+                                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;unigram_dict[word[0]] += 1<br>
+                                    &emsp;&emsp;&emsp;&emsp;else:<br>
+                                    &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;unigram_dict[word[0]] = 1
+                                </code></pre>
+                            </div>
+                            <div class="cell">
+                                <pre><code>counts = Counter(unigram_dict)</code></pre>
+                                <pre><code>total_count = len(unigram_dict)</code></pre>
+                                <pre><code>
+                                    for word in counts: <br>&emsp;&emsp;counts[word] /= float(total_count)
+                                </code></pre>
+                                <pre><code>
+                                    for w1_w2 in model:<br>
+&emsp;&emsp;total_count = float(sum(model[w1_w2].values()))<br>
+&emsp;&emsp;for w3 in model[w1_w2]:<br>
+&emsp;&emsp;&emsp;&emsp;model[w1_w2][w3] /= total_count
+
+                                </code></pre>
+                            </div>
+
+                        </div>
                     </section>
 
                     <section id="chapter4">
-                        <h2 id="chapter4">Results and Analysis</h2>
-                        <h3 id="modelPerformance">Model Performance</h3>
-                        <h3 id="samplePredictions">Sample Predictions</h3>
-                        <h3 id="challengesFaced">Challenges Faced</h3>
-                    </section>
+                        <h3 id="Results">Results</h3>
+                        <div class="notebook">
+                            <div class="cell">
+                                <pre><code>dict(model["to", "book"])</code></pre>
+                                <pre>
+                                    {   'a': 0.4547677261613692<br>
+                                        'an': 0.2616136919315403<br>
+                                        'at': 0.022004889975550123<br>
+                                        'for': 0.012224938875305624<br>
+                                        'me': 0.039119804400977995<br>
+                                        'some': 0.03178484107579462<br>
+                                        'your': 0.007334963325183374<br>
+                                        'it': 0.022004889975550123<br>
+                                        'the': 0.02689486552567237<br>
+                                        'reservations': 0.014669926650366748<br>
+                                        'this': 0.007334963325183374<br>
+                                        'tickets': 0.014669926650366748<br>
+                                        'two': 0.014669926650366748<br>
+                                        'flight': 0.0024449877750611247<br>
+                                        'with': 0.004889975550122249<br>
+                                        'reservation': 0.0024449877750611247<br>
+                                        'shared': 0.0024449877750611247<br>
+                                        'that': 0.007334963325183374<br>
+                                        'movie': 0.009779951100244499<br>
+                                        'there': 0.007334963325183374<br>
+                                        'four': 0.0024449877750611247<br>
+                                        'any': 0.0024449877750611247<br>
+                                        'my': 0.004889975550122249<br>
+                                        'through': 0.0024449877750611247<br>
+                                        'us': 0.0024449877750611247<br>
+                                        'and': 0.0024449877750611247<br>
+                                        'anything': 0.0024449877750611247<br>
+                                        'anymore': 0.0024449877750611247<br>
+                                        "patty's": 0.0024449877750611247<br>
+                                        'later': 0.0024449877750611247<br>
+                                        'something': 0.0024449877750611247<br>
+                                        'uberxl': 0.0024449877750611247<br>
+                                        'dinner': 0.0024449877750611247<br>}
+                                </pre>
+                            </div>
+                        </div>
 
-                    <section id="chapter5">
-                        <h2 id="chapter5">Applications and Future Scope</h2>
-                        <h3 id="realWorldApplications">Real-World Applications</h3>
-                        <h3 id="futureImprovements">Future Improvements</h3>
-                    </section>
-                    <section id="chapter6">
-                        <h2 id="chapter6">Conclusion</h2>
-                    </section>
-                    <section id="chapter7">
-                        <h2 id="chapter7">References and Resources</h2>
-                    </section>
+                        <section id="chapter5">
+                            <h2 id="chapter6">Conclusion</h2>
+                            <p> I learned, through this project, how to construct a Next Word Prediction system from the
+                                N-gram language model. Breaking down text into unigrams, bigrams, and trigrams allowed
+                                me to examine word patterns and apply them to predict the most likely next word based on
+                                previous context. It was interesting to observe how basic statistical methods can be the
+                                foundations for effective language utilities we utilize in our daily lives.</p>
+                            <p>Although the N-gram method was simple and practical, I was also aware of its
+                                weaknesses—particularly in addressing unseen word collations and contextual dependencies
+                                of length greater than n. Even then, the model made sensible predictions in most
+                                scenarios and provided insight into how vanilla NLP models operate. </p>
+                            <p>This experience has laid a strong foundation for moving toward more advanced models in
+                                the future. I’m excited to explore smoothing techniques, experiment with larger
+                                datasets, and eventually dive into deep learning methods like RNNs and transformers to
+                                build smarter, more context-aware prediction systems.</p>
+                            <h3 id="futureImprovements">Future Improvements</h3>
+                            <p>
+                                Although the N-gram model was a good foundation for predicting next words, there are a
+                                number of improvements that I can make on this project in the future. One key area for
+                                improvement is dealing with unseen or low-frequency combinations of words. To achieve
+                                this, I will look into smoothing methods such as Laplace or Kneser-Ney smoothing, which
+                                will assist in providing probabilities for n-grams never before seen and enhance the
+                                overall accuracy of the model.
+                            </p>
+                            <p>
+                                Another enhancement would be to utilize a larger and more varied dataset. The current
+                                dataset, while good for experimenting, is lacking in vocabulary and context. Enlarging
+                                the dataset would make the model more generalizable and better at predicting across
+                                topics.
+                            </p>
+                            <p>
+                                I also want to experiment with higher-order n-grams, although I’m aware this comes with
+                                increased computational costs and data sparsity issues. Still, it could potentially
+                                capture richer context.
+                            </p>
+                            <p>
+                                Eventually, I’d like to move beyond traditional N-gram models and explore neural
+                                network-based language models such as RNNs, LSTMs, or transformers like BERT and GPT.
+                                These models are much better at capturing long-range dependencies and semantic meaning,
+                                which could significantly boost the performance and usefulness of the prediction system.
+                            </p>
+                            <p>Finally, incorporating a user interface where users can input and receive word
+                                suggestions in real-time would make the project more interactive and useful.</p>
+                        </section>
+                        <section id="chapter6">
+                            <h2 id="chapter6">References and Resources</h2>
+                            <ol>
+                                <li>Jurafsky, D., & Martin, J. H. (2020). <i>Speech and Language Processing</i> (3rd ed.
+                                    draft). <a href="https://web.stanford.edu/~jurafsky/slp3/"
+                                        target="_blank">https://web.stanford.edu/~jurafsky/slp3/</a></li>
+
+                                <li>Wikipedia contributors. “N-gram.” <i>Wikipedia</i>, The Free Encyclopedia. <a
+                                        href="https://en.wikipedia.org/wiki/N-gram"
+                                        target="_blank">https://en.wikipedia.org/wiki/N-gram</a></li>
+
+                                <li>Manning, C. D., Raghavan, P., & Schütze, H. (2008). <i>Introduction to Information
+                                        Retrieval</i>. Cambridge University Press.</li>
+
+                                <li>Python Documentation – <code>collections</code> module: <a
+                                        href="https://docs.python.org/3/library/collections.html"
+                                        target="_blank">https://docs.python.org/3/library/collections.html</a></li>
+
+                                <li>Kaggle. Sample text datasets. <a href="https://www.kaggle.com/datasets"
+                                        target="_blank">https://www.kaggle.com/datasets</a></li>
+
+                                <li>Towards Data Science – N-gram Models in NLP: <a
+                                        href="https://towardsdatascience.com/n-gram-models-and-their-applications-3f41d5a5aa5e"
+                                        target="_blank">https://towardsdatascience.com/n-gram-models-and-their-applications-3f41d5a5aa5e</a>
+                                </li>
+                            </ol>
+                        </section>
                 </article>
 
             </main>
