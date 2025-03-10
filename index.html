@@ -49,6 +49,7 @@
             padding: 2rem 1rem;
         }
 
+
         .profile-img {
             width: 150px;
             height: 150px;
@@ -159,9 +160,37 @@
         }
 
         .hamburger {
-            display: none;
-            font-size: 1.5rem;
+            position: fixed;
+            top: 1rem;
+            left: 1rem;
+            background: linear-gradient(145deg, var(--primary), #2c3e50);
+            /* Light-to-dark gradient */
+            color: white;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 999px;
             cursor: pointer;
+            z-index: 1001;
+            box-shadow:
+                4px 4px 10px rgba(0, 0, 0, 0.3),
+                /* Outer shadow for depth */
+                inset -2px -2px 4px rgba(255, 255, 255, 0.2),
+                /* Top-left inner highlight */
+                inset 2px 2px 4px rgba(0, 0, 0, 0.2);
+            /* Bottom-right inner shadow */
+            transition: all 0.2s ease;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                height: 5rem;
+            }
+        }	
+
+        @media (min-width: 768px) {
+            .hamburger {
+                display: none;
+            }
         }
 
         .sidebar {
@@ -184,15 +213,6 @@
                 /* Left inner light */
                 inset 2px 0 4px rgba(0, 0, 0, 0.2);
             /* Right inner dark */
-        }
-
-        .sidebar #closebutton {
-            color: white;
-            font-size: 1.5rem;
-            text-align: left;
-            display: block;
-            width: fit-content;
-            margin-bottom: 1rem;
         }
 
 
@@ -646,9 +666,9 @@
 
 <body>
     <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
-
+    <button class = "hamburger" onclick="toggleSidebar()">☰</button>
     <nav>
-        <div class="hamburger" onclick="toggleSidebar()">☰</div>
+        <!-- // <div class="hamburger" onclick="toggleSidebar()">☰</div> -->
         <div class="nav-links">
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
@@ -664,7 +684,7 @@
     </nav>
 
     <div class="sidebar" id="sidebar">
-        <a id="closebutton" href="javascript:void(0)" onclick="toggleSidebar()"><strong>✖ Close</strong></a>
+        <!-- <a id="closebutton" href="javascript:void(0)" onclick="toggleSidebar()"><strong>✖ Close</strong></a> -->
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="pages/projects.html">Projects</a>
