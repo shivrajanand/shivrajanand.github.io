@@ -24,6 +24,8 @@
             text-decoration: none;
         }
 
+
+
         * {
             margin: 0;
             padding: 0;
@@ -243,10 +245,38 @@
         }
 
         .section-title {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+            font-size: 2rem;
+            font-weight: 600;
+            color: #222;
+            letter-spacing: 0.5px;
+            position: relative;
             display: inline-block;
+            padding-bottom: 0.4rem;
+            margin-bottom: 2rem;
         }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(to right, #007bff, #00c6ff);
+            border-radius: 2px;
+            transition: background 0.3s ease;
+        }
+
+        /* Dark Mode Support */
+        body.dark .section-title {
+            color: #f1f1f1;
+        }
+
+        body.dark .section-title::after {
+            background: linear-gradient(to right, #00c6ff, #6a00f4);
+        }
+
+
 
         .card-grid {
             display: grid;
@@ -311,7 +341,7 @@
             /* Subtle gradient for 3D feel */
             color: white;
             margin-top: 3rem;
-            border-top: 20px solid var(--text-dark);
+            border-top: 2px solid var(--text-dark);
             /* Bold top border */
             border-top-left-radius: 30px;
             border-top-right-radius: 30px;
@@ -434,7 +464,6 @@
         }
 
         #button a::after {
-            content: " →";
             transition: transform 0.3s ease;
         }
 
@@ -516,17 +545,100 @@
         .contact-form button:hover {
             background: #0056b3;
         }
+
+        #about .card .call-to-action,
+        footer p {
+            text-align: center;
+        }
+
+        /* skills */
+        .skill-list {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-top: 0.8rem;
+        }
+
+        .skill-list li {
+            background: linear-gradient(145deg, #e0e0e0, #ffffff);
+            border: 1px solid #ccc;
+            border-radius: 1.2rem;
+            padding: 0.4rem 0.9rem;
+            font-size: 0.9rem;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: default;
+        }
+
+        body.dark .skill-list li {
+            background: linear-gradient(145deg, #333, #444);
+            border: 1px solid #222;
+            box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        .skill-list li:hover {
+            transform: translateY(-2px);
+            box-shadow: 4px 4px 10px rgba(0, 0, 0, 0.15);
+        }
+
+
+        .tech-logo-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.2rem;
+            justify-content: center;
+            align-items: center;
+            margin-top: 2rem;
+        }
+
+        .tech-logo-row img {
+            height: 45px;
+            width: auto;
+            transition: transform 0.25s ease, filter 0.3s;
+            filter: drop-shadow(0 2px 5px rgba(0, 0, 0, 0.1));
+            border-radius: 6px;
+        }
+
+        .tech-logo-row img:hover {
+            transform: scale(1.1);
+            filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.2));
+        }
+
+        @media (max-width: 768px) {
+            .skill-list {
+                gap: 0.4rem;
+                margin-top: 0.5rem;
+            }
+
+            .skill-list li {
+                padding: 0.3rem 0.7rem;
+                font-size: 0.8rem;
+                border-radius: 1rem;
+                box-shadow: 1px 1px 4px rgba(0, 0, 0, 0.1);
+            }
+
+            #skills .card h3 {
+                font-size: 1rem;
+                margin-bottom: 0.1rem;
+            }
+
+            #skills .card {
+                padding: 1rem;
+            }
+        }
     </style>
 </head>
 
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-3MEXW2XNBM');
+    gtag('config', 'G-3MEXW2XNBM');
 </script>
 
 <body>
@@ -563,68 +675,152 @@
     <header>
         <img src="assets/documents/profile-pic.png" alt="Shivraj Anand" class="profile-img" />
         <h1>Shivraj Anand</h1>
-        <p class="intro">Engineering student with a passion for AI, ML, web development, and impactful research.</p>
+        <p class="intro">Data Scientist in the Making</p>
+        <p class="subtagline">Exploring the space where human cognition meets artificial intelligence.</p>
     </header>
 
     <main class="main-content">
         <section id="about">
             <h2 class="section-title">About Me</h2>
             <div class="card">
-                <p>Hello! I’m <strong>Shivraj Anand</strong>, a Computer Science & Engineering student focused on
-                    innovation and continuous learning. My interests span across Artificial Intelligence, Machine
-                    Learning, Web Development, and IoT. I’ve actively worked on projects, research, and certifications
-                    to sharpen my skills.</p>
-                <div id="button">
-                    <a href="https://docs.google.com/document/d/1CIleFjZDLq3l6ntBhesIFKIXj7e1vXrV/export?format=pdf"
-                        download class="download-btn"><i class="fas fa-download"></i> Resume</a>
+                <p style="text-align: justify;">I'm <strong>Shivraj Anand</strong>, an undergraduate in Computer Science
+                    at B.P. Mandal College of
+                    Engineering, graduating in June 2025. I love data science, particularly the similarity between
+                    artificial intelligence and the human brain. I like data cleaning, statistical modeling, and
+                    developing models that convert raw data into insights. Presently, I'm developing proficiency in Data
+                    Science & Machine Learning, along with web development. My area of research is <strong>Natural
+                        Language Processing</strong> With a questionably inclined mind honed through poetry and reading,
+                    I envision myself as an eternal learner, ever searching at the crossroads of humans and machines.
+                </p>
+                <div class="call-to-action">
+                    <div id="button">
+                        <a href="https://docs.google.com/document/d/1CIleFjZDLq3l6ntBhesIFKIXj7e1vXrV/export?format=pdf"
+                            download class="download-btn"><i class="fas fa-download"></i> Resume</a>
+                    </div>
+                    <div id="button">
+                        <a href="#contact">Connect with me </a>
+                    </div>
                 </div>
             </div>
         </section>
-
         <section id="skills">
             <h2 class="section-title">Skills</h2>
             <div class="card-grid">
                 <div class="card">
                     <h3>Programming</h3>
-                    <p>Python, C, C++</p>
+                    <ul class="skill-list">
+                        <li>Python</li>
+                        <li>C</li>
+                        <li>C++</li>
+                    </ul>
                 </div>
+
                 <div class="card">
                     <h3>ML/Data Analysis</h3>
-                    <p>NumPy, Pandas, PyTorch, Scikit-Learn, Excel</p>
+                    <ul class="skill-list">
+                        <li>NumPy</li>
+                        <li>Pandas</li>
+                        <li>PyTorch</li>
+                        <li>Scikit-Learn</li>
+                        <li>Excel</li>
+                    </ul>
                 </div>
+
                 <div class="card">
                     <h3>Web Dev</h3>
-                    <p>HTML, CSS, JavaScript, Bootstrap</p>
+                    <ul class="skill-list">
+                        <li>HTML</li>
+                        <li>CSS</li>
+                        <li>JavaScript</li>
+                        <li>Bootstrap</li>
+                    </ul>
                 </div>
+
                 <div class="card">
                     <h3>Database</h3>
-                    <p>SQL, DBMS</p>
+                    <ul class="skill-list">
+                        <li>SQL</li>
+                        <li>DBMS</li>
+                    </ul>
                 </div>
+
                 <div class="card">
                     <h3>Tools</h3>
-                    <p>Git, GitHub, Power BI, Canva</p>
+                    <ul class="skill-list">
+                        <li>Git</li>
+                        <li>GitHub</li>
+                        <li>Power BI</li>
+                        <li>Canva</li>
+                    </ul>
                 </div>
+
                 <div class="card">
                     <h3>Soft Skills</h3>
-                    <p>Communication, Content Writing</p>
+                    <ul class="skill-list">
+                        <li>English</li>
+                        <li>Hindi</li>
+                        <li>Communication</li>
+                        <li>Content Writing</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h3>Natural Language Processing</h3>
+                    <ul class="skill-list">
+                        <li>spaCy</li>
+                        <li>Transformers</li>
+                        <li>re</li>
+                    </ul>
                 </div>
             </div>
+
+            <div class="card">
+                <div class="tech-logo-row">
+                    <img src="https://cdn.simpleicons.org/python/3776AB" alt="Python" title="Python">
+                    <img src="https://cdn.simpleicons.org/c/00599C" alt="C" title="C">
+                    <img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="C++" title="C++">
+                    <img src="https://cdn.simpleicons.org/numpy/013243" alt="NumPy" title="NumPy">
+                    <img src="https://cdn.simpleicons.org/pandas/150458" alt="Pandas" title="Pandas">
+                    <img src="https://cdn.simpleicons.org/pytorch/EE4C2C" alt="PyTorch" title="PyTorch">
+                    <img src="https://cdn.simpleicons.org/scikitlearn/F7931E" alt="Scikit-Learn" title="Scikit-Learn">
+                    <img src="https://cdn.simpleicons.org/html5/E34F26" alt="HTML" title="HTML">
+                    <img src="https://cdn.simpleicons.org/css3/1572B6" alt="CSS" title="CSS">
+                    <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" title="JavaScript">
+                    <img src="https://cdn.simpleicons.org/bootstrap/7952B3" alt="Bootstrap" title="Bootstrap">
+                    <img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL" title="SQL">
+                    <img src="https://cdn.simpleicons.org/git/F05032" alt="Git" title="Git">
+                    <img src="https://cdn.simpleicons.org/github/181717" alt="GitHub" title="GitHub">
+                    <img src="https://res.cdn.office.net/files/fabric-cdn-prod_20230815.002/assets/brand-icons/product/svg/excel_32x1.svg"
+                        alt="Excel" title="Excel">
+                    <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/Hero_BPI_icon1?resMode=sharp2&op_usm=1.5,0.65,15,0&wid=96&hei=96&qlt=100&fmt=png-alpha&fit=constrain"
+                        alt="Power BI" title="Power BI">
+                    <img src="https://static.canva.com/web/images/8439b51bb7a19f6e65ce1064bc37c197.svg" alt="Canva"
+                        title="Canva">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/SpaCy_logo.svg" alt="spaCy" title="spaCy">
+                    <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Transformers"
+                        title="Transformers (Hugging Face)">
+                </div>
+            </div>
+
+
         </section>
 
         <section id="projects">
             <h2 class="section-title">Projects</h2>
             <div class="card">
-                <p>Explore my work in AI, ML, data science, web apps, and smart IoT systems. Visit the Projects page for
+                <p>Explore my work in AI, ML, data science, web apps, research. Visit the Projects and Blog page for
                     details.</p>
                 <div id="projects-container"><strong>LOADING PROJECTS...</strong></div>
-                <div id="button"><a href="pages/projects.html">View Projects →</a></div>
+                <div id="button"><a href="pages/projects.html">View Projects →</a></div><br>
+                <div id="button"><a href="pages/blog.html">View Blogs →</a></div>
             </div>
 
         </section>
 
         <section id="contact">
             <h2 class="section-title">Work With Me</h2>
-            <p class="section-subtitle">Have a project in mind? Let's work together to create something amazing!</p>
+            <p class="section-subtitle"><strong>Let’s connect—projects, research, or opportunities, I’m all
+                    ears.</strong></p>
 
             <div class="contact-wrapper">
                 <!-- Left Card: Contact Info -->
@@ -646,6 +842,18 @@
                         <a href="https://www.kaggle.com/shivrajanandai" target="_blank"><i
                                 class="fab fa-kaggle"></i></a>
                     </div>
+
+                    <div style="margin-top: 10px;">
+                        <p style="text-align: justify;">
+                            I'm interested in <strong>freelance assignments</strong> (<em>on-call</em>),
+                            <strong>compensated part-time remote internships</strong>,
+                            and <strong>collaborative research projects</strong>. Although I <em>prefer remote
+                                assignments</em>, I'd be willing to
+                            <u>relocate</u> for the proper <strong>full-time opportunity</strong> or <strong>significant
+                                project</strong>.
+
+                        </p>
+                    </div>
                 </div>
 
                 <!-- Right Card: Contact Form -->
@@ -656,9 +864,8 @@
                             <input type="text" name="name" placeholder="Your Name" required>
                             <input type="email" name="email" placeholder="your@email.com" required>
                         </div>
-                        <input type="text" name="subject" placeholder="Subject" required>
-                        <textarea name="message" placeholder="Tell me about your project..." rows="5"
-                            required></textarea>
+                        <input type="text" name="subject" placeholder="What do you wanna talk about?" required>
+                        <textarea name="message" placeholder="Message" rows="10" required></textarea>
                         <button type="submit">Send Message →</button>
                     </form>
                 </div>
