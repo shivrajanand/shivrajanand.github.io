@@ -49,5 +49,12 @@
     "description": "A next words recommender system i built during my NLP training. The system uses a probabilistic approach to predict the next word in a sentence.",
     "tags": ["NLP", "Python", "Spacy", "Collections", "Natural Language Processing"],
     "link": "https://shivrajanand.github.io/blog_pages/NextWordRecommenderSystem.html"
+  },
+  {
+    "title": "Smart Task Manager",
+    "description": "A desktop-based task management system built with Python and Tkinter. It includes features like add/edit/delete tasks, sorting, filtering, search, progress tracking, dark/light mode, and a polished UI. Ideal for productivity enthusiasts and learners exploring Python GUI development.",
+    "tags": ["Python", "Tkinter", "Desktop App", "Productivity", "Task Manager"],
+    "link": "https://github.com/shivrajanand/Smart-Task-Manager"
   }
+  
 ]
