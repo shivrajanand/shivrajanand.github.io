@@ -55,6 +55,18 @@
     "description": "A desktop-based task management system built with Python and Tkinter. It includes features like add/edit/delete tasks, sorting, filtering, search, progress tracking, dark/light mode, and a polished UI. Ideal for productivity enthusiasts and learners exploring Python GUI development.",
     "tags": ["Python", "Tkinter", "Desktop App", "Productivity", "Task Manager"],
     "link": "https://github.com/shivrajanand/Smart-Task-Manager"
+  },
+  {
+    "title": "Random Password Generator Web App",
+    "description": "A random password generator web app built using html, css and js with a unique logic. I have used collatz conjecture, one of the unsolved problems in mathematics and leveraged its properties to generate controlled pseudorandom numbers which is then converted to a password",
+    "tags": ["HTML", "CSS", "JS", "Github", "Vercel", "Collatz Conjecture"],
+    "link": "https://web-projects-three-lovat.vercel.app/RandomPasswordGenerator/index.html"
+  },
+  {
+    "title": "Personal Portfolio",
+    "description": "My own portfolio which I created for my skills and project showcasing. It includes a blog section, projects section and certificate display section. What unique I did is I leverged the power of ChatGPT to build this version of my portfolio in just 2 days which honestly could have taken like 2 to 3 weeks if every piece of code was to be written by myself. Also some design and color selection was guided by chatGPT becuase my choice in colors is always dull due to my personal preferences. Overall this project is not only a showcase of my frontend skills but also that I am an intermediate expert in ChatGPT Prompt Engineering.",
+    "tags": ["HTML", "CSS", "JS", "Github", "ChatGPT", "Prompt Engineering"],
+    "link": "https://shivrajanand.github.io"
   }
   
 ]
