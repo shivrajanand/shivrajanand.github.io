@@ -366,14 +366,27 @@ footer {
 }
 
 #projects-container {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  display: flex;
+  overflow-x: auto;
   gap: 1.5rem;
-  margin-top: 2rem;
-  padding: 1rem;
+  padding: 1rem 0;
+  scroll-behavior: auto;
+  scroll-snap-type: none;
+  -webkit-overflow-scrolling: auto;
+  scrollbar-width: none; /* Optional: hide scrollbar on Firefox */
 }
 
+#projects-container::-webkit-scrollbar {
+  display: none; /* Optional: hide scrollbar on Chrome/Safari */
+}
+
+
+
 .project-tile {
+  flex: 0 0 280px; /* fixed width tile */
+  height: 50vh;
+  scroll-snap-align: start;
+  background: linear-gradient(135deg, #4e54c8, #8f94fb); /* optional default bg */
   padding: 1.5rem;
   border-radius: 1rem;
   color: #fff;
@@ -383,6 +396,14 @@ footer {
   flex-direction: column;
   justify-content: space-between;
 }
+
+.scroll-container-wrapper {
+  overflow-y: hidden;
+  height:55vh;
+  padding: 1rem 0;
+  position: relative;
+}
+
 
 .project-tile:hover {
   transform: translateY(-5px);
@@ -397,7 +418,15 @@ footer {
 .project-tile p {
   font-size: 0.95rem;
   margin-bottom: 1rem;
+
+  display: -webkit-box;
+  line-clamp: 4;
+  -webkit-line-clamp: 4;       /* Limit to 4 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+
 
 .project-tags {
   display: flex;

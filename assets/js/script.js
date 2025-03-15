@@ -6,36 +6,29 @@ const gradients = [
   "linear-gradient(135deg, #FFD700, #FF4500)"  // Yellow to Deep Orange
 ];
 
-
+// Fetch and load project data
 async function loadProjects() {
   const res = await fetch("assets/data/project.json");
   const projects = await res.json();
-
-  // Shuffle the array randomly
-  const shuffled = projects.sort(() => 0.5 - Math.random());
-
-  // Pick first 4
-  const randomFour = shuffled.slice(0, 3);
-
-  renderProjects(randomFour);
+  renderProjects(projects);
 }
 
+// Shuffle helper
 function shuffleArray(array) {
   return array.sort(() => Math.random() - 0.5);
 }
 
+// Render projects + duplicate them for seamless scroll
 function renderProjects(projects) {
   const container = document.getElementById("projects-container");
   container.innerHTML = "";
 
-  // Shuffle gradients to ensure randomness
   const shuffledGradients = shuffleArray([...gradients]);
 
-  projects.forEach((project, index) => {
+  const createTile = (project, index) => {
     const tile = document.createElement("div");
     tile.className = "project-tile";
 
-    // Pick a different gradient for each project
     const randomGradient = shuffledGradients[index % shuffledGradients.length];
     tile.style.background = randomGradient;
 
@@ -49,18 +42,66 @@ function renderProjects(projects) {
           <a href="${project.link}" target="_blank">🔗 View Project</a>
       </div>
     `;
+    return tile;
+  };
 
+  // Append original + duplicate tiles
+  [...projects, ...projects].forEach((project, index) => {
+    const tile = createTile(project, index);
     container.appendChild(tile);
   });
 }
 
+// Infinite smooth scroll logic
+function startInfiniteScroll() {
+  const container = document.getElementById("projects-container");
+  let isHovered = false;
+  let scrollSpeed = 3.0; // Adjust for faster/slower scroll
 
+  container.addEventListener("mouseenter", () => isHovered = true);
+  container.addEventListener("mouseleave", () => isHovered = false);
+
+  function smoothScroll() {
+    if (!isHovered) {
+      container.scrollLeft += scrollSpeed;
+
+      // Reset scroll when halfway (since content is duplicated)
+      if (container.scrollLeft >= container.scrollWidth / 2) {
+        container.scrollLeft = 0;
+      }
+    }
+    requestAnimationFrame(smoothScroll);
+  }
+
+  requestAnimationFrame(smoothScroll);
+}
+
+// Optional manual scroll (with button arrows if added)
+function scrollProjects(direction) {
+  const container = document.getElementById("projects-container");
+  const scrollAmount = 300;
+  container.scrollBy({
+    left: scrollAmount * direction,
+    behavior: "smooth"
+  });
+}
+
+// Dark mode toggle
 function toggleDarkMode() {
   document.body.classList.toggle("dark");
 }
 
+// Sidebar toggle
 function toggleSidebar() {
   document.getElementById("sidebar").classList.toggle("active");
 }
 
-window.addEventListener("DOMContentLoaded", loadProjects);
+// Initialize after DOM is ready
+window.addEventListener("DOMContentLoaded", async () => {
+  await loadProjects();
+
+  // Delay to ensure DOM is updated before scroll logic starts
+  setTimeout(() => {
+    startInfiniteScroll();
+  }, 100);
+});
