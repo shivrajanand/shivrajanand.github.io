@@ -384,7 +384,7 @@ footer {
 
 .project-tile {
   flex: 0 0 280px; /* fixed width tile */
-  height: 40vh;
+  min-height: 80%;
   scroll-snap-align: start;
   background: linear-gradient(135deg, #4e54c8, #8f94fb); /* optional default bg */
   padding: 1.5rem;
@@ -399,7 +399,7 @@ footer {
 
 .scroll-container-wrapper {
   overflow-y: hidden;
-  height:55vh;
+  height:400px;
   padding: 1rem 0;
   position: relative;
 }
