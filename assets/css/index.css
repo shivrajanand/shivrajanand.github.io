@@ -384,7 +384,7 @@ footer {
 
 .project-tile {
   flex: 0 0 280px; /* fixed width tile */
-  height: 50vh;
+  height: 40vh;
   scroll-snap-align: start;
   background: linear-gradient(135deg, #4e54c8, #8f94fb); /* optional default bg */
   padding: 1.5rem;
@@ -416,6 +416,7 @@ footer {
 }
 
 .project-tile p {
+  text-align: justify;
   font-size: 0.95rem;
   margin-bottom: 1rem;
 
