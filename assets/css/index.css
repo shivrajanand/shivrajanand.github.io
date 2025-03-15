@@ -219,6 +219,10 @@ body.dark .sidebar {
   font-size: 0.95rem;
 }
 
+.sidebar a:first-child {
+  margin-top: 5vh;
+}
+
 .sidebar a:active {
   transform: translateY(2px);
   box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2),
