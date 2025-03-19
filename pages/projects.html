@@ -87,7 +87,8 @@
         }
 
         #searchInput {
-            width: 100%;
+            margin-top:20px;
+            width: 90%;
             max-width: 500px;
             padding: 0.6rem 1rem;
             border: none;
@@ -103,6 +104,24 @@
             padding: 2rem;
             color: var(--text-color, #444);
         }
+
+        .project-count {
+            margin-top:20px;
+            font-size: 0.9rem;
+            background-color: #007acc;
+            color: white;
+            padding: 0.35rem 0.7rem;
+            border-radius: 999px;
+            font-weight: bold;
+            min-width: 30px;
+            text-align: center;
+        }
+
+        body.dark-mode .project-count {
+            background-color: #1a2e49;
+            color: #e0eaff;
+        }
+
 
 
 
@@ -138,29 +157,41 @@
             margin: 0.5rem 0;
             line-height: 1.4;
 
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            line-clamp: 3;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            transition: all 0.3s ease;
         }
 
-        @media (max-width: 768px) {
-            .project-tile p {
-                overflow: hidden;
-                text-overflow: ellipsis;
-                display: -webkit-box;
-                line-clamp: 3;
-                -webkit-line-clamp: 3;
-                -webkit-box-orient: vertical;
-                transition: all 0.3s ease;
-            }
-
-            .project-tile p:hover {
-                line-clamp: unset;
-                -webkit-line-clamp: unset;
-                display: block;
-                overflow: visible;
-                text-overflow: unset;
-                white-space: normal;
-            }
+        .project-tile p.expanded {
+            display: block;
+            /* Removes line clamping */
+            -webkit-line-clamp: unset;
+            line-clamp: unset;
+            -webkit-box-orient: unset;
+            overflow: visible;
+            text-overflow: unset;
         }
 
+        .toggle-desc {
+            margin-top: 0.6rem;
+            padding: 4px 10px;
+            background-color: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 0.8rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: inline-block;
+            transition: background-color 0.3s ease;
+            text-align: center;
+        }
+
+        .toggle-desc:hover {
+            background-color: rgba(255, 255, 255, 0.35);
+        }
 
 
         .project-tile:hover {
@@ -257,7 +288,9 @@
         body.dark-mode footer {
             background-color: #1a2e49;
         }
-
+        .footer-nav a{
+            color: currentColor;
+        }
         /* ---------- Responsive Design ---------- */
         @media (max-width: 768px) {
             header {
@@ -336,11 +369,11 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-3MEXW2XNBM');
+    gtag('config', 'G-3MEXW2XNBM');
 </script>
 
 <body>
@@ -350,10 +383,10 @@
             <button class="toggle-button" onclick="toggleDarkMode()">🌙 Toggle Mode</button>
         </header>
 
-        <div class="search-container">
+        <div style="display: flex; justify-content: center; align-items: center; gap: 0.6rem; flex-wrap: wrap;">
             <input type="text" id="searchInput" placeholder="🔍 Search projects or topics/tags...">
+            <span id="projectCount" class="project-count">0</span>
         </div>
-
 
         <div id="projects-container" class="projects-grid"></div>
     </main>
@@ -386,33 +419,18 @@
     </footer>
 
     <script>
-
         const gradients = [
-            "linear-gradient(135deg, #6a11cb, #2575fc)",       // bluish purple
-            "linear-gradient(135deg, #ff6a00, #ee0979)",       // orange to pink
-            "linear-gradient(135deg, #00c6ff, #0072ff)",       // cyan to blue
-            "linear-gradient(135deg, #f7971e, #ffd200)",       // orange to yellow
-            "linear-gradient(135deg, #f54ea2, #ff7676)",       // pink to coral
-            "linear-gradient(135deg, #17ead9, #6078ea)",       // teal to blue
-            "linear-gradient(135deg, #ff9a8b, #ff6a88)",       // peachy red tones
-            "linear-gradient(135deg, #43cea2, #185a9d)",       // teal to blue
-            "linear-gradient(135deg, #f77062, #fe5196)",       // salmon to pink
-            "linear-gradient(135deg, #36d1dc, #5b86e5)",       // bright cyan to blue
-            "linear-gradient(135deg, #ff4e50, #f9d423)",       // reddish to golden
-            "linear-gradient(135deg, #7f00ff, #e100ff)",       // vibrant purples
-            "linear-gradient(135deg, #2193b0, #6dd5ed)",       // muted ocean blue
-            "linear-gradient(135deg, #fc6076, #ff9a44)",       // pink to orange
-            "linear-gradient(135deg, #00b4db, #0083b0)",       // solid blue tones
-            "linear-gradient(135deg, #ff5858, #f09819)",       // strong orange red
-            "linear-gradient(135deg, #00cdac, #8ddad5)",       // minty green tones
-            "linear-gradient(135deg, #f857a6, #ff5858)",       // bright pink blend
-            "linear-gradient(135deg, #ffb75e, #ed8f03)",       // golden-orange range
-            "linear-gradient(135deg, #2196f3, #21cbf3)"        // mid-tone blue blend
+            "linear-gradient(135deg, #6a11cb, #2575fc)",     // Bluish Purple
+            "linear-gradient(135deg, #f7971e, #ffd200)",     // Orange to Yellow
+            "linear-gradient(135deg, #17ead9, #6078ea)",     // Teal to Blue
+            "linear-gradient(135deg, #ff5858, #f09819)",     // Fiery Orange-Red
+            "linear-gradient(135deg, #7f00ff, #e100ff)",     // Vibrant Purple
+            "linear-gradient(135deg, #00cdac, #8ddad5)",     // Minty Green
+            "linear-gradient(135deg, #ff4e50, #f9d423)",     // Reddish to Gold
+            "linear-gradient(135deg, #2193b0, #6dd5ed)",     // Ocean Blue
+            "linear-gradient(135deg, #f54ea2, #ff7676)",     // Pink to Coral
+            "linear-gradient(135deg, #43cea2, #185a9d)"      // Deep Teal to Navy
         ];
-
-
-
-
 
         async function loadProjects() {
             const res = await fetch('../assets/data/project.json');
@@ -420,11 +438,12 @@
             renderProjects(projects);
         }
 
-
-
         function renderProjects(projects) {
             const container = document.getElementById('projects-container');
+            const counter = document.getElementById('projectCount');
+
             container.innerHTML = '';
+            counter.textContent = projects.length;
 
             projects.forEach(project => {
                 const tile = document.createElement('div');
@@ -435,7 +454,8 @@
 
                 tile.innerHTML = `
             <h3>${project.title}</h3>
-            <p>${project.description}</p>
+            <p class="project-desc">${project.description}</p>
+            <span class="toggle-desc">Show more</span>
             <div class="project-tags">
                 ${project.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
             </div>
@@ -445,6 +465,14 @@
         `;
 
                 container.appendChild(tile);
+
+                const desc = tile.querySelector('.project-desc');
+                const toggle = tile.querySelector('.toggle-desc');
+
+                toggle.addEventListener('click', () => {
+                    desc.classList.toggle('expanded');
+                    toggle.textContent = desc.classList.contains('expanded') ? "Show less" : "Show more";
+                });
             });
         }
 
@@ -482,13 +510,22 @@
 
                 if (filtered.length === 0) {
                     container.innerHTML = `<p class="no-results">🔍 No matching projects found.</p>`;
-                } else {
+                    document.getElementById('projectCount').textContent = 0;
+                }
+                else {
                     renderProjects(filtered);
                 }
             });
         });
 
 
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelectorAll(".project-tile p").forEach((para) => {
+                para.addEventListener("click", function () {
+                    this.classList.toggle("expanded");
+                });
+            });
+        });
 
     </script>
 </body>
