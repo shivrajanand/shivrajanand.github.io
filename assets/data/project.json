@@ -67,6 +67,12 @@
     "description": "My own portfolio which I created for my skills and project showcasing. It includes a blog section, projects section and certificate display section. What unique I did is I leverged the power of ChatGPT to build this version of my portfolio in just 2 days which honestly could have taken like 2 to 3 weeks if every piece of code was to be written by myself. Also some design and color selection was guided by chatGPT becuase my choice in colors is always dull due to my personal preferences. Overall this project is not only a showcase of my frontend skills but also that I am an intermediate expert in ChatGPT Prompt Engineering.",
     "tags": ["HTML", "CSS", "JS", "Github", "ChatGPT", "Prompt Engineering"],
     "link": "https://shivrajanand.github.io"
+  },
+  {
+    "title": "GATE College Finder'25",
+    "description": "This web app is a one-stop tool that lets you input your GATE score, pg course, category to find colleges you’re eligible for—based on data from the official CCMT Counselling 2024.",
+    "tags": ["Python3", "Streamlit", "GATE24", "CCMT data", "Pandas", "Web App"],
+    "link": "https://gatecollegefinder2025.streamlit.app/"
   }
   
 ]
