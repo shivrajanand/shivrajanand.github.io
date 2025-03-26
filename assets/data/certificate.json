@@ -173,5 +173,11 @@
     "tags": ["Salesforce", "Internship", "Developer", "Virtual"],
     "path": "certificates/11_ Salesforce Certificate-page-001.jpg",
     "type": ["Internships"]
+  },
+  {
+    "title": "Simplilearn Machine Learning Certificate",
+    "tags": ["Simplilearn", "SkillUp", "Machine Learning", "ML", "Supervised", "Unsupervised", "KNN" , "Reinforcement Learning", "Q-Learning"],
+    "path": "certificates/SimpliLearn ML certficiate.jpg",
+    "type": ["Trainings"]
   }
 ]
