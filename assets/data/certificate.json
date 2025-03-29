@@ -39,7 +39,7 @@
     "title": "GATE (CS) 2024 Score Card",
     "tags": ["GATE 2024", "CSE", "Score 445", "AIR 8532", "Qualified"],
     "path": "certificates/Gate CS'24 ScoreCard_page-0001.jpg",
-    "type": "Academic"
+    "type": ["Academic", "Competitive"]
   },
   {
     "title": "मेधावी छात्र प्रोत्साहन पुरस्कार: प्रशस्ति पत्र",
@@ -190,6 +190,6 @@
     "title": "Gate 2025 DA Score Card",
     "tags": ["GATE 2024", "DA", "Score 409", "AIR 4883", "Qualified"],
     "path": "certificates/DA25 Score Card.jpg",
-    "type": ["Trainings", "Competitive"]
+    "type": ["Academic", "Competitive"]
   }
 ]
