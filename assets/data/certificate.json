@@ -197,5 +197,12 @@
     "tags": ["Hicounsellor", "Project", "Internship", "Predict Concrete Strength", "Interview"],
     "path": "certificates/Predict Concrete Strength_page-0001.jpg",	
     "type": ["Internships", "Interview", "Project"]
+  },
+  {
+    "title":"Hicounsellor Project Certificate: Predict Concrete Strength",
+    "tags": ["Cognifyz", "Project", "Internship", "Hotel Customer Data", "Analysis"],
+    "path": "certificates/Cognifyz_Internship_Completion_Certificate.jpg",	
+    "type": ["Internships", "Project"]
   }
+
 ]

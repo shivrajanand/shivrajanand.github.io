@@ -73,6 +73,12 @@
     "description": "This web app is a one-stop tool that lets you input your GATE score, pg course, category to find colleges you’re eligible for—based on data from the official CCMT Counselling 2024.",
     "tags": ["Python3", "Streamlit", "GATE24", "CCMT data", "Pandas", "Web App"],
     "link": "https://gatecollegefinder2025.streamlit.app/"
+  },
+  {
+    "title": "Cognify Data Science Internship Project",
+    "description": "This repository contains the complete solutions to the tasks assigned during my internship at Cognifyz Technologies under the Data Science Internship Program. Through this internship, I gained hands-on experience in data preprocessing, analysis, visualization, and predictive modeling using real-world data.",
+    "tags": ["Python", "Pandas", "Data Science", "Visualization", "Machine Learning", "Internship"],
+    "link": "https://github.com/shivrajanand/Cognify-Data-Science-Internship-Task"
   }
   
 ]
