@@ -35,6 +35,12 @@
     "path": "certificates/6thSemBtechResult.jpg",
     "type": "Academic"
   },
+    {
+    "title": "7th Semester B.Tech.(C.S.E.) Result",
+    "tags": ["B.Tech", "7th Sem", "CSE", "SGPA 9.56", "CGPA 8.78", "BPMCE"],
+    "path": "certificates/7th sem result_page-0001.jpg",
+    "type": "Academic"
+  },
   {
     "title": "GATE (CS) 2024 Score Card",
     "tags": ["GATE 2024", "CSE", "Score 445", "AIR 8532", "Qualified"],
@@ -199,7 +205,7 @@
     "type": ["Internships", "Interview", "Project"]
   },
   {
-    "title":"Hicounsellor Project Certificate: Predict Concrete Strength",
+    "title":"Cognifyz Data Science Internship Project",
     "tags": ["Cognifyz", "Project", "Internship", "Hotel Customer Data", "Analysis"],
     "path": "certificates/Cognifyz_Internship_Completion_Certificate.jpg",	
     "type": ["Internships", "Project"]
