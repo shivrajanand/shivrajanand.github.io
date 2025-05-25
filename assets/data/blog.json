@@ -32,5 +32,14 @@
     "description": "A next words recommender system i built during my NLP training. The system uses a probabilistic approach to predict the next word in a sentence.",
     "tags":["nlp", "python", "natural language processing", "nextword", "probability"],
     "link": "../blog_pages/NextWordRecommenderSystem.html"
+  },
+
+  {
+    "title": "Finetuning of NLLB-200-distilled-600M on Sanskrit-Hindi-Corpus",
+    "date": "May 25, 2025",
+    "category": "Natural Language Processing",
+    "description": "An experimental AI-powered application developed as a final year B.Tech CSE project, featuring a custom-trained model after 226 hours of training.",
+    "tags":["nlp", "python", "natural language processing", "nllb", "transformers"],
+    "link": "blog_pages/FinalYearproject/finalyearproject.html"
   }
 ]
