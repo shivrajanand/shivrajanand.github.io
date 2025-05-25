@@ -254,16 +254,100 @@
                 <button id="closeNav" class="close-nav">&times;</button>
                 <h2 class="nav-title">INDEX</h2>
                 <div class="chapters">
-                  
-                    
+
+
                     <div class="chapter">
-                        <h2><a href="Chapter9.html#chapter9">9. Ensemble Models</a></h2>
+                        <h2><a href="#abstract">Abstract</a></h2>
                         <ul>
-                            <li><a href="Chapter9.html#Introduction">Ensemble Models</a></li>
-                            <li><a href="Chapter9.html#Bagging">Bagging: Random Forest</a></li>
-                            <li><a href="Chapter9.html#Implementation">Implementation</a></li>
-                            <li><a href="Chapter9.html#Tuning">Hyper Parameter Tuning</a></li>
+                            <li><a href="#absractc">Abstract</a></li>
+                            <li><a href="#slide">Presentation</a></li>
                         </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#introduction">Introduction</a></h2>
+                        <ul>
+                            <li><a href="#scope">Scope</a></li>
+                            <li><a href="#motivation">Motivation</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#problemdef">Problem Definition</a></h2>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#litersurvey">Literature Survey</a></h2>
+                        <ul>
+                            <li><a href="#ta">Transformer Architecture: Self Attention mechanism</a></li>
+                            <li><a href="#inf">Let's inference it</a></li>
+                            <ul>
+                                <li><a href="#mt5">mt5</a></li>
+                                <li><a href="#mBart">mBart</a></li>
+                                <li><a href="#nllb">No Language Left Behind</a></li>
+                            </ul>
+                            <li><a href="#limitations">Limitations of existing models</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#method">Methodology</a></h2>
+                        <ul>
+                            <li><a href="#data">Data Collection & Preprocessing</a></li>
+                            <li><a href="#model">Model Selection</a></li>
+                            <li><a href="#finetune">Model Finetuning</a></li>
+                            <ul>
+                                <li><a href="#tl">Transfer Learning</a></li>
+                                <li><a href="#Training">Training Process</a></li>
+                                <li><a href="#da">Data Augmentation</a></li>
+                            </ul>
+                            <li><a href="#eval">Evaluation Metrics</a></li>
+                            <ul>
+                                <li><a href="#bleu">BLEU</a></li>
+                                <li><a href="#chrf">CHRF++</a></li>
+                            </ul>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#req">Requirements</a></h2>
+                        <ul>
+                            <li><a href="#fr">Functional Requirements</a></li>
+                            <li><a href="#hs">Hardware Specifications</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#result">Result & Analysis</a></h2>
+                        <ul>
+                            <li><a href="#baseline">Base Line Model Performance</a></li>
+                            <li><a href="#nllbfinetuned">Performance of finetuned NLLB</a></li>
+                            <li><a href="#discussion">Discussion</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#result">Conclusion & Future Work</a></h2>
+                        <ul>
+                            <li><a href="#conclusion">Conclusion</a></li>
+                            <li><a href="#futurework">Future Work</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#refer">References</a></h2>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#appendix">Appendix</a></h2>
+                        <ul>
+                            <li><a href="#FinetuningScript">Finetuning Script</a></li>
+                            <li><a href="#EvaluationScript">Evaluation Script</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="chapter">
+                        <h2><a href="#app">Application (Experimental)</a></h2>
                     </div>
 
                 </div>
@@ -314,12 +398,124 @@
             <main class="content">
                 <article class="article">
 
-                    <section id="chapter10">
-                        <h2 id="Introduction">Introduction</h2>
-                        <h2 id="clusters">Clusters & it's properties</h2>
-                        <h2 id="kmeans">K-Means Clustering</h2>
-                        <h2 id="implementation">Implementation</h2>
-                    </section>
+                    <h1>Finetuning NLLB-200-distilled-600M Model on Sanskrit-Hindi-Parallel-Corpus</h1>
+
+                    <h2 id="abstract">1. Abstract</h2>
+
+                    <h3 id="absractc">Abstract</h3>
+                    <p>The project ”Finetuning NLLB-200-Distilled-600M for Sanskrit to Hindi Translation” aims to
+                        improve
+                        machine translation accuracy for the Sanskrit–Hindi
+                        language pair by fine-tuning the pre-trained NLLB-200-Distilled-600M [1] model on a parallel
+                        corpus.</p>
+
+                    <p>Both Hindi and Sanskrit are morphologically rich and linguistically complex, posing
+                        novel challenges to multilingual translation models. As illustrated in the Results &
+                        Analysis section, even popular models like mT5, mBART, IndicTrans2, and even NLLB
+                        itself struggle with this task, with BLEU scores ranging from 0 to 1 and ChrF++ scores
+                        less than 2 in zero-shot conditions.</p>
+
+                    <p>To solve this, I re-trained the NLLB-200 model, which was initially trained on the
+                        FLORES-200 corpus, on the in-house Sanskrit–Hindi parallel corpus. The model, after
+                        60 epochs of training, showed a BLEU score of 11.33 and ChrF++ score of 37.68 on the
+                        test set with a substantial boost over zero-shot baselines.</p>
+
+                    <p>This paper highlights the significance of task-oriented training and carefully developed
+                        datasets when working with low-resource and grammatically complex languages such as
+                        Sanskrit and Hindi.</p>
+
+                    <p>The full code, dataset, and training scripts can be accessed at Github Link: <a
+                            href="https://github.com/shivrajanand/FinalYearProjectBtech">CLICK HERE</a>
+                    </p>
+
+                    <h3 id="slide">Presentation</h3>
+                    <!-- <iframe
+                        src="https://docs.google.com/presentation/d/e/2PACX-1vSU-6gMFWiFdKb74GbrP3TWLkrR2PkvUKcOj0frJBSbnkAJqA4GsM3sknl3SRwKLRxz16kx1JIHpnP5/pubembed?start=false&loop=false&delayms=3000"
+                        frameborder="0" width="960" height="569" allowfullscreen="true" mozallowfullscreen="true"
+                        webkitallowfullscreen="true">
+                    </iframe> -->
+                    <!-- --------------------------------------------------------------------------------------------------------------------- -->
+                    <h2 id="introduction">2. Introduction</h2>
+
+                    <h3 id="scope">Scope</h3>
+                    <h3 id="motivation">Motivation</h3>
+
+
+                    <!-- --------------------------------------------------------------------------------------------------------------------- -->
+                    <h2 id="problemdef">3. Problem Definition</h2>
+
+
+                    <!-- --------------------------------------------------------------------------------------------------------------------- -->
+                    <h2 id="litersurvey">4. Literature Survey</h2>
+
+                    <h3 id="ta">Transformer Architecture: Self Attention mechanism</h3>
+                    <h3 id="inf">Let's inference it</h3>
+
+                    <h3 id="t5">mt5</h3>
+                    <h3 id="Bart">mBart</h3>
+                    <h3 id="nllb">No Language Left Behind</h3>
+
+                    <h3 id="limitations">Limitations of existing models</h3>
+
+
+                    <!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+                    <h2 id="method">Methodology </h2>
+
+                    <h3 id="data">Data Collection & Preprocessing</h3>
+                    <h3 id="model">Model Selection</h3>
+                    <h3 id="finetune">Model Finetuning</h3>
+
+                    <h4 id="tl">Transfer Learning</h4>
+                    <h4 id="Training">Training Process</h4>
+                    <h4 id="a">Data Augmentation</h4>
+
+                    <h3 id="val">Evaluation Metrics</h3>
+
+                    <h3 id="leu">BLEU</h3>
+                    <h3 id="hrf">CHRF++</h3>
+
+
+
+                    <!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+                    <h2 id="#req">Requirements </h2>
+
+                    <h3 id="fr">Functional Requirements</h3>
+                    <h3 id="hs">Hardware Specifications</h3>
+
+
+                    <!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+                    <h2 id="result">Result & Analysis </h2>
+                    <h3 id="baseline">Base Line Model Performance</h3>
+                    <h3 id="nllbfinetuned">Performance of finetuned NLLB</h3>
+                    <h3 id="discussion">Discussion</h3>
+
+
+                    <!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+                    <h2 id="result">Conclusion & Future Work </h2>
+
+                    <h3 id="conclusion">Conclusion</h3>
+                    <h3 id="futurework">Future Work</h3>
+
+
+                    <!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+                    <h2 id="refer">References</h2>
+
+                    <!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+                    <h2 id="appendix">Appendix</h2>
+
+                    <h3 id="FinetuningScript">Finetuning Script</h3>
+                    <h3 id="EvaluationScript">Evaluation Script</h3>
+
+
+                    <!-- --------------------------------------------------------------------------------------------------------------------- -->
+
+                    <h2 id="app">Application (Experimental) </h2>
 
 
                 </article>
