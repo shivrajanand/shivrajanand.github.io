@@ -40,6 +40,6 @@
     "category": "Natural Language Processing",
     "description": "An experimental AI-powered application developed as a final year B.Tech CSE project, featuring a custom-trained model after 226 hours of training.",
     "tags":["nlp", "python", "natural language processing", "nllb", "transformers"],
-    "link": "blog_pages/FinalYearproject/finalyearproject.html"
+    "link": "../blog_pages/FinalYearproject/finalyearproject.html"
   }
 ]
