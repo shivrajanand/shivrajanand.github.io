@@ -4,12 +4,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Finetuning NLLB-200</title>
-    <link rel="stylesheet" href="../assets/css/globalblog.css">
+    <title>Chapter10: Unsupervised Learning</title>
+    <link rel="stylesheet" href="../../assets/css/globalblog.css">
     <!-- Load Prism CSS files with defer -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Add error handling for script loading -->
+    <script>
+        window.addEventListener('error', function (e) {
+            if (e.target.tagName === 'SCRIPT') {
+                console.error('Script loading failed:', e.target.src);
+                alert('Failed to load script: ' + e.target.src);
+            }
+        }, true);
+    </script>
 
     <style>
         html {
@@ -24,295 +32,203 @@
             width: 100%;
         }
 
-        /* General styling for the h1 tag */
-        h1 {
-            font-size: 3em;
-            font-weight: bold;
+
+        #image {
+            width: 100%;
+            /* Or a specific width */
+            height: auto;
+            /* Or any height you prefer */
+            overflow: hidden;
+            /* Ensures no overflow */
+            display: flex;
+            flex-direction: column;
+            /* Stack children (image and caption) vertically */
+            justify-content: center;
+            align-items: center;
+            border: 1px solid black;
+            /* Border around the container */
+        }
+
+        [data-theme="dark"] #image {
+            border: 1px solid white;
+            /* Dark mode border color */
+        }
+
+        #image figure {
+            width: 100%;
+            /* Ensure the figure takes up the full width */
+            margin: 0;
             text-align: center;
-            padding: 20px;
-            margin: 10px 0;
-            color: currentColor;
-            border-radius: 20px;
-            /* This makes the text color adapt to the current text color */
-            transition: color 0.3s ease;
-            /* Smooth transition for color change */
-            /* Smooth transition for color change */
+            /* Center align the caption */
         }
 
-        /* Light mode styles */
-        @media (prefers-color-scheme: light) {
-            h1 {
-                color: #333;
-                /* Dark color for text in light mode */
-                background-color: #f9f9f9;
-                /* Light background for light mode */
-            }
+        #image img {
+            width: 100%;
+            /* Ensures the image takes the full width of the container */
+            height: auto;
+            /* Maintains the aspect ratio */
+            object-fit: contain;
+            /* Ensure the image fits within the div */
         }
 
-        /* Dark mode styles */
-        @media (prefers-color-scheme: dark) {
-            h1 {
-                color: #f0f0f0;
-                /* Light color for text in dark mode */
-                background-color: #333;
-                /* Dark background for dark mode */
-            }
+        #image figcaption {
+            font-size: 1em;
+            /* Caption text size */
+            margin-top: 10px;
+            /* Space between the image and caption */
+            color: #333;
+            /* Text color */
+            font-style: italic;
+            /* Italicize caption text */
+            text-align: center;
+            border-top: 2px solid #ccc;
+            /* Border between image and caption */
+            padding-top: 5px;
+            /* Space between image and border */
+            padding-bottom: 15px;
+            /* Space below the caption for a clean look */
+            width: 100%;
+            /* Ensures the caption takes up the full width */
         }
 
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 1.5em;
-            }
+
+        [data-theme="dark"] #image figcaption {
+            color: white;
+            border: white 1px solid;
         }
+
+
 
         p {
             text-align: justify;
         }
 
-        p a {
-            color: #007bff;
+        /* Unordered List Style */
+        ul {
+            list-style-type: none;
         }
 
-        p a:hover {
-            color: #33a004;
+        ul .li {
+            margin-bottom: 10px;
         }
 
-        /* Styles for the notebook */
+        [data-theme="dark"] li a {
+            color: white;
+        }
+
+
+        @media (max-width: 768px) {
+            #image {
+                width: 100%;
+                /* or a specific width */
+                /* or any height you prefer */
+                overflow: hidden;
+                /* Ensures no overflow */
+            }
+
+            #image img {
+                width: 100%;
+                object-fit: contain;
+                /* Ensure the image fits within the div while maintaining its aspect ratio */
+            }
+
+            img {
+                width: 100%;
+                height: auto;
+            }
+        }
+
         .notebook {
             width: 100%;
-            margin: 0 auto;
-            padding: 10px;
-            /* Minimal padding */
-            box-sizing: border-box;
+            margin: auto;
         }
 
-        /* Cell style inside the notebook */
         .cell {
-            background-color: rgba(0, 0, 0, 0.05);
-            border-radius: 5px;
-            padding: 10px;
-            /* Minimal padding */
+            background-color: rgba(0, 0, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
             width: 100%;
             color: currentColor;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            /* Subtle shadow */
-            margin: 5px 0;
-            /* Minimal margin */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            margin: 10px 0;
         }
 
-
-
-        /* Code block styling (pre and code) */
-        pre {
-            padding: 5px;
-            /* Minimal padding */
-            border-radius: 4px;
-            /* Smaller radius for a more compact look */
-            margin: 5px 0;
-            /* Minimal margin */
-            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-            font-size: 15px;
-            /* Slightly smaller font for mobile */
-            line-height: 1.3;
-            /* Tight line height for better space utilization */
-            white-space: nowrap;
-            /* Prevent wrapping of long lines of code */
-            background-color: rgba(0, 0, 0, 0.05);
-            color: #212121;
-            border: 1px solid #ddd;
-            overflow-x: auto;
-            /* Horizontal scrolling */
-            overflow-y: hidden;
-            /* Disable vertical scroll if not needed */
-        }
-
-        pre code {
-            font-weight: bolder;
-        }
-
-        pre table {
-            border-collapse: collapse;
-            width: 50%;
-            font-family: inherit;
-            font-size: inherit;
+        .input,
+        .output {
+            padding: 10px;
+            border-radius: 5px;
             text-align: left;
-            margin: 20px 0;
-            border: 1px solid #ddd;
         }
 
-        pre table th,
-        td {
-            padding: 5px;
-            border-right: 1px solid #ddd;
+        pre {
+            overflow-x: auto;
+            text-align: left;
         }
 
-        pre table th {
-            border-bottom: 2px solid #dee2e6;
-        }
-
-        pre table tr {
-            border-bottom: 1px solid #ddd;
-        }
-
-        pre table tr:last-child {
-            border-bottom: none;
-        }
-
-        /* For dark mode */
-        [data-theme="dark"] pre {
-            background-color: rgba(0, 0, 0, 0.4);
-            color: #f5f5f5;
-            border: 1px solid #444;
-        }
-
-        /* Mobile view adjustments */
         @media (max-width: 600px) {
             .notebook {
-                padding: 5px;
-                /* Minimal padding for mobile */
-            }
-
-            .cell {
-                padding: 8px;
-                /* Slightly reduced padding for mobile */
-            }
-
-            pre {
-                padding: 3px;
-                /* Reduced padding for mobile */
-                font-size: 12px;
-                /* Smaller font for better fitting */
-                margin: 3px 0;
-                /* Minimal margin for mobile */
-                max-height: none;
-                /* No max-height to allow scrolling */
-                overflow-x: auto;
-                /* Enable horizontal scrolling */
-                white-space: nowrap;
-                /* Prevent line wrapping */
+                width: 100%;
+                padding: 10px;
             }
         }
 
-        /* Default styles for light mode */
-        section h3 {
-            font-size: 1.5em;
-            font-weight: 600;
-            color: #000000;
-            margin: 10px 0;
-            padding: 5px 0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            border-bottom: 2px solid #e0e0e0;
-            transition: color 0.3s ease, transform 0.3s ease, border-bottom-color 0.3s ease;
+        .graph-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
         }
 
-        /* Hover effect */
-        section h3:hover {
-            color: #007bff;
-            transform: translateX(5px);
-            border-bottom-color: #007bff;
-        }
-
-        [data-theme="dark"] section h3 {
-            color: #dbcaca;
-            /* Lighter color for dark mode */
-            border-bottom: 2px solid #444;
-            /* Darker border for dark mode */
-        }
-
-        [data-theme="dark"] section h3:hover {
-            color: #ff6347;
-            /* Change color to a warm color (e.g., tomato) for dark mode hover */
-            transform: translateX(5px);
-            /* Slight movement to the right on hover */
-            border-bottom-color: #ff6347;
-            /* Change border color to tomato on hover */
-        }
-
-        footer {
-            background-color: #F2F0EF;
-            color: #000000;
-            text-align: center;
-            padding: 20px 0;
-            font-family: Arial, sans-serif;
-        }
-
-        [data-theme="dark"] footer {
-            background-color: #1f2937;
-            color: #f5f5f5;
-        }
-
-        .social-media h3 {
-            font-size: 20px;
-            margin-bottom: 10px;
-            color: #000000;
-        }
-
-        [data-theme="dark"] .social-media h3 {
-            color: #f5f5f5;
-        }
-
-        .icons {
+        .graph-item {
             display: flex;
-            justify-content: center;
+            align-items: center;
             gap: 15px;
-            margin-top: 10px;
         }
 
-        .icons a {
-            color: #000000;
-            font-size: 24px;
-            transition: transform 0.3s ease, color 0.3s ease;
+        .graph-img {
+            flex: 1;
+            text-align: center;
         }
 
-        [data-theme="dark"] .icons a {
-            color: #f5f5f5;
+        .graph-img img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        .icons a:hover {
-            transform: scale(1.2);
-            color: #ffcc00;
-            /* Change color on hover */
+        .graph-desc {
+            flex: 1;
+            padding: 10px;
+            border-radius: 10px;
+            background-color: var(--card-bg);
+            color: var(--text-color, #333);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
-        /* Individual colors for branding */
-        .icons a:nth-child(1):hover {
-            color: #E1306C;
+        .graph-desc h3 {
+            margin-bottom: 5px;
         }
 
-        /* Instagram */
-        .icons a:nth-child(2):hover {
-            color: #0077B5;
+        .graph-desc p {
+            margin: 0;
+            font-size: 14px;
         }
 
-        /* LinkedIn */
-        .icons a:nth-child(3):hover {
-            color: grey;
-        }
-
-        /* GitHub */
-        .icons a:nth-child(4):hover {
-            color: #20BEFF;
-        }
-
-        /* Kaggle */
-        .icons a:nth-child(5):hover {
-            color: #1DA1F2;
-        }
-
-        /* Twitter/X */
-        .icons a:nth-child(6):hover {
-            color: #34A853;
-        }
-
-        /* email */
-        @media (max-width: 600px) {
-            .icons {
-                gap: 10px;
+        /* Mobile View: 1-column layout */
+        @media (max-width: 768px) {
+            .graph-container {
+                grid-template-columns: 1fr;
             }
 
-            .icons a {
-                font-size: 20px;
+            .graph-item {
+                flex-direction: column;
+            }
+
+            .graph-img,
+            .graph-desc {
+                width: 100%;
+                text-align: center;
             }
         }
     </style>
@@ -336,21 +252,19 @@
         <nav id="sidebar" class="sidebar">
             <div class="nav-content">
                 <button id="closeNav" class="close-nav">&times;</button>
-                <h2 class="nav-title">Table of Contents</h2>
+                <h2 class="nav-title">INDEX</h2>
                 <div class="chapters">
-
+                  
+                    
                     <div class="chapter">
-                        <h2><a href="#chapter1">Introduction</a></h2>
+                        <h2><a href="Chapter9.html#chapter9">9. Ensemble Models</a></h2>
                         <ul>
-                            <li><a href="#aboutTheProject">Abstract</a></li>
-                            <li><a href="#introductionToNextWordPrediction">Introduction to Next Word Prediction</a>
-                            </li>
-                            <li><a href="#problemStatement">Problem Statement</a></li>
-                            <li><a href="#objectiveOfTheProject">Objective of the Project</a></li>
+                            <li><a href="Chapter9.html#Introduction">Ensemble Models</a></li>
+                            <li><a href="Chapter9.html#Bagging">Bagging: Random Forest</a></li>
+                            <li><a href="Chapter9.html#Implementation">Implementation</a></li>
+                            <li><a href="Chapter9.html#Tuning">Hyper Parameter Tuning</a></li>
                         </ul>
                     </div>
-
-
 
                 </div>
             </div>
@@ -369,7 +283,6 @@
                         <line x1="4" x2="20" y1="18" y2="18" />
                     </svg>
                 </button>
-
                 <button id="themeToggle" class="theme-toggle">
                     <svg class="sun-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
@@ -392,6 +305,7 @@
                 </button>
 
                 <div class="right-buttons">
+                    <a href="https://shivrajanand.github.io#contact" class="btn">CONNECT</a>
                     <a href="https://shivrajanand.github.io" class="btn">PORTFOLIO</a>
                 </div>
             </header>
@@ -399,52 +313,25 @@
             <!-- Content -->
             <main class="content">
                 <article class="article">
-                    <h1>Finetuning NLLB-200-distilled-600M</h1>
 
-                    <section id = "chapter1">Abstract</section>
+                    <section id="chapter10">
+                        <h2 id="Introduction">Introduction</h2>
+                        <h2 id="clusters">Clusters & it's properties</h2>
+                        <h2 id="kmeans">K-Means Clustering</h2>
+                        <h2 id="implementation">Implementation</h2>
+                    </section>
+
+
                 </article>
 
             </main>
-
-            <footer>
-                <div class="social-media">
-                    <h3>Follow Me</h3>
-                    <div class="icons">
-                        <a href="https://www.instagram.com/shivrajanandai/" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="https://www.linkedin.com/comm/mynetwork/discovery-see-all?usecase=PEOPLE_FOLLOWS&followMember=shivrajanand"
-                            target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-linkedin"></i>
-                        </a>
-                        <a href="https://www.github.com/shivrajanand" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-github"></i>
-                        </a>
-                        <a href="https://www.kaggle.com/shivrajanandai" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-kaggle"></i>
-                        </a>
-                        <a href="https://x.com/shivrajanand_ai" target="_blank" rel="noopener noreferrer">
-                            <i class="fab fa-twitter"></i>
-                        </a>
-
-                        <a href="https://mailto::shivrajanand022002@gmail.com" target="_blank"
-                            rel="noopener noreferrer">
-                            <i class="fa fa-envelope"></i>
-                        </a>
-
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
 
     <!-- Load scripts with defer -->
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
     <script defer src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
-    <script defer src="../assets/js/globalblog.js"></script>
-    <script type="text/javascript" async
-        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
-        </script>
+    <script defer src="../../assets/js/globalblog.js"></script>
 
 
     <!-- Fallback for Prism if CDN fails -->
@@ -459,7 +346,9 @@
             }
         });
     </script>
-
+    <script type="text/javascript" async
+        src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/MathJax.js?config=TeX-MML-AM_CHTML">
+        </script>
 
 </body>
 
