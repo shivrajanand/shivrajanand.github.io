@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chapter10: Unsupervised Learning</title>
+    <title>Finetuning NLLB-200-Distilled-600M B.Tech. Final Year Project</title>
     <link rel="stylesheet" href="../../assets/css/globalblog.css">
     <!-- Load Prism CSS files with defer -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css">
@@ -299,7 +299,7 @@
                             <ul>
                                 <li><a href="#tl">Transfer Learning</a></li>
                                 <li><a href="#Training">Training Process</a></li>
-                                <li><a href="#da">Data Augmentation</a></li>
+                                <li><a href="#dataaug">Data Augmentation</a></li>
                             </ul>
                             <li><a href="#eval">Evaluation Metrics</a></li>
                             <ul>
@@ -438,24 +438,619 @@
                     <h2 id="introduction">2. Introduction</h2>
 
                     <h3 id="scope">Scope</h3>
-                    <h3 id="motivation">Motivation</h3>
+                    <p>
+                        The aim of this project is to investigate the efficiency of fine-tuning the NLLB-
+                        200-Distilled-600M multilingual translation model for the particular task of trans-
+                        lating Sanskrit to Hindi. The model was fine-tuned on a parallel corpus that was
+                        completely drawn from GitaPress, which is a collection of Sanskrit–Hindi aligned
+                        text. This project is concerned only with Sanskrit to Hindi translation, and the
+                        NLLB-200 model was chosen because it was pretrained heavily on a huge mul-
+                        tilingual corpus (FLORES-200), which acts as a robust base for fine-tuning over
+                        domain-specific tasks.
+                    </p>
+                    <p>
+                        To compare, a few other models such as mT5, mBART, and IndicTrans2 were
+                        tested in zero-shot mode to get an idea of the baseline performance on the task.
+                        These models were not fine-tuned but utilized for inference to set their performance
+                        metrics (BLEU score, CHRF++ Score) against the fine-tuned NLLB-200 model.
+                    </p>
+                    <p>
+                        The assessment of the fine-tuned model is anchored on machine translation
+                        metrics that are widely accepted, including BLEU score and CHRF++ Score.
+                        Although automated tests have been performed, the project looks to incorporate
+                        qualitative analysis and manual checks of the quality of the translations in the
+                        next 20 days. This will allow for a better comprehensive assessment of the efficacy
+                        of the model.
+                    </p>
 
+                    <p>
+                        The scope of the project does not include the deployment of the model in live
+                        applications or in a production setting. Also, although the project involves fine-
+                        tuning on a single dataset, it does not involve data augmentation or the develop-
+                        ment of new datasets for additional training.
+                    </p>
+                    <h3 id="motivation">Motivation</h3>
+                    <p>
+                        My motivation for undertaking this project stems from a long-standing personal
+                        interest in Sanskrit, a language rich in philosophical, literary, and historical value.
+                        While Sanskrit is foundational to many Indian languages and cultural traditions,
+                        accessing original texts in an authentic and readable form remains a major chal-
+                        lenge—even for learners with some familiarity. This gap between classical texts
+                        and modern comprehension sparked my curiosity about how machine translation
+                        could help bridge it.
+                    </p>
+
+                    <p>
+                        As I explored solutions, I found that low-resource language translation remains
+                        a significant bottleneck in natural language processing (NLP), especially for lan-
+                        guages like Sanskrit that lack large-scale annotated corpora. Although state-of-
+                        the-art models such as MBart and M2M-100 support multilingual translation, their
+                        performance on Sanskrit—particularly in translating to widely spoken languages
+                        like Hindi—remains unsatisfactory due to limited representation in pretraining
+                        datasets.
+                    </p>
+
+                    <p>
+                        This project focuses on fine-tuning the distilled 600M parameter variant of the
+                        NLLB-200 model on a private Sanskrit-Hindi parallel corpus (described in the
+                        methodology section). My goal is to improve key translation quality metrics such
+                        as BLEU score and CHRF++ Score, and evaluate how effectively a pre-trained
+                        multilingual model can adapt to a specialized low-resource task with focused train-
+                        ing.
+                    </p>
+
+                    <p>
+                        A major challenge encountered during the project was the limited size of the
+                        dataset, which initially constrained the model’s ability to generalize. To mitigate
+                        this, I implemented data augmentation techniques, effectively tripling the dataset
+                        size and improving coverage across diverse sentence structures.
+                    </p>
+
+                    <p>
+                        Beyond the technical goals, this project is driven by a broader vision: to preserve
+                        and revitalize ancient Sanskrit literature by making it more accessible through AI.
+                        By contributing to low-resource NLP research, I hope this work can support future
+                        efforts in digitization, education, and cross-linguistic understanding, particularly
+                        in the context of Indian languages.
+                    </p>
 
                     <!-- --------------------------------------------------------------------------------------------------------------------- -->
                     <h2 id="problemdef">3. Problem Definition</h2>
+                    <p>
+                        The work of Sanskrit-Hindi machine translation is inherently challenging be-
+                        cause of the linguistic complexities of both languages. Both Sanskrit and Hindi
+                        have a profound grammatical affinity but are also different in syntax, morphology,
+                        and vocabulary. Moreover, Sanskrit being an ancient language is extremely com-
+                        plex with a rich inflectional system and a diverse sentence structure. This presents
+                        important challenges for machine translation models, since mastering the subtle
+                        grammar and context between these languages is not trivial. Additionally, large-
+                        scale parallel corpora for Hindi and Sanskrit are in extreme scarcity, preventing
+                        us from being able to train strong models that can learn about these subtleties.
+                    </p>
 
+                    <p>
+                        The work of Sanskrit-Hindi machine translation is inherently challenging be-
+                        cause of the linguistic complexities of both languages. Both Sanskrit and Hindi
+                        have a profound grammatical affinity but are also different in syntax, morphology,
+                        and vocabulary. Moreover, Sanskrit being an ancient language is extremely com-
+                        plex with a rich inflectional system and a diverse sentence structure. This presents
+                        important challenges for machine translation models, since mastering the subtle
+                        grammar and context between these languages is not trivial. Additionally, large-
+                        scale parallel corpora for Hindi and Sanskrit are in extreme scarcity, preventing
+                        us from being able to train strong models that can learn about these subtleties.
+                    </p>
 
+                    <p>
+                        This project attempts to overcome these challenges by fine-tuning the NLLB-
+                        200-Distilled-600M model, a transformer-based model, on a tailored Sanskrit-
+                        Hindi parallel corpus. Transformer models are especially suited to such tasks be-
+                        cause they can perceive long-range dependencies and contextual meaning, which is
+                        crucial for languages such as Sanskrit and Hindi. By further refining the NLLB-200
+                        model, the aim is to enhance the accuracy of translations considerably, especially
+                        in contextual recognition, and join the body of research on Sanskrit-Hindi machine
+                        translation that is emerging.
+                    </p>
+
+                    <p>
+                        This is an academic project that seeks to create a model that can create better
+                        translations. Although the data set available for the current project is small, its
+                        performance is assumed to be still better with a cleaner and more comprehensive
+                        data set.
+                    </p>
                     <!-- --------------------------------------------------------------------------------------------------------------------- -->
                     <h2 id="litersurvey">4. Literature Survey</h2>
 
                     <h3 id="ta">Transformer Architecture: Self Attention mechanism</h3>
+                    <p>
+                        Transformers Architecture: Self-attention mechanism
+                        Transformers are the core of currently used large language models, LLMs (as
+                        of 2025). These magic machines not only perform better in text generation but
+                        also leverage the power of a mechanism called self-attention to mathematically
+                        encode the relationship between words of a sentence. In this section I will try to
+                        briefly discuss the architecture and the behind-the-scenes workings of transformers
+                        and the renowned self-attention mechanism. This discussion is important because
+                        these models are not only the pillars of current AI systems but also the core of the
+                        No-Language-Left-Behind model, which is the center of attention of this report.
+                    </p>
+
+                    <p>
+                        Transformers are based on a 2017 paper, ”Attention is all you need” <a href="#b2">[2]</a>. Every
+                        single model before transformers was able to convert words into vectors, but none
+                        of them captured context and it is well known that the same set of words can
+                        have different meanings in different contexts. A simple example to support my
+                        argument is ”bank” in ”river bank” and ”bank-robber” would have the same vector in both contexts
+                        in previous models.
+                    </p>
+
+                    <p>
+                        A transformer works on encoder-decoder architecture. It can take advantage
+                        of parallelization on GPU/TPU and process large amount of data in the same
+                        amount of time as compared to RNNs and LSTMs. Also these systems processes
+                        all input tokens at once.
+                    </p>
+
+                    <figure style="width: 45vh;">
+                        <img src="../FinalYearproject/IMGs/fig1_encoderdecoder.jpg" alt="Encoder-Decoder Architecture"
+                            style="width: 100%;">
+                        <figcaption
+                            style="text-align: center; font-style: italic; font-size: 0.9em; margin-top: 0.5em;">
+                            Figure 1: Diagram showing the encoder-decoder architecture of a transformer.
+                            Source: <a href="#b7">[7]</a>
+                        </figcaption>
+                    </figure>
+
+                    <p>
+                        In the paper, researchers stacked 6 encoders and 6 decoders in encoding and
+                        decoding layers respectively. 6, being a hyperparameter here must have been
+                        obtained after finetuning. All encoders are identical in structure but have different weights,
+                        similar case for the decoders as well.
+                    </p>
+
+                    <figure style="width: 45vh;">
+                        <img src="../FinalYearproject/IMGs/fig2_encoderDecoderInside.jpg"
+                            alt="Encoder-Decoder Architecture" style="width: 100%;">
+                        <figcaption
+                            style="text-align: center; font-style: italic; font-size: 0.9em; margin-top: 0.5em;">
+                            Figure 2: The inside layers of encoders and decoders.
+                            Source: <a href="#b7">[7]</a>
+                        </figcaption>
+                    </figure>
+
+                    <p>
+                        Each encoder, as shown in Figure 2, consists of a feedforward layer and a self-
+                        attention layer. Input of the encoder first passes through a self-attention layer,
+                        which helps the encoder to look at relevant words in the sentence. This output
+                        is then sent to a feedforward neural-network which works on finding the features
+                        hidden in the data.
+                    </p>
+
+                    <p>
+                        Each decoder, as shown in Figure 2, consists of a self-attention and feedforward
+                        neural-network same as Encoder with an additional Encoder-Decoder-attention
+                        module in between the prior mentioned layers that helps the decoder focus on
+                        relevant parts of the sentence.
+                    </p>
+
+                    <p>
+                        The inputs are converted to input embedding byte-pair-encodings. Additionally,
+                        a positional encoding was also added in input vectors to attach their positional
+                        data. This was fed to Multihead attention, the output of which was added with
+                        the input embedding and normalized again before sending into Feed Forward and
+                        then again added and normalized with output of previous layer before sending to
+                        next encoder/decoder.
+                    </p>
+
+                    <p>
+                        Now, every input embeddings are converted into 3 different vectors, Query Vec-
+                        tor(Q), Key Vector(K) and Value Vector(V). These vectors are obtained by multi-
+                        plying the input embedding vector with the weights matrix, W<sup>Q</sup>, W<sup>K</sup>,
+                        W<sup>V</sup>
+                        These
+                        matrices are learned by the transformer during its training. All of this computa-
+                        tion happens in parallel in the form of matrix computations.
+                    </p>
+
+                    <figure style="width: 45vh;">
+                        <img src="../FinalYearproject/IMGs/fig3_tranformer_architecture.png"
+                            alt="Encoder-Decoder Architecture" style="width: 100%;">
+                        <figcaption
+                            style="text-align: center; font-style: italic; font-size: 0.9em; margin-top: 0.5em;">
+                            Figure 3: The complete transformer architecture. Source: <a href="#b2">[2]</a>
+                        </figcaption>
+                    </figure>
+
+                    <figure style="width: 45vh;">
+                        <img src="../FinalYearproject/IMGs/fig4_qkv.png" alt="Encoder-Decoder Architecture"
+                            style="width: 100%;">
+                        <figcaption
+                            style="text-align: center; font-style: italic; font-size: 0.9em; margin-top: 0.5em;">
+                            Figure 4: (left) Scaled Dot-Product At-
+                            tention. (right) Multi-Head Attention
+                            consists of several attention layers run-
+                            ning in parallel Source: <a href="#b2">[2]</a>
+                        </figcaption>
+                    </figure>
+
+                    <p>
+                        Next step is to do a softmax calculation on matrices to generate the attention
+                        vector.
+                        $$\mathbf{Z} = \text{softmax} \left(\frac{\mathbf{Q} \times \mathbf{K}^T}{\sqrt{d_k}}\right)
+                        \cdot \mathbf{V}$$
+                        This formula is what is shown by figure 4 (left). This entire calculation results
+                        in a vector which shows how its related to others via probability values.
+                        Now, not only did transformers introduce self-attention-mechanisms but also the
+                        multihead-self-attention layers. Each multihead-self-attention-layer have multiple
+                        self-attention-layers, processing almost the same embeddings but with different W<sup>Q</sup>,
+                        W<sup>K</sup>, W<sup>V</sup> matrices. In the paper, 8 layers were used in mutli-head attention.
+
+                        To summarize the process of Z embedding retrieval, follow these steps:
+                    <ol>
+                        <li>Input natural language sentences.</li>
+                        <li>Embed each word using an embedding technique.</li>
+                        <li>Apply multi-head attention, multiplying the embedded words by the respective weight
+                            matrices.</li>
+                        <li>Compute the Q, K, and V matrices.</li>
+                        <li>Concatenate the resulting matrices to obtain the output matrix, maintaining the same
+                            dimensionality as the final matrix.</li>
+                    </ol>
+
+                    </p>
+
+
                     <h3 id="inf">Let's inference it</h3>
 
                     <h3 id="t5">mt5</h3>
+                    <p>
+                        MT5 <a href="#b3">[3]</a> is the state-of-the-art multilingual language model that Google
+                        Research presented as an extension of the T5 (Text-to-Text Transfer Transformer)
+                        framework. The basic T5 model was trained on English data alone, whereas MT5
+                        extends this much further with the pre-training on a huge multilingual dataset
+                        known as mC4 (Multilingual C4) that consists of text written in 101 languages.
+                    </p>
+                    <p>
+                        Similar to its predecessor, MT5 adopts the text-to-text paradigm where every
+                        natural language processing (NLP) task is encapsulated in terms of transforming
+                        input text into output text. This single framework enables the development of
+                        the same architecture for a diverse array of tasks ranging from translation, sum-
+                        marization, to text classification, question answering, and more. In a translation
+                        task, for instance, the input may be ”translate English to French: How are you?”,
+                        and the model produces the equivalent French translation as output.
+                    </p>
+                    <p>
+                        MT5 architecture follows the Transformer encoder-decoder framework, which is
+                        very flexible and scalable. MT5 is available in various sizes, from small models for
+                        use in low-resource environments to large ones that can handle tricky multilingual
+                        tasks. MT5 is optimized to take advantage of both shared and language-specific
+                        patterns across multilingual data so that it is competitive on all languages, even
+                        those with little training data.
+                    </p>
+                    <p>
+                        One of the main drivers of MT5 is to encourage more language inclusivity in
+                        NLP studies through backing a diverse set of languages, most of which are poorly
+                        represented in current models. This makes MT5 especially useful in multilingual
+                        and cross-lingual scenarios as it minimizes training individual models for every
+                        language.
+                    </p>
+                    <p>
+                        While MT5 is not the focal point of this project, it has been mentioned as it
+                        pertains to the topic of multilingual language modeling and has shaped recent
+                        progress in NLP. Also, I have conducted an inference on the test dataset to get
+                        the BLEU score and CHRF++ Scores produced by MT5 model which was very
+                        low. Inference data is discussed in detail in the result section.
+                    </p>
+
                     <h3 id="Bart">mBart</h3>
+                    <p>
+                        MBart <a href="#b4">[4]</a> (Multilingual Bidirectional and Auto-Regressive Transformers) is a
+                        strong sequence-to-sequence model developed by Facebook AI for multilingual ma-
+                        chine translation. Unlike most translation models based on bilingual pairs, MBart
+                        is denoising autoencoder trained on multilingual corpora, which allows it to facili-
+                        tate translation between any pair of the languages it supports. Its BART-based ar-
+                        chitecture consists of shared encoder-decoder layers and a language-specific token
+                        system, which aids the model in understanding the target and source languages.
+                    </p>
+
+                    <p>
+                        Under the scenario of translation from Sanskrit to Hindi, MBart is an inter-
+                        esting option as it includes zero-shot and few-shot translation features. Although
+                        MBart is not specifically trained on Sanskrit-Hindi language pairs, training on In-
+                        dic languages and utilizing multilingual pretraining makes it a potential candidate
+                        to try translating between these closely related languages.
+                    </p>
+
+                    <p>
+                        To test its efficacy, I performed an inference test on the Sanskrit-Hindi test
+                        dataset. The dataset contained clean, syntactically valid Sanskrit sentences along
+                        with human-annotated Hindi translations for each. Regrettably, the inference
+                        output was way off target. The translations were not semantically accurate, with
+                        far-too-frequent mistakes in tense, syntax, and usage of vocabulary. In most in-
+                        stances, the Hindi output was partially translated or entirely wrong.
+                    </p>
+
+                    <p>
+                        Poor performance can be due to the under representation of Sanskrit in the
+                        training dataset of MBart, and a missing domain-specific fine-tuning. Sanskrit, be-
+                        ing low-resource, is underrepresented in most large-scale multilingual models with
+                        weak cross-lingual representations. Although Hindi is better-supported, without
+                        particular training on Sanskrit-Hindi pairs, it cannot make up for this imbalance.
+                    </p>
+
+                    <p>
+                        To enhance performance, fine-tuning the MBart model on a parallel Sanskrit-
+                        Hindi dataset might be required. Data augmentation methodologies and the use
+                        of Indic NLP materials might also enhance the quality of translations. Generally
+                        speaking, although MBart offers a template for such translations, plain application
+                        without tuning for the task at hand returns inferior outputs.
+                    </p>
                     <h3 id="nllb">No Language Left Behind</h3>
 
+                    <p>
+                        The growing dependence on multilingual machine translation (MT) systems
+                        has brought to the fore a stark performance gap between high-resource and low-
+                        resource languages. Although state-of-the-art models such as MBart and M2M-
+                        100 have reported considerable success in multilingual translation, they are still
+                        biased towards a limited set of heavily spoken languages. To address this dis-
+                        parity, Facebook AI launched the No Language Left Behind (NLLB) <a href="#b1">[1]</a>
+                        initiative—a
+                        sweeping project to create a universal translation system able to translate more
+                        than 200 languages at high quality and safety, many of which have traditionally
+                        had insufficient digital resources.
+                    </p>
+
+                    <p>
+                        The main driving force behind the NLLB project is decreasing world language
+                        inequality by improving translation systems for low-resource languages. This goal
+                        was not only guided by technical issues but also by qualitative studies, such as
+                        interviews with speakers of underrepresented languages to discover practical prob-
+                        lems encountered in actual MT use. This user-oriented approach significantly
+                        influenced the NLLB model’s design
+                    </p>
+
+                    <p>
+                        To advance this aim, the NLLB team built a enormous multilingual corpus with
+                        tailor-made data mining pipelines. These comprised advanced sentence alignment
+                        methods such as LASER3 embeddings, filtering via CCMatrix, and carefully cu-
+                        rated parallel corpora like NLLB-Seed and NLLB-Main. Such material helped
+                        the team to remarkably increase the coverage of good-quality training data for
+                        languages earlier overlooked in MT research.
+                    </p>
+
+                    <p>
+                        The model architecture has a Transformer backbone with Sparsely Gated Mix-
+                        ture of Experts (MoE) layers. The architecture enables conditional compute, only
+                        activating a portion of ”expert” layers per training step. This makes the model
+                        efficiently scale up to thousands of translation directions while keeping training
+                        costs in check. This architecture works specifically well in the multilingual set-
+                        ting as it enables parameter sharing between languages while still maintaining
+                        language-specific representations through special expert layers.
+                    </p>
+
+                    <p>
+                        Due to the highly multilingual nature of the system, training techniques needed
+                        to be well-tuned. The authors added adaptive sampling algorithms to guarantee
+                        well-representation of low-resource languages during training. They also added regularization
+                        methods to avoid overfitting and catastrophic forgetting, particu-
+                        larly when jointly training over 40,000 translation directions.
+                    </p>
+
+                    <p>
+                        The model was evaluated on FLORES-200, a multilingual benchmark dataset
+                        spanning all 200 languages it supports. The NLLB-200 model beat the previous
+                        best models by a relative BLEU score of 44%, a remarkable advance in translation
+                        quality. In addition, to help ensure responsible deployment, the team performed
+                        toxicity tests on all languages and included human judgments to evaluate fluency,
+                        adequacy, and cultural appropriateness.
+                    </p>
+
+                    <p>
+                        The applicability of the NLLB model to this research is its support for Indic
+                        languages, its architectural setup for low-resource adaptation, and its availability
+                        as an open-source. Although Sanskrit has been termed a low-resource language
+                        with minimal contemporary usage, its incorporation into the NLLB framework
+                        makes it a suitable test case for fine-tuning. Nonetheless, early inferences with the
+                        base model over a Sanskrit-Hindi test set produced ungratifying results based on
+                        our assumption that it was perhaps due to insufficient domain-specific training.
+                        This highlights the need for fine-tuning the NLLB model over a specific parallel
+                        corpus to improve translation quality between Hindi and Sanskrit—the aim that
+                        the focus of this study centers around
+                    </p>
+
+                    <p>
+                        FLORES-200 (Fine-grained Language Evaluation on Resourced and Low-
+                        Resourced Systems) is a multilingual test set created by Meta AI (formerly Face-
+                        book AI) for the purpose of testing machine translation across a broad set of
+                        languages, including numerous low-resource or under-resourced languages in NLP
+                        studies.
+                    </p>
+
+                    <p>
+                        The dataset comprises professional human translations of the very same set of
+                        2,001 sentences—derived from Wikipedia—into 200 languages. With this setup,
+                        40,000+ translation directions can be tested in a standardized and homogenous
+                        manner. Both the source and the reference translations are included in each
+                        language pair of FLORES-200, which makes it an ideal choice for computing au-
+                        tomated metrics like BLEU score, CHRF++ Score, and TER.
+                    </p>
+                    <p>
+                        Key features of FLORES-200 include:
+                    <ul>
+                        <li>
+                            <b>High-quality translations:</b> Sentences are translated by native speakers and
+                            professional linguists, ensuring semantic accuracy and cultural fidelity.
+                        </li>
+                        <li>
+                            <b>Linguistic diversity:</b> The dataset covers a wide spectrum of languages,
+                            from high-resource (like English, Spanish, and Chinese) to low-resource (such
+                            as Sanskrit, Wolof, and Burmese).
+                        </li>
+                        <li>
+                            <b>Evaluation Consistency:</b> Because all translations are aligned to the same
+                            source content, it enables fair cross-lingual comparison of model performance.
+                        </li>
+                    </ul>
+                    </p>
+                    <p>
+                        No Language Left Behind (NLLB) is particularly well-suited as a starting point
+                        for tuning Sanskrit-to-Hindi translation models because it has specialized interest
+                        in low-resource languages and has a sophisticated architectural design. Although
+                        its rich historical past and rich grammatical structure, Sanskrit qualifies as a low-
+                        resource language due to a lack of large-scale parallel corpora required for suc-
+                        cessful machine translation training. In contrast to most multilingual translation
+                        models, which mostly focus on high-resource languages, NLLB was purposefully
+                        developed to deal with language inequality by being able to handle more than
+                        200 languages, of which many are low-resource and underrepresented in natural
+                        language processing research. Its wide language coverage includes Indic languages
+                        with the Devanagari script used by both Sanskrit and Hindi, allowing it to effi-
+                        ciently utilize common linguistic features and script-related characteristics. The
+                        pre-trained tokenizer in NLLB is also designed to support multiple scripts and sub-
+                        word units, limiting tokenization errors that are typical for low-resource languages.
+                        Moreover, the large multilingual training and adaptive sampling techniques em-
+                        ployed by NLLB guarantee that low-resource languages get proportionate rep-
+                        resentation in training, which has the effect of eliminating data imbalance and
+                        catastrophic forgetting problems. All of these attributes put together make NLLB
+                        not just able to generate high-quality zero-shot translations but also extremely sus-
+                        ceptible to domain-specific parallel corpora fine-tuning. This fine-tuning enhances
+                        translation accuracy through adapting the model to the linguistic idiosyncrasies
+                        and contextual subtleties of the Sanskrit-Hindi language pair, which is necessary
+                        because of variations in vocabulary usage, grammar, and semantics between the
+                        classical Sanskrit language and contemporary Hindi. In short, NLLB’s architec-
+                        ture, inclusivity of data, and awareness of languages as design principles position
+                        it best to enhance Sanskrit-to-Hindi machine translation via precise fine-tuning,
+                        hence meeting both the technical and linguistic challenges involved in doing so.
+                    </p>
                     <h3 id="limitations">Limitations of existing models</h3>
+                    <section>
+                        <h3>Lack of Sufficient Parallel Data for Training</h3>
+                        <p>
+                            One of the biggest challenges in machine translation of Sanskrit to Hindi is the lack of
+                            high-quality, parallel corpora.
+                            In contrast to languages such as English, French, or Spanish, each with enormous parallel
+                            data to train machine translation
+                            systems, Sanskrit has no large-scale, high-quality, annotated datasets. This is especially
+                            challenging when training contemporary
+                            neural networks, which need enormous amounts of data to generalize effectively.
+                        </p>
+                        <p>
+                            Although recent attempts such as data mining approaches in models such as NLLB have
+                            contributed to collecting more resources,
+                            the overall low-resource nature of Sanskrit in comparison to other prominent languages is a
+                            significant limitation.
+                        </p>
+
+                        <h3>Complex Linguistic Features of Sanskrit</h3>
+                        <p>
+                            Sanskrit is a morphologically complex and syntactically adaptable language. It possesses a
+                            strongly inflected grammar system
+                            with many forms of verbs, nouns, adjectives, and pronouns, making it grammatically distinct
+                            from most modern languages.
+                            Certain major points that present challenges are:
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>Strong verb conjugation:</strong> Sanskrit verbs vary depending on tense,
+                                person, gender, and number, leading to many forms that must be well-mapped in the
+                                process of translation.
+                            </li>
+                            <li>
+                                <strong>Free word order:</strong> Sanskrit sentence structure is more free regarding
+                                word order than languages such as Hindi, which is usually Subject-Object-Verb (SOV) in
+                                nature. Such free word order in Sanskrit sentence construction means that the model must
+                                interpret context and relationships more subtly.
+                            </li>
+                            <li>
+                                <strong>High inflectional variability:</strong> Sanskrit possesses a large number of
+                                inflected forms for cases (7 cases), genders, and numbers, resulting in the creation of
+                                high-complexity word forms that are difficult for the translation models.
+                            </li>
+                        </ul>
+                        <p>
+                            Existing models such as NLLB-200 and MBart are mostly trained on simpler syntactic
+                            structures and hence fail to deal with the high morphological complexity
+                            found in Sanskrit, and therefore tend to generate translations that are grammatically
+                            incorrect or inconsistent.
+                        </p>
+
+                        <h3>Sanskrit-Hindi Similarity and Divergence</h3>
+                        <p>
+                            Though Sanskrit and Hindi have a profound historical and linguistic bond, they are far apart
+                            in lexical preferences, syntax, as well as cultural background.
+                            A few challenges that are unique to the Sanskrit-Hindi translation involve:
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>Lexical divergence:</strong> Though Hindi drew heavily from Sanskrit, Hindi
+                                itself has also evolved substantially, under the impact of Persian, Arabic, and English.
+                                A word in Sanskrit can have multiple senses or be used with a context that is different
+                                from its contemporary Hindi usage.
+                            </li>
+                            <li>
+                                <strong>Semantic drifts:</strong> Numerous Sanskrit terms, particularly in the
+                                philosophical, religious, or literary context, have meanings or connotations that cannot
+                                directly be translated from any contemporary Hindi terms. Consequently, a model trained
+                                on general-domain data may not be able to generate correct translations of such
+                                technical vocabulary.
+                            </li>
+                            <li>
+                                <strong>Cultural and contextual knowledge:</strong> Sanskrit literature frequently
+                                incorporates references to Indian culture, mythology, and philosophical ideas that do
+                                not exist or are very dissimilar in contemporary Hindi. Current models might not
+                                translate those references well or translate them inappropriately.
+                            </li>
+                        </ul>
+
+                        <h3>Performance on Low-Resource Language Pairs</h3>
+                        <p>
+                            Although NLLB-200 and other comparable models are intended to execute multilingual
+                            translation tasks, they tend to underperform for low-resource language pairs like
+                            Sanskrit-Hindi. The causes of this underperformance are:
+                        </p>
+                        <ul>
+                            <li>
+                                <strong>Pretraining bias:</strong> Models such as NLLB-200 are pre-trained on massive
+                                multilingual datasets, but they are biased toward high-resource languages (English,
+                                Spanish, or Chinese) while training. Consequently, their performance on low-resource
+                                language pairs like Sanskrit-Hindi can be noticeably inferior.
+                            </li>
+                            <li>
+                                <strong>Transfer learning constraints:</strong> Although the models are capable of
+                                transferring knowledge from comparable language pairs, the difference between Sanskrit
+                                and Hindi, even though they share a common ancestry, is wide enough to lead to
+                                translation mistakes, particularly in classical or formal contexts.
+                            </li>
+                            <li>
+                                <strong>Data augmentation limitations:</strong> While data augmentation techniques,
+                                including training from back-translated and synthesized data, have been employed to
+                                enhance the training dataset size, they are not comprehensive solutions to the issues
+                                related to linguistic training fidelity and generating high-quality translations for
+                                languages with sophisticated morphology such as Sanskrit, whose training data is largely
+                                sparse.
+                            </li>
+                        </ul>
+
+                        <h3>Lack of Fine-Tuning on Domain-Specific Data</h3>
+                        <p>
+                            Most existing pre-trained models such as NLLB-200 and MBart are trained on general-domain
+                            corpora, which may fall short for specialized applications, e.g.,
+                            translating classical Sanskrit into contemporary Hindi. Fine-tuning the model on
+                            domain-specific corpora (e.g., Vedic literature, philosophical works) is necessary to
+                            make the model better at resolving rare words, idiomatic phrases, and culturally specific
+                            allusions.
+                        </p>
+                        <p>
+                            Nonetheless, even with fine-tuning, current models don’t have the rich cultural and
+                            historical context to comprehend the relevance of some Sanskrit concepts
+                            and hence, the overall quality of translation in some areas is substandard.
+                        </p>
+
+                        <h3>Computational Costs and Resource Constraints</h3>
+                        <p>
+                            Training and fine-tuning massive models such as NLLB-200 can be computationally costly and
+                            need major hardware resources.
+                            This can restrict the experimentation with varied configurations, expanding datasets, as
+                            well as fine-tuning on domain-specific Sanskrit-Hindi corpora,
+                            particularly for authors who have limited access to resources.
+                        </p>
+                    </section>
 
 
                     <!-- --------------------------------------------------------------------------------------------------------------------- -->
@@ -463,17 +1058,457 @@
                     <h2 id="method">Methodology </h2>
 
                     <h3 id="data">Data Collection & Preprocessing</h3>
+                    <p>
+                        The dataset utilized in this project was supplied by the project supervisor solely
+                        for academic use. It was manually compiled, and all rights are owned by IIT
+                        Kharagpur. Due to confidentiality constraints, the dataset cannot be disclosed, as
+                        it has not yet been publicly released by the institute.
+                        Here are some important information about the dataset:
+                    <ul style="list-style-type: square;">
+                        <li>There are two separate files: Train dataframe and Test dataframe, both in JSON format.</li>
+                        <li>In training data, there are 16,330 rows.</li>
+                        <li>In test data, there are 1,815 rows.</li>
+                        <li>There are two columns in the dataset: Sanskrit and Hindi parallel sentences.</li>
+                        <li>After tokenization, the maximum number of Sanskrit tokens is 105 and Hindi tokens is 104,
+                            for the training data.</li>
+                        <li>NLLB-200 distilled 600M supports a maximum of 512 tokens per sentence.</li>
+                        <li><strong>Figure 5</strong> shows the distribution of tokens per length in the training
+                            dataset. The red line marks the maximum number of tokens NLLB training can support.</li>
+                    </ul>
+
+                    </p>
+
+                    <figure style="width: 45vh;">
+                        <img src="../FinalYearproject/IMGs/fig5_tokenpsent.png" alt="Encoder-Decoder Architecture"
+                            style="width: 100%;">
+                        <figcaption
+                            style="text-align: center; font-style: italic; font-size: 0.9em; margin-top: 0.5em;">
+                            Figure 5: Tokens per sentence in training dataset
+                        </figcaption>
+                    </figure>
+
                     <h3 id="model">Model Selection</h3>
+                    <p>
+                        For the machine translation task between Hindi and Sanskrit, the NLLB-200-distilled-600M model
+                        is selected over other options like mT5, mBART, and Indic-Trans. The reasons behind the
+                        selection are a combination of some very important aspects regarding model structure, training
+                        data, supported languages, and
+                        resource usage
+                    </p>
+                    <ol>
+                        <li><strong>Designed for Low-Resource Languages</strong><br>
+                            The No Language Left Behind (NLLB) project from Meta AI was designed specifically to enhance
+                            low-resource language translation quality, such as most Indic languages like Sanskrit. The
+                            NLLB’s support of 200 languages is better balanced than other models, which are usually
+                            inclined towards high-resource languages.
+                        </li>
+                        <li><strong>High-Quality Parallel Data</strong><br>
+                            NLLB models are pretrained on multilingual filtered and curated datasets (e.g., FLORES,
+                            CCMatrix, LASER) with a heavy focus on high-quality parallel corpora. This guarantees
+                            improved performance for language pairs such as Sanskrit–Hindi, where data is noisy and
+                            limited.
+                        </li>
+                        <li><strong>Translation-Focused Pretraining</strong><br>
+                            In contrast to mT5 and mBART, which are pretrained on a combination of language modeling and
+                            masked sequence tasks, NLLB is specially pretrained for machine translation. This means it
+                            is naturally better suited for downstream translation tasks and needs less task-specific
+                            fine-tuning to show high performance.
+                        </li>
+                        <li><strong>Efficient and Distilled Architecture</strong><br>
+                            The 600M parameter distilled version of NLLB is much more lightweight and efficient than big
+                            models such as mT5-large or mBART-large. It strikes a balance between resource demands and
+                            model performance, so it is especially well-suited to fine-tuning on mid-sized datasets or
+                            on hardware with limited resources.
+                        </li>
+                        <li><strong>Better Benchmark Performance</strong><br>
+                            Benchmark testing on low-resource language pairs (cited in the NLLB paper) indicates that
+                            NLLB models perform better than mBART and mT5 in BLEU score and COMET scores, especially for
+                            Indic languages. Sanskrit-Hindi is one of them, where NLLB shows better accuracy and less
+                            hallucination in the generated translations.
+                        </li>
+                        <li><strong>Multilingual Tokenizer Adapted for Indic Scripts</strong><br>
+                            The NLLB tokenizer is designed to handle multiple scripts and subword units efficiently,
+                            including the Devanagari script used by both Sanskrit and Hindi. This reduces tokenization
+                            errors and improves the model’s ability to understand and generate linguistically coherent
+                            translations.
+                        </li>
+                        <li><strong>Adaptive Sampling for Balanced Training</strong><br>
+                            NLLB employs adaptive sampling techniques during training that ensure low-resource languages
+                            receive adequate representation. This method prevents overfitting on high-resource languages
+                            and allows the model to learn robust features specific to languages like Sanskrit and Hindi.
+                        </li>
+                        <li><strong>Open Source and Extensible</strong><br>
+                            Being open-source, NLLB models allow researchers to fine-tune and adapt the models freely on
+                            specific language pairs or domains. This flexibility is crucial for Sanskrit-Hindi
+                            translation projects where domain-specific parallel corpora and custom fine-tuning
+                            strategies can significantly improve output quality.
+                        </li>
+                        <li><strong>Robustness to Linguistic Complexity</strong><br>
+                            Sanskrit, with its rich morphology and complex grammatical structure, poses unique
+                            challenges for machine translation. NLLB’s architecture, with its mixture of experts and
+                            transformer backbone, is well-suited to capture these complexities, enabling better handling
+                            of long-range dependencies and syntactic nuances compared to simpler models.
+                        </li>
+                        <li><strong>Cultural and Contextual Sensitivity</strong><br>
+                            NLLB’s training regime includes human evaluations and toxicity filtering, which helps in
+                            producing translations that are not only accurate but also culturally sensitive and
+                            contextually appropriate. This aspect is essential when translating classical or literary
+                            Sanskrit texts to Hindi, preserving intended meanings and subtleties.
+                        </li>
+                    </ol>
+
                     <h3 id="finetune">Model Finetuning</h3>
 
                     <h4 id="tl">Transfer Learning</h4>
+                    <p>
+                        Transfer learning is a machine learning scenario in which a large source task-trained model is
+                        fine-tuned (or adapted) to suit a unique but similar target task. Rather than starting from
+                        scratch, the knowledge obtained from the source task (e.g., multilingual translation for
+                        hundreds of language pairs) is leveraged to enhance performance on the target task (e.g.,
+                        Sanskrit–Hindi translation).
+                    </p>
+                    <p>
+                        This technique is especially useful in low-resource environments, where there is limited data
+                        upon which to train. By making use of pre-trained knowledge, transfer learning enables models to
+                        learn more and converge more quickly when fine-tuning.
+                    </p>
+
+                    <p>
+                        The NLLB-200-distilled-600M model is a distilled, compact version of Meta's larger NLLB-200
+                        multilingual translation model. It has been pretrained on high-quality parallel corpora in 200
+                        languages, including a number of Indic languages. Through pretraining, the model acquires:
+                    </p>
+                    <ul style="list-style-type: square;">
+                        <li>General patterns of language (e.g., grammar, syntax, structure)</li>
+                        <li>Cross-lingual representations</li>
+                        <li>Translation mappings over a broad set of language pairs</li>
+                    </ul>
+                    <p>
+                        These acquired representations act as an excellent foundation for translation
+                        over underrepresented languages.
+                    </p>
                     <h4 id="Training">Training Process</h4>
-                    <h4 id="a">Data Augmentation</h4>
+                    <p>
+                        The training, or to be specific, the finetuning of NLLB-200-distilled 600M model
+                        was done on the specified dataset, by using hugging face’s sequence to sequence trainer. <br>
+                        The code for training has been taken from finetune by MahmoudHassanen99 <a href="#b8">[8]</a>
+                    </p>
+                    <table border="1" cellspacing="0" cellpadding="8">
+                        <caption><strong>Training Configuration for Fine-Tuning <code>NLLB-200-distilled-600M</code>
+                                (Sanskrit–Hindi)</strong></caption>
+                        <thead>
+                            <tr>
+                                <th>Component</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Model</td>
+                                <td><code>facebook/nllb-200-distilled-600M</code></td>
+                            </tr>
+                            <tr>
+                                <td>Tokenizer</td>
+                                <td>AutoTokenizer with <code>src_lang=san_Deva</code>, <code>tgt_lang=hin_Deva</code>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Dataset Format</td>
+                                <td>JSONL with <code>translation.sa</code> and <code>translation.hi</code> fields</td>
+                            </tr>
+                            <tr>
+                                <td>Max Sequence Length</td>
+                                <td>128 tokens (input and output)</td>
+                            </tr>
+                            <tr>
+                                <td>Data Preprocessing</td>
+                                <td>Tokenization, padding, truncation, normalization using Hugging Face</td>
+                            </tr>
+                            <tr>
+                                <td>Training Epochs</td>
+                                <td>Variable (Explained in Table 2)</td>
+                            </tr>
+                            <tr>
+                                <td>Batch Size</td>
+                                <td>1 (train and eval per device)</td>
+                            </tr>
+                            <tr>
+                                <td>Learning Rate</td>
+                                <td>2e-5</td>
+                            </tr>
+                            <tr>
+                                <td>Weight Decay</td>
+                                <td>0.02</td>
+                            </tr>
+                            <tr>
+                                <td>Optimizer</td>
+                                <td>AdamW (default via <code>Seq2SeqTrainer</code>)</td>
+                            </tr>
+                            <tr>
+                                <td>Evaluation Strategy</td>
+                                <td>Every 5000 steps</td>
+                            </tr>
+                            <tr>
+                                <td>Logging Steps</td>
+                                <td>Every 1000 steps</td>
+                            </tr>
+                            <tr>
+                                <td>Save Steps</td>
+                                <td>Every 5000 steps</td>
+                            </tr>
+                            <tr>
+                                <td>Checkpoint Retention</td>
+                                <td>Keep latest 2 checkpoints</td>
+                            </tr>
+                            <tr>
+                                <td>Generation Enabled</td>
+                                <td><code>predict_with_generate = True</code></td>
+                            </tr>
+                            <tr>
+                                <td>Training Library</td>
+                                <td>Hugging Face <code>transformers</code> + <code>datasets</code></td>
+                            </tr>
+                            <tr>
+                                <td>Trainer Used</td>
+                                <td><code>Seq2SeqTrainer</code></td>
+                            </tr>
+                            <tr>
+                                <td>Callback</td>
+                                <td><code>TensorBoardCallback</code></td>
+                            </tr>
+                            <tr>
+                                <td>Model Save Format</td>
+                                <td>PyTorch <code>.pth</code> file</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
+                    <table border="1" cellspacing="0" cellpadding="8">
+                        <caption><strong>Performance Metrics Across Fine-Tuning Iterations</strong></caption>
+                        <thead>
+                            <tr>
+                                <th>Fine-Tune Iteration</th>
+                                <th>Epochs</th>
+                                <th>BLEU Score</th>
+                                <th>CHRF++ Score</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Finetune 1</td>
+                                <td>6</td>
+                                <td>0.21</td>
+                                <td>2.76</td>
+                            </tr>
+                            <tr>
+                                <td>Finetune 2</td>
+                                <td>10</td>
+                                <td>3.19</td>
+                                <td>20.87</td>
+                            </tr>
+                            <tr>
+                                <td>Finetune 3</td>
+                                <td>14</td>
+                                <td>5.49</td>
+                                <td>28.79</td>
+                            </tr>
+                            <tr>
+                                <td>Finetune 4</td>
+                                <td>10</td>
+                                <td>6.61</td>
+                                <td>30.85</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <p>
+                        The finetuning procedure was conducted incrementally, with each sub-
+                        sequent training step picking up from the last checkpoint stored in the previous
+                        run. Precisely speaking, the model employed during Finetune 2 was initialized from Finetune 1’s
+                        last checkpoint, and Finetune 3 resumed from Finetune 2, and
+                        the process went on, and so forth. The learning curves have been attached in
+                        result section. The evaluation and training scripts are attached in this report and can be found
+                        in Appendix.
+                    </p>
+
+                    <h4 id="dataaug">Data Augmentation</h4>
+                    <p>
+                        Data augmentation is the process of artificially expanding a training dataset
+                        by creating modified versions of existing data. It helps improve model generaliza-
+                        tion, especially when the dataset is small or imbalanced.
+                    </p>
+                    <p>
+                        In phase-2 of the project, I tried to expand the dataset synthetically using data
+                        augmentation.
+                    </p>
+                    <p>
+                        Sanskrit, as a morphologically complex and syntactically free language, ex-
+                        presses grammatical content — case, number, gender, and tense — in word end-
+                        ings (inflection). This linguistic feature permits high word order freedom without
+                        changing the fundamental meaning of a sentence very much.
+                    </p>
+                    <p>
+                        In this work, I exploited this peculiar property of Sanskrit for data augmenta-
+                        tion. Precisely, word-order shuffling was used to create syntactically diverse but
+                        semantically similar sentences. Because the grammatical indicators are incorpo-
+                        rated in the words themselves, word reordering within a sentence does not result
+                        in loss of meaning in most instances.
+                    </p>
+                    <p>
+                        This enabled me to:
+                    <ul style="list-style-type: square;">
+                        <li>Produce more training data without requiring external resources. Specifically
+                            I tripled the dataset. The new training dataset contains 48,990 Sanskrit-Hindi
+                            pairs.</li>
+                        <li>Expose the model to more diverse sentence structures</li>
+                        <li>Increase model insensitivity to syntactic variation</li>
+                    </ul>
+                    </p>
+
+                    <figure style="width: 80vh;">
+                        <img src="../FinalYearproject/IMGs/fig6_sanskritpermutations.png"
+                            alt="Encoder-Decoder Architecture" style="width: 100%;">
+                        <figcaption
+                            style="text-align: center; font-style: italic; font-size: 0.9em; margin-top: 0.5em;">
+                            Figure 6: Permutations of a Sanskrit sentence
+                        </figcaption>
+                    </figure>
+                    <p>
+                        example: [figure 6] (”R¯amah. hanti r¯avan. am” – Rama kills Ravan)
+                    <ul style="list-style-type: square;">
+                        <li>R¯amah. is the subject (nominative case, indicated by ending semicolon
+                            marker)</li>
+                        <li>hanti is the verb (present tense, 3rd person singular)</li>
+                        <li>r¯avan. am is the object (accusative case, indicated by ending virama marker)</li>
+                    </ul>
+                    </p>
+                    <p>
+                        Now if I shuffle the sentence and write it in any order as shown in figure 6 the
+                        meaning remains the same.
+                    </p>
+
+                    <p>
+                        One very interesting note I have taken was that for a sentence with n number
+                        of words, logically, there are factorial n permutations possible. Like in the above
+                        example there are 3 words, there are a total of 3 factorial (=6) permutations.
+                        In my project’s phase-II I have used only 2 permutations plus one original
+                        making the dataset triple the original size.
+                    </p>
+
+                    <p>
+                        Notably, when I trained NLLB model from scratch on this dataset I achieved a
+                        BLEU score of 6.55 and CHRF++ Score of 33.32 only in 10 epochs. However the
+                        training time per 10 epochs increased from 12 hours to 80 hours.
+                    </p>
+
+                    <p>
+                        But this remarkable linguistic feature of Sanskrit does not mean that all pos-
+                        sible permutations of a sentence should be generated and used in the training
+                        corpus. Because the number of possible permutations increases factorially, an
+                        over-exponential function, even moderately long sentences can contribute to an
+                        impractically large set of variations. This would not only cause an impractically
+                        large corpus but might also contribute to redundancy and inefficiencies in training.
+                    </p>
+
+                    <p>
+                        To balance this, I selectively added only two more permutations to each of the
+                        original sentences, adding a 3× increase in the size of the dataset. This maintains
+                        an equilibrium between adding syntactic variation and keeping the dataset size
+                        not too large, stopping short of exponential growth without losing much from the
+                        exposure of the model to varied word orders
+                    </p>
                     <h3 id="val">Evaluation Metrics</h3>
+                    <h3 id="bleu">BLEU</h3>
+                    BLEU score <a href="#b9">[9]</a>, Bilingual Evaluation Understudy, is an automatic evaluation
+                    metric that measures the quality of machine-translated text by comparing it to
+                    one or more reference translations. It was one of the first metrics to gain wide
+                    acceptance for evaluating machine translation and remains a standard in the field.
+                    <p>
+                        BLEU score compares n-gram overlaps (e.g., unigrams, bigrams, trigrams, etc.) between:
+                    <ul style="list-style-type: square;">
+                        <li>The candidate translation (output from the model).</li>
+                        <li>The reference translation(s) (correct translations).</li>
+                    </ul>
+                    </p>
+                    <p>
+                        It then computes a precision-based score for each n-gram level.
+                        Limitations of BLEU score:
+                    <ul style="list-style-type: square;">
+                        <li>Insensitive to meaning: BLEU score is based only on surface word overlap; it doesn’t capture
+                            semantic accuracy or fluency.</li>
+                        <li>No grammar check: BLEU score does not penalize ungrammatical outputs unless they deviate
+                            from reference wording.</li>
+                        <li>Multiple references help: BLEU score performs better with multiple human references to
+                            account for translation variability.</li>
+                    </ul>
+                    </p>
+                    <p>
+                        sacreBLEU score: Python’s BLEU score library sacreBLEU score is a
+                        standardized Python library for computing BLEU scores in machine translation
+                        tasks. It addresses inconsistencies found in traditional BLEU score implemen-
+                        tations by applying fixed tokenization and evaluation protocols, making results
+                        reproducible across different experiments.
+                    <ul style="list-style-type: square;">
+                        <li>Tokenization: sacreBLEU score uses standard WMT-style tokenization (e.g., 13a) for
+                            consistent evaluation..</li>
+                        <li>N-gram Precision: It computes n-gram precisions from 1-gram to 4-gram using uniform weights.
+                        </li>
+                        <li>Brevity Penalty (BP): Applied when the candidate translation is shorter than the reference
+                            $$BP = \begin{cases}
+                            1 \& \text{if } c > r \\
+                            \exp(1 - \frac{r}{c}) \& \text{if } c \leq r
+                            \end{cases}$$
+                        </li>
+                        <li>
+                            $$\text{BLEU score} = BP \cdot \exp\left( \sum_{n=1}^4 w_n \cdot \log p_n \right)$$
 
-                    <h3 id="leu">BLEU</h3>
+                            where p<sub>n</sub> is the precision of n-grams and w<sub>n</sub> = 0.25 (for BLEU score-4).
+                            The use of sacreBLEU score ensures reproducible and reliable BLEU scores
+                            and is widely adopted in NLP research.
+                        </li>
+                    </ul>
+                    </p>
                     <h3 id="hrf">CHRF++</h3>
+                    <p>
+                        CHRF++ Score <a href="#b10">[10]</a> (Character n-gram F-score with word n-gram extensions) is
+                        a language-agnostic automatic evaluation metric for machine translation and text
+                        generation. It was introduced as an improvement over CHRF by incorporating
+                        word-level n-grams in addition to character n-grams.
+                    </p>
+                    <p>
+                        Unlike BLEU score, which evaluates based on word-level n-gram precision,
+                        CHRF++ Score computes the F-score (harmonic mean of precision and recall)
+                        over character-level n-grams. This makes it especially effective for evaluating:
+                    <ul style="list-style-type: square;">
+                        <li>Morphologically rich languages (e.g., Sanskrit, Hindi)</li>
+                        <li>Languages with free word order</li>
+                        <li>Low-resource translation outputs where exact word overlap is rare</li>
+                    </ul>
+                    CHRF++ Score extends the original CHRF by also including optional word-
+                    level n-grams, providing a more balanced view of fluency (character-level) and
+                    adequacy (word-level).
+
+                    $$\text{CHRF++ Score} = (1 + \beta^2) \cdot \frac{\text{Precision} \cdot \text{Recall}}{(\beta^2
+                    \cdot \text{Precision}) + \text{Recall}}$$
+
+                    where
+                    <ul style="list-style-type: square;">
+                        <li><strong>Precision</strong> = proportion of n-grams in the hypothesis that appear in the
+                            reference</li>
+                        <li><strong>Recall</strong> = proportion of n-grams in the reference that appear in the
+                            hypothesis</li>
+                        <li><strong>β</strong> = weight factor (default = 2) to give more importance to recall</li>
+                        <li>Character n-grams of order 6</li>
+                        <li>Word n-grams of order 2</li>
+                    </ul>
+                    <br>
+                    CHRF++ Score typically uses:
+                    <ul style="list-style-type: square;">
+
+                        <li>Character n-grams of order 6</li>
+                        <li>Word n-grams of order 2</li>
+                    </ul>
+
 
 
 
@@ -482,8 +1517,129 @@
                     <h2 id="#req">Requirements </h2>
 
                     <h3 id="fr">Functional Requirements</h3>
-                    <h3 id="hs">Hardware Specifications</h3>
+                    <ol>
+                        <li>Data Handling
+                            <ul style="list-style-type: square;">
+                                <li>The dataset is available in JSON format and has been converted into a Pandas
+                                    DataFrame for processing.</li>
+                                <li>Data preprocessing is minimal, and any low-quality data is ignored prior to model
+                                    training.</li>
+                                <li>The dataset must be split into training, validation, and test sets for model
+                                    evaluation. However, no significant preprocessing or augmentation techniques are
+                                    required.</li>
+                            </ul>
+                        </li>
+                        <li>Model Training and Fine-tuning
+                            <ul style="list-style-type: square;">
+                                <li>The system must support fine-tuning of the pre-trained NLLB-200 model on the
+                                    Sanskrit-Hindi dataset.</li>
+                                <li>Due to memory constraints on the available hardware, the system should be capable of
+                                    handling a batch size of 1 sentence at a time.</li>
+                                <li>Training should proceed without encountering Memory Full errors. If a batch size
+                                    larger than 1 sentence is used, the system encounters GPU memory overload, and
+                                    further optimization or techniques like gradient accumulation might be required.
+                                </li>
+                                <li>Hyperparameters such as learning rate were kept as standard.</li>
+                                <li>Due to constraints, the training on original dataset was done in multiple phases,
+                                    notably, 6 epochs, 10 epochs, 14 epochs & 10 epochs summing up to 40 epochs.</li>
+                            </ul>
+                        </li>
+                    </ol>
 
+                    <h3 id="hs">Hardware & Software Specifications</h3>
+                    <table border="1" cellspacing="0" cellpadding="8">
+                        <caption><strong>Hardware specifications used for model training and inference</strong>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th>Specification</th>
+                                <th>Details</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Processor</td>
+                                <td>Intel(R) Xeon(R) Silver 4309Y CPU @ 2.80GHz</td>
+                            </tr>
+                            <tr>
+                                <td>RAM</td>
+                                <td>Minimum 16 GB</td>
+                            </tr>
+                            <tr>
+                                <td>GPU</td>
+                                <td>NVIDIA L40 GPU</td>
+                            </tr>
+                            <tr>
+                                <td>CUDA Version</td>
+                                <td>12.4</td>
+                            </tr>
+                            <tr>
+                                <td>Driver Version</td>
+                                <td>550.144.03</td>
+                            </tr>
+                            <tr>
+                                <td>GPU Memory</td>
+                                <td>Minimum 46 GiB</td>
+                            </tr>
+                            <tr>
+                                <td>Storage</td>
+                                <td>Minimum 100 GB required</td>
+                            </tr>
+                            <tr>
+                                <td>Operating System</td>
+                                <td>Linux</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <table border="1" cellspacing="0" cellpadding="8">
+                        <caption><strong>Software dependencies for model training and inference</strong></caption>
+                        <thead>
+                            <tr>
+                                <th>Software/Library</th>
+                                <th>Version</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Python</td>
+                                <td>3.10.11</td>
+                            </tr>
+                            <tr>
+                                <td>PyTorch</td>
+                                <td>2.0.0</td>
+                            </tr>
+                            <tr>
+                                <td>Transformers</td>
+                                <td>4.26.1</td>
+                            </tr>
+                            <tr>
+                                <td>Hugging Face Datasets</td>
+                                <td>2.13.2</td>
+                            </tr>
+                            <tr>
+                                <td>CUDA</td>
+                                <td>550.144.03</td>
+                            </tr>
+                            <tr>
+                                <td>NumPy</td>
+                                <td>1.21.5</td>
+                            </tr>
+                            <tr>
+                                <td>Pandas</td>
+                                <td>1.3.5</td>
+                            </tr>
+                            <tr>
+                                <td>Tensorboard</td>
+                                <td>2.11.2</td>
+                            </tr>
+                            <tr>
+                                <td>Torch</td>
+                                <td>1.13.1</td>
+                            </tr>
+                        </tbody>
+                    </table>
 
                     <!-- --------------------------------------------------------------------------------------------------------------------- -->
 
@@ -504,6 +1660,173 @@
                     <!-- --------------------------------------------------------------------------------------------------------------------- -->
 
                     <h2 id="refer">References</h2>
+                    <ol>
+                        <li>
+                            <p id="b1"><b>[1]</b> <i>NLLB Team et al. (2022). No Language Left Behind: Scaling
+                                    Human-Centered Machine Translation. arXiv preprint arXiv:2207.04672. <br />
+                                    <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=uPjZQ1IAAAAJ&citation_for_view=uPjZQ1IAAAAJ:u5HHmVD_uO8C"
+                                        target="_blank">https://scholar.google.com/citations?view_op=view_citation&hl=en&user=uPjZQ1IAAAAJ&citation_for_view=uPjZQ1IAAAAJ:u5HHmVD_uO8C</a></i>
+                            </p>
+                        </li>
+                        <li>
+                            <p id="b2"><b>[2]</b> <i>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L.,
+                                    Gomez, A. N., Kaiser, L., & Polosukhin, I. (2017). Attention is All You Need. arXiv
+                                    preprint arXiv:1706.03762. <br />
+                                    <a href="https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html"
+                                        target="_blank">https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html</a></i>
+                            </p>
+                        </li>
+                        <li>
+                            <p id="b3"><b>[3]</b> <i>Xue, L., Constant, N., Roberts, A., Kale, M., Al-Rfou, R.,
+                                    Siddhant, A., Barua, A., & Raffel, C. (2021). mT5: A Massively Multilingual
+                                    Pre-trained Text-to-Text Transformer. arXiv preprint arXiv:2010.11934. <br />
+                                    <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=I66ZBYwAAAAJ&citation_for_view=I66ZBYwAAAAJ:lmc2jWPfTJgC"
+                                        target="_blank">https://scholar.google.com/citations?view_op=view_citation&hl=en&user=I66ZBYwAAAAJ&citation_for_view=I66ZBYwAAAAJ:lmc2jWPfTJgC</a></i>
+                            </p>
+                        </li>
+                        <li>
+                            <p id="b4"><b>[4]</b> <i>Liu, Y., Gu, J., Goyal, N., Li, X., Edunov, S., Ghazvininejad, M.,
+                                    Lewis, M., & Zettlemoyer, L. (2020). Multilingual Denoising Pre-training for Neural
+                                    Machine Translation. arXiv preprint arXiv:2001.08210. <br />
+                                    <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=H9buyroAAAAJ&citation_for_view=H9buyroAAAAJ:ufrVoPGSRksC"
+                                        target="_blank">https://scholar.google.com/citations?view_op=view_citation&hl=en&user=H9buyroAAAAJ&citation_for_view=H9buyroAAAAJ:ufrVoPGSRksC</a></i>
+                            </p>
+                        </li>
+                        <li>
+                            <p id="b5"><b>[5]</b> <i>Gala, J., Chitale, P. A., Raghavan, A. K., Gumma, V., Doddapaneni,
+                                    S., Kumar, A., Nawale, J., Sujatha, A., Puduppully, R., Raghavan, V., Kumar, P.,
+                                    Khapra, M. M., Dabre, R., & Kunchukuttan, A. (2023). IndicTrans2: Towards
+                                    High-Quality and Accessible Machine Translation Models for All 22 Scheduled Indian
+                                    Languages. arXiv preprint arXiv:2305.16307. <br />
+                                    <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=TbTrwNEAAAAJ&citation_for_view=TbTrwNEAAAAJ:9yKSN-GCB0IC"
+                                        target="_blank">https://scholar.google.com/citations?view_op=view_citation&hl=en&user=TbTrwNEAAAAJ&citation_for_view=TbTrwNEAAAAJ:9yKSN-GCB0IC</a></i>
+                            </p>
+                        </li>
+                        <li>
+                            <p id="b6"><b>[6]</b> <i>Hugging Face. (n.d.). The Hugging Face course. Retrieved from
+                                    <br />
+                                    <a href="https://huggingface.co/learn/llm-course"
+                                        target="_blank">https://huggingface.co/learn/llm-course</a></i></p>
+                        </li>
+                        <li>
+                            <p id="b7"><b>[7]</b> <i>Transformers Models and BERT Model Course by Simplilearn <br />
+                                    <a href="https://www.simplilearn.com/free-transformer-bert-model-course-skillup"
+                                        target="_blank">https://www.simplilearn.com/free-transformer-bert-model-course-skillup</a></i>
+                            </p>
+                        </li>
+                        <li>
+                            <p id="b8"><b>[8]</b> <i>NLLB finetuning by MahmoudHassanen99 <br />
+                                    <a href="https://github.com/MahmoudHassanen99/NLLB-200-600M-fine-tuning/blob/main/nllb-200-600m-fine-tuning.ipynb"
+                                        target="_blank">https://github.com/MahmoudHassanen99/NLLB-200-600M-fine-tuning/blob/main/nllb-200-600m-fine-tuning.ipynb</a></i>
+                            </p>
+                        </li>
+                        <li>
+                            <p id="b9"><b>[9]</b> <i>Bleu: a Method for Automatic Evaluation of Machine Translation
+                                    <br />
+                                    <a href="https://aclanthology.org/P02-1040/"
+                                        target="_blank">https://aclanthology.org/P02-1040/</a></i></p>
+                        </li>
+                        <li>
+                            <p id="b10"><b>[10]</b> <i>chrF++: words helping character n-grams <br />
+                                    <a href="https://aclanthology.org/W17-4770.pdf" target="_blank">(Popović, WMT
+                                        2017)</a></i></p>
+                        </li>
+                        <li>
+                            <p id="b11"><b>[11]</b> <i>Bahdanau, D., Cho, K., & Bengio, Y. (2015). Neural machine
+                                    translation by jointly learning to align and translate. ICLR. <br />
+                                    <a href="https://papers.nips.cc/paper_files/paper/2014/file/5346bbfdc9785f48f05a61dc7f6c9fba-Paper.pdf"
+                                        target="_blank">https://papers.nips.cc/paper_files/paper/2014/file/5346bbfdc9785f48f05a61dc7f6c9fba-Paper.pdf</a></i>
+                            </p>
+                        </li>
+                        <li>
+                            <p id="b12"><b>[12]</b> <i>Sennrich, R., Haddow, B., & Birch, A. (2016). Improving neural
+                                    machine translation models with monolingual data. ACL. <br />
+                                    <a href="https://aclanthology.org/P16-1009/"
+                                        target="_blank">https://aclanthology.org/P16-1009/</a></i></p>
+                        </li>
+                        <li>
+                            <p id="b13"><b>[13]</b> <i>Koehn, P., Hoang, H., Birch, A., Callison-Burch, C., Federico,
+                                    M., Bertoldi, N., ... & Herbst, E. (2007). Moses: Open source toolkit for
+                                    statistical machine translation. ACL Demo Session. <br />
+                                    <a href="https://aclanthology.org/P07-2045/"
+                                        target="_blank">https://aclanthology.org/P07-2045/</a></i></p>
+                        </li>
+                        <li>
+                            <p id="b14"><b>[14]</b> <i>Bojar, O., Chatterjee, R., Federmann, C., Graham, Y., Haddow, B.,
+                                    Huck, M., ... & Zampieri, M. (2017). Findings of the 2017 Conference on Machine
+                                    Translation (WMT17). WMT. <br />
+                                    <a href="https://aclanthology.org/W17-4717/"
+                                        target="_blank">https://aclanthology.org/W17-4717/</a></i></p>
+                        </li>
+                        <li>
+                            <p id="b15"><b>[15]</b> <i>Tiedemann, J. (2020). The Tatoeba Translation Challenge –
+                                    Realistic Data Sets for Low Resource and Multilingual MT. WMT. <br />
+                                    <a href="https://aclanthology.org/2020.wmt-1.139/"
+                                        target="_blank">https://aclanthology.org/2020.wmt-1.139/</a></i></p>
+                        </li>
+                        <li>
+                            <p id="b16"><b>[16]</b> <i>Rios, A., Minocha, A., & Catt, M. (2020). Low-resource Machine
+                                    Translation for Indo-Aryan Languages: Bridging the Gap Between Hindi and Sanskrit.
+                                    WILDRE5. <br />
+                                    <a href="https://aclanthology.org/2020.wildre-1.5/"
+                                        target="_blank">https://aclanthology.org/2020.wildre-1.5/</a></i></p>
+                        </li>
+                        <li>
+                            <p id="b17"><b>[17]</b> <i>Post, M. (2018). A Call for Clarity in Reporting BLEU Scores.
+                                    WMT. <br />
+                                    <a href="https://aclanthology.org/W18-6319/"
+                                        target="_blank">https://aclanthology.org/W18-6319/</a></i></p>
+                        </li>
+                        <li>
+                            <p id="b18"><b>[18]</b> <i>Popović, M. (2017). chrF++: words helping character n-grams. WMT.
+                                    <br />
+                                    <a href="https://aclanthology.org/W17-4770/"
+                                        target="_blank">https://aclanthology.org/W17-4770/</a></i></p>
+                        </li>
+                        <li>
+                            <p id="b19"><b>[19]</b> <i>Saxena, S., & Kunchukuttan, A. (2020). Towards Fully-Parallel
+                                    Lexically-Constrained Neural Machine Translation. EMNLP Findings. <br />
+                                    <a href="https://aclanthology.org/2020.findings-emnlp.13/"
+                                        target="_blank">https://aclanthology.org/2020.findings-emnlp.13/</a></i></p>
+                        </li>
+                        <li>
+                            <p id="b20"><b>[20]</b> <i>Lakew, S. M., Bentivogli, L., Negri, M., & Turchi, M. (2018).
+                                    Controlling the Output Length of Neural Machine Translation. NAACL. <br />
+                                    <a href="https://aclanthology.org/N18-2117/"
+                                        target="_blank">https://aclanthology.org/N18-2117/</a></i></p>
+                        </li>
+                        <li>
+                            <p id="b21"><b>[21]</b> <i>OPUS. The Open Parallel Corpus. Compiled by Jörg Tiedemann at the
+                                    University of Helsinki. <br />
+                                    <a href="http://opus.nlpl.eu/" target="_blank">http://opus.nlpl.eu/</a></i></p>
+                        </li>
+                        <li>
+                            <p id="b22"><b>[22]</b> <i>Hugging Face. Transformers Library Documentation. Hugging Face.
+                                    <br />
+                                    <a href="https://huggingface.co/docs/transformers/"
+                                        target="_blank">https://huggingface.co/docs/transformers/</a></i></p>
+                        </li>
+                        <li>
+                            <p id="b23"><b>[23]</b> <i>Facebook AI. No Language Left Behind (NLLB) Project Page. Meta AI
+                                    Research. <br />
+                                    <a href="https://ai.facebook.com/research/no-language-left-behind/"
+                                        target="_blank">https://ai.facebook.com/research/no-language-left-behind/</a></i>
+                            </p>
+                        </li>
+                        <li>
+                            <p id="b24"><b>[24]</b> <i>Google Research. Google Translate Multilingual Models. Google AI
+                                    Blog. <br />
+                                    <a href="https://ai.googleblog.com/2020/06/expanding-translation-to-more-languages.html"
+                                        target="_blank">https://ai.googleblog.com/2020/06/expanding-translation-to-more-languages.html</a></i>
+                            </p>
+                        </li>
+                        <li>
+                            <p id="b25"><b>[25]</b> <i>PyTorch. PyTorch Tutorials: NLP with PyTorch. PyTorch.org. <br />
+                                    <a href="https://pytorch.org/tutorials/beginner/nlp/index.html"
+                                        target="_blank">https://pytorch.org/tutorials/beginner/nlp/index.html</a></i>
+                            </p>
+                        </li>
+                    </ol>
 
                     <!-- --------------------------------------------------------------------------------------------------------------------- -->
 
