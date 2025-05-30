@@ -1645,71 +1645,586 @@
 
                     <h2 id="result">Result & Analysis </h2>
                     <h3 id="baseline">Base Line Model Performance</h3>
+
+                    <p>
+                        I have done inference on a few models in zero-shot environment. The results
+                        are as follows:
+                    </p>
+                    <ul style="list-style: disc;">
+                        <li>Average CHRF++ Score on Sanskrit to English dataset on just 100 rows is
+                            1.56 which is low and completely not acceptable.</li>
+                        <li>Models like mt5 and mBart donot support Sanskrit language explicitly.</li>
+                        <li>IndicTrans2 model which shows excellent support on low resource languages
+                            and Indian languages was too difficult to setup. In my understanding there
+                            is a recursive import issue and many depricated dependencies</li>
+                    </ul>
+
+                    <p>
+                        As part of the evaluation, I conducted zero-shot inference experiments using sev-
+                        eral pretrained multilingual models to assess their capability in handling Sanskrit-
+                        to-English translation. The results were unsatisfactory, with an average CHRF++
+                        Score of only 1.56 on a small test set of 100 sentences. This low score indicates
+                        that the translations generated were largely incoherent and unusable in practice.
+                        A key limitation observed was that widely used models like mT5 and mBART do
+                        not provide explicit support for Sanskrit, which likely contributes to their poor
+                        performance on this language pair.
+                    </p>
+
+                    <p>
+                        I also attempted to experiment with IndicTrans2, a model specifically designed
+                        to handle Indian and low-resource languages. While this model appears promising
+                        in theory, setting it up proved highly challenging. The implementation contains
+                        recursive import issues and relies on deprecated dependencies, making it difficult
+                        to run out of the box. This setup barrier presents a major hurdle for practical
+                        use, especially for researchers or developers working in constrained environments.
+                        Overall, these findings underscore the limitations of existing general-purpose trans-
+                        lation models when applied to Sanskrit and highlight the importance of continued
+                        domain-specific model finetuning and tooling support.
+                    </p>
                     <h3 id="nllbfinetuned">Performance of finetuned NLLB</h3>
+                    <p>Results of the NLLB model finetuning (5 stages) is listed below:</p>
+
+                    <h4> <b>STAGE - 1</b> </h4>
+                    <figure style="width: 80vh;">
+                        <img src="../FinalYearproject/IMGs/fig7 r1.png" alt="Encoder-Decoder Architecture"
+                            style="width: 100%;">
+                        <figcaption
+                            style="text-align: center; font-style: italic; font-size: 0.9em; margin-top: 0.5em;">
+                            Figure 7: Result of 2nd stage: 6 epochs
+                        </figcaption>
+                    </figure>
+                    <p>
+                        To validate the finetuning setup, I trained the NLLB model on the Sanskrit-
+                        to-Hindi translation task for 6 epochs. However, the model performed poorly,
+                        achieving a BLEU score of just 0.21 and a CHRF++ Score of 2.7. These results
+                        indicate that the model failed to produce meaningful translations at this stage,
+                        highlighting the need for further training and optimization.
+                    </p>
+
+                    <h4> <b>STAGE - 2</b> </h4>
+
+                    <figure style="width: 40vh;">
+                        <img src="../FinalYearproject/IMGs/fig8 r2.png" alt="Encoder-Decoder Architecture"
+                            style="width: 100%;">
+                        <figcaption
+                            style="text-align: center; font-style: italic; font-size: 0.9em; margin-top: 0.5em;">
+                            Figure 8: Result of 2nd stage: 10 epochs
+                        </figcaption>
+                    </figure>
+                    <p>In the next stage, I continued finetuning the model for 10 additional epochs. Although
+                        the training loss curve was unavailable due to a minor TensorBoard import error, the
+                        evaluation scores improved significantly. The BLEU score increased by 1419%, and the
+                        CHRF++ Score rose by 659%, indicating substantial progress in the model’s translation
+                        quality.</p>
+
+                    <h4> <b>STAGE - 3</b> </h4>
+
+                    <figure style="width: 80vh;">
+                        <img src="../FinalYearproject/IMGs/fig9 r3.png" alt="Encoder-Decoder Architecture"
+                            style="width: 100%;">
+                        <figcaption
+                            style="text-align: center; font-style: italic; font-size: 0.9em; margin-top: 0.5em;">
+                            Figure 9: Result of 3rd stage: 14 epochs
+                        </figcaption>
+                    </figure>
+                    <p>
+                        In this stage, although the BLEU score improved by 72% and the CHRF++
+                        Score increased by 37.9%, the model showed signs of overfitting. This overfitting is
+                        evident in the training and validation loss curves, where the training loss
+                        continues
+                        to decrease while the validation loss plateaus or worsens.
+                    </p>
+                    <h4> <b>STAGE - 4</b> </h4>
+                    <figure style="width: 80vh;">
+                        <img src="../FinalYearproject/IMGs/fig10 r4.png" alt="Encoder-Decoder Architecture"
+                            style="width: 100%;">
+                        <figcaption
+                            style="text-align: center; font-style: italic; font-size: 0.9em; margin-top: 0.5em;">
+                            Figure 10: Result of 4th stage: 10 epochs
+                        </figcaption>
+                    </figure>
+                    <p>
+                        In the last stage of finetuning using the original dataset, the BLEU score in-
+                        creased by 20% and the CHRF++ Score by 7.1%. However, the model exhibited heavy
+                        overfitting during this phase. Consequently, I decided to stop training on
+                        the original dataset and shifted focus toward data augmentation to improve gen-
+                        eralization.
+                    </p>
+                    <h4> <b>STAGE - 5: Augmented Data Finetuning</b> </h4>
+                    <p>In this stage, the model was finetuned from scratch using an augmented version
+                        of the dataset. Remarkably, within just 10 epochs, it surpassed the BLEU score
+                        and CHRF++ Scores previously achieved after 40 epochs on the original dataset,
+                        demonstrating the effectiveness of augmentation in improving translation
+                        quality.</p>
+
+                    <figure style="width: 80vh;">
+                        <img src="../FinalYearproject/IMGs/fig11 augr1.png" alt="Encoder-Decoder Architecture"
+                            style="width: 100%;">
+                        <figcaption
+                            style="text-align: center; font-style: italic; font-size: 0.9em; margin-top: 0.5em;">
+                            Figure 11: Loss curve (left) and evaluation metric result (right) of
+                            training 10
+                            epochs on augmented dataset starting from scratch model.
+                        </figcaption>
+                    </figure>
+                    <p>
+                        In this stage, the model was finetuned from scratch using an augmented version
+                        of the dataset. Remarkably, within just 10 epochs, it surpassed the BLEU score
+                        and CHRF++ Scores previously achieved after 40 epochs on the original dataset,
+                        demonstrating the effectiveness of augmentation in improving translation quality.
+                    </p>
+                    <p>
+                        However, this performance gain came with a trade-off in training time. While 40
+                        epochs on the original dataset required approximately 50–60 hours, the 10 epochs
+                        on the augmented dataset took around 85 hours. This increase in training time
+                        is likely due to the augmented dataset’s increased size and complexity, but the
+                        substantial improvement in performance highlights its value.
+                    </p>
+                    <figure style="width: 80vh;">
+                        <img src="../FinalYearproject/IMGs/fig12 augr2.png" alt="Encoder-Decoder Architecture"
+                            style="width: 100%;">
+                        <figcaption
+                            style="text-align: center; font-style: italic; font-size: 0.9em; margin-top: 0.5em;">
+                            Figure 12: Loss curve (left) and evaluation metric result (right) of training 10
+                            epochs on augmented dataset starting from last checkpoint.
+                        </figcaption>
+                    </figure>
+
+                    <p>
+                        In the next 10 epochs of the training model on the augmented dataset, from
+                        the last checkpoint of 1st stage training on augmented dataset, the model trained
+                        steadily. The new scores came out to be 11.3 BLEU score and 37.68 CHRF++
+                        Score. Training time was 94 hours.
+                    </p>
+                    <br>
+
+                    <table border="1" style="width:100%; border-collapse: collapse; text-align: center;">
+                        <caption><strong>Training summary of all stages</strong></caption>
+                        <thead>
+                            <tr>
+                                <th>Stage</th>
+                                <th>Dataset</th>
+                                <th>BLEU</th>
+                                <th>CHRF++</th>
+                                <th>Epochs</th>
+                                <th>RunTime</th>
+                                <th>Remarks</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>Original</td>
+                                <td>0.21</td>
+                                <td>2.75</td>
+                                <td>6</td>
+                                <td>8 hrs</td>
+                                <td>Very low scores</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>Original</td>
+                                <td>3.19</td>
+                                <td>20.87</td>
+                                <td>10</td>
+                                <td>12 hrs</td>
+                                <td>Steady increase</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>Original</td>
+                                <td>5.49</td>
+                                <td>28.79</td>
+                                <td>14</td>
+                                <td>15 hrs</td>
+                                <td>Model reaching its peak</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>Original</td>
+                                <td>6.61</td>
+                                <td>30.86</td>
+                                <td>10</td>
+                                <td>12 hrs</td>
+                                <td>Model overfit</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>Augmented</td>
+                                <td>6.56</td>
+                                <td>33.32</td>
+                                <td>10</td>
+                                <td>85 hrs</td>
+                                <td>New Training</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>Augmented</td>
+                                <td>11.33</td>
+                                <td>37.68</td>
+                                <td>10</td>
+                                <td>94 hrs</td>
+                                <td>BLEU score increased by ~73%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                    <h4> <b>Null Predictions</b> </h4>
+                    <p>
+                        I observed that at each stage of training, the model produced some null pre-
+                        dictions. These occur when the model fails to generate any output for certain
+                        inputs. Identifying and analyzing these null cases is crucial to understanding the
+                        limitations and weaknesses of the model during training. The following sections
+                        discuss how these null predictions varied across different stages and what insights
+                        they provide about the model’s learning process.
+                    </p>
+                    <table border="1" style="width:60%; border-collapse: collapse; text-align: center;">
+                        <caption><strong>Null Prediction counts in each stage</strong></caption>
+                        <thead>
+                            <tr>
+                                <th>Stage</th>
+                                <th>Null Count</th>
+                                <th>Total Sentences</th>
+                                <th>Null Percentage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>0</td>
+                                <td>1815</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>462</td>
+                                <td>1815</td>
+                                <td>25.45</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>125</td>
+                                <td>1815</td>
+                                <td>6.89</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>67</td>
+                                <td>1815</td>
+                                <td>3.69</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>0</td>
+                                <td>5445</td>
+                                <td>0</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>0</td>
+                                <td>5445</td>
+                                <td>0</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <h4> <b>0 Metrics</b> </h4>
+
+                    <p>
+                        The table below summarizes the number of predictions at each stage for which
+                        the CHRF++ Score and BLEU scores were zero. A zero score for a sentence pair
+                        indicates that the model failed to produce a meaningful fit for that particular
+                        sentence.
+                    </p>
+
+                    <table border="1" style="width:70%; border-collapse: collapse; text-align: center;">
+                        <caption><strong>Percentage count of sentence pairs with 0 value of evaluation metrics</strong>
+                        </caption>
+                        <thead>
+                            <tr>
+                                <th>Stage</th>
+                                <th>BLEU score = 0</th>
+                                <th>CHRF++ Score = 0</th>
+                                <th>Both metrics = 0</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>1</td>
+                                <td>90.03%</td>
+                                <td>85.23%</td>
+                                <td>85.23%</td>
+                            </tr>
+                            <tr>
+                                <td>2</td>
+                                <td>30.47%</td>
+                                <td>25.45%</td>
+                                <td>25.45%</td>
+                            </tr>
+                            <tr>
+                                <td>3</td>
+                                <td>10.52%</td>
+                                <td>6.94%</td>
+                                <td>6.94%</td>
+                            </tr>
+                            <tr>
+                                <td>4</td>
+                                <td>7.05%</td>
+                                <td>3.91%</td>
+                                <td>3.91%</td>
+                            </tr>
+                            <tr>
+                                <td>5</td>
+                                <td>0.94%</td>
+                                <td>0.0%</td>
+                                <td>0.0%</td>
+                            </tr>
+                            <tr>
+                                <td>6</td>
+                                <td>0.73%</td>
+                                <td>0.07%</td>
+                                <td>0.07%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+
                     <h3 id="discussion">Discussion</h3>
+                    <p>
+                        This research examined whether fine-tuning the NLLB model would enhance
+                        translation quality for the low-resource Sanskrit-Hindi language pair. Fine-tuning
+                        was performed at several stages, with each stage offering useful information on
+                        model performance, weaknesses, and potential.
+                    </p>
 
+                    <p>
+                        Progressive Finetuning on the Original Dataset During the first stage
+                        (Stage 1), the model was finetuned for six epochs to check the finetuning config-
+                        uration. Performance was expectedly poor, with a BLEU score of only 0.21 and
+                        a CHRF++ Score of 2.7, which reflects that the model was unable to produce
+                        sensible translations yet.
+                    </p>
 
+                    <p>
+                        Stage 2 augmented training for ten additional epochs, and this yielded a stag-
+                        gering improvement—BLEU score and CHRF++ Scores boosted by 1419% and
+                        659%, respectively. This indicated that even small additional training was capa-
+                        ble of significantly strengthening the capability of the model in picking up the
+                        structure and vocabulary of Sanskrit and Hindi
+                    </p>
+
+                    <p>
+                        Yet, further finetuning (Stage 3) yielded decreasing returns. While the BLEU
+                        score (+72%) and CHRF++ Score (+37.9%) scores improved further, indications
+                        of overfitting were observed with the training loss further dropping while validation
+                        loss plateaued or deteriorated. Stage 4 substantiated the observation; while the
+                        BLEU score and CHRF++ Scores showed further marginal improvement (+20%
+                        and +7.1%, respectively), overfitting was more observable. These findings sug-
+                        gested the limitation in training on the initial dataset alone and emphasized the
+                        requirement for enhanced generalization approaches.
+                    </p>
+
+                    <p>
+                        Impact of Data Augmentation To reduce overfitting and further enhance
+                        performance, the training was resumed based on an augmented dataset obtained
+                        by applying random shuffling methods (explained in a different section). Surpris-
+                        ingly, the model surpassed the quality of translation so far obtained after 40 epochs
+                        on the original data within only 10 epochs. The last BLEU score was 6.5, and the
+                        CHRF++ Score increased to 33.3, which indicated a significant qualitative gain.
+                    </p>
+
+                    <p>
+                        This gain in performance came at a cost, though: training time on these 10
+                        epochs with the augmented dataset was around 85 hours versus 50–60 hours for
+                        40 epochs with the original dataset. This must be due to the larger size of the augmented
+                        dataset and the greater linguistic variability it contains, which perhaps
+                        required more computational resources to converge. However, the enhanced qual-
+                        ity of translation justifies the trade-off and shows the efficacy of augmentation in
+                        low-resource translation tasks.
+                    </p>
+
+                    <p>
+                        Reflections and Implications The journey through all five phases brings out
+                        two important observations:
+
+                    <ul style="list-style: decimal;">
+                        <li>Fine-tuning NLLB on a small dataset is possible and can bring significant
+                            improvements despite limited resources.</li>
+                        <li>Overfitting is a significant problem when dealing with low-resource languages,
+                            and data augmentation is a strong countermeasure that can have a significant
+                            impact on generalization.</li>
+                    </ul>
+
+                    These results validate the general use of using augmentation strategies when
+                    processing other similar low-resource language pairs. Additionally, the reliable
+                    improvement across staged finetuning encourages the use of NLLB as a valid base
+                    model for training efficient translation systems for under-resourced languages such
+                    as Sanskrit
+                    </p>
                     <!-- --------------------------------------------------------------------------------------------------------------------- -->
 
                     <h2 id="result">Conclusion & Future Work </h2>
 
                     <h3 id="conclusion">Conclusion</h3>
-                    <h3 id="futurework">Future Work</h3>
 
+                    <p>
+                        This work investigated the finetuning of the NLLB model for enhancing
+                        Sanskrit-to-Hindi machine translation—a task problematic due to the low-resource
+                        status of the language pair. In a stepwise training approach, it was noted that
+                        although early finetuning on the base dataset showed substantial improvements,
+                        the model finally started to overfit with further training.
+                    </p>
+
+                    <p>
+                        To counter this, a straightforward yet efficient data augmentation technique random shuffling
+                        was used. This resulted in significantly better translation quality, as the model attained a
+                        final BLEU score of 6.5 and CHRF++
+                        Score of 33.3 after only 10 epochs, with improvements surpassing the best of 40
+                        epochs’ worth of training on the original data. In the next 10 epochs BLEU score
+                        increased by 74.3% and CHRF++ Score increased by 12.9%.
+                    </p>
+
+                    <p>
+                        The results underscore the significance of not just finetuning but also the pivotal role played
+                        by data augmentation in low-resource translation. In the future, even more sophisticated methods
+                        of augmentation and regularization may further boost model performance, providing an avenue for
+                        the development of more robust machine translation systems for underrepresented languages such
+                        as Sanskrit.
+                    </p>
+
+
+                    <h3 id="futurework">Future Work</h3>
+                    <p>
+                        Following the encouraging results yielded by staged finetuning and data augmentation, various
+                        pathways are proposed to maximize the performance of Sanskrit-
+                        to-Hindi translation by employing the NLLB model.
+                    </p>
+
+                    <p>
+                        First, the existing augmentation technique—random shuffling—was effective but
+                        will be followed by Sanskrit-specific techniques like paraphrasing, synonym re-
+                        placement, and syntactic transformation in future work. These methods that are
+                        cognizant of the language are anticipated to inject more semantic variability into
+                        the training set, which may help generalize better without the need for additional
+                        data collection.
+                    </p>
+
+                    <p>
+                        Along with optimization of augmentation techniques, testing with new model
+                        architectures will be a priority. Multitask models like LLaMA 4, Aaya-Expanse-
+                        8B, and task-specific LLM-Decoder-based models will be tested for comparison
+                        with NLLB on the same test set. Such a comparison may indicate model-specific
+                        strength and help identify the optimal foundation model for low-resource transla-
+                        tion tasks.
+                    </p>
+
+                    <p>
+                        In addition, experiments in the future will include advanced regularization methods like early
+                        stopping, dropout optimization, and curriculum learning to further reduce overfitting and
+                        stabilize the training. Such techniques have the potential
+                        to enable the model to better utilize the available data without sacrificing gener-
+                        alization.
+                    </p>
+
+                    <p>
+                        Although the present research is couched in the context of a B.Tech. final-year
+                        major project, it sets the stage for a sustained research path. The ultimate aim is
+                        to implement the translation system in a practical environment, offering precise
+                        and readable Sanskrit-to-Hindi translation aids.
+                    </p>
+
+                    <p>
+                        Importantly, the dataset will be kept constant throughout the research, since
+                        this piece of work also seeks to make a contribution to benchmarking transla-
+                        tion competence on a standardized corpus. This stability guarantees that model
+                        gains are unequivocally traceable to architectural decisions, training regimes, and
+                        augmentation techniques.
+                    </p>
 
                     <!-- --------------------------------------------------------------------------------------------------------------------- -->
 
                     <h2 id="refer">References</h2>
                     <ol>
                         <li>
-                            <p id="b1"><b>[1]</b> <i>NLLB Team et al. (2022). No Language Left Behind: Scaling
-                                    Human-Centered Machine Translation. arXiv preprint arXiv:2207.04672. <br />
+                            <p id="b1"><b>[1]</b> <i>NLLB Team et al. (2022). No Language Left Behind:
+                                    Scaling
+                                    Human-Centered Machine Translation. arXiv preprint arXiv:2207.04672.
+                                    <br />
                                     <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=uPjZQ1IAAAAJ&citation_for_view=uPjZQ1IAAAAJ:u5HHmVD_uO8C"
                                         target="_blank">https://scholar.google.com/citations?view_op=view_citation&hl=en&user=uPjZQ1IAAAAJ&citation_for_view=uPjZQ1IAAAAJ:u5HHmVD_uO8C</a></i>
                             </p>
                         </li>
                         <li>
-                            <p id="b2"><b>[2]</b> <i>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit, J., Jones, L.,
-                                    Gomez, A. N., Kaiser, L., & Polosukhin, I. (2017). Attention is All You Need. arXiv
+                            <p id="b2"><b>[2]</b> <i>Vaswani, A., Shazeer, N., Parmar, N., Uszkoreit,
+                                    J.,
+                                    Jones,
+                                    L.,
+                                    Gomez, A. N., Kaiser, L., & Polosukhin, I. (2017). Attention is All
+                                    You
+                                    Need.
+                                    arXiv
                                     preprint arXiv:1706.03762. <br />
                                     <a href="https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html"
                                         target="_blank">https://proceedings.neurips.cc/paper/2017/hash/3f5ee243547dee91fbd053c1c4a845aa-Abstract.html</a></i>
                             </p>
                         </li>
                         <li>
-                            <p id="b3"><b>[3]</b> <i>Xue, L., Constant, N., Roberts, A., Kale, M., Al-Rfou, R.,
-                                    Siddhant, A., Barua, A., & Raffel, C. (2021). mT5: A Massively Multilingual
-                                    Pre-trained Text-to-Text Transformer. arXiv preprint arXiv:2010.11934. <br />
+                            <p id="b3"><b>[3]</b> <i>Xue, L., Constant, N., Roberts, A., Kale, M.,
+                                    Al-Rfou,
+                                    R.,
+                                    Siddhant, A., Barua, A., & Raffel, C. (2021). mT5: A Massively
+                                    Multilingual
+                                    Pre-trained Text-to-Text Transformer. arXiv preprint
+                                    arXiv:2010.11934.
+                                    <br />
                                     <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=I66ZBYwAAAAJ&citation_for_view=I66ZBYwAAAAJ:lmc2jWPfTJgC"
                                         target="_blank">https://scholar.google.com/citations?view_op=view_citation&hl=en&user=I66ZBYwAAAAJ&citation_for_view=I66ZBYwAAAAJ:lmc2jWPfTJgC</a></i>
                             </p>
                         </li>
                         <li>
-                            <p id="b4"><b>[4]</b> <i>Liu, Y., Gu, J., Goyal, N., Li, X., Edunov, S., Ghazvininejad, M.,
-                                    Lewis, M., & Zettlemoyer, L. (2020). Multilingual Denoising Pre-training for Neural
+                            <p id="b4"><b>[4]</b> <i>Liu, Y., Gu, J., Goyal, N., Li, X., Edunov, S.,
+                                    Ghazvininejad,
+                                    M.,
+                                    Lewis, M., & Zettlemoyer, L. (2020). Multilingual Denoising
+                                    Pre-training
+                                    for
+                                    Neural
                                     Machine Translation. arXiv preprint arXiv:2001.08210. <br />
                                     <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=H9buyroAAAAJ&citation_for_view=H9buyroAAAAJ:ufrVoPGSRksC"
                                         target="_blank">https://scholar.google.com/citations?view_op=view_citation&hl=en&user=H9buyroAAAAJ&citation_for_view=H9buyroAAAAJ:ufrVoPGSRksC</a></i>
                             </p>
                         </li>
                         <li>
-                            <p id="b5"><b>[5]</b> <i>Gala, J., Chitale, P. A., Raghavan, A. K., Gumma, V., Doddapaneni,
-                                    S., Kumar, A., Nawale, J., Sujatha, A., Puduppully, R., Raghavan, V., Kumar, P.,
-                                    Khapra, M. M., Dabre, R., & Kunchukuttan, A. (2023). IndicTrans2: Towards
-                                    High-Quality and Accessible Machine Translation Models for All 22 Scheduled Indian
+                            <p id="b5"><b>[5]</b> <i>Gala, J., Chitale, P. A., Raghavan, A. K., Gumma,
+                                    V.,
+                                    Doddapaneni,
+                                    S., Kumar, A., Nawale, J., Sujatha, A., Puduppully, R., Raghavan,
+                                    V.,
+                                    Kumar,
+                                    P.,
+                                    Khapra, M. M., Dabre, R., & Kunchukuttan, A. (2023). IndicTrans2:
+                                    Towards
+                                    High-Quality and Accessible Machine Translation Models for All 22
+                                    Scheduled
+                                    Indian
                                     Languages. arXiv preprint arXiv:2305.16307. <br />
                                     <a href="https://scholar.google.com/citations?view_op=view_citation&hl=en&user=TbTrwNEAAAAJ&citation_for_view=TbTrwNEAAAAJ:9yKSN-GCB0IC"
                                         target="_blank">https://scholar.google.com/citations?view_op=view_citation&hl=en&user=TbTrwNEAAAAJ&citation_for_view=TbTrwNEAAAAJ:9yKSN-GCB0IC</a></i>
                             </p>
                         </li>
                         <li>
-                            <p id="b6"><b>[6]</b> <i>Hugging Face. (n.d.). The Hugging Face course. Retrieved from
+                            <p id="b6"><b>[6]</b> <i>Hugging Face. (n.d.). The Hugging Face course.
+                                    Retrieved
+                                    from
                                     <br />
                                     <a href="https://huggingface.co/learn/llm-course"
-                                        target="_blank">https://huggingface.co/learn/llm-course</a></i></p>
+                                        target="_blank">https://huggingface.co/learn/llm-course</a></i>
+                            </p>
                         </li>
                         <li>
-                            <p id="b7"><b>[7]</b> <i>Transformers Models and BERT Model Course by Simplilearn <br />
+                            <p id="b7"><b>[7]</b> <i>Transformers Models and BERT Model Course by
+                                    Simplilearn
+                                    <br />
                                     <a href="https://www.simplilearn.com/free-transformer-bert-model-course-skillup"
                                         target="_blank">https://www.simplilearn.com/free-transformer-bert-model-course-skillup</a></i>
                             </p>
@@ -1721,107 +2236,155 @@
                             </p>
                         </li>
                         <li>
-                            <p id="b9"><b>[9]</b> <i>Bleu: a Method for Automatic Evaluation of Machine Translation
+                            <p id="b9"><b>[9]</b> <i>Bleu: a Method for Automatic Evaluation of Machine
+                                    Translation
                                     <br />
                                     <a href="https://aclanthology.org/P02-1040/"
                                         target="_blank">https://aclanthology.org/P02-1040/</a></i></p>
                         </li>
                         <li>
                             <p id="b10"><b>[10]</b> <i>chrF++: words helping character n-grams <br />
-                                    <a href="https://aclanthology.org/W17-4770.pdf" target="_blank">(Popović, WMT
+                                    <a href="https://aclanthology.org/W17-4770.pdf" target="_blank">(Popović,
+                                        WMT
                                         2017)</a></i></p>
                         </li>
                         <li>
-                            <p id="b11"><b>[11]</b> <i>Bahdanau, D., Cho, K., & Bengio, Y. (2015). Neural machine
+                            <p id="b11"><b>[11]</b> <i>Bahdanau, D., Cho, K., & Bengio, Y. (2015).
+                                    Neural
+                                    machine
                                     translation by jointly learning to align and translate. ICLR. <br />
                                     <a href="https://papers.nips.cc/paper_files/paper/2014/file/5346bbfdc9785f48f05a61dc7f6c9fba-Paper.pdf"
                                         target="_blank">https://papers.nips.cc/paper_files/paper/2014/file/5346bbfdc9785f48f05a61dc7f6c9fba-Paper.pdf</a></i>
                             </p>
                         </li>
                         <li>
-                            <p id="b12"><b>[12]</b> <i>Sennrich, R., Haddow, B., & Birch, A. (2016). Improving neural
+                            <p id="b12"><b>[12]</b> <i>Sennrich, R., Haddow, B., & Birch, A. (2016).
+                                    Improving
+                                    neural
                                     machine translation models with monolingual data. ACL. <br />
                                     <a href="https://aclanthology.org/P16-1009/"
                                         target="_blank">https://aclanthology.org/P16-1009/</a></i></p>
                         </li>
                         <li>
-                            <p id="b13"><b>[13]</b> <i>Koehn, P., Hoang, H., Birch, A., Callison-Burch, C., Federico,
-                                    M., Bertoldi, N., ... & Herbst, E. (2007). Moses: Open source toolkit for
+                            <p id="b13"><b>[13]</b> <i>Koehn, P., Hoang, H., Birch, A., Callison-Burch,
+                                    C.,
+                                    Federico,
+                                    M., Bertoldi, N., ... & Herbst, E. (2007). Moses: Open source
+                                    toolkit
+                                    for
                                     statistical machine translation. ACL Demo Session. <br />
                                     <a href="https://aclanthology.org/P07-2045/"
                                         target="_blank">https://aclanthology.org/P07-2045/</a></i></p>
                         </li>
                         <li>
-                            <p id="b14"><b>[14]</b> <i>Bojar, O., Chatterjee, R., Federmann, C., Graham, Y., Haddow, B.,
-                                    Huck, M., ... & Zampieri, M. (2017). Findings of the 2017 Conference on Machine
+                            <p id="b14"><b>[14]</b> <i>Bojar, O., Chatterjee, R., Federmann, C., Graham,
+                                    Y.,
+                                    Haddow,
+                                    B.,
+                                    Huck, M., ... & Zampieri, M. (2017). Findings of the 2017 Conference
+                                    on
+                                    Machine
                                     Translation (WMT17). WMT. <br />
                                     <a href="https://aclanthology.org/W17-4717/"
                                         target="_blank">https://aclanthology.org/W17-4717/</a></i></p>
                         </li>
                         <li>
-                            <p id="b15"><b>[15]</b> <i>Tiedemann, J. (2020). The Tatoeba Translation Challenge –
-                                    Realistic Data Sets for Low Resource and Multilingual MT. WMT. <br />
+                            <p id="b15"><b>[15]</b> <i>Tiedemann, J. (2020). The Tatoeba Translation
+                                    Challenge –
+                                    Realistic Data Sets for Low Resource and Multilingual MT. WMT.
+                                    <br />
                                     <a href="https://aclanthology.org/2020.wmt-1.139/"
-                                        target="_blank">https://aclanthology.org/2020.wmt-1.139/</a></i></p>
+                                        target="_blank">https://aclanthology.org/2020.wmt-1.139/</a></i>
+                            </p>
                         </li>
                         <li>
-                            <p id="b16"><b>[16]</b> <i>Rios, A., Minocha, A., & Catt, M. (2020). Low-resource Machine
-                                    Translation for Indo-Aryan Languages: Bridging the Gap Between Hindi and Sanskrit.
+                            <p id="b16"><b>[16]</b> <i>Rios, A., Minocha, A., & Catt, M. (2020).
+                                    Low-resource
+                                    Machine
+                                    Translation for Indo-Aryan Languages: Bridging the Gap Between Hindi
+                                    and
+                                    Sanskrit.
                                     WILDRE5. <br />
                                     <a href="https://aclanthology.org/2020.wildre-1.5/"
-                                        target="_blank">https://aclanthology.org/2020.wildre-1.5/</a></i></p>
+                                        target="_blank">https://aclanthology.org/2020.wildre-1.5/</a></i>
+                            </p>
                         </li>
                         <li>
-                            <p id="b17"><b>[17]</b> <i>Post, M. (2018). A Call for Clarity in Reporting BLEU Scores.
+                            <p id="b17"><b>[17]</b> <i>Post, M. (2018). A Call for Clarity in Reporting
+                                    BLEU
+                                    Scores.
                                     WMT. <br />
                                     <a href="https://aclanthology.org/W18-6319/"
                                         target="_blank">https://aclanthology.org/W18-6319/</a></i></p>
                         </li>
                         <li>
-                            <p id="b18"><b>[18]</b> <i>Popović, M. (2017). chrF++: words helping character n-grams. WMT.
+                            <p id="b18"><b>[18]</b> <i>Popović, M. (2017). chrF++: words helping
+                                    character
+                                    n-grams.
+                                    WMT.
                                     <br />
                                     <a href="https://aclanthology.org/W17-4770/"
                                         target="_blank">https://aclanthology.org/W17-4770/</a></i></p>
                         </li>
                         <li>
-                            <p id="b19"><b>[19]</b> <i>Saxena, S., & Kunchukuttan, A. (2020). Towards Fully-Parallel
-                                    Lexically-Constrained Neural Machine Translation. EMNLP Findings. <br />
+                            <p id="b19"><b>[19]</b> <i>Saxena, S., & Kunchukuttan, A. (2020). Towards
+                                    Fully-Parallel
+                                    Lexically-Constrained Neural Machine Translation. EMNLP Findings.
+                                    <br />
                                     <a href="https://aclanthology.org/2020.findings-emnlp.13/"
-                                        target="_blank">https://aclanthology.org/2020.findings-emnlp.13/</a></i></p>
+                                        target="_blank">https://aclanthology.org/2020.findings-emnlp.13/</a></i>
+                            </p>
                         </li>
                         <li>
-                            <p id="b20"><b>[20]</b> <i>Lakew, S. M., Bentivogli, L., Negri, M., & Turchi, M. (2018).
-                                    Controlling the Output Length of Neural Machine Translation. NAACL. <br />
+                            <p id="b20"><b>[20]</b> <i>Lakew, S. M., Bentivogli, L., Negri, M., &
+                                    Turchi, M.
+                                    (2018).
+                                    Controlling the Output Length of Neural Machine Translation. NAACL.
+                                    <br />
                                     <a href="https://aclanthology.org/N18-2117/"
                                         target="_blank">https://aclanthology.org/N18-2117/</a></i></p>
                         </li>
                         <li>
-                            <p id="b21"><b>[21]</b> <i>OPUS. The Open Parallel Corpus. Compiled by Jörg Tiedemann at the
+                            <p id="b21"><b>[21]</b> <i>OPUS. The Open Parallel Corpus. Compiled by Jörg
+                                    Tiedemann at
+                                    the
                                     University of Helsinki. <br />
-                                    <a href="http://opus.nlpl.eu/" target="_blank">http://opus.nlpl.eu/</a></i></p>
+                                    <a href="http://opus.nlpl.eu/" target="_blank">http://opus.nlpl.eu/</a></i>
+                            </p>
                         </li>
                         <li>
-                            <p id="b22"><b>[22]</b> <i>Hugging Face. Transformers Library Documentation. Hugging Face.
+                            <p id="b22"><b>[22]</b> <i>Hugging Face. Transformers Library Documentation.
+                                    Hugging
+                                    Face.
                                     <br />
                                     <a href="https://huggingface.co/docs/transformers/"
-                                        target="_blank">https://huggingface.co/docs/transformers/</a></i></p>
+                                        target="_blank">https://huggingface.co/docs/transformers/</a></i>
+                            </p>
                         </li>
                         <li>
-                            <p id="b23"><b>[23]</b> <i>Facebook AI. No Language Left Behind (NLLB) Project Page. Meta AI
+                            <p id="b23"><b>[23]</b> <i>Facebook AI. No Language Left Behind (NLLB)
+                                    Project
+                                    Page.
+                                    Meta AI
                                     Research. <br />
                                     <a href="https://ai.facebook.com/research/no-language-left-behind/"
                                         target="_blank">https://ai.facebook.com/research/no-language-left-behind/</a></i>
                             </p>
                         </li>
                         <li>
-                            <p id="b24"><b>[24]</b> <i>Google Research. Google Translate Multilingual Models. Google AI
+                            <p id="b24"><b>[24]</b> <i>Google Research. Google Translate Multilingual
+                                    Models.
+                                    Google
+                                    AI
                                     Blog. <br />
                                     <a href="https://ai.googleblog.com/2020/06/expanding-translation-to-more-languages.html"
                                         target="_blank">https://ai.googleblog.com/2020/06/expanding-translation-to-more-languages.html</a></i>
                             </p>
                         </li>
                         <li>
-                            <p id="b25"><b>[25]</b> <i>PyTorch. PyTorch Tutorials: NLP with PyTorch. PyTorch.org. <br />
+                            <p id="b25"><b>[25]</b> <i>PyTorch. PyTorch Tutorials: NLP with PyTorch.
+                                    PyTorch.org.
+                                    <br />
                                     <a href="https://pytorch.org/tutorials/beginner/nlp/index.html"
                                         target="_blank">https://pytorch.org/tutorials/beginner/nlp/index.html</a></i>
                             </p>
@@ -1833,13 +2396,174 @@
                     <h2 id="appendix">Appendix</h2>
 
                     <h3 id="FinetuningScript">Finetuning Script</h3>
+
+                    <pre><code class="language-python">
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+import pandas as pd
+from datasets import Dataset
+from transformers.integrations import TensorBoardCallback
+import torch
+
+# Loading the model
+tokenizer = AutoTokenizer.from_pretrained("facebook/nllb-200-distilled-600M", src_lang="san_Deva", tgt_lang="hin_Deva")
+print("TOKENIZER LOADED")
+model = AutoModelForSeq2SeqLM.from_pretrained("facebook/nllb-200-distilled-600M")
+print("MODEL LOADED")
+
+# Freezing encoder to reduce model size
+for param in model.model.encoder.parameters():
+    param.requires_grad = False
+print("ENCODER PARAMETERS FREEZED")
+
+# Preparing the dataset
+train_json = pd.read_json("train_file.json", lines=True)
+train_df = pd.json_normalize(train_json["translation"])
+
+# Dataset Creator
+def tokenize_and_create_dataset(tokenizer, data_df, max_length=128):
+    encodings = tokenizer(
+        list(data_df["sa"]),
+        truncation=True,
+        padding=True,
+        max_length=max_length
+    )
+
+    with tokenizer.as_target_tokenizer():
+        decodings = tokenizer(
+            list(data_df["hi"]),
+            truncation=True,
+            padding=True,
+            max_length=max_length
+        )
+
+    dataset = Dataset.from_dict({
+        "input_ids": encodings["input_ids"],
+        "attention_mask": encodings["attention_mask"],
+        "labels": decodings["input_ids"],
+    })
+
+    return dataset
+
+train_dataset = tokenize_and_create_dataset(tokenizer=tokenizer, data_df=train_df)
+print("TRAINING DATASET CREATED")
+
+test_json = pd.read_json("test_file.json", lines=True)
+test_df = pd.json_normalize(train_json["translation"])
+test_dataset = tokenize_and_create_dataset(tokenizer=tokenizer, data_df=test_df)
+print("TESTED DATASET CREATED")
+
+# Training
+tensorboard_callback = TensorBoardCallback()
+print("TENSORBOARD CALLBACK INITIATED")
+
+try:
+    torch.cuda.set_device(1)
+except Exception as e:
+    print(e)
+
+if torch.cuda.current_device() != 1:
+    print("CURRENT GPU: ", torch.cuda.current_device())
+    exit(1)
+
+from transformers import Seq2SeqTrainingArguments, Seq2SeqTrainer, DataCollatorWithPadding
+
+print("TRAINING STARTS")
+
+model_args = Seq2SeqTrainingArguments(
+    output_dir="./output_dir",
+    per_device_train_batch_size=1,
+    per_device_eval_batch_size=1,
+    logging_steps=1000,
+    save_steps=5000,
+    save_total_limit=2,
+    evaluation_strategy="steps",
+    eval_steps=5000,
+    num_train_epochs=6,
+    learning_rate=2e-5,
+    weight_decay=0.02,
+    predict_with_generate=True,
+    report_to="none"
+)
+
+trainer = Seq2SeqTrainer(
+    model=model,
+    tokenizer=tokenizer,
+    args=model_args,
+    data_collator=DataCollatorWithPadding(tokenizer=tokenizer),
+    train_dataset=train_dataset,
+    eval_dataset=test_dataset,
+    callbacks=[tensorboard_callback],
+)
+
+trainer.train()
+
+torch.save(model.state_dict(), 'nllb_saTOhi_finetuned.pth')
+</code></pre>
+
                     <h3 id="EvaluationScript">Evaluation Script</h3>
 
+                    <pre><code class="language-python">
+from transformers import AutoTokenizer
+tokenizer = AutoTokenizer.from_pretrained("facebook/nllb-200-distilled-600M")
 
+from transformers import AutoModelForSeq2SeqLM
+model = AutoModelForSeq2SeqLM.from_pretrained("facebook/nllb-200-distilled-600M")
+
+import torch
+state_dict = torch.load('nllb_saTOhi_finetuned4.pth', map_location='cpu')
+model.load_state_dict(state_dict)
+model.eval()
+
+import pandas as pd
+test_json = pd.read_json("test_file.json", lines=True)
+test_df = pd.json_normalize(test_json["translation"])
+
+import sacrebleu
+
+def get_metrics(pred, ref):
+    bleu = sacrebleu.sentence_bleu(pred, [ref]).score
+    chrf = sacrebleu.sentence_chrf(pred, [ref]).score
+    return bleu, chrf
+
+gpu_id = int(input("Enter GPU ID: "))
+try:
+    torch.cuda.set_device(gpu_id)
+except Exception as e:
+    print(e)
+
+if torch.cuda.current_device() != gpu_id:
+    print("CURRENT GPU: ", torch.cuda.current_device())
+    exit(1)
+
+from tqdm import tqdm
+
+results = []
+for idx, row in tqdm(test_df.iterrows(), total=len(test_df), desc="Evaluating"):
+    src = row['sa']
+    ref = row['hi']
+    
+    inputs = tokenizer(src, return_tensors="pt")
+    with torch.no_grad():
+        output = model.generate(**inputs, max_length=256)
+    pred = tokenizer.decode(output[0], skip_special_tokens=True)
+    
+    bleu, chrf = get_metrics(pred, ref)
+    
+    results.append({
+        'sa': src,
+        'hi_ref': ref,
+        'hi_pred': pred,
+        'BLEU': bleu,
+        'CHRF++': chrf
+    })
+
+df_results = pd.DataFrame(results)
+df_results.to_csv('sa_hi_eval4.csv', index=False)
+</code></pre>
                     <!-- --------------------------------------------------------------------------------------------------------------------- -->
 
                     <h2 id="app">Application (Experimental) </h2>
-
+Access the app from <a href="https://sanskrit-to-hindi-nllb-finetuned.streamlit.app/" target="_blank">this link</a>
 
                 </article>
 
