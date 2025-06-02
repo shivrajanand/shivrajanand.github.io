@@ -209,6 +209,12 @@
     "tags": ["Cognifyz", "Project", "Internship", "Hotel Customer Data", "Analysis"],
     "path": "certificates/Cognifyz_Internship_Completion_Certificate.jpg",	
     "type": ["Internships", "Project"]
+  },
+  {
+    "title":"Startup Cell Experience Letter",
+    "tags": ["Startup Cell", "BPMCE", "Experience Letter", "Leadership", "INnovation"],
+    "path": "certificates/startupcellEXPLetter.jpeg",	
+    "type": ["Experience Letter"]
   }
 
 ]

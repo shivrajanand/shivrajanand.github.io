@@ -1,5 +1,43 @@
 [
   {
+    "title": "Finetuning of NLLB-200-distilled-600M on Sanskrit-Hindi-Corpus (B.Tech. Major Project)",
+    "description": "Boosted translation quality from BLEU 0.21 → 11.33 and CHRF++ 2.75 → 37.68 using NLLB finetuning with smart data augmentation. A simple shuffling method led to a 73% BLEU improvement over baseline, outperforming longer training runs in fewer epochs.",
+    "tags": ["Python", "Pandas", "Data Science", "Visualization", "Machine Learning", "Internship"],
+    "link": "https://github.com/shivrajanand/FinalYearProjectBtech"
+  },
+  
+  {
+    "title": "Development of an Autocorrect System Using Language and Channel Models. (B.Tech. Minor Project)",
+    "description": "The project focuses on the development of an autocorrect model using natural language processing (NLP) techniques. The system is built using Probabilitics Models rather than training deep neural networks. This is my btech 7th semester minor project",
+    "tags": ["NLP", "Python", "Spacy", "Collections", "Natural Language Processing"],
+    "link": "https://shivrajanand.github.io/blog_pages/btechminor.html"
+  },
+  {
+    "title": "Report on AVATAR: Java Python Program Translation",
+    "description": "Exploring AVATAR, a parallel corpus for Java-Python program translation, leveraging machine learning models.",
+    "tags": ["Research", "Report", "Python", "Java", "BERT"],
+    "link": "https://shivrajanand.github.io/blog_pages/avatar.html"
+  },
+  {
+    "title": "Machine Learning Introductory Course",
+    "description": "An introductory course on ML based on my notes from my training from Internshala made in static website form for faster loading and easy access",
+    "tags": ["Tutorial", "Machine Learning", "Python", "Pandas", "Numpy", "Matplotlib"],
+    "link": "https://shivrajanand.github.io/blog_pages/MLNOTES/Chapter1.html"
+  },
+  
+  {
+    "title": "Next Word Recommender System using Probabilistic Approach",
+    "description": "A next words recommender system i built during my NLP training. The system uses a probabilistic approach to predict the next word in a sentence.",
+    "tags": ["NLP", "Python", "Spacy", "Collections", "Natural Language Processing"],
+    "link": "https://shivrajanand.github.io/blog_pages/NextWordRecommenderSystem.html"
+  },
+  {
+    "title": "Machine Learning Analysis on Housing Sales Dataset",
+    "description": "The project is focused on analyzing a dataset to predict house sale prices based on different attributes, particularly using regression models and evaluating their effectiveness. Download exe and readme of my project from link",
+    "tags": ["Python", "Pandas", "Matplotlib"],
+    "link": "https://www.kaggle.com/code/shivrajanandai/housing-data-set-regression-modelling"
+  },
+  {
     "title": "Library Management System in Python",
     "description": "A simple command prompt based LMS system in python",
     "tags": ["Python", "pip", "command prompt"],
@@ -12,43 +50,12 @@
     "tags": ["Python", "Pyttsx3", "SpeechRecognition"],
     "link": "https://mega.nz/folder/aAAjHKgL#H0iNwcNrkr61VoBdipx9zw"
   },
-  {
-    "title": "Machine Learning Analysis on Housing Sales Dataset",
-    "description": "The project is focused on analyzing a dataset to predict house sale prices based on different attributes, particularly using regression models and evaluating their effectiveness. Download exe and readme of my project from link",
-    "tags": ["Python", "Pandas", "Matplotlib"],
-    "link": "https://www.kaggle.com/code/shivrajanandai/housing-data-set-regression-modelling"
-  },
+  
   {
     "title": "Result Analysis and Progress Report Generator",
     "description": "This project involves analyzing students' academic progress by generating personalized progress reports based on their marks and CGPA scores over multiple semesters.",
     "tags": ["Python", "Pandas", "Matplotlib"],
     "link": "https://github.com/shivrajanand/Result-Analysis-Progress-Report-Generator"
-  },
-
-  {
-    "title": "Report on AVATAR: Java Python Program Translation",
-    "description": "Exploring AVATAR, a parallel corpus for Java-Python program translation, leveraging machine learning models.",
-    "tags": ["Research", "Report", "Python", "Java", "BERT"],
-    "link": "https://shivrajanand.github.io/blog_pages/avatar.html"
-  },
-
-  {
-    "title": "Machine Learning Introductory Course",
-    "description": "An introductory course on ML based on my notes from my training from Internshala made in static website form for faster loading and easy access",
-    "tags": ["Tutorial", "Machine Learning", "Python", "Pandas", "Numpy", "Matplotlib"],
-    "link": "https://shivrajanand.github.io/blog_pages/MLNOTES/Chapter1.html"
-  },
-  {
-    "title": "Development of an Autocorrect System Using Language and Channel Models",
-    "description": "The project focuses on the development of an autocorrect model using natural language processing (NLP) techniques. The system is built using Probabilitics Models rather than training deep neural networks. This is my btech 7th semester minor project",
-    "tags": ["NLP", "Python", "Spacy", "Collections", "Natural Language Processing"],
-    "link": "https://shivrajanand.github.io/blog_pages/btechminor.html"
-  },
-  {
-    "title": "Next Word Recommender System using Probabilistic Approach",
-    "description": "A next words recommender system i built during my NLP training. The system uses a probabilistic approach to predict the next word in a sentence.",
-    "tags": ["NLP", "Python", "Spacy", "Collections", "Natural Language Processing"],
-    "link": "https://shivrajanand.github.io/blog_pages/NextWordRecommenderSystem.html"
   },
   {
     "title": "Smart Task Manager",
@@ -79,6 +86,5 @@
     "description": "This repository contains the complete solutions to the tasks assigned during my internship at Cognifyz Technologies under the Data Science Internship Program. Through this internship, I gained hands-on experience in data preprocessing, analysis, visualization, and predictive modeling using real-world data.",
     "tags": ["Python", "Pandas", "Data Science", "Visualization", "Machine Learning", "Internship"],
     "link": "https://github.com/shivrajanand/Cognify-Data-Science-Internship-Task"
-  }
-  
+  }  
 ]
