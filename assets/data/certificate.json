@@ -212,9 +212,27 @@
   },
   {
     "title":"Startup Cell Experience Letter",
-    "tags": ["Startup Cell", "BPMCE", "Experience Letter", "Leadership", "INnovation"],
+    "tags": ["Startup Cell", "BPMCE", "Experience Letter", "Leadership", "Innovation"],
     "path": "certificates/startupcellEXPLetter.jpeg",	
     "type": ["Experience Letter"]
+  },
+  {
+    "title":"Transformer Models and BERT Model",
+    "tags": ["Transformers", "BERT", "Simplilearn", "NLP", "skillup", "google_cloud"],
+    "path": "certificates/Simplilearn Certificate_page-0001.jpg",	
+    "type": ["Trainings"]
+  },
+  {
+    "title":"Supervised ML: Regression & Classification",
+    "tags": ["Coursera", "Deeplearning.ai", "Stanford", "AndrewNG", "regression", "classification", "course-1"],
+    "path": "certificates/Coursera ML Specialization Part1_page-0001.jpg",	
+    "type": ["Trainings"]
+  },
+  {
+    "title":"Advanced Learning Algorithms",
+    "tags": ["Coursera", "Deeplearning.ai", "Stanford", "AndrewNG", "neural_networks", "decision_trees", "course-2"],
+    "path": "certificates/Coursera ML Specialization Part2_page-0001.jpg",	
+    "type": ["Trainings"]
   }
 
 ]
