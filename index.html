@@ -160,6 +160,7 @@
 
     <div class="sidebar" id="sidebar">
         <!-- <a id="closebutton" href="javascript:void(0)" onclick="toggleSidebar()"><strong>✖ Close</strong></a> -->
+        <a href="#" onclick="openPopup(event)">New website</a>
         <a href="#about">About</a>
         <a href="#skills">Skills</a>
         <a href="pages/projects.html">Projects</a>
@@ -176,6 +177,7 @@
         <h1>Shivraj Anand</h1>
         <p class="intro">Researcher (Language Analyst) @ IIT Kharagpur</p>
         <p class="subtagline">Exploring the space where human cognition meets artificial intelligence.</p>
+        <a href="#" onclick="openPopup(event)"><b> New website </b></a>
     </header>
 
     <main class="main-content">
@@ -446,11 +448,11 @@
         function openPopup(event) {
             if (event) event.preventDefault();
             document.getElementById("versionPopup").style.display = "block";
-        }
+        } ~
 
-        function closePopup() {
-            document.getElementById("versionPopup").style.display = "none";
-        }
+            function closePopup() {
+                document.getElementById("versionPopup").style.display = "none";
+            }
 
     </script>
 
