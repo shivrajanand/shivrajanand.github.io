@@ -12,6 +12,93 @@
         content="Explore the portfolio of Shivraj Anand: a versatile Python developer, data analyst, and researcher with expertise in AI, web development, and more.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="assets/css/index.css">
+
+    <style>
+        /* Futuristic Blue-Themed Modal Styling */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            backdrop-filter: blur(6px);
+            background-color: rgba(0, 10, 25, 0.85);
+            animation: fadeIn 0.6s ease;
+        }
+
+        .modal-content {
+            background: rgba(15, 25, 50, 0.9);
+            color: #e0f7ff;
+            margin: 12% auto;
+            padding: 30px;
+            border-radius: 15px;
+            width: 85%;
+            max-width: 520px;
+            text-align: center;
+            border: 1px solid rgba(0, 162, 255, 0.4);
+            box-shadow: 0 0 20px rgba(0, 162, 255, 0.6);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        .modal-content h2 {
+            color: #00bfff;
+            margin-bottom: 10px;
+        }
+
+        .modal-content p {
+            color: #d0eaff;
+            font-size: 1rem;
+            margin-bottom: 20px;
+        }
+
+        .modal-content button {
+            padding: 12px 24px;
+            font-size: 1rem;
+            background: linear-gradient(135deg, #00bfff, #0066ff);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 12px rgba(0, 191, 255, 0.5);
+        }
+
+        .modal-content button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 6px 18px rgba(0, 191, 255, 0.7);
+        }
+
+        .modal-content a {
+            color: #00bfff;
+            text-decoration: underline;
+        }
+
+        .close-btn {
+            float: right;
+            font-size: 26px;
+            font-weight: bold;
+            cursor: pointer;
+            color: #aaa;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: #fff;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+
 </head>
 
 <!-- Google tag (gtag.js) -->
@@ -24,11 +111,41 @@
     gtag('config', 'G-3MEXW2XNBM');
 </script>
 
+<!-- New Version Popup -->
+<div id="versionPopup" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closePopup()">&times;</span>
+        <h2>🚀 Welcome to the Future!</h2>
+        <p>My portfolio has moved to a brand-new platform with a sleeker design and updated content.</p>
+        <p>All the blogs and projects are being moved to the new website</p>
+        <p><strong>Explore the new site:</strong> <br><a href="https://shivrajanand-portfolio.vercel.app"
+                target="_blank">shivrajanand-portfolio.vercel.app</a></p>
+        <button onclick="closePopup()">Stay on this version</button>
+    </div>
+</div>
+
+
+<script>
+    window.onload = function () {
+        // Show the popup only once per session
+        if (!sessionStorage.getItem("versionSeen")) {
+            document.getElementById("versionPopup").style.display = "block";
+            sessionStorage.setItem("versionSeen", "true");
+        }
+    };
+
+    function closePopup() {
+        document.getElementById("versionPopup").style.display = "none";
+    }
+
+</script>
+
 <body>
     <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
     <button class="hamburger" onclick="toggleSidebar()"><strong>MENU</strong></button>
     <nav>
         <div class="nav-links">
+            <a href="#" onclick="openPopup(event)">New website</a>
             <a href="#about">About</a>
             <a href="#skills">Skills</a>
             <a href="pages/projects.html">Projects</a>
@@ -296,6 +413,46 @@
     </footer>
 
     <script src="assets/js/script.js"></script>
+
+
+
+
+    <!-- New Version Popup -->
+    <div id="versionPopup" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h2>🚀 Welcome to the Future!</h2>
+            <p>My portfolio has moved to a brand-new platform with a sleeker design and updated content.</p>
+            <p>All the blogs and projects are being moved to the new website</p>
+            <p><strong>Explore the new site:</strong> <br>
+                <a href="https://shivrajanand-portfolio.vercel.app" target="_blank">
+                    shivrajanand-portfolio.vercel.app
+                </a>
+            </p>
+            <button onclick="closePopup()">Stay on this version</button>
+        </div>
+    </div>
+
+    <script>
+        // Show modal on page load (once per session)
+        window.onload = function () {
+            if (!sessionStorage.getItem("versionSeen")) {
+                openPopup();
+                sessionStorage.setItem("versionSeen", "true");
+            }
+        };
+
+        // Triggered by both onload and custom link
+        function openPopup(event) {
+            if (event) event.preventDefault();
+            document.getElementById("versionPopup").style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById("versionPopup").style.display = "none";
+        }
+
+    </script>
 
 </body>
 
