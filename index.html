@@ -2,460 +2,69 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="icon"
-        href="https://media.licdn.com/dms/image/v2/D4D03AQF0UFDz7IzJGg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1714796811849?e=1747872000&v=beta&t=AvJ2Z0UFeMt8WfWR9TiT8TLOzrmvumkzglfGnU6ktJY"
-        type="image/x-icon">
-    <title>Shivraj Anand | Portfolio</title>
-    <meta name="description"
-        content="Explore the portfolio of Shivraj Anand: a versatile Python developer, data analyst, and researcher with expertise in AI, web development, and more.">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <link rel="stylesheet" href="assets/css/index.css">
-
-    <style>
-        /* Futuristic Blue-Themed Modal Styling */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 9999;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            backdrop-filter: blur(6px);
-            background-color: rgba(0, 10, 25, 0.85);
-            animation: fadeIn 0.6s ease;
-        }
-
-        .modal-content {
-            background: rgba(15, 25, 50, 0.9);
-            color: #e0f7ff;
-            margin: 12% auto;
-            padding: 30px;
-            border-radius: 15px;
-            width: 85%;
-            max-width: 520px;
-            text-align: center;
-            border: 1px solid rgba(0, 162, 255, 0.4);
-            box-shadow: 0 0 20px rgba(0, 162, 255, 0.6);
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .modal-content h2 {
-            color: #00bfff;
-            margin-bottom: 10px;
-        }
-
-        .modal-content p {
-            color: #d0eaff;
-            font-size: 1rem;
-            margin-bottom: 20px;
-        }
-
-        .modal-content button {
-            padding: 12px 24px;
-            font-size: 1rem;
-            background: linear-gradient(135deg, #00bfff, #0066ff);
-            border: none;
-            border-radius: 8px;
-            color: white;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 12px rgba(0, 191, 255, 0.5);
-        }
-
-        .modal-content button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 6px 18px rgba(0, 191, 255, 0.7);
-        }
-
-        .modal-content a {
-            color: #00bfff;
-            text-decoration: underline;
-        }
-
-        .close-btn {
-            float: right;
-            font-size: 26px;
-            font-weight: bold;
-            cursor: pointer;
-            color: #aaa;
-            transition: color 0.3s;
-        }
-
-        .close-btn:hover {
-            color: #fff;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
-        }
-    </style>
-
-</head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-3MEXW2XNBM"></script>
-<script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag() { dataLayer.push(arguments); }
-    gtag('js', new Date());
-
-    gtag('config', 'G-3MEXW2XNBM');
-</script>
-
-<!-- New Version Popup -->
-<div id="versionPopup" class="modal">
-    <div class="modal-content">
-        <span class="close-btn" onclick="closePopup()">&times;</span>
-        <h2>🚀 Welcome to the Future!</h2>
-        <p>My portfolio has moved to a brand-new platform with a sleeker design and updated content.</p>
-        <p>All the blogs and projects are being moved to the new website</p>
-        <p><strong>Explore the new site:</strong> <br><a href="https://shivrajanand.com"
-                target="_blank">shivrajanand.com</a></p>
-        <button onclick="closePopup()">Stay on this version</button>
-    </div>
-</div>
-
-
-<script>
-    window.onload = function () {
-        // Show the popup only once per session
-        if (!sessionStorage.getItem("versionSeen")) {
-            document.getElementById("versionPopup").style.display = "block";
-            sessionStorage.setItem("versionSeen", "true");
-        }
-    };
-
-    function closePopup() {
-        document.getElementById("versionPopup").style.display = "none";
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shivraj Anand | Portfolio Moved</title>
+  <link rel="icon"
+    href="https://media.licdn.com/dms/image/v2/D4D03AQF0UFDz7IzJGg/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1714796811849?e=1747872000&v=beta&t=AvJ2Z0UFeMt8WfWR9TiT8TLOzrmvumkzglfGnU6ktJY"
+    type="image/x-icon">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #0b1d30;
+      color: #e0f7ff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+      padding: 20px;
     }
 
-</script>
+    .container {
+      background-color: rgba(20, 40, 70, 0.9);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 0 25px rgba(0, 191, 255, 0.5);
+      max-width: 600px;
+    }
+
+    h1 {
+      color: #00bfff;
+      margin-bottom: 10px;
+    }
+
+    p {
+      font-size: 1.1rem;
+      line-height: 1.6;
+      margin: 15px 0;
+    }
+
+    a {
+      color: #00bfff;
+      text-decoration: underline;
+      font-weight: bold;
+    }
+
+    a:hover {
+      color: #1ec8ff;
+    }
+  </style>
+</head>
 
 <body>
-    <button class="dark-toggle" onclick="toggleDarkMode()">🌙</button>
-    <button class="hamburger" onclick="toggleSidebar()"><strong>MENU</strong></button>
-    <nav>
-        <div class="nav-links">
-            <a href="#" onclick="openPopup(event)">New website</a>
-            <a href="#about">About</a>
-            <a href="#skills">Skills</a>
-            <a href="pages/projects.html">Projects</a>
-            <a href="#contact">Contact</a>
-            <a href="/pages/blog.html">Blogs</a>
-            <!-- <a href="/pages/certificates.html">Certificates</a> -->
-            <a href="assets/documents/Shivraj_Anand_Resume.pdf" download class="download-btn">
-                <i class="fas fa-download"></i> Resume
-            </a>
-        </div>
-    </nav>
-
-    <div class="sidebar" id="sidebar">
-        <!-- <a id="closebutton" href="javascript:void(0)" onclick="toggleSidebar()"><strong>✖ Close</strong></a> -->
-        <a href="#" onclick="openPopup(event)">New website</a>
-        <a href="#about">About</a>
-        <a href="#skills">Skills</a>
-        <a href="pages/projects.html">Projects</a>
-        <a href="#contact">Contact</a>
-        <a href="/pages/blog.html">Blogs</a>
-        <!-- <a href="/pages/certificates.html">Certificates</a> -->
-        <a href="assets/documents/Shivraj_Anand_Resume.pdf" download class="download-btn">
-            <i class="fas fa-download"></i> Resume
-        </a>
-    </div>
-
-    <header>
-        <img src="assets\Images\IMG_1935.JPG" alt="Shivraj Anand" class="profile-img" />
-        <h1>Shivraj Anand</h1>
-        <p class="intro">Researcher (Language Analyst) @ IIT Kharagpur</p>
-        <p class="subtagline">Exploring the space where human cognition meets artificial intelligence.</p>
-        <a href="#" onclick="openPopup(event)"><b> New website </b></a>
-    </header>
-
-    <main class="main-content">
-        <section id="about">
-            <h2 class="section-title">About Me</h2>
-            <div class="card">
-
-                <p style="text-align: justify;">
-                    I’m currently working as a <strong>Language Analyst (Researcher)</strong> at <strong>IIT
-                        Kharagpur</strong> under the <em>BHASHINI-NLTM</em> project funded by MeitY.
-                    My research focuses on <strong>interpretable multilingual translation</strong> using
-                    <em>Sanskrit-based interlingua representations</em>.
-                    I hold a <strong>B.Tech. in Computer Science and Engineering (2021–2025)</strong> with a CGPA of
-                    <strong>8.8/10</strong>, and have qualified <strong>GATE CS '24, '25 and DA '25</strong>.
-                    I bring hands-on experience in <strong>Python, machine learning, NLP, and language
-                        modeling</strong>, backed by <strong>9+ end-to-end projects</strong>.
-                    I’m deeply passionate about <strong>multilingual AI</strong> and building <strong>interpretable
-                        language models</strong> for Indian languages.
-                </p>
-                <div class="call-to-action">
-                    <div id="button">
-                        <a href="assets/documents/Shivraj_Anand_Resume.pdf" download class="download-btn"><i
-                                class="fas fa-download"></i> Resume</a>
-                    </div>
-                    <div id="button">
-                        <a href="#contact">Connect with me </a>
-                    </div>
-                </div>
-            </div>
-        </section>
-        <section id="skills">
-            <h2 class="section-title">Skills</h2>
-            <div class="card-grid">
-                <div class="card">
-                    <h3>Programming</h3>
-                    <ul class="skill-list">
-                        <li>Python</li>
-                        <li>C</li>
-                        <li>C++</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>ML/Data Analysis</h3>
-                    <ul class="skill-list">
-                        <li>NumPy</li>
-                        <li>Pandas</li>
-                        <li>PyTorch</li>
-                        <li>Scikit-Learn</li>
-                        <li>Excel</li>
-                        <li>Streamlit</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>Web Dev</h3>
-                    <ul class="skill-list">
-                        <li>HTML</li>
-                        <li>CSS</li>
-                        <li>JavaScript</li>
-                        <li>Bootstrap</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>Database</h3>
-                    <ul class="skill-list">
-                        <li>SQL</li>
-                        <li>DBMS</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>Tools</h3>
-                    <ul class="skill-list">
-                        <li>Git</li>
-                        <li>GitHub</li>
-                        <li>Power BI</li>
-                        <li>Canva</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>Soft Skills</h3>
-                    <ul class="skill-list">
-                        <li>English</li>
-                        <li>Hindi</li>
-                        <li>Communication</li>
-                        <li>Content Writing</li>
-                    </ul>
-                </div>
-
-                <div class="card">
-                    <h3>Natural Language Processing</h3>
-                    <ul class="skill-list">
-                        <li>spaCy</li>
-                        <li>Transformers</li>
-                        <li>re</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="card" id="tech-logo-row">
-                <div class="tech-logo-row">
-                    <img src="https://s3.dualstack.us-east-2.amazonaws.com/pythondotorg-assets/media/files/python-logo-only.svg"
-                        alt="Python" title="Python">
-                    <img src="https://cdn.simpleicons.org/c/00599C" alt="C" title="C">
-                    <img src="https://cdn.simpleicons.org/cplusplus/00599C" alt="C++" title="C++">
-                    <img src="https://numpy.org/images/logo.svg" alt="NumPy" title="NumPy">
-                    <img src="https://pandas.pydata.org/static/img/pandas_mark.svg" alt="Pandas" title="Pandas">
-                    <img src="https://cdn.simpleicons.org/pytorch/EE4C2C" alt="PyTorch" title="PyTorch">
-                    <img src="https://scikit-learn.org/stable/_static/scikit-learn-logo-small.png" alt="Scikit-Learn"
-                        title="Scikit-Learn">
-                    <img src="https://cdn.simpleicons.org/html5/E34F26" alt="HTML" title="HTML">
-                    <img src="https://cdn.simpleicons.org/css3/1572B6" alt="CSS" title="CSS">
-                    <img src="https://cdn.simpleicons.org/javascript/F7DF1E" alt="JavaScript" title="JavaScript">
-                    <img src="https://cdn.simpleicons.org/bootstrap/7952B3" alt="Bootstrap" title="Bootstrap">
-                    <img src="https://cdn.simpleicons.org/mysql/4479A1" alt="MySQL" title="SQL">
-                    <img src="https://cdn.simpleicons.org/git/F05032" alt="Git" title="Git">
-                    <img src="https://cdn.simpleicons.org/github/181717" alt="GitHub" title="GitHub">
-                    <img src="https://res.cdn.office.net/files/fabric-cdn-prod_20230815.002/assets/brand-icons/product/svg/excel_32x1.svg"
-                        alt="Excel" title="Excel">
-                    <img src="https://cdn-dynmedia-1.microsoft.com/is/image/microsoftcorp/Hero_BPI_icon1?resMode=sharp2&op_usm=1.5,0.65,15,0&wid=96&hei=96&qlt=100&fmt=png-alpha&fit=constrain"
-                        alt="Power BI" title="Power BI">
-                    <img src="https://static.canva.com/web/images/8439b51bb7a19f6e65ce1064bc37c197.svg" alt="Canva"
-                        title="Canva">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/8/88/SpaCy_logo.svg" alt="spaCy"
-                        title="spaCy">
-                    <img src="https://huggingface.co/front/assets/huggingface_logo-noborder.svg" alt="Transformers"
-                        title="Transformers (Hugging Face)">
-                    <img src="https://docs.streamlit.io/logo.svg" alt="Streamlit" title="Streamlit">
-                </div>
-            </div>
-
-
-        </section>
-
-        <section id="projects">
-            <h2 class="section-title">Projects</h2>
-            <div class="card">
-                <p>Explore my work in AI, ML, data science, web apps, research. Visit the Projects and Blog page for
-                    details.</p>
-                <div class="scroll-container-wrapper">
-                    <div id="projects-container" class="scroll-container">
-                        <!-- Project tiles will be injected here -->
-                    </div>
-                </div>
-                <div id="button"><a href="pages/projects.html">View Projects →</a></div><br>
-                <div id="button"><a href="pages/blog.html">View Blogs →</a></div>
-            </div>
-
-        </section>
-
-        <section id="contact">
-            <h2 class="section-title">Work With Me</h2>
-            <p class="section-subtitle"><strong>Let’s connect—projects, research, or opportunities, I’m all
-                    ears.</strong></p>
-
-            <div class="contact-wrapper">
-                <!-- Left Card: Contact Info -->
-                <div class="card contact-info">
-                    <h3>Get In Touch</h3>
-                    <p><strong>Email:</strong> <a
-                            href="mailto:shivrajanand022002@gmail.com">shivrajanand022002@gmail.com</a></p>
-                    <p><strong>Phone:</strong> +91 8092776242</p>
-                    <p><strong>Location:</strong> India</p>
-
-                    <h4>Connect With Me</h4>
-                    <div class="social-links">
-                        <a href="https://www.linkedin.com/in/shivrajanand" target="_blank"><i
-                                class="fab fa-linkedin"></i></a>
-                        <a href="https://www.github.com/shivrajanand" target="_blank"><i class="fab fa-github"></i></a>
-                        <a href="https://x.com/shivrajanand_ai" target="_blank"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.instagram.com/shivrajanandai/" target="_blank"><i
-                                class="fab fa-instagram"></i></a>
-                        <a href="https://www.kaggle.com/shivrajanandai" target="_blank"><i
-                                class="fab fa-kaggle"></i></a>
-                    </div>
-
-                    <div style="margin-top: 10px;">
-                        <!-- <p style="text-align: justify;">I'm interested in <strong>freelance assignments</strong>
-                            (<em>on-call</em>), <strong>compensated part-time remote internships</strong>, and
-                            <strong>collaborative research projects</strong>. Although I <em>prefer remote
-                                assignments</em>, I'd be willing to <u>relocate</u> for the proper <strong>full-time
-                                opportunity</strong> or <strong>significant project</strong>.
-                        </p> -->
-                        <p>
-                            Let's Talk over the next big project. I would be overly happy to lead or be in your lead!
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Right Card: Contact Form -->
-                <div class="card contact-form">
-                    <h3>Send Me a Message</h3>
-                    <form action="https://formspree.io/f/xzzeplak" method="POST">
-                        <div class="form-group">
-                            <input type="text" name="name" placeholder="Your Name" required>
-                            <input type="email" name="email" placeholder="your@email.com" required>
-                        </div>
-                        <input type="text" name="subject" placeholder="What do you wanna talk about?" required>
-                        <textarea name="message" placeholder="Message" rows="10" required></textarea>
-                        <button type="submit">Send Message →</button>
-                    </form>
-                </div>
-            </div>
-        </section>
-
-    </main>
-
-    <div style="position: fixed; bottom: 30px; right: 5px;">
-        <div id="button" onclick="window.scrollTo({ top: 0, behavior: 'smooth' });" style="
-            width: 50px;
-            height: 50px;
-            background-color: #333;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
-          ">
-            <i class="fas fa-arrow-up"></i>
-        </div>
-    </div>
-
-
-
-    <footer>
-
-        <p>
-            © 2025 Shivraj Anand | All rights reserved.
-        </p>
-    </footer>
-
-    <script src="assets/js/script.js"></script>
-
-
-
-
-    <!-- New Version Popup -->
-    <div id="versionPopup" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closePopup()">&times;</span>
-            <h2>🚀 Welcome to the Future!</h2>
-            <p>My portfolio has moved to a brand-new platform with a sleeker design and updated content.</p>
-            <p>All the blogs and projects are being moved to the new website</p>
-            <p><strong>Explore the new site:</strong> <br>
-                <a href="https://shivrajanand.com" target="_blank">
-                    shivrajanand.com
-                </a>
-            </p>
-            <button onclick="closePopup()">Stay on this version</button>
-        </div>
-    </div>
-
-    <script>
-        // Show modal on page load (once per session)
-        window.onload = function () {
-            if (!sessionStorage.getItem("versionSeen")) {
-                openPopup();
-                sessionStorage.setItem("versionSeen", "true");
-            }
-        };
-
-        // Triggered by both onload and custom link
-        function openPopup(event) {
-            if (event) event.preventDefault();
-            document.getElementById("versionPopup").style.display = "block";
-        } ~
-
-            function closePopup() {
-                document.getElementById("versionPopup").style.display = "none";
-            }
-
-    </script>
-
+  <div class="container">
+    <h1>🚀 Portfolio Moved!</h1>
+    <p>All my latest work, projects, blogs, and portfolio content have moved to:</p>
+    <p><a href="https://shivrajanand.com" target="_blank">shivrajanand.com</a></p>
+    <p>You're invited to explore the new site for the best experience!</p>
+    <hr style="border-color: rgba(255,255,255,0.1); margin: 20px 0;">
+    <p><strong>Looking for the Machine Learning tutorial?</strong><br>
+      It's still available here:<br>
+      <a href="blog_pages\MLNOTES\Chapter1.html">Machine Learning Tutorial</a>
+    </p>
+  </div>
 </body>
 
 </html>
